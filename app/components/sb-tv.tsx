@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { tvChannels } from "../data/portfolio";
 import { TvIcon } from "./illustrations";
 
@@ -18,6 +19,8 @@ export function SbTv() {
   const [showVolume, setShowVolume] = useState(false);
   const tuningTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const volumeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const tune = useCallback((nextIndex: number) => {
     if (tuningTimeout.current) clearTimeout(tuningTimeout.current);
@@ -59,9 +62,45 @@ export function SbTv() {
   useEffect(() => {
     if (!tvOpen) return;
 
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const shell = document.querySelector<HTMLElement>("[data-portfolio-shell]");
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    shell?.setAttribute("inert", "");
+    const focusFrame = requestAnimationFrame(() => closeButtonRef.current?.focus());
+
+    return () => {
+      cancelAnimationFrame(focusFrame);
+      document.body.style.overflow = previousOverflow;
+      shell?.removeAttribute("inert");
+      previouslyFocused?.focus();
+    };
+  }, [tvOpen]);
+
+  useEffect(() => {
+    if (!tvOpen) return;
+
     const onKeyDown = (event: KeyboardEvent) => {
       const key = event.key.toLowerCase();
       if (key === "escape") return setTvOpen(false);
+      if (key === "tab") {
+        const focusable = Array.from(
+          dialogRef.current?.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+          ) ?? [],
+        ).filter((element) => element.offsetParent !== null);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+        return;
+      }
       if (/^[1-7]$/.test(key)) {
         event.preventDefault();
         tune(Number(key) - 1);
@@ -123,12 +162,19 @@ export function SbTv() {
         SB-TV
       </button>
 
-      {tvOpen && <div className="tv-overlay" role="dialog" aria-modal="true" aria-label="SB-TV interactive portfolio">
+      {tvOpen && typeof document !== "undefined" && createPortal(<div
+        className="tv-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-label="SB-TV interactive portfolio"
+        ref={dialogRef}
+        tabIndex={-1}
+      >
       <div className="tv-overlay__inner">
         <div className="tv-toolbar">
           <span className="tv-toolbar__badge">SB-TV · 7 CHANNELS</span>
           <span className="tv-toolbar__help">↑↓ channel · ←→ volume · 1-7 · M mute · C captions · P power · Esc close</span>
-          <button type="button" onClick={() => setTvOpen(false)} aria-label="Close SB-TV">✕ Close</button>
+          <button ref={closeButtonRef} type="button" onClick={() => setTvOpen(false)} aria-label="Close SB-TV">✕ Close</button>
         </div>
 
         <div className="tv-stage">
@@ -240,7 +286,7 @@ export function SbTv() {
           </aside>
         </div>
       </div>
-    </div>}
+    </div>, document.body)}
     </>
   );
 }

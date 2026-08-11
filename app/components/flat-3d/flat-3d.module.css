@@ -1,0 +1,42 @@
+.root {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: clamp(19rem, 46vw, 36rem);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  contain: layout paint;
+}
+
+.canvas {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: pan-y;
+}
+
+.fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fallback svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    pointer-events: none;
+  }
+}
+

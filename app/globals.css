@@ -1681,6 +1681,119 @@ a:hover {
   opacity: .65;
 }
 
+@media (max-width: 600px) {
+  .tv-overlay {
+    padding: 12px;
+  }
+
+  .tv-toolbar {
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .tv-toolbar__help {
+    order: 3;
+    width: 100%;
+    font-size: 9px;
+    line-height: 1.6;
+  }
+
+  .tv-toolbar > button {
+    padding: 7px 10px;
+  }
+
+  .tv-set {
+    padding: 13px;
+    border-radius: 20px;
+  }
+
+  .tv-set__body {
+    gap: 8px;
+  }
+
+  .tv-bezel {
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .tv-screen {
+    border-radius: 22px / 17px;
+  }
+
+  .tv-program__copy {
+    max-width: 88%;
+    gap: 5px;
+    padding: 44px 12px 11px;
+  }
+
+  .tv-program h2 {
+    font-size: 22px;
+    line-height: .98;
+  }
+
+  .tv-program p {
+    display: none;
+  }
+
+  .tv-program__tag,
+  .tv-program__stack {
+    font-size: 9px;
+  }
+
+  .tv-program__tag {
+    padding: 4px 7px;
+  }
+
+  .tv-program__caption {
+    padding: 4px 7px;
+    font-size: 9px;
+  }
+
+  .tv-program__channel {
+    top: 10px;
+    right: 10px;
+    font-size: 9px;
+  }
+
+  .tv-speaker-column {
+    width: 38px;
+    gap: 10px;
+  }
+
+  .tv-speaker {
+    height: 122px;
+  }
+
+  .tv-knob {
+    width: 22px;
+    height: 22px;
+  }
+
+  .tv-controls__brand {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .tv-controls__buttons {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .tv-controls__buttons button {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+
+  .tv-clock {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+
+  .tv-side-panel {
+    flex-basis: 100%;
+  }
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: .25; }
