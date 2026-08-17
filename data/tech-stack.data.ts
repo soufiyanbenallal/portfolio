@@ -1,0 +1,68 @@
+import type { TechStackItemType } from "@/types";
+
+export const techStackData: TechStackItemType[] = [
+  {
+    id: "tech-1",
+    name: "Figma",
+    category: "Design",
+    iconName: "figma",
+    tooltipText: "Figma · Design Systems & Prototyping",
+    order: 1,
+  },
+  {
+    id: "tech-2",
+    name: "Framer",
+    category: "Production",
+    iconName: "framer",
+    tooltipText: "Framer · Visual Development & CMS",
+    order: 2,
+  },
+  {
+    id: "tech-3",
+    name: "Webflow",
+    category: "Development",
+    iconName: "webflow",
+    tooltipText: "Webflow · Responsive Layouts & CMS",
+    order: 3,
+  },
+  {
+    id: "tech-4",
+    name: "Rive",
+    category: "Motion",
+    iconName: "rive",
+    tooltipText: "Rive · Interactive Vector Motion",
+    order: 4,
+  },
+  {
+    id: "tech-5",
+    name: "Blender",
+    category: "3D",
+    iconName: "blender",
+    tooltipText: "Blender · 3D Modeling & Rendering",
+    order: 5,
+  },
+  {
+    id: "tech-6",
+    name: "Trello",
+    category: "Management",
+    iconName: "trello",
+    tooltipText: "Trello · Async Request Management",
+    order: 6,
+  },
+  {
+    id: "tech-7",
+    name: "ChatGPT",
+    category: "AI",
+    iconName: "openai",
+    tooltipText: "ChatGPT · Generative Copy & Logic",
+    order: 7,
+  },
+  {
+    id: "tech-8",
+    name: "Claude",
+    category: "AI",
+    iconName: "claude",
+    tooltipText: "Claude · Complex Code & Research",
+    order: 8,
+  },
+];

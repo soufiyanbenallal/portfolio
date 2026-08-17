@@ -1,41 +1,69 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { NavbarShared } from "@/components/shared/navbar.shared";
+import { FooterShared } from "@/components/shared/footer.shared";
+import { BottomContactNavShared } from "@/components/shared/bottom-contact-nav.shared";
+import { ContactDialogPart } from "@/components/partials/contact-dialog.part";
+import { BookingDialogShared } from "@/components/shared/booking-dialog.shared";
+import { SmoothScrollShared } from "@/components/shared/smooth-scroll.shared";
 
 export const metadata: Metadata = {
   title: {
-    default: "Soufiyan Benallal — Product-minded Full-Stack Engineer",
-    template: "%s — Soufiyan Benallal",
+    default: "Joseph Alexander — Lead Full-Stack Designer",
+    template: "%s — Joseph Alexander",
   },
   description:
-    "Senior full-stack engineer and product lead building durable commerce platforms, Shopify apps, React and TypeScript products, and useful AI workflows.",
+    "Strategic design that drives growth, not just looks good. Creating everything your brand needs to attract customers and turn them into sales.",
   keywords: [
-    "Soufiyan Benallal",
-    "full-stack engineer",
-    "engineering lead",
-    "Shopify developer",
-    "React TypeScript",
-    "product architecture",
+    "Joseph Alexander",
+    "Full-Stack Designer",
+    "Product Design",
+    "Framer Development",
+    "React Engineer",
+    "Brand Architecture",
   ],
-  authors: [{ name: "Soufiyan Benallal" }],
-  creator: "Soufiyan Benallal",
+  authors: [{ name: "Joseph Alexander" }],
+  creator: "Joseph Alexander",
   openGraph: {
-    title: "Soufiyan Benallal — From rough idea to shipped system",
+    title: "Joseph Alexander — Design that delivers results",
     description:
-      "Product-minded engineering across commerce, React, TypeScript, Node.js, Laravel, Shopify and AI.",
+      "Strategic design that drives growth, not just looks good. Built with Next.js and Framer Motion.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Soufiyan Benallal — Product-minded Full-Stack Engineer",
-    description: "From rough idea to a system that ships.",
+    title: "Joseph Alexander — Design that delivers results",
+    description: "Strategic design that drives growth, not just looks good.",
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className="scroll-smooth">
+      <body className="relative min-h-screen bg-gray-5 text-black flex flex-col font-sans antialiased overflow-x-hidden">
+        <SmoothScrollShared>
+          {/* Global floating glass pill navbar */}
+          <NavbarShared />
+
+          {/* Main Content Area */}
+          <div className="flex-1 w-full relative z-10">{children}</div>
+
+          {/* Pure Black Footer */}
+          <FooterShared />
+
+          {/* Fixed Bottom Contact Control + Blur Gradient */}
+          {/* <BottomContactNavShared /> */}
+
+          {/* Interactive Modals */}
+          <ContactDialogPart />
+          <BookingDialogShared />
+        </SmoothScrollShared>
+      </body>
     </html>
   );
 }

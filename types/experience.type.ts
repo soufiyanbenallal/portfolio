@@ -1,5 +1,3 @@
-import React from "react";
-
 export type SectionHeadingPropsType = {
   index: string;
   eyebrow: string;
