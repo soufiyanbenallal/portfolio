@@ -13,6 +13,11 @@ export function HeroSection() {
   return (
     <>
       <section id="top" className={styles.hero}>
+        <div className={styles.heroHalftone} aria-hidden="true" />
+        <span className={`${styles.heroCorner} ${styles.heroCornerTl}`} aria-hidden="true" />
+        <span className={`${styles.heroCorner} ${styles.heroCornerTr}`} aria-hidden="true" />
+        <span className={`${styles.heroCorner} ${styles.heroCornerBl}`} aria-hidden="true" />
+        <span className={`${styles.heroCorner} ${styles.heroCornerBr}`} aria-hidden="true" />
         <StudioSignalField className={styles.signalField} decorative />
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
@@ -29,11 +34,11 @@ export function HeroSection() {
 
             <Reveal delay={0.12} distance={30}>
               <h1 className={styles.heroTitle}>
-                <span>I turn rough ideas</span>
+                <span data-line="I turn rough ideas">I turn rough ideas</span>
                 <span>
                   into <mark>systems</mark>
                 </span>
-                <span>that ship.</span>
+                <span data-line="that ship.">that ship.</span>
               </h1>
             </Reveal>
 
@@ -69,6 +74,12 @@ export function HeroSection() {
               <span>SKETCH → SHIPPED</span>
             </div>
             <StudioHeroIllustration />
+            <div className={styles.visualStatus}>
+              <span aria-hidden="true" />
+              CURRENTLY BUILDING
+              <span className={styles.visualStatusSpacer} aria-hidden="true" />
+              <b>03</b> ACTIVE SYSTEMS
+            </div>
             <div className={styles.heroSticker} aria-hidden="true">
               <span>08</span>
               YEARS
