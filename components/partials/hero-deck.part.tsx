@@ -2,6 +2,7 @@
 
 import React, { useRef, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   motion,
   useMotionValue,
@@ -13,34 +14,19 @@ import {
 import { projectsData } from "@/data/projects.data";
 import { PERSPECTIVE, SPRINGS, SCROLL_OFFSETS, EASINGS } from "@/lib/motion.config";
 import { useIsDesktop, useReducedMotionSafe } from "@/hooks/use-media-query.hook";
+import type { DeckCardConfigType, ProjectDetailType } from "@/types";
 
 /* ==================================================================== *
  * HERO DECK
  * --------------------------------------------------------------------
- * A real 3D rig, not a stack of rotated 2D cards.
+ * 3D Project Showcase Deck in Hero Section.
  *
- * One shared perspective is declared on the stage, `preserve-3d` is set on
- * the rig, and every card is placed with its own `translateZ`. That means
- * the pointer parallax rotates a genuine volume — near cards sweep further
- * than far ones for free, because the perspective divide does the work.
- * Faking the same result with per-card 2D offsets never holds together at
- * the edges of the rotation.
- *
- * Three inputs drive it, layered:
- *   pointer  rotates the whole rig, springed so it trails the cursor
- *   scroll   disperses the deck upward and outward as the hero leaves
- *   time     an idle drift per card, so it is never completely still
+ * Connected with ProjectsShowcasePart:
+ *   1. Initial Entry: Cards animate in with 3D fanned orientation,
+ *      interactive cursor 3D yaw/pitch, and individual magnetic Z-lift.
+ *   2. Scroll Down: Cards disperse smoothly into the Projects Showcase
+ *      native position where the 30% aside and 70% column take over.
  * ==================================================================== */
-
-type DeckCardConfigType = {
-  x: number;
-  y: number;
-  z: number;
-  rotate: number;
-  /** Where the card flies as the hero scrolls away. */
-  exit: { x: number; y: number; rotate: number };
-  drift: number;
-};
 
 const DECK: DeckCardConfigType[] = [
   {
@@ -78,7 +64,7 @@ const DECK: DeckCardConfigType[] = [
 ];
 
 type DeckCardPropsType = {
-  project: (typeof projectsData)[number];
+  project: ProjectDetailType;
   config: DeckCardConfigType;
   index: number;
   scrollProgress: MotionValue<number>;
@@ -92,8 +78,6 @@ function DeckCard({
   scrollProgress,
   priority,
 }: DeckCardPropsType) {
-  // Later cards leave first and travel further, so the deck peels apart from
-  // the back rather than sliding away as one slab.
   const stagger = index * 0.08;
   const range = [Math.min(0.35 + stagger, 0.75), 1];
 
@@ -109,45 +93,57 @@ function DeckCard({
   const cardZ = useSpring(hoverTarget, SPRINGS.tilt);
 
   return (
-    // Two layers on purpose: scroll owns the outer transform, the idle drift
-    // owns the inner one. Driving both from the same element would have the
-    // `animate` loop overwrite the scroll-linked MotionValues every frame.
     <motion.div
+      initial={{ opacity: 0, y: 60, scale: 0.85, rotate: config.rotate - 5 }}
+      animate={{ opacity: 1, y: 0, scale: 1, rotate: config.rotate }}
+      transition={{
+        duration: 0.85,
+        delay: 0.2 + index * 0.12,
+        ease: EASINGS.entrance,
+      }}
       className="absolute left-1/2 top-1/2 w-[clamp(240px,22vw,320px)] -translate-x-1/2 -translate-y-1/2 will-change-transform"
       style={{ x, y, z: cardZ, rotate, opacity, zIndex: 10 + index }}
       onPointerEnter={() => hoverTarget.set(config.z + 90)}
       onPointerLeave={() => hoverTarget.set(config.z)}
     >
-      <motion.div
-        animate={{ y: [0, -10, 0], rotate: [0, 1.6, 0] }}
-        transition={{
-          duration: 7 + config.drift,
-          ease: EASINGS.mirror,
-          repeat: Infinity,
-          repeatType: "mirror",
-          delay: config.drift,
-        }}
-        className="rounded-[20px] border border-gray-30 bg-white p-3 card-shadow-3d"
+      <Link
+        href={`/projects/${project.slug}`}
+        transitionTypes={["nav-forward"]}
+        data-cursor="project"
+        data-cursor-text="View case"
+        className="block cursor-pointer outline-none"
       >
-        <div className="relative aspect-4/3 w-full overflow-hidden rounded-[14px] bg-gray-10">
-          <Image
-            src={project.thumbnail}
-            alt=""
-            fill
-            sizes="320px"
-            priority={priority}
-            className="object-cover object-center"
-          />
-        </div>
-        <div className="flex items-center justify-between px-0.5 pt-2.5 text-xs">
-          <span className="font-medium tracking-tight text-black">
-            {project.title}
-          </span>
-          <span className="font-mono text-[10px] text-gray-50">
-            {project.typeOfWork}
-          </span>
-        </div>
-      </motion.div>
+        <motion.div
+          animate={{ y: [0, -10, 0], rotate: [0, 1.6, 0] }}
+          transition={{
+            duration: 7 + config.drift,
+            ease: EASINGS.mirror,
+            repeat: Infinity,
+            repeatType: "mirror",
+            delay: config.drift,
+          }}
+          className="group rounded-[20px] border border-gray-30 bg-white p-3 card-shadow-3d transition-shadow duration-300 hover:card-shadow-hover"
+        >
+          <div className="relative aspect-4/3 w-full overflow-hidden rounded-[14px] bg-gray-10">
+            <Image
+              src={project.thumbnail}
+              alt={project.title}
+              fill
+              sizes="320px"
+              priority={priority}
+              className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+          <div className="flex items-center justify-between px-0.5 pt-2.5 text-xs">
+            <span className="font-medium tracking-tight text-black transition-colors group-hover:text-gray-60">
+              {project.title}
+            </span>
+            <span className="font-mono text-[10px] text-gray-50">
+              {project.typeOfWork}
+            </span>
+          </div>
+        </motion.div>
+      </Link>
     </motion.div>
   );
 }
@@ -180,8 +176,6 @@ export function HeroDeck({ sectionRef }: HeroDeckPropsType) {
   });
   const scrollProgress = useSpring(scrollYProgress, SPRINGS.scroll);
 
-  // Pointer yaw and scroll yaw share one axis, so they are summed into a
-  // single value — two `rotateY` entries would simply overwrite each other.
   const rigRotateY = useTransform(
     [pointerYaw, scrollProgress],
     ([yaw, progress]: number[]) => yaw + progress * -22,
@@ -205,11 +199,10 @@ export function HeroDeck({ sectionRef }: HeroDeckPropsType) {
 
   const featured = projectsData.slice(0, DECK.length);
 
-  /* Mobile and reduced motion get an honest, static fanned stack. */
+  /* Mobile and reduced motion fallback */
   if (!isDesktop || prefersReducedMotion) {
     return (
       <div
-        aria-hidden="true"
         className="relative mt-10 flex h-[300px] w-full items-center justify-center select-none sm:h-[340px] md:hidden"
       >
         {featured.map((project, index) => (
@@ -226,15 +219,17 @@ export function HeroDeck({ sectionRef }: HeroDeckPropsType) {
             }}
             className="absolute w-[240px] rounded-[18px] border border-gray-30 bg-white p-2.5 card-shadow sm:w-[280px]"
           >
-            <div className="relative aspect-4/3 w-full overflow-hidden rounded-[12px] bg-gray-10">
-              <Image
-                src={project.thumbnail}
-                alt=""
-                fill
-                sizes="280px"
-                className="object-cover object-center"
-              />
-            </div>
+            <Link href={`/projects/${project.slug}`}>
+              <div className="relative aspect-4/3 w-full overflow-hidden rounded-[12px] bg-gray-10">
+                <Image
+                  src={project.thumbnail}
+                  alt={project.title}
+                  fill
+                  sizes="280px"
+                  className="object-cover object-center"
+                />
+              </div>
+            </Link>
           </motion.div>
         ))}
       </div>
@@ -244,7 +239,6 @@ export function HeroDeck({ sectionRef }: HeroDeckPropsType) {
   return (
     <div
       ref={stageRef}
-      aria-hidden="true"
       className="relative hidden h-[440px] w-full select-none md:block lg:h-[500px]"
       style={{ perspective: PERSPECTIVE.far }}
       onPointerMove={handlePointerMove}

@@ -16,21 +16,18 @@ import { cn } from "@/lib/utils";
 /* ==================================================================== *
  * STICKY CARD STACK
  * --------------------------------------------------------------------
- * The card-to-card scroll rig. A tall spacer gives the section its scroll
- * budget; inside it a viewport-height stage is pinned, and every card is
- * absolutely positioned within that stage.
+ * Unified 30% Sticky Aside / 70% Project Column showcase stage.
  *
- * Each card maps the *shared* progress value onto its own three-phase
- * timeline:
+ * A tall spacer gives the section its scroll budget; inside it a viewport-
+ * height stage is pinned. The stage is split into:
+ *   - 30% Left Column: Pinned metadata aside with active project info.
+ *   - 70% Right Column: 3D project showcase cards with reveal points.
  *
- *   waiting   — parked below the fold, tilted away from the viewer
- *   active    — flat, centred, full scale
- *   receding  — pushed back in Z, lifted, dimmed and blurred behind the
- *               card that replaced it
- *
- * Because the phases overlap, at any moment you see the incoming card
- * rising while the outgoing one settles into the deck behind it — which is
- * what makes it read as one continuous deck rather than a slideshow.
+ * Reveal points progression:
+ *   waiting   — parked below the fold (y: 90%), opacity: 0, tilted away
+ *   entering  — rises smoothly into place between (index - 0.5) and index
+ *   active    — flat, centered, full scale (1.0), 100% opacity, crisp z-index
+ *   receding  — pushes back into depth, fades out as next card rises
  * ==================================================================== */
 
 export type StickyCardStackRenderPropsType = {
@@ -42,11 +39,11 @@ export type StickyCardStackRenderPropsType = {
 export type StickyCardStackPropsType<T> = {
   items: readonly T[];
   children: (item: T, state: StickyCardStackRenderPropsType) => React.ReactNode;
-  /** Viewport heights of scroll allocated per card. Lower feels snappier. */
+  /** Viewport heights of scroll allocated per card. */
   scrollPerCard?: number;
   className?: string;
   stageClassName?: string;
-  /** Rendered inside the pinned stage, behind the cards. Receives progress. */
+  /** Rendered inside the 30% pinned aside on the left. */
   aside?: (state: {
     activeIndex: number;
     progress: MotionValue<number>;
@@ -69,37 +66,32 @@ function StackedCard({
   children,
   isActive,
 }: StackedCardPropsType) {
-  // `progress` is in *card units*: it reads 0 when card 0 is settled, 1 when
-  // card 1 is, and so on. Every stop below is therefore an absolute card
-  // position, which is what keeps the phases aligned no matter how many cards
-  // the deck holds.
-  const stops = [index - 1, index, index + 0.35, index + 1];
-
-  // The first card has no entrance — it is already on screen when the stage
-  // pins. The last has no exit — there is nothing arriving to replace it, and
-  // a card that recedes into nothing at the end reads as a rendering fault.
   const isFirst = index === 0;
   const isLast = index === total - 1;
 
+  // Reveal points:
+  // [entryStart, activeStart, activeHold, exitEnd]
+  const stops = [index - 0.6, index, index + 0.3, index + 0.85];
+
   const y = useTransform(progress, stops, [
-    isFirst ? "0%" : "80%",
+    isFirst ? "0%" : "70%",
     "0%",
     "0%",
     isLast ? "0%" : "-12%",
   ]);
 
   const scale = useTransform(progress, stops, [
-    isFirst ? 1 : 0.9,
+    isFirst ? 1 : 0.92,
     1,
     1,
-    isLast ? 1 : 0.88,
+    isLast ? 1 : 0.9,
   ]);
 
   const rotateX = useTransform(progress, stops, [
-    isFirst ? 0 : -14,
+    isFirst ? 0 : -10,
     0,
     0,
-    isLast ? 0 : 10,
+    isLast ? 0 : 8,
   ]);
 
   const opacity = useTransform(progress, stops, [
@@ -117,9 +109,7 @@ function StackedCard({
         scale,
         rotateX,
         opacity,
-        // Later cards sit in front; receding cards fall behind naturally
-        // because the stack is drawn in order.
-        zIndex: index,
+        zIndex: isActive ? 20 : 10 + index,
         transformPerspective: PERSPECTIVE.far,
         transformOrigin: "50% 100%",
         pointerEvents: isActive ? "auto" : "none",
@@ -134,7 +124,7 @@ function StackedCard({
 export function StickyCardStack<T>({
   items,
   children,
-  scrollPerCard = 0.52,
+  scrollPerCard = 0.6,
   className,
   stageClassName,
   aside,
@@ -150,13 +140,8 @@ export function StickyCardStack<T>({
     offset: SCROLL_OFFSETS.pinned,
   });
 
-  // Raw scroll progress is stepwise on trackpads; the spring turns it into a
-  // continuous value so the 3D transforms never judder.
   const smoothProgress = useSpring(scrollYProgress, SPRINGS.scroll);
 
-  // Remap 0..1 onto card units: 0 = first card settled, N-1 = last card
-  // settled. Mapping to `items.length` instead would spend the final slice of
-  // scroll with the last card already gone and nothing to replace it.
   const cardProgress = useTransform(
     smoothProgress,
     [0, 1],
@@ -172,19 +157,22 @@ export function StickyCardStack<T>({
     });
   });
 
-  // Falls back to an honest vertical list for reduced motion and for every
-  // viewport below `md`. A pinned deck on a phone costs several screens of
-  // scroll to show four cards a plain list shows at a glance, and the
-  // 3D staging is invisible at that width anyway.
+  /* Responsive Fallback: stacked list for mobile or reduced motion */
   if (prefersReducedMotion || !isDesktop) {
     return (
-      <div className={cn("flex flex-col gap-8", className)}>
-        {aside?.({ activeIndex: 0, progress: smoothProgress })}
-        {items.map((item, index) => (
-          <div key={index}>
-            {children(item, { index, isActive: true, progress: smoothProgress })}
+      <div className={cn("flex flex-col gap-10", className)}>
+        {aside && (
+          <div className="w-full">
+            {aside({ activeIndex: 0, progress: smoothProgress })}
           </div>
-        ))}
+        )}
+        <div className="flex flex-col gap-8">
+          {items.map((item, index) => (
+            <div key={index} className="w-full">
+              {children(item, { index, isActive: true, progress: smoothProgress })}
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -192,7 +180,7 @@ export function StickyCardStack<T>({
   return (
     <div
       ref={sectionRef}
-      className={cn("relative w-full border-x", className)}
+      className={cn("relative w-full border-x border-gray-30", className)}
       style={{ height: `${items.length * scrollPerCard * 100 + 100}vh` }}
     >
       <div
@@ -201,27 +189,34 @@ export function StickyCardStack<T>({
           stageClassName,
         )}
       >
-        {aside?.({ activeIndex, progress: smoothProgress })}
+        {/* ── 30% Sticky Aside (Left) + 70% Project Cards Column (Right) ── */}
+        <div className="mx-auto flex h-full w-full max-w-7xl items-center px-6 lg:px-8">
+          {/* Left Column: 30% width */}
+          <div className="relative z-30 flex h-full w-[30%] shrink-0 items-center">
+            {aside?.({ activeIndex, progress: smoothProgress })}
+          </div>
 
-        <div
-          className="relative h-full w-full"
-          style={{ perspective: PERSPECTIVE.far }}
-        >
-          {items.map((item, index) => (
-            <StackedCard
-              key={index}
-              index={index}
-              total={items.length}
-              progress={cardProgress}
-              isActive={activeIndex === index}
-            >
-              {children(item, {
-                index,
-                isActive: activeIndex === index,
-                progress: cardProgress,
-              })}
-            </StackedCard>
-          ))}
+          {/* Right Column: 70% width */}
+          <div
+            className="relative h-full w-[70%] overflow-visible"
+            style={{ perspective: PERSPECTIVE.far }}
+          >
+            {items.map((item, index) => (
+              <StackedCard
+                key={index}
+                index={index}
+                total={items.length}
+                progress={cardProgress}
+                isActive={activeIndex === index}
+              >
+                {children(item, {
+                  index,
+                  isActive: activeIndex === index,
+                  progress: cardProgress,
+                })}
+              </StackedCard>
+            ))}
+          </div>
         </div>
       </div>
     </div>

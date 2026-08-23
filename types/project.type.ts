@@ -1,3 +1,5 @@
+import type { MotionValue } from "motion/react";
+
 export type ProjectCategoryType = "Design" | "Development" | "Branding" | "All";
 
 export type ProjectStatItemType = {
@@ -39,4 +41,28 @@ export type ProjectDetailType = ProjectItemType & {
   gallery: ProjectGalleryItemType[];
   techStack: string[];
   relatedProjectSlugs: string[];
+};
+
+export type DeckCardConfigType = {
+  x: number;
+  y: number;
+  z: number;
+  rotate: number;
+  exit: { x: number; y: number; rotate: number };
+  drift: number;
+};
+
+export type ShowcaseAsidePropsType = {
+  activeIndex: number;
+  progress: MotionValue<number>;
+};
+
+export type ShowcaseCardPropsType = {
+  project: ProjectDetailType;
+  index: number;
+  isActive: boolean;
+};
+
+export type HeroProjectsUnifiedPropsType = {
+  className?: string;
 };

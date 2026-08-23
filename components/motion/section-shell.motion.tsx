@@ -35,7 +35,7 @@ export type SectionShellPropsType = {
 };
 
 const TONE_CLASS: Record<SectionTonType, string> = {
-  canvas: "bg-gray-5",
+  canvas: "bg-transparent",
   paper: "bg-white",
   ink: "bg-black text-white",
 };

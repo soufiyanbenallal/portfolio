@@ -131,7 +131,7 @@ function ServiceDetailCard({ service, index, total }: ServiceDetailCardPropsType
 
 export function ServicesPart() {
   return (
-    <div className="relative w-full border-t border-gray-30 bg-gray-5 px-3 md:px-0">
+    <div className="relative w-full border-t border-gray-30 bg-transparent px-3 md:px-0">
       <SectionDock
         id="services"
         items={servicesData}

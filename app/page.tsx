@@ -1,6 +1,4 @@
-import React from "react";
-import { HeroPart } from "@/components/partials/hero.part";
-import { ProjectsShowcasePart } from "@/components/partials/projects-showcase.part";
+import { HeroProjectsUnifiedPart } from "@/components/partials/hero-projects-unified.part";
 import { BigQuotePart } from "@/components/partials/big-quote.part";
 import { ServicesPart } from "@/components/partials/services.part";
 import { AboutHistoryPart } from "@/components/partials/about-history.part";
@@ -29,12 +27,10 @@ export default function HomePage() {
   return (
     <PageTransition>
       <main className="relative flex w-full flex-col items-center">
-        <HeroPart />
+        {/* Unified Hero 3D Deck to 30%/70% Projects Showcase Rig */}
+        <HeroProjectsUnifiedPart />
 
-        {/* Card-to-card scroll deck */}
-        <ProjectsShowcasePart />
-
-        <SectionShell tone="paper">
+        <SectionShell tone="canvas">
           <BigQuotePart />
         </SectionShell>
 
@@ -42,25 +38,25 @@ export default function HomePage() {
             service details past it */}
         <ServicesPart />
 
-        <SectionShell id="about" tone="paper">
+        <SectionShell id="about" tone="canvas">
           <AboutHistoryPart />
         </SectionShell>
 
         <ClientTickerShared withHappyClientsCluster={false} />
 
-        <SectionShell tone="paper">
+        <SectionShell tone="canvas">
           <TestimonialsPart />
         </SectionShell>
 
-        <SectionShell id="faq" tone="paper" pinned>
+        <SectionShell id="faq" tone="canvas" pinned>
           <FaqPart />
         </SectionShell>
 
-        <SectionShell id="blog" tone="paper">
+        <SectionShell id="blog" tone="canvas">
           <BlogInsightsPart />
         </SectionShell>
 
-        <SectionShell tone="paper" dim={0}>
+        <SectionShell tone="canvas" dim={0}>
           <MegaCtaPart />
         </SectionShell>
       </main>
