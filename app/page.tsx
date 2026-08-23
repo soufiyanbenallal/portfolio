@@ -1,6 +1,6 @@
 import React from "react";
 import { HeroPart } from "@/components/partials/hero.part";
-import { LatestProjectsPart } from "@/components/partials/latest-projects.part";
+import { ProjectsShowcasePart } from "@/components/partials/projects-showcase.part";
 import { BigQuotePart } from "@/components/partials/big-quote.part";
 import { ServicesPart } from "@/components/partials/services.part";
 import { AboutHistoryPart } from "@/components/partials/about-history.part";
@@ -9,39 +9,61 @@ import { TestimonialsPart } from "@/components/partials/testimonials.part";
 import { FaqPart } from "@/components/partials/faq.part";
 import { BlogInsightsPart } from "@/components/partials/blog-insights.part";
 import { MegaCtaPart } from "@/components/partials/mega-cta.part";
+import { SectionShell } from "@/components/motion/section-shell.motion";
+import { PageTransition } from "@/components/motion/page-transition.motion";
 
+/**
+ * Homepage.
+ *
+ * The section order is the narrative; `SectionShell` is what binds it. Each
+ * shell unwraps its section from a rounded card into full bleed on arrival
+ * and dims it as the next one slides over, so twelve distinct animation ideas
+ * read as one continuous scroll rather than a reel of effects.
+ *
+ * Sections that pin their own content — the project deck, the docking
+ * services rig, and the FAQ's sticky booking card — opt out of the shell's
+ * transform. A transformed ancestor becomes the containing block for
+ * `position: sticky` descendants and silently breaks the pin.
+ */
 export default function HomePage() {
   return (
-    <main className="relative w-full flex flex-col items-center">
-      {/* 1. Hero Section */}
-      <HeroPart />
+    <PageTransition>
+      <main className="relative flex w-full flex-col items-center">
+        <HeroPart />
 
-      {/* 2. Latest Projects */}
-      <LatestProjectsPart />
+        {/* Card-to-card scroll deck */}
+        <ProjectsShowcasePart />
 
-      {/* 3. Big Quote Testimonial */}
-      <BigQuotePart />
+        <SectionShell tone="paper">
+          <BigQuotePart />
+        </SectionShell>
 
-      {/* 4. Services That Supercharge Your Business */}
-      <ServicesPart />
+        {/* Scales the whole section down into a docked card, then runs the
+            service details past it */}
+        <ServicesPart />
 
-      {/* 5. About & Work History */}
-      <AboutHistoryPart />
+        <SectionShell id="about" tone="paper">
+          <AboutHistoryPart />
+        </SectionShell>
 
-      {/* 6. Bordered Client Logo Ticker Strip */}
-      <ClientTickerShared withHappyClientsCluster={false} />
+        <ClientTickerShared withHappyClientsCluster={false} />
 
-      {/* 8. Client Testimonials */}
-      <TestimonialsPart />
+        <SectionShell tone="paper">
+          <TestimonialsPart />
+        </SectionShell>
 
-      {/* 9. FAQ & Sticky Discovery Card */}
-      <FaqPart />
+        <SectionShell id="faq" tone="paper" pinned>
+          <FaqPart />
+        </SectionShell>
 
-      {/* 10. Design Insights & Articles */}
-      <BlogInsightsPart />
+        <SectionShell id="blog" tone="paper">
+          <BlogInsightsPart />
+        </SectionShell>
 
-      {/* 11. Mega Interactive CTA */}
-      <MegaCtaPart />
-    </main>
+        <SectionShell tone="paper" dim={0}>
+          <MegaCtaPart />
+        </SectionShell>
+      </main>
+    </PageTransition>
   );
 }

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { clientLogosData } from "@/data/client-logos.data";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { Container } from "@/components/shared/container.shared";
+import { Marquee } from "@/components/motion/marquee.motion";
 import { cn } from "@/lib/utils";
 
 type ClientTickerSharedPropsType = {
@@ -20,6 +21,14 @@ const happyClientAvatars = [
   "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&auto=format&fit=crop&q=80",
 ];
 
+/**
+ * Client strip.
+ *
+ * The logo rail is scroll-reactive rather than a fixed-speed CSS loop: it
+ * drifts at rest, accelerates with the page, and reverses when you scroll up.
+ * That coupling is what makes the band feel attached to the document instead
+ * of playing beside it. It pauses on hover and on keyboard focus.
+ */
 export function ClientTickerShared({
   withHappyClientsCluster = true,
   className,
@@ -27,19 +36,18 @@ export function ClientTickerShared({
   return (
     <div
       className={cn(
-        "w-full border-y border-gray-30  bg-white overflow-hidden select-none",
-        className
+        "w-full select-none overflow-hidden border-y border-gray-30 bg-white",
+        className,
       )}
     >
-      <Container className="flex flex-col md:flex-row items-center gap-8 md:gap-12 py-6">
-        {/* Left: Happy Clients 5-Avatar Cluster */}
+      <Container className="flex flex-col items-center gap-8 py-6 md:flex-row md:gap-12">
         {withHappyClientsCluster && (
-          <div className="flex items-center gap-3.5 shrink-0 border-b md:border-b-0 md:border-r border-gray-30 pb-4 md:pb-0 md:pr-8 w-full md:w-auto justify-center md:justify-start">
+          <div className="flex w-full shrink-0 items-center justify-center gap-3.5 border-b border-gray-30 pb-4 md:w-auto md:justify-start md:border-b-0 md:border-r md:pb-0 md:pr-8">
             <div className="flex -space-x-2.5 overflow-hidden">
               {happyClientAvatars.map((src, i) => (
                 <div
                   key={i}
-                  className="relative inline-block h-8 w-8 rounded-full ring-2 ring-white overflow-hidden bg-gray-20"
+                  className="relative inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-20 ring-2 ring-white"
                 >
                   <Image
                     src={src}
@@ -54,33 +62,29 @@ export function ClientTickerShared({
             <div className="flex flex-col">
               <div className="flex items-center gap-1 text-black">
                 {[...Array(5)].map((_, i) => (
-                  <Icons.Star key={i} className="w-3 h-3 text-black" />
+                  <Icons.Star key={i} className="h-3 w-3 text-black" />
                 ))}
               </div>
-              <span className="text-xs font-semibold tracking-tight text-black mt-0.5 whitespace-nowrap">
+              <span className="mt-0.5 whitespace-nowrap text-xs font-semibold tracking-tight text-black">
                 99+ Happy clients
               </span>
             </div>
           </div>
         )}
 
-        {/* Right: Continuous Logo Marquee */}
-        <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-          <div className="flex w-max animate-[marquee_26s_linear_infinite] hover:[animation-play-state:paused] gap-12 sm:gap-16 items-center">
-            {[...clientLogosData, ...clientLogosData, ...clientLogosData].map((logo, idx) => (
-              <div
-                key={`${logo.id}-${idx}`}
-                className="flex items-center gap-2.5 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300 shrink-0 cursor-default"
-              >
-                <span className="w-2.5 h-2.5 rounded-xs bg-black rotate-45 shrink-0" />
-                <span className="text-base sm:text-lg font-bold tracking-tight text-black font-sans">
-                  {logo.name}
-                </span>
-                <span className="w-1 h-1 rounded-full bg-gray-40 inline-block ml-4 sm:ml-6" />
-              </div>
-            ))}
-          </div>
-        </div>
+        <Marquee baseVelocity={2.4} skew={2.5}>
+          {clientLogosData.map((logo) => (
+            <span
+              key={logo.id}
+              className="flex shrink-0 cursor-default items-center gap-2.5 pr-12 opacity-60 transition-opacity duration-300 hover:opacity-100 sm:pr-16"
+            >
+              <span className="h-2.5 w-2.5 shrink-0 rotate-45 rounded-xs bg-black" />
+              <span className="font-sans text-base font-bold tracking-tight text-black sm:text-lg">
+                {logo.name}
+              </span>
+            </span>
+          ))}
+        </Marquee>
       </Container>
     </div>
   );

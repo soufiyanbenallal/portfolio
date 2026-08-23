@@ -3,112 +3,102 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "motion/react";
 import { Icons } from "@/components/ui/social-icons.ui";
+import { Tilt3D } from "@/components/motion/tilt-3d.motion";
+import { SharedElement } from "@/components/motion/page-transition.motion";
+import { cn } from "@/lib/utils";
 import type { ProjectItemType } from "@/types";
-import type { CardMotionTransformType } from "@/hooks/use-project-scroll-transition.hook";
 
-type ProjectCardPartPropsType = {
+export type ProjectCardPartPropsType = {
   project: ProjectItemType;
-  layoutId?: string;
-  isInteractive?: boolean;
-  motionTransform?: CardMotionTransformType;
   className?: string;
   priority?: boolean;
+  /**
+   * Only one card per page may claim a given view-transition name. Grids that
+   * repeat a project already shown elsewhere on the page opt out.
+   */
+  withSharedElement?: boolean;
+  /** Shallow tilt is right for dense grids; off for compact rails. */
+  tilt?: boolean;
 };
 
+/**
+ * The canonical project card.
+ *
+ * Used by the work archive and the related-projects rail. The thumbnail is a
+ * view-transition participant, so opening a case study morphs this exact
+ * image into the detail hero instead of replacing the page under the reader.
+ */
 export function ProjectCardPart({
   project,
-  layoutId,
-  isInteractive = true,
-  motionTransform,
   className,
   priority = false,
+  withSharedElement = true,
+  tilt = true,
 }: ProjectCardPartPropsType) {
-  const cardInner = (
-    <div
-      className="relative w-full rounded-[20px] bg-white border border-[#dedede] p-3.5 transition-all duration-300 overflow-hidden group"
-      style={{
-        boxShadow:
-          "0 1px 2px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.03), 0 12px 24px rgba(0,0,0,0.04)",
-      }}
-    >
-      {/* 4:3 Ratio Image Container */}
-      <div className="relative w-full aspect-[4/3] rounded-[14px] overflow-hidden bg-[#f7f7f7]">
-        <Image
-          src={project.thumbnail}
-          alt={project.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 500px"
-          priority={priority}
-          className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-        />
-
-        {/* Hover overlay badge for interactive cards */}
-        {isInteractive && (
-          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md text-black text-xs font-semibold shadow-lg scale-95 group-hover:scale-100 transition-transform duration-300">
-              <span>View Case Study</span>
-              <Icons.ArrowUpRight className="w-3.5 h-3.5" />
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* Metadata Bar */}
-      <div className="pt-4 pb-1 px-1 flex items-center justify-between gap-4">
-        <div className="flex flex-col gap-0.5">
-          <div className="flex items-center gap-2">
-            <span className="text-[15px] font-medium text-black tracking-tight group-hover:text-[#545454] transition-colors">
-              {project.title}
-            </span>
-            <span className="text-[11px] text-[#b8b8b8] font-mono">/</span>
-            <span className="text-[12px] text-[#545454] font-medium">
-              {project.typeOfWork}
-            </span>
-          </div>
-          <span className="text-[12px] text-[#828282] line-clamp-1">
-            {project.tagline}
-          </span>
-        </div>
-
-        <div className="w-8 h-8 rounded-full border border-[#dedede] flex items-center justify-center text-black group-hover:bg-black group-hover:text-white group-hover:border-black transition-all duration-300 shrink-0">
-          <Icons.ArrowUpRight className="w-4 h-4" />
-        </div>
-      </div>
+  const media = (
+    <div className="relative aspect-4/3 w-full overflow-hidden rounded-[14px] bg-gray-10">
+      <Image
+        src={project.thumbnail}
+        alt={project.title}
+        fill
+        sizes="(max-width: 768px) 100vw, 500px"
+        priority={priority}
+        className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+      />
+      <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/20 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="inline-flex scale-95 items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-black shadow-lg backdrop-blur-md transition-transform duration-300 group-hover:scale-100">
+          <span>View case study</span>
+          <Icons.ArrowUpRight className="h-3.5 w-3.5" />
+        </span>
+      </span>
     </div>
   );
 
-  return (
-    <motion.div
-      layoutId={layoutId}
-      style={
-        motionTransform
-          ? {
-              x: motionTransform.x,
-              y: motionTransform.y,
-              scale: motionTransform.scale,
-              rotate: motionTransform.rotate,
-              transformPerspective: 1200,
-            }
-          : undefined
-      }
-      transition={{
-        duration: 0.6,
-        ease: [0.68, 0, 0.22, 0.83],
-      }}
-      className={className}
+  const card = (
+    <Link
+      href={`/projects/${project.slug}`}
+      transitionTypes={["nav-forward"]}
+      data-cursor="project"
+      data-cursor-text="View case"
+      className={cn("group block h-full w-full", className)}
     >
-      {isInteractive ? (
-        <Link
-          href={`/projects/${project.slug}`}
-          className="block w-full h-full"
-        >
-          {cardInner}
-        </Link>
-      ) : (
-        cardInner
-      )}
-    </motion.div>
+      <div className="h-full overflow-hidden rounded-[20px] border border-gray-30 bg-white p-3.5 card-shadow transition-shadow duration-300 hover:card-shadow-hover">
+        {withSharedElement ? (
+          <SharedElement name={`project-media-${project.slug}`}>{media}</SharedElement>
+        ) : (
+          media
+        )}
+
+        <div className="flex items-center justify-between gap-4 px-1 pb-1 pt-4">
+          <div className="flex min-w-0 flex-col gap-0.5">
+            <div className="flex items-center gap-2">
+              <span className="truncate text-[15px] font-medium tracking-tight text-black transition-colors group-hover:text-gray-60">
+                {project.title}
+              </span>
+              <span className="font-mono text-[11px] text-gray-40">/</span>
+              <span className="truncate text-[12px] font-medium text-gray-60">
+                {project.typeOfWork}
+              </span>
+            </div>
+            <span className="line-clamp-1 text-[12px] text-gray-50">
+              {project.tagline}
+            </span>
+          </div>
+
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gray-30 text-black transition-all duration-300 group-hover:border-black group-hover:bg-black group-hover:text-white">
+            <Icons.ArrowUpRight className="h-4 w-4" />
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+
+  if (!tilt) return card;
+
+  return (
+    <Tilt3D intensity={6} lift={12} className="h-full">
+      {card}
+    </Tilt3D>
   );
 }

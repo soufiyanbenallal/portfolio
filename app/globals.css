@@ -54,6 +54,17 @@
   --foreground: #000000;
   --font-sans: "Switzer", "Inter", -apple-system, sans-serif;
   --font-price: "Inter Display", "Inter", sans-serif;
+
+  /* Motion tokens — mirrored from lib/motion.config.ts so CSS-driven
+     transitions (view transitions, hover states) share the same feel as the
+     JavaScript-driven ones. Change them in both places or not at all. */
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-editorial: cubic-bezier(0.68, 0, 0.22, 0.83);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-exit: 180ms;
+  --duration-enter: 260ms;
+  --duration-move: 460ms;
 }
 
 *,
@@ -63,7 +74,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Deliberately NOT `scroll-behavior: smooth`. Lenis owns the scroll
+     position, and the two smoothing systems fight each other — the native
+     one wins the first frame and the result stutters on every anchor jump. */
   color-scheme: light;
 }
 
@@ -74,7 +87,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection {
@@ -82,7 +95,37 @@ body {
   color: #ffffff;
 }
 
-/* Typography styles matching GUIDE.MD exact scale */
+:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Lenis
+ * ------------------------------------------------------------------ */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ *
+ * Typography — the scale from GUIDE.MD
+ * ------------------------------------------------------------------ */
+
 .text-h1 {
   font-family: var(--font-sans);
   font-weight: 500;
@@ -95,7 +138,7 @@ body {
   font-family: var(--font-sans);
   font-weight: 500;
   letter-spacing: -0.03em;
-  line-height: 1.0;
+  line-height: 1;
   font-size: clamp(36px, 5.2vw, 64px);
 }
 
@@ -157,30 +200,57 @@ body {
   line-height: 1.1;
 }
 
-/* Custom subtle card shadow as defined in GUIDE.MD */
+.text-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ *
+ * Surfaces
+ * ------------------------------------------------------------------ */
+
 .card-shadow {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.03), 0 12px 24px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.02),
+    0 4px 12px rgba(0, 0, 0, 0.03),
+    0 12px 24px rgba(0, 0, 0, 0.04);
 }
 
 .card-shadow-hover {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03), 0 8px 20px rgba(0, 0, 0, 0.06), 0 16px 32px rgba(0, 0, 0, 0.07);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.03),
+    0 8px 20px rgba(0, 0, 0, 0.06),
+    0 16px 32px rgba(0, 0, 0, 0.07);
 }
 
-/* Dark pill button highlight */
+/* Depth for cards that sit on a 3D stage — heavier and lower than the flat
+   card shadow, because they are read as physically further forward. */
+.card-shadow-3d {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    0 18px 40px rgba(0, 0, 0, 0.08),
+    0 40px 80px rgba(0, 0, 0, 0.08);
+}
+
 .dark-pill-button {
   background-color: #000000;
   color: #ffffff;
   border-radius: 9999px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.12);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s var(--ease-standard);
 }
 
 .dark-pill-button:hover {
   background-color: #1a1a1a;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Glass pill navbar */
 .glass-pill {
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
@@ -189,13 +259,19 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
-/* Hide scrollbar for clean horizontal rails */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Establishes a shared 3D space so nested layers can use real translateZ
+   instead of faking depth with shadows. */
+.stage-3d {
+  transform-style: preserve-3d;
 }
 
 @keyframes marquee {
@@ -204,5 +280,125 @@ body {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * View transitions — route-level choreography
+ * ------------------------------------------------------------------ */
+
+/* The transition overlay swallows pointer events for its whole duration,
+   so clicks during a navigation are silently dropped without this. */
+::view-transition {
+  pointer-events: none;
+}
+
+/* --- Shared element morph: thumbnail → detail hero --- */
+::view-transition-group(.morph) {
+  animation-duration: var(--duration-move);
+  animation-timing-function: var(--ease-editorial);
+}
+
+::view-transition-image-pair(.morph) {
+  animation-name: morph-via-blur;
+  animation-duration: var(--duration-move);
+}
+
+@keyframes morph-via-blur {
+  /* A touch of blur mid-flight hides the pixel interpolation artefacts you
+     otherwise get when two differently-sized crops of the same image cross. */
+  30% {
+    filter: blur(4px);
+  }
+}
+
+/* --- Directional navigation --- */
+::view-transition-old(.nav-forward) {
+  --slide-offset: -56px;
+  animation:
+    var(--duration-exit) var(--ease-exit) both vt-fade reverse,
+    var(--duration-move) var(--ease-editorial) both vt-slide reverse;
+}
+
+::view-transition-new(.nav-forward) {
+  --slide-offset: 56px;
+  animation:
+    var(--duration-enter) var(--ease-entrance) var(--duration-exit) both vt-fade,
+    var(--duration-move) var(--ease-editorial) both vt-slide;
+}
+
+::view-transition-old(.nav-back) {
+  --slide-offset: 56px;
+  animation:
+    var(--duration-exit) var(--ease-exit) both vt-fade reverse,
+    var(--duration-move) var(--ease-editorial) both vt-slide reverse;
+}
+
+::view-transition-new(.nav-back) {
+  --slide-offset: -56px;
+  animation:
+    var(--duration-enter) var(--ease-entrance) var(--duration-exit) both vt-fade,
+    var(--duration-move) var(--ease-editorial) both vt-slide;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes vt-slide {
+  from {
+    translate: var(--slide-offset);
+  }
+  to {
+    translate: 0;
+  }
+}
+
+/* The navbar is the reader's spatial anchor. If it slides with the content
+   there is no fixed reference point and the whole viewport appears to move. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  /* Prevents a one-frame flash of two stacked headers. */
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* ------------------------------------------------------------------ *
+ * Reduced motion
+ * ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Directional slides simulate physical movement across the viewport and are
+     the most common motion-sickness trigger. Content swaps instantly instead,
+     which is the browser's own default behaviour. */
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 1ms !important;
+    animation-delay: 0s !important;
+  }
+
+  .animate-\[marquee_26s_linear_infinite\] {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
   }
 }

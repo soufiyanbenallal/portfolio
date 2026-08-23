@@ -6,6 +6,12 @@ import { articlesData, getArticleBySlug } from "@/data/articles.data";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { TagBadgeUi } from "@/components/ui/badge.ui";
 import { Container } from "@/components/shared/container.shared";
+import { Reveal } from "@/components/motion/reveal.motion";
+import { TextReveal } from "@/components/motion/text-reveal.motion";
+import {
+  PageTransition,
+  SharedElement,
+} from "@/components/motion/page-transition.motion";
 
 export function generateStaticParams() {
   return articlesData.map((article) => ({
@@ -30,15 +36,17 @@ export default async function ArticleDetailPage({
   );
 
   return (
-    <article className="w-full">
+    <PageTransition>
+      <article className="w-full">
       <Container className="max-w-[760px] flex flex-col gap-10 sm:gap-14 pt-32 pb-24">
         {/* Back link */}
         <div>
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-xs font-medium text-gray-60 hover:text-black transition-colors"
+            transitionTypes={["nav-back"]}
+            className="group inline-flex items-center gap-2 text-xs font-medium text-gray-60 hover:text-black transition-colors"
           >
-            <Icons.ArrowLeft className="w-3.5 h-3.5" />
+            <Icons.ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
             <span>Back to all articles</span>
           </Link>
         </div>
@@ -52,9 +60,13 @@ export default async function ArticleDetailPage({
             <span className="text-xs font-mono text-gray-50">{article.readTime}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-medium tracking-tight text-black leading-tight">
-            {article.title}
-          </h1>
+          <TextReveal
+            as="h1"
+            by="word"
+            trigger="mount"
+            text={article.title}
+            className="text-3xl sm:text-5xl font-medium tracking-tight text-black leading-tight"
+          />
 
           <p className="text-base sm:text-lg text-gray-60 leading-relaxed">
             {article.subtitle}
@@ -81,16 +93,18 @@ export default async function ArticleDetailPage({
         </div>
 
         {/* Cover Image */}
-        <div className="relative w-full aspect-[16/10] rounded-[24px] overflow-hidden bg-gray-10 border border-gray-30 shadow-sm">
-          <Image
-            src={article.coverImage}
-            alt={article.title}
-            fill
-            priority
-            sizes="(max-width: 800px) 100vw, 760px"
-            className="object-cover"
-          />
-        </div>
+        <SharedElement name={`article-media-${article.slug}`}>
+          <div className="relative w-full aspect-[16/10] rounded-[24px] overflow-hidden bg-gray-10 border border-gray-30 shadow-sm">
+            <Image
+              src={article.coverImage}
+              alt={article.title}
+              fill
+              priority
+              sizes="(max-width: 800px) 100vw, 760px"
+              className="object-cover"
+            />
+          </div>
+        </SharedElement>
 
         {/* Article Body Content with Editorial Measure */}
         <div className="flex flex-col gap-8 text-black text-body-xl leading-relaxed">
@@ -99,7 +113,7 @@ export default async function ArticleDetailPage({
           </p>
 
           {article.sections.map((section, idx) => (
-            <div key={idx} className="flex flex-col gap-4 pt-4">
+            <Reveal key={idx} preset="fadeUp" className="flex flex-col gap-4 pt-4">
               <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-black">
                 {section.heading}
               </h2>
@@ -115,7 +129,7 @@ export default async function ArticleDetailPage({
                   &ldquo;{section.quote}&rdquo;
                 </blockquote>
               )}
-            </div>
+            </Reveal>
           ))}
 
           {article.conclusion && (
@@ -152,6 +166,7 @@ export default async function ArticleDetailPage({
           </div>
         )}
       </Container>
-    </article>
+      </article>
+    </PageTransition>
   );
 }

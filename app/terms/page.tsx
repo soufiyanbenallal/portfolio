@@ -2,14 +2,17 @@ import React from "react";
 import Link from "next/link";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { Container } from "@/components/shared/container.shared";
+import { PageTransition } from "@/components/motion/page-transition.motion";
 
 export default function TermsPage() {
   return (
-    <div className="w-full">
+    <PageTransition>
+      <div className="w-full">
       <Container className="max-w-[720px] flex flex-col gap-10 pt-32 pb-24">
         <div>
           <Link
             href="/"
+            transitionTypes={["nav-back"]}
             className="inline-flex items-center gap-2 text-xs font-medium text-gray-60 hover:text-black transition-colors"
           >
             <Icons.ArrowLeft className="w-3.5 h-3.5" />
@@ -60,6 +63,7 @@ export default function TermsPage() {
           </p>
         </div>
       </Container>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

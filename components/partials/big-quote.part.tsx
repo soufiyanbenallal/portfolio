@@ -1,53 +1,86 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+} from "motion/react";
+import { useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { Container } from "@/components/shared/container.shared";
-import { EASINGS } from "@/lib/motion.config";
+import { ScrollDimmedText } from "@/components/motion/text-reveal.motion";
+import { Reveal } from "@/components/motion/reveal.motion";
+import { PERSPECTIVE, SPRINGS, SCROLL_OFFSETS } from "@/lib/motion.config";
 
+/**
+ * Pull quote.
+ *
+ * Sits on its own plane: the block rotates on the X axis as it crosses the
+ * viewport — lying back on approach, flat at centre, tipping away on exit —
+ * so the quote physically faces the reader at the exact moment it is
+ * readable, and only then. The words illuminate as they arrive.
+ */
 export function BigQuotePart() {
+  const ref = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotionSafe();
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: SCROLL_OFFSETS.throughViewport,
+  });
+  const progress = useSpring(scrollYProgress, SPRINGS.scrollHeavy);
+
+  const rotateX = useTransform(progress, [0, 0.5, 1], [11, 0, -9]);
+  const scale = useTransform(progress, [0, 0.5, 1], [0.94, 1, 0.97]);
+  const y = useTransform(progress, [0, 1], [40, -40]);
+
   return (
-    <section className="w-full bg-white border-t border-[#dedede]">
+    <div className="w-full">
       <Container className="py-16 md:py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.9, ease: EASINGS.standard }}
-          className="flex flex-col items-center text-center gap-8"
-        >
-          {/* Quote Text */}
-          <blockquote
-            className="font-medium tracking-[-0.02em] text-black max-w-[780px]"
-            style={{ fontSize: "clamp(18px,2.2vw,28px)", lineHeight: "1.4" }}
+        <div ref={ref} style={{ perspective: PERSPECTIVE.far }}>
+          <motion.figure
+            className="flex flex-col items-center gap-8 text-center"
+            style={
+              prefersReducedMotion
+                ? undefined
+                : { rotateX, scale, y, transformOrigin: "50% 50%" }
+            }
           >
-            <span className="text-[#b8b8b8]">&ldquo;</span>
-            Working with Joseph felt like having a seasoned design partner who
-            truly understood our vision for KYMA and brought it to life in ways
-            we hadn&apos;t even imagined.
-            <span className="text-[#b8b8b8]">&rdquo;</span>
-
-          </blockquote>
-
-          {/* Attribution */}
-          <footer className="flex items-center gap-3">
-            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#dedede]">
-              <Image
-                src="https://framerusercontent.com/images/M8GPTQEgwDo7tuEUdEAzTRzQ5w.jpg"
-                alt="Thomas Weber"
-                fill
-                sizes="40px"
-                className="object-cover"
+            <blockquote className="max-w-[820px]">
+              <ScrollDimmedText
+                as="span"
+                text="“Working with Joseph felt like having a seasoned design partner who truly understood our vision for KYMA and brought it to life in ways we hadn't even imagined.”"
+                className="justify-center text-[clamp(18px,2.2vw,28px)] font-medium leading-[1.4] tracking-[-0.02em] text-black"
+                dimClassName="text-black"
               />
-            </div>
-            <div className="flex flex-col text-left">
-              <span className="text-sm font-semibold text-black">Thomas Weber</span>
-              <span className="text-xs text-[#828282]">Co-founder of KYMA</span>
-            </div>
-          </footer>
-        </motion.div>
+            </blockquote>
+
+            <Reveal preset="fadeUp" delay={0.15}>
+              <figcaption className="flex items-center gap-3">
+                <span className="relative h-10 w-10 overflow-hidden rounded-full border border-gray-30">
+                  <Image
+                    src="https://framerusercontent.com/images/M8GPTQEgwDo7tuEUdEAzTRzQ5w.jpg"
+                    alt="Thomas Weber"
+                    fill
+                    sizes="40px"
+                    className="object-cover"
+                  />
+                </span>
+                <span className="flex flex-col text-left">
+                  <span className="text-sm font-semibold text-black">
+                    Thomas Weber
+                  </span>
+                  <span className="text-xs text-gray-50">
+                    Co-founder of KYMA
+                  </span>
+                </span>
+              </figcaption>
+            </Reveal>
+          </motion.figure>
+        </div>
       </Container>
-    </section>
+    </div>
   );
 }

@@ -6,6 +6,13 @@ import { projectsData, getProjectBySlug } from "@/data/projects.data";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { TagBadgeUi } from "@/components/ui/badge.ui";
 import { Container } from "@/components/shared/container.shared";
+import { ProjectCardPart } from "@/components/partials/project-card.part";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal.motion";
+import { TextReveal } from "@/components/motion/text-reveal.motion";
+import {
+  PageTransition,
+  SharedElement,
+} from "@/components/motion/page-transition.motion";
 
 export function generateStaticParams() {
   return projectsData.map((project) => ({
@@ -30,63 +37,80 @@ export default async function ProjectDetailPage({
   );
 
   return (
-    <article className="w-full">
+    <PageTransition>
+      <article className="w-full">
       <Container className="flex flex-col gap-12 sm:gap-16 pt-32 pb-24">
         {/* Back Link */}
         <div>
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-xs font-medium text-gray-60 hover:text-black transition-colors"
+            transitionTypes={["nav-back"]}
+            className="inline-flex items-center gap-2 text-xs font-medium text-gray-60 hover:text-black transition-colors group"
           >
-            <Icons.ArrowLeft className="w-3.5 h-3.5" />
+            <Icons.ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
             <span>Back to all projects</span>
           </Link>
         </div>
 
         {/* Project Header */}
         <div className="flex flex-col gap-6 border-b border-gray-30 pb-10">
-          <div className="flex flex-wrap items-center gap-3">
+          <Reveal preset="fade" className="flex flex-wrap items-center gap-3">
             <TagBadgeUi variant="dark">{project.category}</TagBadgeUi>
             <span className="text-xs font-mono text-gray-50">{project.year}</span>
             <span className="text-xs text-gray-40">/</span>
             <span className="text-xs font-medium text-gray-60">{project.client}</span>
-          </div>
+          </Reveal>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-black max-w-3xl">
-            {project.title} — {project.tagline}
-          </h1>
-
-          <p className="text-base sm:text-lg text-gray-60 max-w-2xl leading-relaxed">
-            {project.description}
-          </p>
-        </div>
-
-        {/* Hero Cover Image */}
-        <div className="relative w-full aspect-[16/9] rounded-[24px] overflow-hidden bg-gray-10 border border-gray-30 shadow-sm">
-          <Image
-            src={project.heroImage}
-            alt={project.title}
-            fill
-            priority
-            sizes="(max-width: 1200px) 100vw, 1080px"
-            className="object-cover object-center"
+          <TextReveal
+            as="h1"
+            by="word"
+            trigger="mount"
+            text={`${project.title} — ${project.tagline}`}
+            className="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-black max-w-3xl"
           />
+
+          <Reveal preset="fadeUp" delay={0.25}>
+            <p className="text-base sm:text-lg text-gray-60 max-w-2xl leading-relaxed">
+              {project.description}
+            </p>
+          </Reveal>
         </div>
+
+        {/* Hero cover. Paired by name with the card the reader clicked, so the
+            thumbnail physically becomes this image across the route change. */}
+        <SharedElement name={`project-media-${project.slug}`}>
+          <div className="relative w-full aspect-[16/9] rounded-[24px] overflow-hidden bg-gray-10 border border-gray-30 shadow-sm">
+            <Image
+              src={project.heroImage}
+              alt={project.title}
+              fill
+              priority
+              sizes="(max-width: 1200px) 100vw, 1080px"
+              className="object-cover object-center"
+            />
+          </div>
+        </SharedElement>
 
         {/* Stats Metrics Grid */}
         {project.stats && project.stats.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-y border-gray-30 py-8">
+          <Stagger
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-y border-gray-30 py-8"
+            stagger={0.1}
+          >
             {project.stats.map((stat, i) => (
-              <div key={i} className="flex flex-col gap-1 text-center sm:text-left">
+              <StaggerItem
+                key={i}
+                className="flex flex-col gap-1 text-center sm:text-left"
+              >
                 <span className="text-xs font-mono uppercase tracking-widest text-gray-50">
                   {stat.label}
                 </span>
                 <span className="text-3xl sm:text-4xl font-bold tracking-tight text-black font-price">
                   {stat.value}
                 </span>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         )}
 
         {/* Narrative Columns (Overview, Challenge, Solution) */}
@@ -160,7 +184,7 @@ export default async function ProjectDetailPage({
             </span>
             <div className="flex flex-col gap-8">
               {project.gallery.map((img, i) => (
-                <div key={i} className="flex flex-col gap-2">
+                <Reveal key={i} preset="card3D" className="flex flex-col gap-2">
                   <div className="relative w-full aspect-[16/9] rounded-[20px] overflow-hidden bg-gray-10 border border-gray-30">
                     <Image
                       src={img.src}
@@ -175,7 +199,7 @@ export default async function ProjectDetailPage({
                       {img.caption}
                     </span>
                   )}
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -187,29 +211,17 @@ export default async function ProjectDetailPage({
             <span className="text-xs font-mono uppercase tracking-widest text-gray-50">
               Related Case Studies
             </span>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6" stagger={0.1}>
               {relatedProjects.map((rel) => (
-                <Link
-                  key={rel.id}
-                  href={`/projects/${rel.slug}`}
-                  className="group block rounded-[20px] bg-white border border-gray-30 p-4 card-shadow hover:card-shadow-hover transition-all"
-                >
-                  <div className="relative w-full aspect-[16/10] rounded-[14px] overflow-hidden bg-gray-10 mb-3">
-                    <Image
-                      src={rel.thumbnail}
-                      alt={rel.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <h4 className="text-lg font-medium text-black">{rel.title}</h4>
-                  <span className="text-xs text-gray-50">{rel.typeOfWork}</span>
-                </Link>
+                <StaggerItem key={rel.id} preset="card3D">
+                  <ProjectCardPart project={rel} />
+                </StaggerItem>
               ))}
-            </div>
+            </Stagger>
           </div>
         )}
       </Container>
-    </article>
+      </article>
+    </PageTransition>
   );
 }

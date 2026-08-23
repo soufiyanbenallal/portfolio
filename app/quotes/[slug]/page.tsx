@@ -6,6 +6,7 @@ import { Icons } from "@/components/ui/social-icons.ui";
 import { ButtonUi } from "@/components/ui/button.ui";
 import { TagBadgeUi } from "@/components/ui/badge.ui";
 import { Container } from "@/components/shared/container.shared";
+import { PageTransition } from "@/components/motion/page-transition.motion";
 
 export function generateStaticParams() {
   return quotesData.map((quote) => ({
@@ -26,12 +27,14 @@ export default async function QuoteDetailPage({
   }
 
   return (
-    <div className="w-full">
+    <PageTransition>
+      <div className="w-full">
       <Container className="max-w-[840px] flex flex-col gap-10 pt-32 pb-24">
         {/* Back Link */}
         <div>
           <Link
             href="/"
+            transitionTypes={["nav-back"]}
             className="inline-flex items-center gap-2 text-xs font-medium text-gray-60 hover:text-black transition-colors"
           >
             <Icons.ArrowLeft className="w-3.5 h-3.5" />
@@ -158,6 +161,7 @@ export default async function QuoteDetailPage({
           </div>
         </div>
       </Container>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

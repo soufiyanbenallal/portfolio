@@ -1,132 +1,192 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+} from "motion/react";
+import { useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { AvailabilityBadgeUi } from "@/components/ui/badge.ui";
 import { ClientTickerShared } from "@/components/shared/client-ticker.shared";
-import { HeroProjectStackPart } from "@/components/partials/hero-project-stack.part";
+import { HeroDeck } from "@/components/partials/hero-deck.part";
 import { Container } from "@/components/shared/container.shared";
 import AnimatedTextCycle from "@/components/ui/animated-text-cycle";
+import { TextReveal } from "@/components/motion/text-reveal.motion";
+import { Magnetic } from "@/components/motion/magnetic.motion";
 import { usePortfolioStore } from "@/lib/portfolio.store";
-import { EASINGS } from "@/lib/motion.config";
+import { DURATIONS, EASINGS, SPRINGS, SCROLL_OFFSETS } from "@/lib/motion.config";
 
+/**
+ * Hero.
+ *
+ * The copy column and the 3D deck leave on different curves as the page
+ * scrolls: the text recedes straight back in Z while the deck peels apart and
+ * flies out. Two exits at two speeds is what gives the hand-off to the work
+ * section depth, instead of the whole hero sliding away as one plate.
+ */
 export function HeroPart() {
+  const sectionRef = useRef<HTMLElement>(null);
   const openBooking = usePortfolioStore((state) => state.openBooking);
+  const prefersReducedMotion = useReducedMotionSafe();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: SCROLL_OFFSETS.leaving,
+  });
+  const progress = useSpring(scrollYProgress, SPRINGS.scroll);
+
+  const copyY = useTransform(progress, [0, 1], [0, -90]);
+  const copyScale = useTransform(progress, [0, 1], [1, 0.94]);
+  const copyOpacity = useTransform(progress, [0, 0.75], [1, 0]);
+  const copyBlur = useTransform(progress, [0, 0.8], [0, 6]);
+  const copyFilter = useTransform(copyBlur, (value) =>
+    value < 0.05 ? "none" : `blur(${value.toFixed(2)}px)`,
+  );
+
+  const staticStyle = { y: 0, scale: 1, opacity: 1, filter: "none" };
 
   return (
     <section
       id="hero"
+      ref={sectionRef}
       className="relative w-full select-none overflow-visible"
     >
-      <Container className="pt-32 md:pt-36 pb-14 md:pb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 items-center min-h-105">
-
-          {/* ── Left Column: Intro Copy & Me+You CTA ── */}
-          <div className="flex flex-col gap-6 max-w-125 z-10">
-
-            {/* Availability Pill */}
+      <Container className="pb-14 pt-32 md:pb-20 md:pt-36">
+        <div className="grid min-h-105 grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-8">
+          {/* ── Copy column ── */}
+          <motion.div
+            // No max-width: the grid column already bounds this, and clamping
+            // it to 500px forces the rotating word onto a third line.
+            className="z-10 flex flex-col gap-6"
+            style={
+              prefersReducedMotion
+                ? staticStyle
+                : {
+                    y: copyY,
+                    scale: copyScale,
+                    opacity: copyOpacity,
+                    filter: copyFilter,
+                    transformOrigin: "0% 50%",
+                  }
+            }
+          >
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: EASINGS.standard }}
+              transition={{
+                duration: DURATIONS.slow,
+                delay: 0.1,
+                ease: EASINGS.entrance,
+              }}
             >
               <AvailabilityBadgeUi text="Available for August'25" />
             </motion.div>
 
-            {/* H1 Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16, filter: "blur(5px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.8, delay: 0.25, ease: EASINGS.standard }}
-              className="font-medium tracking-[-0.03em] leading-[0.95]"
+            <h1
+              className="font-medium leading-[0.95] tracking-[-0.03em]"
               style={{ fontSize: "clamp(42px, 5.5vw, 72px)" }}
             >
-              <span className="text-[#828282] block">Design that</span>
-              <span className="text-black block min-h-[1.1em]">
-                delivers{" "}
+              <TextReveal
+                as="span"
+                by="word"
+                text="Design that"
+                trigger="mount"
+                delay={0.18}
+                className="block text-gray-50"
+              />
+              <span className="block min-h-[1.1em] text-black">
+                <TextReveal
+                  as="span"
+                  by="word"
+                  text="delivers"
+                  trigger="mount"
+                  delay={0.32}
+                  className="inline-block pr-[0.25em]"
+                />
                 <AnimatedTextCycle
                   words={["results.", "growth.", "impact.", "sales."]}
-                  interval={3500}
-                  className="text-black font-medium"
+                  interval={3200}
+                  className="font-medium text-black"
                 />
               </span>
-            </motion.h1>
+            </h1>
 
-            {/* Body Description */}
             <motion.p
               initial={{ opacity: 0, y: 10, filter: "blur(5px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.8, delay: 0.45, ease: EASINGS.standard }}
-              className="text-[16px] sm:text-[18px] leading-[1.4] tracking-[-0.02em] text-[#545454] max-w-[390px]"
+              transition={{
+                duration: DURATIONS.slower,
+                delay: 0.55,
+                ease: EASINGS.entrance,
+              }}
+              className="max-w-[390px] text-[16px] leading-[1.4] tracking-[-0.02em] text-gray-60 sm:text-[18px]"
             >
-              <strong className="text-black font-semibold">
+              <strong className="font-semibold text-black">
                 Strategic design that drives growth, not just looks good.
               </strong>{" "}
               I create everything your brand needs to attract customers and turn
               them into sales.
             </motion.p>
 
-            {/* "Me + You" CTA Button */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6, ease: EASINGS.standard }}
+              transition={{
+                duration: DURATIONS.slow,
+                delay: 0.7,
+                ease: EASINGS.entrance,
+              }}
               className="flex flex-col items-start gap-2 pt-2"
             >
-              <button
-                type="button"
-                onClick={openBooking}
-                className="group inline-flex items-center gap-3 pl-2 pr-5 py-2 rounded-full bg-black text-white text-sm font-medium cursor-pointer transition-all duration-200 hover:bg-[#1a1a1a] active:scale-[0.98]"
-                style={{
-                  boxShadow:
-                    "inset 0px 1.5px 3px 0px rgba(255,255,255,0.35), 0px 2px 6px rgba(0,0,0,0.15), 0px 10px 20px rgba(0,0,0,0.1)",
-                }}
-              >
-                {/* Joseph Avatar */}
-                <div className="relative w-7 h-7 rounded-full overflow-hidden border border-white/20 shrink-0">
-                  <Image
-                    src="https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg"
-                    alt="Joseph Alexander"
-                    fill
-                    sizes="28px"
-                    className="object-cover"
-                  />
-                </div>
+              <Magnetic strength={0.28} innerStrength={0.12}>
+                <button
+                  type="button"
+                  onClick={openBooking}
+                  data-cursor="grow"
+                  className="group inline-flex cursor-pointer items-center gap-3 rounded-full bg-black py-2 pl-2 pr-5 text-sm font-medium text-white transition-colors duration-200 hover:bg-[#1a1a1a]"
+                  style={{
+                    boxShadow:
+                      "inset 0 1.5px 3px rgba(255,255,255,0.35), 0 2px 6px rgba(0,0,0,0.15), 0 10px 20px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <span className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-white/20">
+                    <Image
+                      src="https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg"
+                      alt="Joseph Alexander"
+                      fill
+                      sizes="28px"
+                      className="object-cover"
+                    />
+                  </span>
 
-                {/* Plus symbol */}
-                <span className="text-xs font-semibold text-white/70 leading-none">
-                  +
-                </span>
+                  <span className="text-xs font-semibold leading-none text-white/70">
+                    +
+                  </span>
 
-                {/* You Badge */}
-                <div className="w-6 h-6 rounded-full bg-white text-black flex items-center justify-center text-[10px] font-bold tracking-tight shrink-0 shadow-xs">
-                  You
-                </div>
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-bold tracking-tight text-black shadow-xs">
+                    You
+                  </span>
 
-                {/* Label */}
-                <span className="text-sm font-medium tracking-tight text-white whitespace-nowrap pl-0.5">
-                  Book a call with me
-                </span>
-              </button>
-
-              {/* Indicator dot */}
-              <div className="w-2 h-2 rounded-full bg-black ml-6 opacity-80" />
+                  <span className="whitespace-nowrap pl-0.5 text-sm font-medium tracking-tight text-white">
+                    Book a call with me
+                  </span>
+                </button>
+              </Magnetic>
             </motion.div>
+          </motion.div>
 
-            {/* Mobile-only static project stack preview */}
-            <HeroProjectStackPart isMobileOnly={true} />
+          {/* ── Deck column. One instance: it picks its own desktop/mobile
+                 presentation, and the single-column grid drops it under the
+                 copy on small screens. ── */}
+          <div className="relative flex items-center justify-end">
+            <HeroDeck sectionRef={sectionRef} />
           </div>
-
-          {/* ── Right Column: Bounding area for desktop scroll-driven card transition ── */}
-          <div className="hidden md:flex items-center justify-end relative">
-            <div className="relative w-full max-w-[500px] lg:max-w-[560px] h-[380px] lg:h-[440px] pointer-events-none" />
-          </div>
-
         </div>
       </Container>
 
-      {/* Client Logo Strip */}
       <ClientTickerShared withHappyClientsCluster={true} />
     </section>
   );

@@ -1,137 +1,153 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import { motion } from "motion/react";
-import { Container } from "@/components/shared/container.shared";
-import { EASINGS } from "@/lib/motion.config";
+import { motion, useTransform, type MotionValue } from "motion/react";
+import { servicesData } from "@/data/services.data";
+import { techStackData } from "@/data/tech-stack.data";
+import { SectionDock } from "@/components/motion/section-dock.motion";
+import { Icons } from "@/components/ui/social-icons.ui";
+import type { ServiceItemType } from "@/types";
 
-const TECH_STACK = [
-  { name: "Figma", icon: "https://framerusercontent.com/images/qtdLa7QbKqPky8NoUcgNPzcmgCU.png" },
-  { name: "Framer", icon: "https://framerusercontent.com/images/bwCVICcrKWXkOTrVdIrYz2EsNc.png" },
-  { name: "Webflow", icon: null },
-  { name: "Rive", icon: null },
-  { name: "Blender", icon: null },
-  { name: "Trello", icon: null },
-  { name: "ChatGPT", icon: null },
-  { name: "Claude", icon: null },
-];
+/* ==================================================================== *
+ * SERVICES
+ * --------------------------------------------------------------------
+ * The section that folds itself away.
+ *
+ * It opens as a full-bleed black statement panel. As you scroll, that whole
+ * panel scales down and wraps into a card docked on the left — so what you
+ * are looking at is not a new element, it is the section you just read,
+ * reduced to a thumbnail of itself. The service detail cards then run past
+ * it one at a time, hinging in from the right.
+ *
+ * The card keeps the heading legible at 46% because the panel is composed
+ * of a few very large elements. Anything at body size would be unreadable
+ * once docked, which is why the crisp chrome — border, label, counter —
+ * is drawn separately at 1:1 by `panelOverlay`.
+ * ==================================================================== */
 
-const SERVICES = [
-  { label: "Framer Development", emphasis: true },
-  { label: "Brand Design", emphasis: true },
-  { label: "Web Apps", emphasis: true },
-  { label: "Landing Pages", emphasis: true },
-  { label: "Motion Graphics", emphasis: true },
-  { label: "3D Design", emphasis: false },
-  { label: "UX / UI Consultation", emphasis: false },
-];
+function ServicesPanel() {
+  return (
+    <div className="relative flex h-full w-full flex-col justify-between overflow-hidden bg-black px-[6%] py-[8%] text-white">
+      <div className="flex items-center justify-between">
+        <span className="text-label text-white/45">What I do</span>
+        <span className="font-mono text-[clamp(11px,0.9vw,13px)] text-white/45">
+          {String(servicesData.length).padStart(2, "0")} services
+        </span>
+      </div>
+
+      <h2
+        className="max-w-[16ch] font-medium leading-[1.02] tracking-[-0.03em]"
+        style={{ fontSize: "clamp(34px, 6.4vw, 92px)" }}
+      >
+        Services that{" "}
+        <em className="not-italic text-white/35">supercharge</em> your business.
+      </h2>
+
+      <div className="flex flex-wrap items-center gap-[0.6vw]">
+        {techStackData.map((tool) => (
+          <span
+            key={tool.id}
+            className="rounded-full border border-white/15 px-[1.2vw] py-[0.5vw] text-[clamp(10px,1.05vw,15px)] font-medium text-white/70"
+          >
+            {tool.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Crisp chrome over the docked card. Adds the frame, never duplicates copy. */
+function ServicesPanelOverlay({
+  dockProgress,
+}: {
+  dockProgress: MotionValue<number>;
+}) {
+  const opacity = useTransform(dockProgress, [0.55, 1], [0, 1]);
+
+  return (
+    <motion.div
+      className="relative h-full w-full rounded-[24px] ring-1 ring-inset ring-white/15"
+      style={{ opacity }}
+    >
+      <span className="absolute -top-7 left-0 text-label text-gray-50">
+        The offer
+      </span>
+      <span className="absolute -bottom-7 right-0 font-mono text-[11px] text-gray-50">
+        Scroll to browse
+      </span>
+    </motion.div>
+  );
+}
+
+/* -------------------------------------------------------------------- *
+ * Detail card
+ * -------------------------------------------------------------------- */
+
+type ServiceDetailCardPropsType = {
+  service: ServiceItemType;
+  index: number;
+  total: number;
+};
+
+function ServiceDetailCard({ service, index, total }: ServiceDetailCardPropsType) {
+  return (
+    <article className="w-full rounded-[24px] border border-gray-30 bg-white p-8 card-shadow-3d lg:p-10">
+      <div className="flex items-start justify-between gap-6 border-b border-gray-20 pb-6">
+        <span className="font-mono text-sm text-gray-40">
+          {String(index + 1).padStart(2, "0")}
+          <span className="text-gray-30">/{String(total).padStart(2, "0")}</span>
+        </span>
+        {service.isPrimary && (
+          <span className="rounded-full bg-black px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white">
+            Core
+          </span>
+        )}
+      </div>
+
+      <h3 className="pt-6 text-h3-lg text-black">{service.title}</h3>
+      <p className="pt-3 text-body-l text-gray-60">{service.description}</p>
+
+      <ul className="flex flex-col gap-3 pt-7">
+        {service.deliverables.map((deliverable) => (
+          <li
+            key={deliverable}
+            className="flex items-center gap-3 text-body-m text-black"
+          >
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gray-30">
+              <Icons.Check className="h-3 w-3" />
+            </span>
+            {deliverable}
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+/* -------------------------------------------------------------------- *
+ * Section
+ * -------------------------------------------------------------------- */
 
 export function ServicesPart() {
   return (
-    <section
-      id="services"
-      className="w-full bg-white border-t border-[#dedede] overflow-hidden"
-    >
-      <Container className="py-16 md:py-24 lg:py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-16 items-start">
-
-          {/* ── Left: H2 + Tech Stack ── */}
-          <div className="flex flex-col gap-8">
-            <motion.h2
-              initial={{ opacity: 0, y: 16, filter: "blur(5px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: EASINGS.standard }}
-              className="font-medium tracking-[-0.03em] text-black"
-              style={{ fontSize: "clamp(28px,3.5vw,40px)", lineHeight: "1.05" }}
-            >
-              Services that{" "}
-              <em className="not-italic text-[#b8b8b8]">supercharge</em> your
-              business.
-            </motion.h2>
-
-            <div className="flex flex-col gap-4">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#828282]">
-                My tech stack
-              </span>
-
-              {/* Tech Icons Grid */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="flex flex-wrap items-center gap-2"
-              >
-                {TECH_STACK.map((tool) => (
-                  <div
-                    key={tool.name}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#dedede] bg-white text-xs font-medium text-black hover:bg-[#f7f7f7] transition-colors"
-                  >
-                    {tool.icon ? (
-                      <div className="relative w-4 h-4 shrink-0">
-                        <Image
-                          src={tool.icon}
-                          alt={tool.name}
-                          fill
-                          sizes="16px"
-                          className="object-contain"
-                        />
-                      </div>
-                    ) : (
-                      <span className="w-2 h-2 rounded-full bg-[#dedede] shrink-0" />
-                    )}
-                    {tool.name}
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-
-          {/* ── Right: Services List ── */}
-          <div className="flex flex-col gap-5 lg:pt-2">
-            {SERVICES.map((service, i) => (
-              <motion.div
-                key={service.label}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.5,
-                  delay: i * 0.08,
-                  ease: EASINGS.standard,
-                }}
-                className="flex items-center gap-3 group"
-              >
-                <div
-                  className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-black group-hover:border-black ${
-                    service.emphasis
-                      ? "border-[#dedede]"
-                      : "border-[#f0f0f0]"
-                  }`}
-                >
-                  <span
-                    className={`text-base leading-none transition-colors group-hover:text-white ${
-                      service.emphasis ? "text-black" : "text-[#b8b8b8]"
-                    }`}
-                  >
-                    →
-                  </span>
-                </div>
-                <span
-                  className={`text-[17px] sm:text-[18px] tracking-[-0.02em] leading-snug transition-colors ${
-                    service.emphasis ? "text-black" : "text-[#828282]"
-                  }`}
-                >
-                  {service.label}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-
-        </div>
-      </Container>
-    </section>
+    <div className="relative w-full border-t border-gray-30 bg-gray-5 px-3 md:px-0">
+      <SectionDock
+        id="services"
+        items={servicesData}
+        scrollPerItem={0.72}
+        panel={<ServicesPanel />}
+        panelOverlay={({ dockProgress }) => (
+          <ServicesPanelOverlay dockProgress={dockProgress} />
+        )}
+        renderItem={(service, { index }) => (
+          <ServiceDetailCard
+            service={service}
+            index={index}
+            total={servicesData.length}
+          />
+        )}
+      />
+    </div>
   );
 }
