@@ -135,7 +135,7 @@ export function ServicesPart() {
       <SectionDock
         id="services"
         items={servicesData}
-        scrollPerItem={0.72}
+        scrollPerItem={0.48}
         panel={<ServicesPanel />}
         panelOverlay={({ dockProgress }) => (
           <ServicesPanelOverlay dockProgress={dockProgress} />

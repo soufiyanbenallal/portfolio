@@ -192,7 +192,7 @@ export function ProjectsShowcasePart() {
           rises while the outgoing one falls back in Z behind it. */}
       <StickyCardStack
         items={FEATURED}
-        scrollPerCard={0.9}
+        scrollPerCard={0.52}
         className="lg:-mt-8"
         aside={({ activeIndex, progress }) => (
           <ShowcaseAside activeIndex={activeIndex} progress={progress} />

@@ -109,20 +109,14 @@ function StackedCard({
     isLast ? 1 : 0,
   ]);
 
-  const blurAmount = useTransform(progress, stops, [0, 0, 0, isLast ? 0 : 6]);
-  const filter = useTransform(blurAmount, (value) =>
-    value < 0.05 ? "none" : `blur(${value.toFixed(2)}px)`,
-  );
-
   return (
     <motion.div
-      className="absolute inset-0 flex items-center justify-center"
+      className="absolute inset-0 flex items-center justify-center will-change-transform"
       style={{
         y,
         scale,
         rotateX,
         opacity,
-        filter,
         // Later cards sit in front; receding cards fall behind naturally
         // because the stack is drawn in order.
         zIndex: index,
@@ -140,7 +134,7 @@ function StackedCard({
 export function StickyCardStack<T>({
   items,
   children,
-  scrollPerCard = 0.85,
+  scrollPerCard = 0.52,
   className,
   stageClassName,
   aside,

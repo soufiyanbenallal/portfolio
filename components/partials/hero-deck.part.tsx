@@ -113,7 +113,7 @@ function DeckCard({
     // owns the inner one. Driving both from the same element would have the
     // `animate` loop overwrite the scroll-linked MotionValues every frame.
     <motion.div
-      className="absolute left-1/2 top-1/2 w-[clamp(240px,22vw,320px)] -translate-x-1/2 -translate-y-1/2"
+      className="absolute left-1/2 top-1/2 w-[clamp(240px,22vw,320px)] -translate-x-1/2 -translate-y-1/2 will-change-transform"
       style={{ x, y, z: cardZ, rotate, opacity, zIndex: 10 + index }}
       onPointerEnter={() => hoverTarget.set(config.z + 90)}
       onPointerLeave={() => hoverTarget.set(config.z)}

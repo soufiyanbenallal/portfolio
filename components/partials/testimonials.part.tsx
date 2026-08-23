@@ -136,8 +136,7 @@ function TestimonialCoverflow() {
                   y: "-50%",
                   z: -absolute * 170,
                   rotateY: distance * -22,
-                  opacity: absolute > 2 ? 0 : 1 - absolute * 0.22,
-                  filter: isActive ? "blur(0px)" : `blur(${absolute * 1.2}px)`,
+                  opacity: absolute > 2 ? 0 : 1 - absolute * 0.28,
                 }}
                 transition={SPRINGS.carousel}
                 style={{ zIndex: TESTIMONIALS.length - absolute }}

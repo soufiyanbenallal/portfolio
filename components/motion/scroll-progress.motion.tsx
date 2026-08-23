@@ -13,8 +13,8 @@ import { motion, useScroll, useSpring, useTransform } from "motion/react";
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 180,
-    damping: 30,
+    stiffness: 300,
+    damping: 35,
     restDelta: 0.001,
   });
   const opacity = useTransform(scrollYProgress, [0, 0.012, 0.98, 1], [0, 1, 1, 0.4]);

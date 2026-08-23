@@ -38,15 +38,11 @@ export function HeroPart() {
   });
   const progress = useSpring(scrollYProgress, SPRINGS.scroll);
 
-  const copyY = useTransform(progress, [0, 1], [0, -90]);
-  const copyScale = useTransform(progress, [0, 1], [1, 0.94]);
+  const copyY = useTransform(progress, [0, 1], [0, -70]);
+  const copyScale = useTransform(progress, [0, 1], [1, 0.96]);
   const copyOpacity = useTransform(progress, [0, 0.75], [1, 0]);
-  const copyBlur = useTransform(progress, [0, 0.8], [0, 6]);
-  const copyFilter = useTransform(copyBlur, (value) =>
-    value < 0.05 ? "none" : `blur(${value.toFixed(2)}px)`,
-  );
 
-  const staticStyle = { y: 0, scale: 1, opacity: 1, filter: "none" };
+  const staticStyle = { y: 0, scale: 1, opacity: 1 };
 
   return (
     <section
@@ -60,7 +56,7 @@ export function HeroPart() {
           <motion.div
             // No max-width: the grid column already bounds this, and clamping
             // it to 500px forces the rotating word onto a third line.
-            className="z-10 flex flex-col gap-6"
+            className="z-10 flex flex-col gap-6 will-change-transform"
             style={
               prefersReducedMotion
                 ? staticStyle
@@ -68,7 +64,6 @@ export function HeroPart() {
                     y: copyY,
                     scale: copyScale,
                     opacity: copyOpacity,
-                    filter: copyFilter,
                     transformOrigin: "0% 50%",
                   }
             }

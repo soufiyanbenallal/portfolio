@@ -83,12 +83,12 @@ export function SectionShell({
     offset: SCROLL_OFFSETS.leaving,
   });
 
-  const smoothArriving = useSpring(arriving, SPRINGS.scrollHeavy);
+  const smoothArriving = useSpring(arriving, SPRINGS.scroll);
 
-  // Unwrap: 24px corners and a 4% inset flatten out over the last third of
-  // the approach, so the section is fully "page" by the time it is readable.
-  const radius = useTransform(smoothArriving, [0.35, 0.92], [26, 0]);
-  const scale = useTransform(smoothArriving, [0.35, 0.92], [0.955, 1]);
+  // Unwrap: 24px corners and a 4% inset flatten out over the approach,
+  // so the section is fully "page" by the time it is readable.
+  const radius = useTransform(smoothArriving, [0.3, 0.88], [24, 0]);
+  const scale = useTransform(smoothArriving, [0.3, 0.88], [0.96, 1]);
   const borderRadius = useMotionTemplate`${radius}px ${radius}px 0px 0px`;
 
   // Dark sections need far less dimming before they read as "behind".
@@ -105,6 +105,7 @@ export function SectionShell({
         // `overflow: hidden` makes this a scroll container, which silently
         // disables `position: sticky` inside it — so pinned sections opt out.
         !pinned && "overflow-hidden",
+        shouldAnimate && "will-change-transform",
         TONE_CLASS[tone],
         divider && tone !== "ink" && "border-t border-gray-30",
         className,

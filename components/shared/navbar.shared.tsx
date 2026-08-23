@@ -84,7 +84,7 @@ export function NavbarShared() {
       const target = document.getElementById(href.slice(1));
       if (!target) return;
 
-      if (lenis) lenis.scrollTo(target, { offset: -96, duration: 1.1 });
+      if (lenis) lenis.scrollTo(target, { offset: -96, duration: 0.7 });
       else target.scrollIntoView({ block: "start" });
     },
     [isHomepage, lenis, openContact],

@@ -86,10 +86,10 @@ export function FooterShared() {
     target: footerRef,
     offset: SCROLL_OFFSETS.entering,
   });
-  const progress = useSpring(scrollYProgress, SPRINGS.scrollHeavy);
+  const progress = useSpring(scrollYProgress, SPRINGS.scroll);
 
-  const contentY = useTransform(progress, [0, 0.85], [90, 0]);
-  const contentOpacity = useTransform(progress, [0, 0.5], [0.25, 1]);
+  const contentY = useTransform(progress, [0, 0.8], [60, 0]);
+  const contentOpacity = useTransform(progress, [0, 0.45], [0.3, 1]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -122,6 +122,7 @@ export function FooterShared() {
       className="relative z-10 w-full overflow-hidden bg-black text-white"
     >
       <motion.div
+        className="will-change-transform"
         style={
           prefersReducedMotion
             ? undefined

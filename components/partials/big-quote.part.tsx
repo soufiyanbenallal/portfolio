@@ -30,7 +30,7 @@ export function BigQuotePart() {
     target: ref,
     offset: SCROLL_OFFSETS.throughViewport,
   });
-  const progress = useSpring(scrollYProgress, SPRINGS.scrollHeavy);
+  const progress = useSpring(scrollYProgress, SPRINGS.scroll);
 
   const rotateX = useTransform(progress, [0, 0.5, 1], [11, 0, -9]);
   const scale = useTransform(progress, [0, 0.5, 1], [0.94, 1, 0.97]);
@@ -41,7 +41,7 @@ export function BigQuotePart() {
       <Container className="py-16 md:py-24">
         <div ref={ref} style={{ perspective: PERSPECTIVE.far }}>
           <motion.figure
-            className="flex flex-col items-center gap-8 text-center"
+            className="flex flex-col items-center gap-8 text-center will-change-transform"
             style={
               prefersReducedMotion
                 ? undefined

@@ -64,10 +64,10 @@ export const SPRINGS = {
   magnetic: { stiffness: 260, damping: 22, mass: 0.5 },
   /** 3D card rigs reacting to pointer position. */
   tilt: { stiffness: 220, damping: 26, mass: 0.7 },
-  /** Smoothing applied on top of raw scroll progress. */
-  scroll: { stiffness: 140, damping: 34, mass: 0.5, restDelta: 0.0005 },
-  /** Heavier scroll smoothing for large hero rigs that must not jitter. */
-  scrollHeavy: { stiffness: 90, damping: 30, mass: 0.8, restDelta: 0.0005 },
+  /** Snappy scroll smoothing that tracks the viewport in real time. */
+  scroll: { stiffness: 380, damping: 40, mass: 0.2, restDelta: 0.0005 },
+  /** Crisp scroll smoothing for large rigs without delayed trailing. */
+  scrollHeavy: { stiffness: 300, damping: 36, mass: 0.25, restDelta: 0.0005 },
   /** The project deck hand-off between hero and showcase. */
   deck: { stiffness: 1000, damping: 130, mass: 1 },
   page: { stiffness: 500, damping: 60, mass: 1 },

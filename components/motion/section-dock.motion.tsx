@@ -136,7 +136,7 @@ function DetailCard({
 
   return (
     <motion.div
-      className="absolute inset-x-0 top-1/2 -translate-y-1/2"
+      className="absolute inset-x-0 top-1/2 -translate-y-1/2 will-change-transform"
       style={{
         opacity,
         y,
@@ -159,7 +159,7 @@ export function SectionDock<T>({
   panelOverlay,
   items,
   renderItem,
-  scrollPerItem = 0.8,
+  scrollPerItem = 0.48,
   className,
   id,
   header,
@@ -234,7 +234,7 @@ export function SectionDock<T>({
       id={id}
       ref={sectionRef}
       className={cn("relative w-full", className)}
-      style={{ height: `${(items.length * scrollPerItem + 1.4) * 100}vh` }}
+      style={{ height: `${(items.length * scrollPerItem + 1.1) * 100}vh` }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* The section, scaling down into its card */}

@@ -30,11 +30,11 @@ export function SmoothScrollShared({ children }: { children: React.ReactNode }) 
           // hand the pixel-for-pixel scroll straight back to the browser.
           { lerp: 1, smoothWheel: false, syncTouch: false, duration: 0 }
         : {
-            lerp: 0.09,
-            duration: 1.1,
+            lerp: 0.16,
+            duration: 0.65,
             smoothWheel: true,
-            wheelMultiplier: 1,
-            touchMultiplier: 1.6,
+            wheelMultiplier: 1.15,
+            touchMultiplier: 1,
             // Touch devices keep native inertia — smoothing them fights the OS.
             syncTouch: false,
           },

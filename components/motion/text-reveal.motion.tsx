@@ -194,14 +194,12 @@ function ScrollWord({
   const start = index / total;
   const end = (index + 1.6) / total;
 
-  const opacity = useTransform(progress, [start, end], [0.16, 1]);
-  const blur = useTransform(progress, [start, end], [4, 0]);
-  const filter = useTransform(blur, (value) => `blur(${value.toFixed(2)}px)`);
+  const opacity = useTransform(progress, [start, end], [0.22, 1]);
 
   return (
     <motion.span
-      className={cn("inline-block", dimClassName)}
-      style={{ opacity, filter }}
+      className={cn("inline-block will-change-[opacity]", dimClassName)}
+      style={{ opacity }}
     >
       {word}
       &nbsp;
