@@ -48,7 +48,7 @@ const DECK: DeckCardConfigType[] = [
     y: -6,
     z: 120,
     rotate: -7,
-    exit: { x: -220, y: -420, rotate: -26 },
+    exit: { x: -220, y: 420, rotate: -26 },
     drift: 0,
   },
   {

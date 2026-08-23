@@ -37,8 +37,7 @@ export function BigQuotePart() {
   const y = useTransform(progress, [0, 1], [40, -40]);
 
   return (
-    <div className="w-full">
-      <Container className="py-16 md:py-24">
+      <Container className="py-16 md:py-24 h-screen ">
         <div ref={ref} style={{ perspective: PERSPECTIVE.far }}>
           <motion.figure
             className="flex flex-col items-center gap-8 text-center will-change-transform"
@@ -81,6 +80,5 @@ export function BigQuotePart() {
           </motion.figure>
         </div>
       </Container>
-    </div>
   );
 }

@@ -164,9 +164,9 @@ export function ProjectsShowcasePart() {
   return (
     <section
       id="projects"
-      className="relative w-full border-t border-gray-30 bg-gray-5"
+      className="relative w-full border-t border-gray-30 "
     >
-      <Container className="flex flex-col gap-6 pb-4 pt-16 md:pt-24">
+      <Container className="flex flex-col gap-6 pb-4 pt-16 md:pt-24" >
         <div className="flex flex-col items-start justify-between gap-4 border-b border-gray-30 pb-6 sm:flex-row sm:items-end">
           <div>
             <span className="text-label mb-1 block text-gray-50">
@@ -190,7 +190,8 @@ export function ProjectsShowcasePart() {
 
       {/* The rig. Every card is a page of the same deck: the incoming card
           rises while the outgoing one falls back in Z behind it. */}
-      <StickyCardStack
+  <Container>
+          <StickyCardStack
         items={FEATURED}
         scrollPerCard={0.52}
         className="lg:-mt-8"
@@ -202,6 +203,7 @@ export function ProjectsShowcasePart() {
           <ShowcaseCard project={project} index={index} isActive={isActive} />
         )}
       </StickyCardStack>
+  </Container>
 
       <Container className="flex justify-center pb-16 md:pb-24">
         <Reveal preset="fadeUp">

@@ -19,7 +19,7 @@ export function ContainerShared({
   return (
     <Component
       id={id}
-      className={cn("relative z-10 w-full max-w-6xl mx-auto px-3 md:px-6", className, border && "border-x")}
+      className={cn("relative z-10 w-full max-w-6xl mx-auto px-3 md:px-6", className, border && "border-x border-gray-40")}
     >
       {children}
     </Component>

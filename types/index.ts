@@ -9,3 +9,4 @@ export * from "./work-history.type";
 export * from "./quote.type";
 export * from "./experience.type";
 export * from "./story-scroll.type";
+export * from "./navbar.type";
