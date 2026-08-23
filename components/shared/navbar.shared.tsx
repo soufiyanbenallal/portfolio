@@ -113,7 +113,7 @@ export function NavbarShared({ className }: NavbarSharedPropsType) {
   return (
     <header
       className={cn(
-        "fixed left-1/2 top-6 z-40 w-auto max-w-[calc(100vw-32px)] -translate-x-1/2 backdrop-blur-md rounded-xl",
+        "fixed left-1/2 top-6 z-40 w-auto min-w-60 max-w-[calc(100vw-32px)] border border-gray-500/10 bg-white/40 -translate-x-1/2 backdrop-blur-sm rounded-3xl shadow-[0_0_15px_rgba(15,23,42,0.05)]",
         className,
       )}
       style={{ viewTransitionName: "site-header" }}

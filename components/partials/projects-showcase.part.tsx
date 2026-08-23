@@ -190,7 +190,6 @@ export function ProjectsShowcasePart() {
 
       {/* The rig. Every card is a page of the same deck: the incoming card
           rises while the outgoing one falls back in Z behind it. */}
-  <Container>
           <StickyCardStack
         items={FEATURED}
         scrollPerCard={0.52}
@@ -203,7 +202,6 @@ export function ProjectsShowcasePart() {
           <ShowcaseCard project={project} index={index} isActive={isActive} />
         )}
       </StickyCardStack>
-  </Container>
 
       <Container className="flex justify-center pb-16 md:pb-24">
         <Reveal preset="fadeUp">

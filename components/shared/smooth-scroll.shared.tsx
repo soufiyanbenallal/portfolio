@@ -25,7 +25,7 @@ export function SmoothScrollShared({ children }: { children: React.ReactNode }) 
 
   const lenisOptions = useMemo(
     () =>
-      prefersReducedMotion
+      !prefersReducedMotion
         ? // Keep Lenis mounted (anchor scrolling still routes through it) but
           // hand the pixel-for-pixel scroll straight back to the browser.
           { lerp: 1, smoothWheel: false, syncTouch: false, duration: 0 }

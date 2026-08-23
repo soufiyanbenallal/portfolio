@@ -25,7 +25,7 @@ export function NavbarMobilePart({
     <div className="md:hidden">
       <div
         className={cn(
-          "flex flex-col overflow-hidden rounded-[24px] border border-gray-30 bg-white/85 shadow-sm backdrop-blur-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          "flex flex-col overflow-hidden rounded-[24px] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
           isPastHero ? "px-1.5 py-1" : "px-1.5 py-1",
         )}
       >

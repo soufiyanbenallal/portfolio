@@ -23,7 +23,7 @@ export function NavbarDesktopPart({
   return (
     <nav
       className={cn(
-        "hidden select-none items-center rounded-[32px] border border-gray-30 bg-white/75 text-sm shadow-xs backdrop-blur-md transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] md:flex",
+        "hidden select-none items-center rounded-[32px] text-sm  transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] md:flex",
         isPastHero ? "gap-4 px-2.5 py-1.5 pl-3.5" : "gap-12 px-4 py-2.5 lg:gap-16",
       )}
     >

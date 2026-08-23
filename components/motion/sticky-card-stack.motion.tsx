@@ -192,7 +192,7 @@ export function StickyCardStack<T>({
   return (
     <div
       ref={sectionRef}
-      className={cn("relative w-full", className)}
+      className={cn("relative w-full border-x", className)}
       style={{ height: `${items.length * scrollPerCard * 100 + 100}vh` }}
     >
       <div

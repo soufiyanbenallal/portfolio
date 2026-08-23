@@ -130,7 +130,6 @@ export function FooterShared() {
       >
         <Container
           className="flex flex-col gap-16 pb-[120px] pt-16 md:gap-24 md:pb-[180px] lg:pb-[211px]"
-          border={false}
         >
           <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
             {/* Contact */}

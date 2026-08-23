@@ -5,7 +5,6 @@ import { FooterShared } from "@/components/shared/footer.shared";
 import { ContactDialogPart } from "@/components/partials/contact-dialog.part";
 import { BookingDialogShared } from "@/components/shared/booking-dialog.shared";
 import { CalEmbedShared } from "@/components/shared/cal-embed.shared";
-import { SmoothScrollShared } from "@/components/shared/smooth-scroll.shared";
 import { GridOverlay } from "@/components/layout/grid-overlay";
 import { ScrollProgress } from "@/components/motion/scroll-progress.motion";
 import { Cursor } from "@/components/motion/cursor.motion";
@@ -56,7 +55,6 @@ export default function RootLayout({
     // smooth scrolling fights it for the same frames.
     <html lang="en">
       <body className="relative flex min-h-screen flex-col overflow-x-clip bg-gray-5 font-sans text-black antialiased">
-        <SmoothScrollShared>
           <a
             href="#main-content"
             className="sr-only rounded-full bg-black px-4 py-2 text-sm text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-9999"
@@ -81,7 +79,6 @@ export default function RootLayout({
           {/* Enhancement only — removes itself for coarse pointers and
               reduced motion. */}
           <Cursor />
-        </SmoothScrollShared>
       </body>
     </html>
   );
