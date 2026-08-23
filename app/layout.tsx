@@ -4,6 +4,7 @@ import { NavbarShared } from "@/components/shared/navbar.shared";
 import { FooterShared } from "@/components/shared/footer.shared";
 import { ContactDialogPart } from "@/components/partials/contact-dialog.part";
 import { BookingDialogShared } from "@/components/shared/booking-dialog.shared";
+import { CalEmbedShared } from "@/components/shared/cal-embed.shared";
 import { SmoothScrollShared } from "@/components/shared/smooth-scroll.shared";
 import { GridOverlay } from "@/components/layout/grid-overlay";
 import { ScrollProgress } from "@/components/motion/scroll-progress.motion";
@@ -75,6 +76,7 @@ export default function RootLayout({
 
           <ContactDialogPart />
           <BookingDialogShared />
+          <CalEmbedShared />
 
           {/* Enhancement only — removes itself for coarse pointers and
               reduced motion. */}

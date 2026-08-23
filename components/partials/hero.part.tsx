@@ -16,7 +16,7 @@ import { Container } from "@/components/shared/container.shared";
 import AnimatedTextCycle from "@/components/ui/animated-text-cycle";
 import { TextReveal } from "@/components/motion/text-reveal.motion";
 import { Magnetic } from "@/components/motion/magnetic.motion";
-import { usePortfolioStore } from "@/lib/portfolio.store";
+import { CAL_LINK } from "@/components/shared/cal-embed.shared";
 import { DURATIONS, EASINGS, SPRINGS, SCROLL_OFFSETS } from "@/lib/motion.config";
 
 /**
@@ -29,7 +29,6 @@ import { DURATIONS, EASINGS, SPRINGS, SCROLL_OFFSETS } from "@/lib/motion.config
  */
 export function HeroPart() {
   const sectionRef = useRef<HTMLElement>(null);
-  const openBooking = usePortfolioStore((state) => state.openBooking);
   const prefersReducedMotion = useReducedMotionSafe();
 
   const { scrollYProgress } = useScroll({
@@ -136,12 +135,13 @@ export function HeroPart() {
               }}
               className="flex flex-col items-start gap-2 pt-2"
             >
-              <Magnetic strength={0.28} innerStrength={0.12}>
+              <Magnetic strength={0.5} innerStrength={0.3}>
                 <button
                   type="button"
-                  onClick={openBooking}
+                  data-cal-link={CAL_LINK}
+                  data-cal-config='{"layout":"month_view"}'
                   data-cursor="grow"
-                  className="group inline-flex cursor-pointer items-center gap-3 rounded-full bg-black py-2 pl-2 pr-5 text-sm font-medium text-white transition-colors duration-200 hover:bg-[#1a1a1a]"
+                  className="group inline-flex cursor-pointer items-center  rounded-full bg-black py-2 pl-2 pr-5 text-sm font-medium text-white transition-colors duration-200 hover:bg-[#1a1a1a]"
                   style={{
                     boxShadow:
                       "inset 0 1.5px 3px rgba(255,255,255,0.35), 0 2px 6px rgba(0,0,0,0.15), 0 10px 20px rgba(0,0,0,0.1)",
@@ -153,19 +153,19 @@ export function HeroPart() {
                       alt="Joseph Alexander"
                       fill
                       sizes="28px"
-                      className="object-cover"
+                      className="object-cover relative z-1"
                     />
                   </span>
 
-                  <span className="text-xs font-semibold leading-none text-white/70">
+                  <span className="text-xs transition-all w-0 opacity-0 group-hover:w-6 group-hover:opacity-100 text-center duration-400 font-semibold leading-none text-white/70">
                     +
                   </span>
 
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-bold tracking-tight text-black shadow-xs">
+                  <span className="flex h-7 scale-0 w-0  group-hover:w-7 group-hover:scale-100 -translate-x-7 group-hover:translate-x-0 transition-all shrink-0 duration-400 items-center justify-center rounded-full bg-white text-[10px] font-bold tracking-tight text-black">
                     You
                   </span>
 
-                  <span className="whitespace-nowrap pl-0.5 text-sm font-medium tracking-tight text-white">
+                  <span className="whitespace-nowrap pl-3 text-sm font-medium tracking-tight text-white">
                     Book a call with me
                   </span>
                 </button>

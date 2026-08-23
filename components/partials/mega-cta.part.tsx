@@ -14,6 +14,7 @@ import { socialLinksData } from "@/data/client-logos.data";
 import { Container } from "@/components/shared/container.shared";
 import { Reveal } from "@/components/motion/reveal.motion";
 import { Magnetic } from "@/components/motion/magnetic.motion";
+import { CAL_LINK } from "@/components/shared/cal-embed.shared";
 import { usePortfolioStore } from "@/lib/portfolio.store";
 import { SPRINGS } from "@/lib/motion.config";
 
@@ -29,7 +30,6 @@ const EMAIL = "joseph@launchnow.design";
  */
 export function MegaCtaPart() {
   const cardRef = useRef<HTMLDivElement>(null);
-  const openBooking = usePortfolioStore((state) => state.openBooking);
   const openContact = usePortfolioStore((state) => state.openContact);
   const [copied, setCopied] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -104,7 +104,8 @@ export function MegaCtaPart() {
                 <Magnetic strength={0.25}>
                   <button
                     type="button"
-                    onClick={openBooking}
+                    data-cal-link={CAL_LINK}
+                    data-cal-config='{"layout":"month_view"}'
                     data-cursor="grow"
                     className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black transition-all hover:bg-gray-20"
                   >

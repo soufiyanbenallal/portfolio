@@ -13,7 +13,7 @@ import { useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { socialLinksData, navLinksData } from "@/data/client-logos.data";
 import { Container } from "@/components/shared/container.shared";
-import { usePortfolioStore } from "@/lib/portfolio.store";
+import { CAL_LINK } from "@/components/shared/cal-embed.shared";
 import { PERSPECTIVE, SPRINGS, SCROLL_OFFSETS } from "@/lib/motion.config";
 
 const EMAIL = "joseph@launchnow.design";
@@ -77,7 +77,6 @@ function WordmarkLetter({
  */
 export function FooterShared() {
   const footerRef = useRef<HTMLElement>(null);
-  const openBooking = usePortfolioStore((state) => state.openBooking);
   const [copied, setCopied] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
   const prefersReducedMotion = useReducedMotionSafe();
@@ -157,7 +156,8 @@ export function FooterShared() {
 
                 <button
                   type="button"
-                  onClick={openBooking}
+                  data-cal-link={CAL_LINK}
+                  data-cal-config='{"layout":"month_view"}'
                   className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-black transition-colors hover:bg-gray-20"
                 >
                   <Icons.Calendar className="size-4 text-black" />

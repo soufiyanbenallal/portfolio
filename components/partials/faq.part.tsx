@@ -9,7 +9,7 @@ import { TextReveal } from "@/components/motion/text-reveal.motion";
 import { Reveal } from "@/components/motion/reveal.motion";
 import { Tilt3D } from "@/components/motion/tilt-3d.motion";
 import { Magnetic } from "@/components/motion/magnetic.motion";
-import { usePortfolioStore } from "@/lib/portfolio.store";
+import { CAL_LINK } from "@/components/shared/cal-embed.shared";
 import { DURATIONS, EASINGS, SPRINGS } from "@/lib/motion.config";
 
 /**
@@ -24,7 +24,6 @@ import { DURATIONS, EASINGS, SPRINGS } from "@/lib/motion.config";
  */
 export function FaqPart() {
   const [openId, setOpenId] = useState<string>(faqsData[0]?.id ?? "");
-  const openBooking = usePortfolioStore((state) => state.openBooking);
   const panelPrefix = useId();
 
   return (
@@ -162,7 +161,8 @@ export function FaqPart() {
                   <Magnetic strength={0.2} fullWidth>
                     <button
                       type="button"
-                      onClick={openBooking}
+                      data-cal-link={CAL_LINK}
+                      data-cal-config='{"layout":"month_view"}'
                       data-cursor="grow"
                       className="w-full cursor-pointer rounded-full bg-white py-3 text-sm font-medium tracking-tight text-black transition-colors duration-200 hover:bg-gray-20"
                     >
