@@ -30,8 +30,8 @@ export default async function ProjectDetailPage({
   );
 
   return (
-    <article className="w-full pt-32 pb-24">
-      <Container className="flex flex-col gap-12 sm:gap-16">
+    <article className="w-full">
+      <Container className="flex flex-col gap-12 sm:gap-16 pt-32 pb-24">
         {/* Back Link */}
         <div>
           <Link

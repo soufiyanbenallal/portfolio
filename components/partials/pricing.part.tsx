@@ -43,9 +43,9 @@ export function PricingPart() {
   return (
     <section
       id="pricing"
-      className="w-full bg-white border-t border-[#dedede] py-16 md:py-24 lg:py-32"
+      className="w-full bg-white border-t border-[#dedede]"
     >
-      <Container className="flex flex-col gap-16 md:gap-24">
+      <Container className="flex flex-col gap-16 md:gap-24 py-16 md:py-24 lg:py-32">
 
         {/* Header Row */}
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6 items-end">

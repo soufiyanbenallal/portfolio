@@ -18,8 +18,8 @@ const happyClientAvatars = [
 
 export function TestimonialsPart() {
   return (
-    <section className="w-full bg-white border-t border-[#dedede] py-16 md:py-24 lg:py-32 overflow-hidden">
-      <Container className="flex flex-col gap-12 md:gap-16">
+    <section className="w-full bg-white border-t border-[#dedede] overflow-hidden">
+      <Container className="flex flex-col gap-12 md:gap-16 py-16 md:py-24 lg:py-32">
 
         {/* Header Row */}
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">

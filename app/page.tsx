@@ -4,7 +4,6 @@ import { LatestProjectsPart } from "@/components/partials/latest-projects.part";
 import { BigQuotePart } from "@/components/partials/big-quote.part";
 import { ServicesPart } from "@/components/partials/services.part";
 import { AboutHistoryPart } from "@/components/partials/about-history.part";
-import { PricingPart } from "@/components/partials/pricing.part";
 import { ClientTickerShared } from "@/components/shared/client-ticker.shared";
 import { TestimonialsPart } from "@/components/partials/testimonials.part";
 import { FaqPart } from "@/components/partials/faq.part";
@@ -29,10 +28,7 @@ export default function HomePage() {
       {/* 5. About & Work History */}
       <AboutHistoryPart />
 
-      {/* 6. Pricing Plans */}
-      <PricingPart />
-
-      {/* 7. Bordered Client Logo Ticker Strip */}
+      {/* 6. Bordered Client Logo Ticker Strip */}
       <ClientTickerShared withHappyClientsCluster={false} />
 
       {/* 8. Client Testimonials */}

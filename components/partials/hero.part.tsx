@@ -7,6 +7,7 @@ import { AvailabilityBadgeUi } from "@/components/ui/badge.ui";
 import { ClientTickerShared } from "@/components/shared/client-ticker.shared";
 import { HeroProjectStackPart } from "@/components/partials/hero-project-stack.part";
 import { Container } from "@/components/shared/container.shared";
+import AnimatedTextCycle from "@/components/ui/animated-text-cycle";
 import { usePortfolioStore } from "@/lib/portfolio.store";
 import { EASINGS } from "@/lib/motion.config";
 
@@ -16,7 +17,7 @@ export function HeroPart() {
   return (
     <section
       id="hero"
-      className="relative w-full bg-[#fafafa] select-none overflow-visible"
+      className="relative w-full select-none overflow-visible"
     >
       <Container className="pt-32 md:pt-36 pb-14 md:pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 items-center min-h-105">
@@ -42,7 +43,14 @@ export function HeroPart() {
               style={{ fontSize: "clamp(42px, 5.5vw, 72px)" }}
             >
               <span className="text-[#828282] block">Design that</span>
-              <span className="text-black block">delivers results.</span>
+              <span className="text-black block min-h-[1.1em]">
+                delivers{" "}
+                <AnimatedTextCycle
+                  words={["results.", "growth.", "impact.", "sales."]}
+                  interval={3500}
+                  className="text-black font-medium"
+                />
+              </span>
             </motion.h1>
 
             {/* Body Description */}

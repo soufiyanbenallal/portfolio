@@ -8,8 +8,8 @@ import { EASINGS } from "@/lib/motion.config";
 
 export function BigQuotePart() {
   return (
-    <section className="w-full bg-white border-t border-[#dedede] py-16 md:py-24">
-      <Container>
+    <section className="w-full bg-white border-t border-[#dedede]">
+      <Container className="py-16 md:py-24">
         <motion.div
           initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}

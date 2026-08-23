@@ -5,8 +5,8 @@ import { Container } from "@/components/shared/container.shared";
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="w-full pt-32 pb-24">
-      <Container className="max-w-[720px] flex flex-col gap-10">
+    <div className="w-full">
+      <Container className="max-w-[720px] flex flex-col gap-10 pt-32 pb-24">
         <div>
           <Link
             href="/"

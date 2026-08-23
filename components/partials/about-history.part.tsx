@@ -21,9 +21,9 @@ export function AboutHistoryPart() {
   return (
     <section
       id="about"
-      className="w-full bg-white border-t border-[#dedede] py-16 md:py-24 lg:py-32 overflow-hidden"
+      className="w-full bg-white border-t border-[#dedede] overflow-hidden"
     >
-      <Container className="flex flex-col gap-12 md:gap-16">
+      <Container className="flex flex-col gap-12 md:gap-16 py-16 md:py-24 lg:py-32">
 
         {/* Section Heading */}
         <motion.h2

@@ -26,8 +26,8 @@ export default async function QuoteDetailPage({
   }
 
   return (
-    <div className="w-full pt-32 pb-24">
-      <Container className="max-w-[840px] flex flex-col gap-10">
+    <div className="w-full">
+      <Container className="max-w-[840px] flex flex-col gap-10 pt-32 pb-24">
         {/* Back Link */}
         <div>
           <Link

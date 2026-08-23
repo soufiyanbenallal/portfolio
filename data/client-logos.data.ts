@@ -14,7 +14,6 @@ export const clientLogosData: ClientLogoItemType[] = [
 export const navLinksData: NavLinkItemType[] = [
   { label: "Work", href: "#projects", isAnchor: true },
   { label: "Services", href: "#services", isAnchor: true },
-  { label: "Pricing", href: "#pricing", isAnchor: true },
   { label: "Blog", href: "#blog", isAnchor: true },
   { label: "Contact", href: "#contact", isAnchor: true },
 ];

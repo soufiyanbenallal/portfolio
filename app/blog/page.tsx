@@ -10,8 +10,8 @@ import { Container } from "@/components/shared/container.shared";
 
 export default function BlogIndexPage() {
   return (
-    <div className="w-full pt-32 pb-24">
-      <Container className="flex flex-col gap-12">
+    <div className="w-full">
+      <Container className="flex flex-col gap-12 pt-32 pb-24">
         {/* Header */}
         <div className="flex flex-col gap-4 border-b border-gray-30 pb-8">
           <span className="text-xs font-mono uppercase tracking-widest text-gray-50 block">

@@ -24,8 +24,8 @@ export function MegaCtaPart() {
   };
 
   return (
-    <section id="contact" className="w-full bg-white border-t border-gray-30 py-12 md:py-24 lg:py-32 select-none">
-      <Container>
+    <section id="contact" className="w-full bg-white border-t border-gray-30 select-none">
+      <Container className="py-12 md:py-24 lg:py-32">
         {/* Giant Black Card */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98, y: 20 }}

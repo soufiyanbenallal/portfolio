@@ -6,6 +6,7 @@ type ContainerSharedPropsType = {
   className?: string;
   id?: string;
   as?: React.ElementType;
+  border?: boolean;
 };
 
 export function ContainerShared({
@@ -13,11 +14,12 @@ export function ContainerShared({
   className,
   id,
   as: Component = "div",
+  border = true,
 }: ContainerSharedPropsType) {
   return (
     <Component
       id={id}
-      className={cn("w-full max-w-6xl mx-auto px-3 md:px-6 border-x", className)}
+      className={cn("relative z-10 w-full max-w-6xl mx-auto px-3 md:px-6", className, border && "border-x")}
     >
       {children}
     </Component>

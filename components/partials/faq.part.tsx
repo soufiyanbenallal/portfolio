@@ -15,9 +15,9 @@ export function FaqPart() {
   return (
     <section
       id="faq"
-      className="w-full bg-white border-t border-[#dedede] py-16 md:py-24 lg:py-32"
+      className="w-full bg-white border-t border-[#dedede]"
     >
-      <Container>
+      <Container className="py-16 md:py-24 lg:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-12 items-start">
 
           {/* ── Left: FAQ List ── */}

@@ -20,8 +20,8 @@ export default function ProjectsIndexPage() {
       : projectsData.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="w-full pt-32 pb-24">
-      <Container className="flex flex-col gap-12">
+    <div className="w-full">
+      <Container className="flex flex-col gap-12 pt-32 pb-24">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gray-30 pb-8">
           <div>

@@ -37,10 +37,10 @@ export function FooterShared() {
   };
 
   return (
-    <footer className="w-full bg-black text-white relative z-10 pt-16 pb-[120px] md:pb-[180px] lg:pb-[211px] overflow-hidden">
-      <Container className="flex flex-col gap-16 md:gap-24">
+    <footer className="w-full bg-black text-white relative z-10 overflow-hidden">
+      <Container className="flex flex-col gap-16 md:gap-24 pt-16 pb-[120px] md:pb-[180px] lg:pb-[211px]" border={false}>
         {/* Top: 2-Column Info & Menu Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 border-b border-white/10 pb-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 ">
           {/* Left Column: Direct Contact Action */}
           <div className="md:col-span-5 flex flex-col gap-6">
             <div>
@@ -58,7 +58,7 @@ export function FooterShared() {
                 onClick={handleCopyEmail}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-sm font-medium transition-colors text-white cursor-pointer"
               >
-                <Icons.Mail className="w-4 h-4 text-white/70" />
+                <Icons.Mail className="size-4 text-white/70" />
                 <span>{copied ? "Copied to clipboard!" : email}</span>
               </button>
 
@@ -67,7 +67,7 @@ export function FooterShared() {
                 onClick={openBooking}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white text-black hover:bg-gray-20 text-sm font-medium transition-colors cursor-pointer"
               >
-                <Icons.Calendar className="w-4 h-4 text-black" />
+                <Icons.Calendar className="size-4 text-black" />
                 <span>Book a call</span>
               </button>
             </div>
@@ -138,10 +138,47 @@ export function FooterShared() {
 
         {/* Bottom Giant Graphic Typographic Name Moment */}
         <div className="w-full flex flex-col items-center select-none pt-4">
-          <h1 className="text-[18vw] leading-[0.8] font-bold tracking-tighter text-white/90 text-center w-full uppercase">
-            JOSEPH
-          </h1>
-          <div className="w-full flex flex-col sm:flex-row items-center justify-between mt-8 pt-6 border-t border-white/10 text-xs text-white/50 font-mono">
+          
+          <div className="relative">
+            {/* vertical */}
+            <span className="block absolute w-px h-full bg-linear-to-b from-transparent via-white/20 to-transparent left-0"></span>
+            <span className="block absolute w-px h-full bg-linear-to-b from-transparent via-white/20 to-transparent right-0"></span>
+             {/* horizontal */}
+            <span className="block absolute h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent top-0"></span>
+            <span className="block absolute h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent bottom-0"></span>
+              
+              {/* plus  */}
+              
+              <span className=" absolute -top-2 -left-2 size-4 flex items-center justify-center">
+                <span className="absolute bg-white/50 w-px h-4"></span>
+                <span className="absolute bg-white/50 w-4 h-px"></span>
+              </span>
+
+              <span className=" absolute -bottom-2 -left-2 size-4 flex items-center justify-center">
+                <span className="absolute bg-white/50 w-px h-4"></span>
+                <span className="absolute bg-white/50 w-4 h-px"></span>
+              </span>
+
+              <span className=" absolute -bottom-2 -right-2 size-4 flex items-center justify-center">
+                <span className="absolute bg-white/50 w-px h-4"></span>
+                <span className="absolute bg-white/50 w-4 h-px"></span>
+              </span>
+
+              <span className=" absolute -top-2 -right-2 size-4 flex items-center justify-center">
+                <span className="absolute bg-white/50 w-px h-4"></span>
+                <span className="absolute bg-white/50 w-4 h-px"></span>
+              </span>
+
+            <h1
+            style={{
+                  lineHeight: 1,   
+                  fontFamily: 'Fragment Mono'
+            }}
+            className="text-[18vw] px-12 py-6  font-bold  text-white/90 text-center w-full uppercase">
+              JOSEPH
+            </h1>
+          </div>
+          <div className="w-full flex flex-col sm:flex-row items-center justify-between mt-8 pt-6 text-xs text-white/50 font-mono">
             <span>© {new Date().getFullYear()} Joseph Alexander. All rights reserved.</span>
             <span className="mt-2 sm:mt-0">Designed & engineered with craft.</span>
           </div>

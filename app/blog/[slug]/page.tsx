@@ -30,8 +30,8 @@ export default async function ArticleDetailPage({
   );
 
   return (
-    <article className="w-full pt-32 pb-24">
-      <Container className="max-w-[760px] flex flex-col gap-10 sm:gap-14">
+    <article className="w-full">
+      <Container className="max-w-[760px] flex flex-col gap-10 sm:gap-14 pt-32 pb-24">
         {/* Back link */}
         <div>
           <Link

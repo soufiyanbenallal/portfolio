@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { NavbarShared } from "@/components/shared/navbar.shared";
 import { FooterShared } from "@/components/shared/footer.shared";
-import { BottomContactNavShared } from "@/components/shared/bottom-contact-nav.shared";
 import { ContactDialogPart } from "@/components/partials/contact-dialog.part";
 import { BookingDialogShared } from "@/components/shared/booking-dialog.shared";
 import { SmoothScrollShared } from "@/components/shared/smooth-scroll.shared";
+import { GridOverlay } from "@/components/layout/grid-overlay";
+
+
 
 export const metadata: Metadata = {
   title: {
@@ -47,6 +49,9 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="relative min-h-screen bg-gray-5 text-black flex flex-col font-sans antialiased overflow-x-hidden">
         <SmoothScrollShared>
+          {/* Continuous Editorial Grid Overlay */}
+          <GridOverlay />
+
           {/* Global floating glass pill navbar */}
           <NavbarShared />
 
@@ -54,7 +59,7 @@ export default function RootLayout({
           <div className="flex-1 w-full relative z-10">{children}</div>
 
           {/* Pure Black Footer */}
-          <FooterShared />
+          <FooterShared  />
 
           {/* Fixed Bottom Contact Control + Blur Gradient */}
           {/* <BottomContactNavShared /> */}

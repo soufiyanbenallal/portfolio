@@ -16,9 +16,9 @@ export function BlogInsightsPart() {
   return (
     <section
       id="blog"
-      className="w-full bg-white border-t border-gray-30 py-12 md:py-24 lg:py-32 select-none"
+      className="w-full bg-white border-t border-gray-30 select-none"
     >
-      <Container className="flex flex-col gap-10 md:gap-14">
+      <Container className="flex flex-col gap-10 md:gap-14 py-12 md:py-24 lg:py-32">
         {/* Header Row */}
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 border-b border-gray-30 pb-6">
           <div>
