@@ -57,29 +57,6 @@ function ServicesPanel() {
   );
 }
 
-/** Crisp chrome over the docked card. Adds the frame, never duplicates copy. */
-function ServicesPanelOverlay({
-  dockProgress,
-}: {
-  dockProgress: MotionValue<number>;
-}) {
-  const opacity = useTransform(dockProgress, [0.55, 1], [0, 1]);
-
-  return (
-    <motion.div
-      className="relative h-full w-full rounded-[24px] ring-1 ring-inset ring-white/15"
-      style={{ opacity }}
-    >
-      <span className="absolute -top-7 left-0 text-label text-gray-50">
-        The offer
-      </span>
-      <span className="absolute -bottom-7 right-0 font-mono text-[11px] text-gray-50">
-        Scroll to browse
-      </span>
-    </motion.div>
-  );
-}
-
 /* -------------------------------------------------------------------- *
  * Detail card
  * -------------------------------------------------------------------- */
@@ -131,15 +108,13 @@ function ServiceDetailCard({ service, index, total }: ServiceDetailCardPropsType
 
 export function ServicesPart() {
   return (
-    <div className="relative w-full border-t border-gray-30 bg-transparent px-3 md:px-0">
+    <div className="relative w-full border-t bg-white z-10 px-3 md:px-0">
       <SectionDock
         id="services"
         items={servicesData}
         scrollPerItem={0.48}
         panel={<ServicesPanel />}
-        panelOverlay={({ dockProgress }) => (
-          <ServicesPanelOverlay dockProgress={dockProgress} />
-        )}
+ 
         renderItem={(service, { index }) => (
           <ServiceDetailCard
             service={service}

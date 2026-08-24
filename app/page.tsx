@@ -6,7 +6,6 @@ import { ClientTickerShared } from "@/components/shared/client-ticker.shared";
 import { TestimonialsPart } from "@/components/partials/testimonials.part";
 import { FaqPart } from "@/components/partials/faq.part";
 import { BlogInsightsPart } from "@/components/partials/blog-insights.part";
-import { MegaCtaPart } from "@/components/partials/mega-cta.part";
 import { SectionShell } from "@/components/motion/section-shell.motion";
 import { PageTransition } from "@/components/motion/page-transition.motion";
 
@@ -30,13 +29,16 @@ export default function HomePage() {
         {/* Unified Hero 3D Deck to 30%/70% Projects Showcase Rig */}
         <HeroProjectsUnifiedPart />
 
-        <SectionShell tone="canvas">
-          <BigQuotePart />
-        </SectionShell>
+        {/* <SectionShell tone="canvas"> */}
+        {/* </SectionShell> */}
 
         {/* Scales the whole section down into a docked card, then runs the
             service details past it */}
+            <div className="w-full">
+          <BigQuotePart />
+
         <ServicesPart />
+            </div>
 
         <SectionShell id="about" tone="canvas">
           <AboutHistoryPart />
@@ -54,10 +56,6 @@ export default function HomePage() {
 
         <SectionShell id="blog" tone="canvas">
           <BlogInsightsPart />
-        </SectionShell>
-
-        <SectionShell tone="canvas" dim={0}>
-          <MegaCtaPart />
         </SectionShell>
       </main>
     </PageTransition>

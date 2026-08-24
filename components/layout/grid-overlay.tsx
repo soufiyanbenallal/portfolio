@@ -14,41 +14,6 @@ export function GridOverlay({ className }: GridOverlayPropsType) {
         className
       )}
     >
-      {/* ── Continuous Global SVG Grid Pattern (32px cells + '+' crosshairs) ── */}
-      {/* <svg
-        className="absolute inset-0 h-full w-full stroke-slate-900/[0.4]"
-        aria-hidden="true"
-      >
-        <defs>
-          <pattern
-            id="editorial-global-grid"
-            width="32"
-            height="32"
-            patternUnits="userSpaceOnUse"
-            x="50%"
-            y="0"
-          >
-            <path
-              d="M.5 32V.5H32"
-              fill="none"
-              strokeWidth="1"
-            />
-            <path
-              d="M-2.5 0h5M0 -2.5v5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-              className="stroke-slate-900/[0.8]"
-            />
-          </pattern>
-        </defs>
-        <rect
-          width="100%"
-          height="100%"
-          strokeWidth="0"
-          fill="url(#editorial-global-grid)"
-        />
-      </svg> */}
 
       {/* ── Left Outer Margin: Minimalist Technical Diagonal Hatch Zone ── */}
       <div

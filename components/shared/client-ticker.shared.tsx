@@ -36,7 +36,7 @@ export function ClientTickerShared({
   return (
     <div
       className={cn(
-        "w-full select-none overflow-hidden border-y border-gray-30 bg-white",
+        "w-full select-none overflow-hidden border-y bg-white",
         className,
       )}
     >

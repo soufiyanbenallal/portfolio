@@ -17,7 +17,7 @@ import { CAL_LINK } from "@/components/shared/cal-embed.shared";
 import { PERSPECTIVE, SPRINGS, SCROLL_OFFSETS } from "@/lib/motion.config";
 
 const EMAIL = "joseph@launchnow.design";
-const WORDMARK = "JOSEPH";
+const WORDMARK = "SOUFIYAN";
 
 /* -------------------------------------------------------------------- *
  * Wordmark
@@ -52,6 +52,9 @@ function WordmarkLetter({
           y,
           rotateX,
           opacity,
+          transitionDelay: `${index * 0.1}s`,
+          transitionDuration: "500ms",
+          transitionTimingFunction: "ease-out",
           transformPerspective: PERSPECTIVE.far,
           transformOrigin: "50% 100%",
         }}
@@ -241,15 +244,15 @@ export function FooterShared() {
                   key={position}
                   className={`absolute ${position} flex size-4 items-center justify-center`}
                 >
-                  <span className="absolute h-4 w-px bg-white/50" />
-                  <span className="absolute h-px w-4 bg-white/50" />
+                  <span className="absolute h-4 w-[0.5px] bg-white/40" />
+                  <span className="absolute h-[0.5px] w-4 bg-white/40" />
                 </span>
               ))}
 
               <p
                 aria-hidden="true"
-                className="w-full px-12 py-6 text-center text-[18vw] font-bold uppercase text-white/90"
-                style={{ lineHeight: 1, fontFamily: "Fragment Mono" }}
+                className="w-full px-12 py-6 text-center text-[12vw] font-black uppercase text-white/90"
+                style={{ lineHeight: 1, }}
               >
                 {prefersReducedMotion
                   ? WORDMARK

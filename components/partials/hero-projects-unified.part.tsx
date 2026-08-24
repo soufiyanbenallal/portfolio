@@ -1098,12 +1098,14 @@ export function HeroProjectsUnifiedPart() {
                 sales.
               </p>
               <div>
-                <a
-                  href={CAL_LINK}
+                <button
+                   data-cal-link={CAL_LINK}
+                  data-cal-config='{"layout":"month_view"}'
+                  data-cursor="grow"
                   className="inline-flex items-center rounded-full bg-black px-6 py-3 text-sm font-medium text-white shadow-lg"
                 >
                   Book a call with me
-                </a>
+                </button>
               </div>
             </div>
 

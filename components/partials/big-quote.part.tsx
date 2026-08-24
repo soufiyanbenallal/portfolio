@@ -37,17 +37,20 @@ export function BigQuotePart() {
   const y = useTransform(progress, [0, 1], [40, -40]);
 
   return (
-    <Container className="flex flex-col items-center justify-center py-20 md:py-28 lg:py-36">
+    <div className="sticky! top-0 scroll-mt-40 bg-gray-5">
+    <Container className="flex flex-col items-center justify-center py-20 min-h-dvh">
+      <GridBackground />
+      
       <div ref={ref} className="w-full" style={{ perspective: PERSPECTIVE.far }}>
           <motion.figure
             className="flex flex-col items-center gap-8 text-center will-change-transform"
             style={
-              prefersReducedMotion
+              !prefersReducedMotion
                 ? undefined
                 : { rotateX, scale, y, transformOrigin: "50% 50%" }
             }
           >
-            <blockquote className="max-w-[820px]">
+            <blockquote className="max-w-205">
               <ScrollDimmedText
                 as="span"
                 text="“Working with Joseph felt like having a seasoned design partner who truly understood our vision for KYMA and brought it to life in ways we hadn't even imagined.”"
@@ -56,6 +59,11 @@ export function BigQuotePart() {
               />
             </blockquote>
 
+            {/* gradient glow */}
+            <div className=""></div>
+
+
+            {/*  */}
             <Reveal preset="fadeUp" delay={0.15}>
               <figcaption className="flex items-center gap-3">
                 <span className="relative h-10 w-10 overflow-hidden rounded-full border border-gray-30">
@@ -80,5 +88,32 @@ export function BigQuotePart() {
           </motion.figure>
         </div>
       </Container>
+      </div>
   );
+}
+
+function GridBackground() {
+  return <div className="opacity-7">
+       {/* ── Left Outer Margin: Minimalist Technical Diagonal Hatch Zone ── */}
+      <div
+        className="absolute top-0 bottom-0 left-0 w-full hidden 2xl:flex flex-col justify-between p-4 border-r border-slate-900"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(-45deg, rgba(15,23,42,1), rgba(15,23,42,1) 0.5px, transparent 1px, transparent 10px)",
+        }}
+      >
+        
+      </div>
+
+      {/* ── Right Outer Margin: Minimalist Technical Diagonal Hatch Zone ── */}
+      <div
+        className="absolute top-0 bottom-0 right-0 w-full hidden 2xl:flex flex-col justify-between items-end p-4 border-l border-slate-900"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(45deg, rgba(15,23,42,1), rgba(15,23,42,1) 0.5px, transparent 1px, transparent 10px)",
+        }}
+      >
+      
+      </div>
+  </div>
 }

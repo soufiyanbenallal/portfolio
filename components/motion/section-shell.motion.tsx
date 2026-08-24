@@ -48,29 +48,18 @@ export function SectionShell({
   tone = "paper",
   pinned = false,
   divider = true,
-  dim = 0.26,
 }: SectionShellPropsType) {
-  const ref = useRef<HTMLElement>(null);
-  const prefersReducedMotion = useReducedMotionSafe();
 
 
-  const { scrollYProgress: leaving } = useScroll({
-    target: ref,
-    offset: SCROLL_OFFSETS.leaving,
-  });
 
-  const dimOpacity = useTransform(leaving, [0.45, 1], [0, tone === "ink" ? dim * 0.4 : dim]);
 
-  const shouldAnimate = !prefersReducedMotion && !pinned;
 
   return (
-    <motion.section
+    <section
       id={id}
-      ref={ref}
       className={cn(
         "relative w-full",
         !pinned && "overflow-hidden",
-        shouldAnimate && "will-change-transform",
         TONE_CLASS[tone],
         divider && tone !== "ink" && "border-t border-gray-30",
         className,
@@ -79,14 +68,7 @@ export function SectionShell({
     >
       <div className={cn("relative z-10", contentClassName)}>{children}</div>
 
-      {/* Shadow cast by the arriving section. Overlay, never a filter. */}
-      {!prefersReducedMotion && dim > 0 && (
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-20 bg-black"
-          style={{ opacity: dimOpacity }}
-        />
-      )}
-    </motion.section>
+
+    </section>
   );
 }
