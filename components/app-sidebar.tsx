@@ -27,6 +27,8 @@ import {
   MousePointerClickIcon,
   ImageIcon,
   TypeIcon,
+  RocketIcon,
+  CreditCardIcon,
 } from "lucide-react"
 import { polarisNavSectionsData } from "@/app/polaris-playground/data/polaris-docs.data"
 
@@ -35,6 +37,12 @@ const AVATAR =
 
 function getCategoryIcon(id: string) {
   switch (id) {
+    case "onboarding":
+      return <RocketIcon />
+    case "billing":
+      return <CreditCardIcon />
+    case "actions":
+      return <MousePointerClickIcon />
     case "stats":
       return <TrendingUpIcon />
     case "feedbacks":
@@ -45,8 +53,6 @@ function getCategoryIcon(id: string) {
       return <FormInputIcon />
     case "typography":
       return <TypeIcon />
-    case "actions":
-      return <MousePointerClickIcon />
     case "media":
       return <ImageIcon />
     default:

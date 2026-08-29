@@ -19,11 +19,11 @@ export default function PolarisOverviewPage() {
         return (
           <section key={section.id} className="space-y-4">
             <div className="space-y-1">
-              <h2 className="text-xl font-bold text-gray-900 tracking-tight sm:text-2xl">
+              <h2 className="text-xl font-bold text-foreground tracking-tight sm:text-2xl">
                 {section.label}
               </h2>
               {section.description && (
-                <p className="text-xs text-gray-500">{section.description}</p>
+                <p className="text-xs text-muted-foreground">{section.description}</p>
               )}
             </div>
 

@@ -1,5 +1,4 @@
-import { Fragment } from "react";
-import { LocalDateTime, formatDateTime } from "~/commons/utils/intl";
+import React, { Fragment } from "react";
 
 const DAY_FORMAT: Intl.DateTimeFormatOptions = {
   year: "numeric",
@@ -12,6 +11,28 @@ const TIME_FORMAT: Intl.DateTimeFormatOptions = {
   minute: "2-digit",
   hour12: true,
 };
+
+function formatDateTime(
+  value: string | Date,
+  options?: Intl.DateTimeFormatOptions
+): string {
+  try {
+    const d = typeof value === "string" ? new Date(value) : value;
+    return new Intl.DateTimeFormat("en-US", options).format(d);
+  } catch {
+    return String(value);
+  }
+}
+
+function LocalDateTime({
+  value,
+  options,
+}: {
+  value: string | Date;
+  options?: Intl.DateTimeFormatOptions;
+}): React.ReactNode {
+  return <span>{formatDateTime(value, options)}</span>;
+}
 
 export type TimelineItemType = {
   timestamp: string | Date;
@@ -31,7 +52,7 @@ export type TimelinePropsType = {
 // Compatibility alias
 export type TimelineProps = TimelinePropsType;
 
-export function Timeline({ items }: TimelinePropsType): JSX.Element {
+export function Timeline({ items }: TimelinePropsType): React.ReactNode {
   let lastDate: string | null = null;
 
   return (

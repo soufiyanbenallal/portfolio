@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { PolarisPreviewRenderer } from "./polaris-preview-renderer.part";
+import { AutoFitIframePreview } from "./auto-fit-iframe-preview.part";
 import type { PolarisDocComponentType } from "../data/polaris-docs.data";
 
 export type PolarisOverviewCardPropsType = {
@@ -17,22 +18,22 @@ export function PolarisOverviewCardPart({
   return (
     <Link
       href={`/polaris-playground/${component.slug}`}
-      className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xs transition-all duration-200 hover:border-gray-300 hover:shadow-md"
+      className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-xs transition-all duration-200 hover:border-primary/40 hover:shadow-md"
     >
-      {/* ── Top Dotted Canvas: Scaled Live Component Preview ── */}
-      <div className="relative flex h-44 w-full items-center justify-center overflow-hidden bg-[#FAFAFA] border-b border-gray-100 [background-image:radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:12px_12px] p-2">
-        <div className="pointer-events-none select-none w-[560px] max-w-none origin-center scale-[0.46] sm:scale-[0.5] flex items-center justify-center transition-transform duration-200 group-hover:scale-[0.52]">
+      {/* ── Top Dotted Canvas: Auto-Fitted Iframe Live Component Preview ── */}
+      <div className="relative h-48 w-full overflow-hidden bg-background border-b border-border/80 [background-image:radial-gradient(var(--color-border)_1px,transparent_1px)] [background-size:12px_12px]">
+        <AutoFitIframePreview title={component.name} padding={14}>
           <PolarisPreviewRenderer renderKey={renderKey} />
-        </div>
+        </AutoFitIframePreview>
       </div>
 
-      {/* ── Bottom Light Meta Box ── */}
-      <div className="flex flex-1 flex-col justify-between p-4 bg-white">
+      {/* ── Bottom Meta Box ── */}
+      <div className="flex flex-1 flex-col justify-between p-4 bg-card">
         <div className="flex flex-col gap-1">
-          <h4 className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+          <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
             {component.name}
           </h4>
-          <p className="line-clamp-2 text-xs leading-relaxed text-gray-500">
+          <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
             {component.description}
           </p>
         </div>

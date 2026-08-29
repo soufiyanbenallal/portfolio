@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router";
+"use client";
+
+import React, { useState, useEffect } from "react";
 
 export type TutorialVideoConfigType = {
   title?: string;
@@ -19,6 +20,7 @@ const DEFAULT_TUTORIAL_VIDEOS: Record<string, TutorialVideoConfigType> = {
 export type TutorialButtonPropsType = {
   compact?: boolean;
   collapsible?: boolean;
+  currentPath?: string;
   videos?: Record<string, TutorialVideoConfigType>;
 };
 
@@ -28,22 +30,30 @@ export type TutorialButtonProps = TutorialButtonPropsType;
 export function TutorialButton({
   compact = false,
   collapsible = true,
+  currentPath: propCurrentPath,
   videos = DEFAULT_TUTORIAL_VIDEOS,
-}: TutorialButtonPropsType): JSX.Element | null {
-  const location = useLocation();
+}: TutorialButtonPropsType): React.ReactNode {
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [pathname, setPathname] = useState("/");
 
   useEffect(() => {
-    if (collapsible && typeof window !== "undefined") {
-      const saved = localStorage.getItem("tutorialButtonCollapsed");
-      if (saved) {
-        setIsCollapsed(JSON.parse(saved));
+    if (typeof window !== "undefined") {
+      setPathname(propCurrentPath || window.location.pathname);
+      if (collapsible) {
+        const saved = localStorage.getItem("tutorialButtonCollapsed");
+        if (saved) {
+          try {
+            setIsCollapsed(JSON.parse(saved));
+          } catch {
+            // ignore
+          }
+        }
       }
     }
     setMounted(true);
-  }, [collapsible]);
+  }, [collapsible, propCurrentPath]);
 
   const toggleCollapse = (e: React.MouseEvent) => {
     if (!collapsible) return;
@@ -57,8 +67,8 @@ export function TutorialButton({
 
   if (!mounted) return null;
 
-  const currentPath = location.pathname;
-  const videoConfig = videos[currentPath] || videos["*"] || videos["default"] || { disabled: true };
+  const videoConfig =
+    videos[pathname] || videos["*"] || videos["default"] || { disabled: true };
 
   if (videoConfig.disabled) return null;
 
@@ -67,7 +77,7 @@ export function TutorialButton({
   return (
     <>
       <div
-        className={`fixed bottom-3 left-3 z-50 flex items-center gap-2 p-2 rounded-xl bg-card border border-border text-foreground shadow-lg cursor-pointer transition-all hover:bg-muted/80 ${
+        className={`fixed bottom-4 left-4 z-50 flex items-center gap-2 p-2 rounded-xl bg-card border border-border text-foreground shadow-lg cursor-pointer transition-all hover:bg-muted/80 ${
           isActuallyCollapsed ? "max-w-[50px]" : "max-w-[280px]"
         }`}
         onClick={() => {
@@ -108,21 +118,37 @@ export function TutorialButton({
       </div>
 
       {isOpen && (
-        <s-modal
-          id="tutorial-video-modal"
-          heading={videoConfig.title || "Tutorial"}
-          onHide={() => setIsOpen(false)}
-        >
-          <div className="p-4 w-full aspect-video bg-black rounded-lg overflow-hidden">
-            <iframe
-              className="w-full h-full border-none"
-              src={`https://www.youtube.com/embed/${videoConfig.videoId}?autoplay=1`}
-              title={videoConfig.title || "Tutorial Video"}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="fixed inset-0 bg-background/80 backdrop-blur-xs"
+            onClick={() => setIsOpen(false)}
+          />
+          <div className="relative w-full max-w-2xl rounded-2xl border border-border bg-card p-5 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-foreground">
+                {videoConfig.title || "Tutorial"}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="text-muted-foreground hover:text-foreground p-1"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="w-full aspect-video bg-black rounded-lg overflow-hidden">
+              <iframe
+                className="w-full h-full border-none"
+                src={`https://www.youtube.com/embed/${videoConfig.videoId}?autoplay=1`}
+                title={videoConfig.title || "Tutorial Video"}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           </div>
-        </s-modal>
+        </div>
       )}
     </>
   );

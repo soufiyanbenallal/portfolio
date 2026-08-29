@@ -1,0 +1,42 @@
+"use client";
+
+import React from "react";
+import { Timeline } from "@/app/kits/polaris/Timeline";
+
+export function TimelineExample() {
+  const events = [
+    {
+      timestamp: new Date().toISOString(),
+      timelineEvent: "Theme App Extension auto-activated on Dawn theme",
+      tone: "success",
+    },
+    {
+      timestamp: new Date(Date.now() - 3600 * 1000 * 2).toISOString(),
+      timelineEvent: "Synchronized 240 product catalog feeds with Shopify Admin API",
+      tone: "base",
+    },
+    {
+      timestamp: new Date(Date.now() - 3600 * 1000 * 24).toISOString(),
+      timelineEvent: "Merchant upgraded subscription to Growth Plan ($29/mo)",
+      tone: "success",
+      url: "#billing",
+    },
+    {
+      timestamp: new Date(Date.now() - 3600 * 1000 * 28).toISOString(),
+      timelineEvent: "Klaviyo integration API key connected",
+      tone: "base",
+    },
+    {
+      timestamp: new Date(Date.now() - 3600 * 1000 * 48).toISOString(),
+      timelineEvent: "App installed by store owner",
+      tone: "success",
+    },
+  ];
+
+  return (
+    <div className="w-full max-w-2xl mx-auto p-4 bg-card rounded-xl border border-border">
+      <h3 className="text-sm font-semibold text-foreground mb-4">Store Activity Audit Trail</h3>
+      <Timeline items={events} />
+    </div>
+  );
+}

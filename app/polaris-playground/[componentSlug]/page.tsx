@@ -1,9 +1,13 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { polarisDocComponentsData } from "../data/polaris-docs.data";
-import { PolarisBlockPreviewPart, type BlockFileItemType } from "../components/polaris-block-preview.part";
+import {
+  PolarisBlockPreviewPart,
+  type BlockFileItemType,
+} from "../components/polaris-block-preview.part";
 import { getSourceCode } from "../utils/source-loader.util";
-import {FeedbackCard} from '../../kits/polaris/ui/feedbacks/FeedbackCard'
+import { FeedbackCard } from "@/app/kits/polaris/ui/feedbacks/FeedbackCard";
+
 export function generateStaticParams() {
   return polarisDocComponentsData.map((comp) => ({
     componentSlug: comp.slug,
@@ -17,7 +21,7 @@ export async function generateMetadata({
 }) {
   const { componentSlug } = await params;
   const component = polarisDocComponentsData.find(
-    (c) => c.slug === componentSlug,
+    (c) => c.slug === componentSlug
   );
 
   if (!component) {
@@ -39,7 +43,7 @@ export default async function PolarisComponentDetailPage({
 }) {
   const { componentSlug } = await params;
   const component = polarisDocComponentsData.find(
-    (c) => c.slug === componentSlug,
+    (c) => c.slug === componentSlug
   );
 
   if (!component) {
@@ -47,8 +51,7 @@ export default async function PolarisComponentDetailPage({
   }
 
   return (
-    <div className="mx-auto max-w-6xl w-full space-y-6 pb-10">
-     <FeedbackCard />
+    <div className="mx-auto max-w-6xl w-full space-y-8 pb-12">
       {component.examples.map((example) => {
         const files: BlockFileItemType[] = example.fileSources.map((source) => ({
           name: source.name,
@@ -70,6 +73,11 @@ export default async function PolarisComponentDetailPage({
           />
         );
       })}
+
+      {/* Merchant / Developer Feedback Box */}
+      <div className="pt-4 max-w-xl mx-auto">
+        <FeedbackCard />
+      </div>
     </div>
   );
 }
