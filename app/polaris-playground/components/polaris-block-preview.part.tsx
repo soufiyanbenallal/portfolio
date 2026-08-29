@@ -249,15 +249,14 @@ export function PolarisBlockPreviewPart({
       {/* ── Main Container matching the Image ── */}
       {viewMode === "preview" ? (
         /* Preview Canvas (Default) */
-        <div className="flex min-h-[440px] w-full items-center justify-center overflow-x-auto rounded-xl border border-gray-200 bg-[#FAFAFA] p-6 shadow-xs [background-image:radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:14px_14px]">
           <div
             key={refreshKey}
-            className={`transition-all duration-300 h-[480px] flex items-center justify-center ${
+            className={`transition-all duration-300 min-h-120 flex items-start justify-center rounded-xl border border-gray-200 bg-gray-100/50 p-3 bg-[radial-gradient(#ccc,transparent_1px)] bg-size-[14px_14px] ${
               viewport === "desktop"
                 ? "w-full"
                 : viewport === "tablet"
-                  ? "w-[768px] overflow-hidden"
-                  : "w-[390px] overflow-hidden"
+                  ? "w-3xl overflow-hidden"
+                  : "w-97 overflow-hidden"
             }`}
           >
             <AutoFitIframePreview
@@ -270,7 +269,6 @@ export function PolarisBlockPreviewPart({
               <PolarisPreviewRenderer renderKey={example.renderKey} />
             </AutoFitIframePreview>
           </div>
-        </div>
       ) : (
         /* Code Mode: Multi-folder File Explorer & Syntax Colored Code Viewer */
         <div className="grid grid-cols-1 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xs md:grid-cols-12 min-h-[380px]">

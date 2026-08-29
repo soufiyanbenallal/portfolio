@@ -685,17 +685,17 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
     category: "layout",
     categoryLabel: "Layout & Structure",
     description:
-      "Chronological activity history and event log with date separators, status tone pills, and links.",
+      "Chronological activity history and event log with search, tone filters, date grouping, and actor attribution.",
     summary:
-      "Audit trail component for tracking store syncs, billing updates, and merchant actions.",
-    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/layout/box",
+      "Audit trail component for tracking store syncs, billing updates, webhooks, and merchant actions.",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components",
     previewType: "timeline",
     examples: [
       {
         id: "timeline-block",
         title: "Store activity timeline",
         description:
-          "Vertical event log with timestamps and status indicators.",
+          "Rich event log with search, status filtering, date grouping, and action triggers.",
         renderKey: "timeline-example",
         installCommand: "npx shadcn@latest add timeline",
         fileSources: [
@@ -708,9 +708,36 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           },
           {
             name: "Timeline.tsx",
-            path: "Timeline.tsx",
-            sourcePath: "app/kits/polaris/Timeline.tsx",
+            path: "blocks/activity/Timeline/Timeline.tsx",
+            sourcePath: "app/kits/polaris/blocks/activity/Timeline/Timeline.tsx",
             language: "tsx",
+          },
+          {
+            name: "TimelineItem.part.tsx",
+            path: "blocks/activity/Timeline/partials/TimelineItem.part.tsx",
+            sourcePath:
+              "app/kits/polaris/blocks/activity/Timeline/partials/TimelineItem.part.tsx",
+            language: "tsx",
+          },
+          {
+            name: "TimelineDateHeader.part.tsx",
+            path: "blocks/activity/Timeline/partials/TimelineDateHeader.part.tsx",
+            sourcePath:
+              "app/kits/polaris/blocks/activity/Timeline/partials/TimelineDateHeader.part.tsx",
+            language: "tsx",
+          },
+          {
+            name: "TimelineFilterBar.part.tsx",
+            path: "blocks/activity/Timeline/partials/TimelineFilterBar.part.tsx",
+            sourcePath:
+              "app/kits/polaris/blocks/activity/Timeline/partials/TimelineFilterBar.part.tsx",
+            language: "tsx",
+          },
+          {
+            name: "types.ts",
+            path: "blocks/activity/Timeline/types.ts",
+            sourcePath: "app/kits/polaris/blocks/activity/Timeline/types.ts",
+            language: "typescript",
           },
         ],
       },
