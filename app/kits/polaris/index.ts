@@ -1,17 +1,6 @@
-import Input from "./ui/forms/Input";
-import Range from "./ui/forms/Range";
-import Select from "./ui/forms/Select";
-import InsightCard from "./InsightCard";
-import LibraryIcons from "./LibraryIcons";
-import Toggle from "./ui/forms/Toggle";
-export { StatsCard, StatsSection, Sparkline, buildSparkPath } from "./ui/stats";
-export type {
-  StatsCardPropsType,
-  StatsCardBadgeType,
-  StatsSectionPropsType,
-  SparklinePropsType,
-  IconType,
-  StatsToneType,
-} from "./ui/stats";
+/**
+ * Polaris Kit — Standalone Polaris Web Component & Block Kit for Shopify Apps.
+ * We will add ready blocks and UI components here one by one.
+ */
 
-export { Input, Range, Select, Toggle, LibraryIcons, InsightCard };
+export * from "./types";

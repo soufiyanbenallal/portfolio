@@ -1,80 +1,94 @@
-import React from "react";
-import type { Metadata } from "next";
-import { Container } from "@/components/shared/container.shared";
-import { PageTransition } from "@/components/motion/page-transition.motion";
-import { Reveal } from "@/components/motion/reveal.motion";
-import { PolarisScriptLoader } from "@/components/shared/polaris-script-loader.shared";
-import { PlaygroundHeaderPart } from "./partials/playground-header.part";
-import { PlaygroundNavTabsPart } from "./partials/playground-nav-tabs.part";
-import { PlaygroundCanvasPart } from "./partials/playground-canvas.part";
-import { PlaygroundPropsControlPart } from "./partials/playground-props-control.part";
-import { PlaygroundCodePanelPart } from "./partials/playground-code-panel.part";
-import { PlaygroundComponentGridPart } from "./partials/playground-component-grid.part";
+import { polarisDocComponentsData } from "./data/polaris-docs.data";
+import { PolarisOverviewCardPart } from "./components/polaris-overview-card.part";
 
-export const metadata: Metadata = {
-  title: "Polaris Web Components Playground",
-  description:
-    "Interactive developer playground for Shopify Polaris App Home web components powered by @shopify/polaris-types and native custom elements.",
-};
+export default function PolarisOverviewPage() {
+  const actionComponents = polarisDocComponentsData.filter(
+    (c) => c.category === "actions",
+  );
+  const feedbackComponents = polarisDocComponentsData.filter(
+    (c) => c.category === "feedback",
+  );
+  const formComponents = polarisDocComponentsData.filter(
+    (c) => c.category === "forms",
+  );
+  const layoutComponents = polarisDocComponentsData.filter(
+    (c) => c.category === "layout",
+  );
 
-export default function PolarisPlaygroundPage() {
+  
   return (
-    <PageTransition>
-      <div className="w-full">
-        {/* ── Native Polaris Web Component CDN script loader ── */}
-        <PolarisScriptLoader />
+    <div className="mx-auto max-w-7xl space-y-12 pb-16">
+      {/* ── Section: Actions (Image 1) ── */}
+      <section className="space-y-4 pt-12">
+        <div className="space-y-1">
+          <h2 className="text-xl font-bold text-gray-900 tracking-tight sm:text-2xl">
+            Actions
+          </h2>
+          <p className="text-xs text-gray-500">
+            Action components let users trigger events, perform tasks, and navigate through the interface.
+          </p>
+        </div>
 
-        <Container className="flex flex-col gap-10 pb-24 pt-32">
-          {/* ── Page Header & Info ── */}
-          <PlaygroundHeaderPart />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {actionComponents.map((component) => (
+            <PolarisOverviewCardPart key={component.slug} component={component} />
+          ))}
+        </div>
+      </section>
 
-          {/* ── Category Navigation Tabs ── */}
-          <div className="flex flex-col gap-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-gray-50 font-mono">
-              Component Categories
-            </span>
-            <PlaygroundNavTabsPart />
-          </div>
+      {/* ── Section: Feedback and status indicators (Image 1) ── */}
+      <section className="space-y-4">
+        <div className="space-y-1">
+          <h2 className="text-xl font-bold text-gray-900 tracking-tight sm:text-2xl">
+            Feedback and status indicators
+          </h2>
+          <p className="text-xs text-gray-500">
+            Feedback and status indicators display information about the status of resources and actions.
+          </p>
+        </div>
 
-          {/* ── Live Rendered Web Component Canvas ── */}
-          <Reveal preset="fadeUp" delay={0.1}>
-            <div className="flex flex-col gap-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-gray-50 font-mono">
-                Live Interactive Canvas (App Home Environment)
-              </span>
-              <PlaygroundCanvasPart />
-            </div>
-          </Reveal>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {feedbackComponents.map((component) => (
+            <PolarisOverviewCardPart key={component.slug} component={component} />
+          ))}
+        </div>
+      </section>
 
-          {/* ── Interactive Props Configurator ── */}
-          <Reveal preset="fadeUp" delay={0.15}>
-            <PlaygroundPropsControlPart />
-          </Reveal>
+      {/* ── Section: Forms ── */}
+      <section className="space-y-4">
+        <div className="space-y-1">
+          <h2 className="text-xl font-bold text-gray-900 tracking-tight sm:text-2xl">
+            Forms
+          </h2>
+          <p className="text-xs text-gray-500">
+            Form components let users enter, edit, and select data in various formats.
+          </p>
+        </div>
 
-          {/* ── Live Generated Code & Snippet Inspector ── */}
-          <Reveal preset="fadeUp" delay={0.2}>
-            <div className="flex flex-col gap-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-gray-50 font-mono">
-                Generated Code Snippet
-              </span>
-              <PlaygroundCodePanelPart />
-            </div>
-          </Reveal>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {formComponents.map((component) => (
+            <PolarisOverviewCardPart key={component.slug} component={component} />
+          ))}
+        </div>
+      </section>
 
-          {/* ── Component Catalog Grid ── */}
-          <Reveal preset="fadeUp" delay={0.25}>
-            <div className="flex flex-col gap-4 border-t border-gray-30 pt-8">
-              <div className="flex flex-col gap-1">
-                <h3 className="text-lg font-semibold text-black">Component Reference Library</h3>
-                <p className="text-xs text-gray-60">
-                  Explore tags, props, and direct links to Shopify Polaris documentation.
-                </p>
-              </div>
-              <PlaygroundComponentGridPart />
-            </div>
-          </Reveal>
-        </Container>
-      </div>
-    </PageTransition>
+      {/* ── Section: Layout and structure ── */}
+      <section className="space-y-4">
+        <div className="space-y-1">
+          <h2 className="text-xl font-bold text-gray-900 tracking-tight sm:text-2xl">
+            Layout and structure
+          </h2>
+          <p className="text-xs text-gray-500">
+            Layout components organize content, control spacing, and create structured views.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {layoutComponents.map((component) => (
+            <PolarisOverviewCardPart key={component.slug} component={component} />
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }
