@@ -16,7 +16,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import {
-  MousePointerClickIcon,
+  TrendingUpIcon,
   AlertCircleIcon,
   FormInputIcon,
   LayoutGridIcon,
@@ -24,162 +24,66 @@ import {
   LifeBuoyIcon,
   SendIcon,
   ArrowLeftIcon,
+  MousePointerClickIcon,
+  ImageIcon,
+  TypeIcon,
 } from "lucide-react"
+import { polarisNavSectionsData } from "@/app/polaris-playground/data/polaris-docs.data"
 
 const AVATAR =
   "https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg?width=64&height=64"
 
-const data = {
-  navMain: [
-    {
-      title: "Actions",
-      url: "/polaris-playground",
-      icon: <MousePointerClickIcon />,
-      isActive: true,
-      items: [
-        {
-          title: "Button",
-          url: "/polaris-playground/button",
-        },
-        {
-          title: "Clickable",
-          url: "/polaris-playground/clickable",
-        },
-        {
-          title: "Link",
-          url: "/polaris-playground/link",
-        },
-        {
-          title: "Menu",
-          url: "/polaris-playground/menu",
-        },
-        {
-          title: "Button group",
-          url: "/polaris-playground/button-group",
-        },
-        {
-          title: "Clickable chip",
-          url: "/polaris-playground/clickable-chip",
-        },
-      ],
-    },
-    {
-      title: "Feedback & Status",
-      url: "/polaris-playground",
-      icon: <AlertCircleIcon />,
-      isActive: true,
-      items: [
-        {
-          title: "Badge",
-          url: "/polaris-playground/badge",
-        },
-        {
-          title: "Banner",
-          url: "/polaris-playground/banner",
-        },
-        {
-          title: "Spinner",
-          url: "/polaris-playground/spinner",
-        },
-        {
-          title: "Chip",
-          url: "/polaris-playground/chip",
-        },
-      ],
-    },
-    {
-      title: "Forms",
-      url: "/polaris-playground",
-      icon: <FormInputIcon />,
-      isActive: true,
-      items: [
-        {
-          title: "Text field",
-          url: "/polaris-playground/text-field",
-        },
-        {
-          title: "Select",
-          url: "/polaris-playground/select",
-        },
-        {
-          title: "Switch",
-          url: "/polaris-playground/switch",
-        },
-        {
-          title: "Color field",
-          url: "/polaris-playground/color-field",
-        },
-        {
-          title: "Drop zone",
-          url: "/polaris-playground/drop-zone",
-        },
-        {
-          title: "Number field",
-          url: "/polaris-playground/number-field",
-        },
-        {
-          title: "Money field",
-          url: "/polaris-playground/money-field",
-        },
-      ],
-    },
-    {
-      title: "Layout & Structure",
-      url: "/polaris-playground",
-      icon: <LayoutGridIcon />,
-      isActive: true,
-      items: [
-        {
-          title: "Page",
-          url: "/polaris-playground/page",
-        },
-        {
-          title: "Section",
-          url: "/polaris-playground/section",
-        },
-        {
-          title: "Grid",
-          url: "/polaris-playground/grid",
-        },
-        {
-          title: "Box",
-          url: "/polaris-playground/box",
-        },
-        {
-          title: "Stack",
-          url: "/polaris-playground/stack",
-        },
-        {
-          title: "Table",
-          url: "/polaris-playground/table",
-        },
-        {
-          title: "Divider",
-          url: "/polaris-playground/divider",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Documentation",
-      url: "https://shopify.dev/docs/api/app-home/web-components",
-      icon: <BookOpenIcon />,
-    },
-    {
-      title: "Support",
-      url: "https://shopify.dev/docs/apps",
-      icon: <LifeBuoyIcon />,
-    },
-    {
-      title: "Feedback",
-      url: "https://github.com/Shopify",
-      icon: <SendIcon />,
-    },
-  ],
+function getCategoryIcon(id: string) {
+  switch (id) {
+    case "stats":
+      return <TrendingUpIcon />
+    case "feedbacks":
+      return <AlertCircleIcon />
+    case "layouts":
+      return <LayoutGridIcon />
+    case "forms":
+      return <FormInputIcon />
+    case "typography":
+      return <TypeIcon />
+    case "actions":
+      return <MousePointerClickIcon />
+    case "media":
+      return <ImageIcon />
+    default:
+      return <LayoutGridIcon />
+  }
 }
 
+const navSecondaryData = [
+  {
+    title: "Documentation",
+    url: "https://shopify.dev/docs/api/app-home/web-components",
+    icon: <BookOpenIcon />,
+  },
+  {
+    title: "Support",
+    url: "https://shopify.dev/docs/apps",
+    icon: <LifeBuoyIcon />,
+  },
+  {
+    title: "Feedback",
+    url: "https://github.com/Shopify",
+    icon: <SendIcon />,
+  },
+]
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const navMain = polarisNavSectionsData.map((section) => ({
+    title: section.label,
+    url: "/polaris-playground",
+    icon: getCategoryIcon(section.id),
+    isActive: true,
+    items: section.items.map((item) => ({
+      title: item.label,
+      url: `/polaris-playground/${item.slug}`,
+    })),
+  }))
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -209,8 +113,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavMain items={navMain} />
+        <NavSecondary items={navSecondaryData} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter />
     </Sidebar>

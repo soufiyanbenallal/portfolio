@@ -1,5 +1,4 @@
-import { useUpdateState } from "@/commons/utils/state/hooks/useUpdateState";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 
 export type CustomCheckboxPropsType = {
   label: string;
@@ -29,11 +28,9 @@ export function CheckBox({
   helpText,
   error,
   isChecked,
-  stateKey,
   onChange,
-}: CustomCheckboxPropsType): JSX.Element {
+}: CustomCheckboxPropsType): ReactNode {
   const [checked, setChecked] = useState(checkedProp);
-  const updateState = useUpdateState();
 
   useEffect(() => {
     setChecked(checkedProp);
@@ -42,11 +39,10 @@ export function CheckBox({
   const handleChange = useCallback(
     (newChecked: boolean) => {
       setChecked(newChecked);
-      if (stateKey) updateState(stateKey, newChecked);
       if (isChecked) isChecked(newChecked);
       if (onChange) onChange(newChecked);
     },
-    [stateKey, updateState, isChecked, onChange]
+    [isChecked, onChange]
   );
 
   return (

@@ -1,3 +1,5 @@
+import React, { type ReactNode } from "react";
+
 export type InfoTooltipPropsType = {
   label: string;
   tooltip: string;
@@ -9,7 +11,7 @@ export type InfoTooltipPropsType = {
 // Compatibility alias
 export type InfoTooltipProps = InfoTooltipPropsType;
 
-export function InfoTooltip({ label, tooltip }: InfoTooltipPropsType): JSX.Element {
+export function InfoTooltip({ label, tooltip }: InfoTooltipPropsType): ReactNode {
   return (
     <div className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground">
       <span>{label}</span>

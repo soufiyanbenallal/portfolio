@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useUpdateState } from "~/commons/utils/state/hooks/useUpdateState";
+import { useState, useEffect, type ReactNode } from "react";
 
 export type TogglePropsType = {
   stateKey?: string;
@@ -14,14 +13,12 @@ export type TogglePropsType = {
 export type ToggleProps = TogglePropsType;
 
 export const Toggle = ({
-  stateKey,
   id,
   onChange,
   active,
   disabled = false,
-}: TogglePropsType): JSX.Element => {
+}: TogglePropsType): ReactNode => {
   const [checked, setChecked] = useState<boolean>(active);
-  const updateState = useUpdateState();
 
   useEffect(() => {
     setChecked(active);
@@ -29,7 +26,6 @@ export const Toggle = ({
 
   const handleChecked = (value: boolean) => {
     setChecked(value);
-    if (stateKey) updateState(stateKey, value);
     if (onChange) {
       onChange(value, id);
     }

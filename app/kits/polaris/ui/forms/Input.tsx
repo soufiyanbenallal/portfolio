@@ -1,11 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { useUpdateState } from "~/commons/utils/state/hooks/useUpdateState";
-import Validator from "../../../utils/validator";
-import { validateForm } from "../../../utils/validator/validateForm";
-import { useDeleteState } from "../../../utils/state/hooks/useDeleteState";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 
 export type CustomInputPropsType = {
-  stateKey?: string;
   label?: string;
   labelHidden?: boolean;
   value?: string | string[];
@@ -22,14 +17,11 @@ export type CustomInputPropsType = {
   required?: boolean;
   autoComplete?: string;
   onInputChange?: (value: string | string[]) => void;
-  rules?: any;
   [key: string]: unknown;
 };
 
 // Compatibility alias
 export type InputProps = CustomInputPropsType;
-
-const validator = new Validator();
 
 export function Input({
   value: initialValue,
@@ -45,19 +37,14 @@ export function Input({
   id: idProp,
   tag = false,
   required,
-  stateKey,
   onInputChange,
-  rules,
-}: CustomInputPropsType): JSX.Element {
+}: CustomInputPropsType): ReactNode {
   const [value, setValue] = useState<string>(
     Array.isArray(initialValue) ? initialValue.join(", ") : ((initialValue as string) ?? "")
   );
   const [error, setError] = useState<string | undefined>(
     typeof externalError === "string" ? externalError : undefined
   );
-
-  const updateState = useUpdateState();
-  const deleteState = useDeleteState();
 
   useEffect(() => {
     if (tag && Array.isArray(initialValue)) {
@@ -79,22 +66,10 @@ export function Input({
         processedValue = newValue.split(",").map((t) => t.trim());
       }
 
-      if (stateKey) updateState(stateKey, processedValue);
       if (onInputChange) onInputChange(processedValue);
       setValue(newValue);
-
-      if (rules && name) {
-        const fieldError = validateForm(validator, rules, name, newValue);
-        const validationKey = stateKey?.split(".").pop();
-        if (validationKey) {
-          fieldError === undefined
-            ? deleteState(`errors.${validationKey}`)
-            : updateState(`errors.${validationKey}`, fieldError);
-        }
-        setError(fieldError);
-      }
     },
-    [deleteState, name, onInputChange, rules, stateKey, tag, updateState]
+    [onInputChange, tag]
   );
 
   if (multiline) {

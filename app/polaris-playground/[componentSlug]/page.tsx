@@ -1,7 +1,8 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { polarisDocComponentsData } from "../data/polaris-docs.data";
-import { PolarisBlockPreviewPart } from "../components/polaris-block-preview.part";
+import { PolarisBlockPreviewPart, type BlockFileItemType } from "../components/polaris-block-preview.part";
+import { getSourceCode } from "../utils/source-loader.util";
 
 export function generateStaticParams() {
   return polarisDocComponentsData.map((comp) => ({
@@ -47,15 +48,27 @@ export default async function PolarisComponentDetailPage({
 
   return (
     <div className="mx-auto max-w-6xl w-full space-y-6 pb-10">
-      {component.examples.map((example) => (
-        <PolarisBlockPreviewPart
-          key={example.id}
-          example={example}
-          componentSlug={component.slug}
-          componentName={component.name}
-          defaultInstallCommand={`npx shadcn@latest add ${component.slug}`}
-        />
-      ))}
+      {component.examples.map((example) => {
+        const files: BlockFileItemType[] = example.fileSources.map((source) => ({
+          name: source.name,
+          path: source.path,
+          content: getSourceCode(source.sourcePath),
+          language: source.language || "tsx",
+        }));
+
+        return (
+          <PolarisBlockPreviewPart
+            key={example.id}
+            example={example}
+            componentSlug={component.slug}
+            componentName={component.name}
+            defaultInstallCommand={
+              example.installCommand || `npx shadcn@latest add ${component.slug}`
+            }
+            files={files}
+          />
+        );
+      })}
     </div>
   );
 }

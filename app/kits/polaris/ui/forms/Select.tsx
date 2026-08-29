@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
-import { useUpdateState } from "~/commons/utils/state/hooks/useUpdateState";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 
 export type SelectOptionType = {
   label: string;
@@ -37,11 +36,9 @@ export function Select({
   value: initialValue = "",
   error,
   required,
-  stateKey,
   onChange,
-}: CustomSelectPropsType): JSX.Element {
+}: CustomSelectPropsType): ReactNode {
   const [selected, setSelected] = useState(initialValue);
-  const updateState = useUpdateState();
 
   useEffect(() => {
     setSelected(initialValue);
@@ -50,10 +47,9 @@ export function Select({
   const handleSelectChange = useCallback(
     (value: string) => {
       setSelected(value);
-      if (stateKey) updateState(stateKey, value);
       if (onChange) onChange(value);
     },
-    [stateKey, updateState, onChange]
+    [onChange]
   );
 
   return (

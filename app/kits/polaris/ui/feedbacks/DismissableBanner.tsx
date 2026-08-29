@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 export type DismissableBannerPropsType = {
   storageKey: string;
-  children: React.ReactNode;
+  children: ReactNode;
   heading?: string;
   tone?: "info" | "success" | "warning" | "critical";
 };
@@ -15,7 +15,7 @@ export function DismissableBanner({
   children,
   heading,
   tone = "info",
-}: DismissableBannerPropsType): JSX.Element | null {
+}: DismissableBannerPropsType): ReactNode {
   const [dismissed, setDismissed] = useState(() => {
     if (typeof window === "undefined") return false;
     return localStorage.getItem(`banner-dismissed-${storageKey}`) === "true";

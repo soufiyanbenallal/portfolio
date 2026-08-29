@@ -1,11 +1,11 @@
-import React from "react";
+import React, { type ReactNode } from "react";
 
 export type SectionCardPropsType = {
-  title: string | React.ReactNode;
-  icon?: React.ReactNode;
-  description?: string | React.ReactNode;
-  actions?: React.ReactNode;
-  children?: React.ReactNode;
+  title: string | ReactNode;
+  icon?: ReactNode;
+  description?: string | ReactNode;
+  actions?: ReactNode;
+  children?: ReactNode;
   onDismiss?: () => void;
   padding?: "tight" | "base" | "loose" | "none";
   id?: string;
@@ -26,7 +26,7 @@ export function SectionCard({
   padding = "base",
   id,
   className = "",
-}: SectionCardPropsType): JSX.Element {
+}: SectionCardPropsType): ReactNode {
   const paddingClass =
     padding === "none" ? "" : padding === "tight" ? "p-3" : padding === "loose" ? "p-6" : "p-5";
 

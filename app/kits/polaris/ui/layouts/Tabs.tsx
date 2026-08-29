@@ -34,7 +34,7 @@ export const Tabs = <T extends string | number>({
   showContent = true,
   rightSide,
   className = "",
-}: TabsPropsType<T>): JSX.Element => {
+}: TabsPropsType<T>): ReactNode => {
   useEffect(() => {
     if (selectedTab === null && tabs.length > 0) {
       onTabChange(tabs[0].id as T);

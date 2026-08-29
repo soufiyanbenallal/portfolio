@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
-import { useUpdateState } from "~/commons/utils/state/hooks/useUpdateState";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 
 export type CustomRangePropsType = {
   label?: string;
@@ -13,8 +12,8 @@ export type CustomRangePropsType = {
   helpText?: string;
   error?: string | boolean;
   disabled?: boolean;
-  prefix?: React.ReactNode;
-  suffix?: React.ReactNode;
+  prefix?: ReactNode;
+  suffix?: ReactNode;
   stateKey?: string;
   onChange?: (value: number) => void;
 };
@@ -35,11 +34,9 @@ export function Range({
   disabled,
   prefix,
   suffix,
-  stateKey,
   onChange,
-}: CustomRangePropsType): JSX.Element {
+}: CustomRangePropsType): ReactNode {
   const [rangeValue, setRangeValue] = useState<number>(initialValue);
-  const updateState = useUpdateState();
 
   useEffect(() => {
     setRangeValue(initialValue);
@@ -48,10 +45,9 @@ export function Range({
   const handleRangeSliderChange = useCallback(
     (value: number) => {
       setRangeValue(value);
-      if (stateKey) updateState(stateKey, value);
       if (onChange) onChange(value);
     },
-    [stateKey, updateState, onChange]
+    [onChange]
   );
 
   return (

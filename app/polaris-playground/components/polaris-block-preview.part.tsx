@@ -48,7 +48,10 @@ export function PolarisBlockPreviewPart({
   const [copiedCode, setCopiedCode] = useState(false);
   const [copiedInstall, setCopiedInstall] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
-  const [isFolderOpen, setIsFolderOpen] = useState(true);
+  const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({
+    example: true,
+    ui: true,
+  });
 
   // Normalize component filename (e.g. "Button" -> "Button.tsx", "Clickable chip" -> "ClickableChip.tsx")
   const primaryFileName = useMemo(() => {
@@ -61,7 +64,7 @@ export function PolarisBlockPreviewPart({
     return `${pascal || "Component"}.tsx`;
   }, [componentName]);
 
-  // Clean files list under single folder "ui/"
+  // Clean files list
   const files: BlockFileItemType[] = useMemo(() => {
     if (customFiles && customFiles.length > 0) return customFiles;
 
@@ -69,19 +72,43 @@ export function PolarisBlockPreviewPart({
       {
         name: primaryFileName,
         path: `ui/${primaryFileName}`,
-        content: example.codeTsx || example.codeHtml,
+        content: `// ${primaryFileName}`,
         language: "tsx",
       },
     ];
-  }, [customFiles, primaryFileName, example.codeTsx, example.codeHtml]);
+  }, [customFiles, primaryFileName]);
 
-  const [selectedFilePath, setSelectedFilePath] = useState<string>(
-    files[0]?.path || `ui/${primaryFileName}`,
-  );
+  const [selectedFilePath, setSelectedFilePath] = useState<string>("");
 
   const activeFile = useMemo(() => {
     return files.find((f) => f.path === selectedFilePath) || files[0];
   }, [files, selectedFilePath]);
+
+  // Group files dynamically by top-level folder (e.g. "example" and "ui")
+  const folderGroups = useMemo(() => {
+    const map = new Map<string, BlockFileItemType[]>();
+
+    files.forEach((file) => {
+      const parts = file.path.split("/");
+      const folderName = parts.length > 1 ? parts[0] : "ui";
+      if (!map.has(folderName)) {
+        map.set(folderName, []);
+      }
+      map.get(folderName)!.push(file);
+    });
+
+    return Array.from(map.entries()).map(([folder, folderFiles]) => ({
+      folder,
+      files: folderFiles,
+    }));
+  }, [files]);
+
+  const toggleFolder = (folder: string) => {
+    setOpenFolders((prev) => ({
+      ...prev,
+      [folder]: prev[folder] === undefined ? false : !prev[folder],
+    }));
+  };
 
   const installCommand =
     defaultInstallCommand || `npx shadcn@latest add ${componentSlug}`;
@@ -102,7 +129,7 @@ export function PolarisBlockPreviewPart({
   const language = getPrismLanguage(activeFile?.path || "");
 
   return (
-    <div className="flex flex-col gap-3 py-8">
+    <div className="flex flex-col gap-3 py-4">
       {/* ── Top Action Toolbar ── */}
       <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
         {/* Left: Preview / Code Segmented Toggle & Title */}
@@ -236,58 +263,64 @@ export function PolarisBlockPreviewPart({
           </div>
         </div>
       ) : (
-        /* Code Mode: Clean Single-folder ui/ File Explorer & Syntax Colored Code Viewer */
+        /* Code Mode: Multi-folder File Explorer & Syntax Colored Code Viewer */
         <div className="grid grid-cols-1 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xs md:grid-cols-12 min-h-[380px]">
-          {/* Left Column: Direct Files List under single folder ui/ */}
-          <div className="border-b border-gray-200 bg-white p-3 md:col-span-4 md:border-b-0 md:border-r max-w-60">
+          {/* Left Column: Multi-folder Files Tree (e.g. example/ and ui/) */}
+          <div className="border-b border-gray-200 bg-white p-3 md:col-span-3 md:border-b-0 md:border-r ">
             <div className="pb-2 text-xs font-semibold text-gray-400 px-2 select-none">
               Files
             </div>
-            <div className="space-y-0.5 font-mono text-xs">
-              {/* Single "ui" folder */}
-              <div className="flex flex-col">
-                <button
-                  type="button"
-                  onClick={() => setIsFolderOpen(!isFolderOpen)}
-                  className="flex w-full items-center gap-1.5 rounded-md px-2 py-1 text-left text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer select-none"
-                >
-                  {isFolderOpen ? (
-                    <ChevronDown className="size-3 text-gray-400 shrink-0" />
-                  ) : (
-                    <ChevronRight className="size-3 text-gray-400 shrink-0" />
-                  )}
-                  <FolderOpen className="size-3.5 text-blue-500 shrink-0" />
-                  <span className="truncate font-semibold text-gray-800">ui</span>
-                </button>
+            <div className="space-y-1.5 font-mono text-xs">
+              {folderGroups.map((group) => {
+                const isOpen = openFolders[group.folder] ?? true;
+                return (
+                  <div key={group.folder} className="flex flex-col">
+                    <button
+                      type="button"
+                      onClick={() => toggleFolder(group.folder)}
+                      className="flex w-full items-center gap-1.5 rounded-md px-2 py-1 text-left text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer select-none"
+                    >
+                      {isOpen ? (
+                        <ChevronDown className="size-3 text-gray-400 shrink-0" />
+                      ) : (
+                        <ChevronRight className="size-3 text-gray-400 shrink-0" />
+                      )}
+                      <FolderOpen className="size-3.5 text-blue-500 shrink-0" />
+                      <span className="truncate font-semibold text-gray-800">
+                        {group.folder}
+                      </span>
+                    </button>
 
-                {isFolderOpen && (
-                  <div className="flex flex-col space-y-0.5 pl-5 pt-0.5">
-                    {files.map((file) => {
-                      const isSelected = selectedFilePath === file.path;
-                      return (
-                        <button
-                          key={file.path}
-                          type="button"
-                          onClick={() => setSelectedFilePath(file.path)}
-                          className={`flex w-full items-center gap-1.5 rounded-md px-2 py-1 text-left transition-colors cursor-pointer select-none ${
-                            isSelected
-                              ? "bg-gray-100 text-gray-900 font-semibold shadow-2xs"
-                              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                          }`}
-                        >
-                          <FileCode2 className="size-3.5 text-gray-400 shrink-0" />
-                          <span className="truncate">{file.name}</span>
-                        </button>
-                      );
-                    })}
+                    {isOpen && (
+                      <div className="flex flex-col space-y-0.5 pl-5 pt-0.5">
+                        {group.files.map((file) => {
+                          const isSelected = activeFile?.path === file.path;
+                          return (
+                            <button
+                              key={file.path}
+                              type="button"
+                              onClick={() => setSelectedFilePath(file.path)}
+                              className={`flex w-full items-center gap-1.5 rounded-md px-2 py-1 text-left transition-colors cursor-pointer select-none ${
+                                isSelected
+                                  ? "bg-gray-100 text-gray-900 font-semibold shadow-2xs"
+                                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                              }`}
+                            >
+                              <FileCode2 className="size-3.5 text-gray-400 shrink-0" />
+                              <span className="truncate">{file.name}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                );
+              })}
             </div>
           </div>
 
           {/* Right Column: Code Viewer with File Header & Syntax Highlighting */}
-          <div className="flex flex-col md:col-span-8 bg-white">
+          <div className="flex flex-col md:col-span-9 bg-white">
             {/* Top file path banner */}
             <div className="flex items-center justify-between border-b border-gray-200 bg-white px-4 py-2.5">
               <div className="flex items-center gap-2 font-mono text-xs text-gray-800">
@@ -321,17 +354,22 @@ export function PolarisBlockPreviewPart({
             {/* Syntax Highlighted Code content with line numbers */}
             <div className="flex flex-1 overflow-x-auto py-2 px-4 bg-white">
               <Highlight
-                theme={themes.github}
+                theme={{
+                  ...themes.github,
+                  plain: {
+                    ...themes.github.plain,
+                    backgroundColor: "#ffffff",
+                  },
+                }}
                 code={(activeFile?.content || "").trim()}
                 language={language}
-                
               >
                 {({ className, style, tokens, getLineProps, getTokenProps }) => (
                   <pre
-                    className="flex-1 overflow-x-auto font-mono text-xs leading-relaxed "
+                    className="flex-1 overflow-x-auto font-mono text-xs leading-relaxed"
                     style={{
                       ...style,
-                      background: "transparent",
+                      backgroundColor: "#ffffff",
                     }}
                   >
                     {tokens.map((line, i) => (
