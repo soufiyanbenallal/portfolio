@@ -72,6 +72,7 @@ export const polarisNavSectionsData: PolarisNavCategoryType[] = [
     description:
       "Double-check destructive confirmation dialogs and table search/filter toolbars.",
     items: [
+      { slug: "data-table", label: "Data table" },
       { slug: "destructive-action-modal", label: "Destructive action modal" },
       { slug: "resource-filter-toolbar", label: "Resource filter toolbar" },
     ],
@@ -340,6 +341,96 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
   },
 
   // ── Actions & Workflows ──
+  {
+    slug: "data-table",
+    name: "Data table",
+    category: "actions",
+    categoryLabel: "Actions & Workflows",
+    description:
+      "Enterprise data table with expandable sub-rows, header tooltips, IndexFilters, active filter chips, selection checkboxes, and action menus.",
+    summary:
+      "Full-featured Polaris table with A/B variant sub-rows, metric definitions, and active filter management.",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components",
+    previewType: "data-table",
+    examples: [
+      {
+        id: "data-table-block",
+        title: "Bundle deals data table",
+        description:
+          "Table with expandable A/B test variant rows, header tooltips, active filter chips, and action menus.",
+        renderKey: "data-table-example",
+        installCommand: "npx shadcn@latest add data-table",
+        fileSources: [
+          {
+            name: "DataTableExample.tsx",
+            path: "example/DataTableExample.tsx",
+            sourcePath:
+              "app/polaris-playground/components/examples/DataTableExample.tsx",
+            language: "tsx",
+          },
+          {
+            name: "DataTable.tsx",
+            path: "blocks/tables/DataTable/DataTable.tsx",
+            sourcePath: "app/kits/polaris/blocks/tables/DataTable/DataTable.tsx",
+            language: "tsx",
+          },
+          {
+            name: "TableHeaderCell.part.tsx",
+            path: "blocks/tables/DataTable/partials/TableHeaderCell.part.tsx",
+            sourcePath:
+              "app/kits/polaris/blocks/tables/DataTable/partials/TableHeaderCell.part.tsx",
+            language: "tsx",
+          },
+          {
+            name: "TableRow.part.tsx",
+            path: "blocks/tables/DataTable/partials/TableRow.part.tsx",
+            sourcePath:
+              "app/kits/polaris/blocks/tables/DataTable/partials/TableRow.part.tsx",
+            language: "tsx",
+          },
+          {
+            name: "TableFilterBar.part.tsx",
+            path: "blocks/tables/DataTable/partials/TableFilterBar.part.tsx",
+            sourcePath:
+              "app/kits/polaris/blocks/tables/DataTable/partials/TableFilterBar.part.tsx",
+            language: "tsx",
+          },
+          {
+            name: "TableActiveFilters.part.tsx",
+            path: "blocks/tables/DataTable/partials/TableActiveFilters.part.tsx",
+            sourcePath:
+              "app/kits/polaris/blocks/tables/DataTable/partials/TableActiveFilters.part.tsx",
+            language: "tsx",
+          },
+          {
+            name: "TableRowActionsMenu.part.tsx",
+            path: "blocks/tables/DataTable/partials/TableRowActionsMenu.part.tsx",
+            sourcePath:
+              "app/kits/polaris/blocks/tables/DataTable/partials/TableRowActionsMenu.part.tsx",
+            language: "tsx",
+          },
+          {
+            name: "Card.tsx",
+            path: "ui/Card.tsx",
+            sourcePath: "app/kits/polaris/ui/layouts/Card.tsx",
+            language: "tsx",
+          },
+          {
+            name: "Content.tsx",
+            path: "ui/Content.tsx",
+            sourcePath: "app/kits/polaris/ui/typography/Content.tsx",
+            language: "tsx",
+          },
+          {
+            name: "types.ts",
+            path: "blocks/tables/DataTable/types.ts",
+            sourcePath: "app/kits/polaris/blocks/tables/DataTable/types.ts",
+            language: "typescript",
+          },
+        ],
+      },
+    ],
+  },
   {
     slug: "destructive-action-modal",
     name: "Destructive action modal",

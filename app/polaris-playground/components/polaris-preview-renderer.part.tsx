@@ -12,6 +12,7 @@ import { AppReviewPromptExample } from "./examples/AppReviewPromptExample";
 import { FeedbackCardExample } from "./examples/FeedbackCardExample";
 import { TimelineExample } from "./examples/TimelineExample";
 import { TutorialButtonExample } from "./examples/TutorialButtonExample";
+import { DataTableExample } from "./examples/DataTableExample";
 
 // ── UI Kit Examples ──
 import { StatsSectionExample } from "./examples/StatsSectionExample";
@@ -78,6 +79,11 @@ export function PolarisPreviewRenderer({
     case "tutorial-button-example":
     case "tutorial-button":
       return <TutorialButtonExample />;
+
+    // ── Table Blocks ──
+    case "data-table-example":
+    case "data-table":
+      return <DataTableExample />;
 
     // ── Stats ──
     case "stats-section-example":
