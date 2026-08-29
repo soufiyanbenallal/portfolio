@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { normalizeCoreXBaseUrl } from "~/commons/utils/constants/corex";
 
 /** Minimal shape of the browser-global the widget exposes (see corex-widget loader.js). */
 interface CoreXChatApi {
@@ -91,7 +90,7 @@ export default function CoreXWidget({
   name,
   record = true,
 }: CoreXWidgetProps) {
-  const base = normalizeCoreXBaseUrl(baseUrl);
+  const base = baseUrl ?? 'https://corex.xco.agency';
 
   // 1) Inject the widget script exactly once per page, on idle.
   useEffect(() => {

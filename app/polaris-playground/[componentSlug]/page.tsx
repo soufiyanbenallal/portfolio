@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { polarisDocComponentsData } from "../data/polaris-docs.data";
 import { PolarisBlockPreviewPart, type BlockFileItemType } from "../components/polaris-block-preview.part";
 import { getSourceCode } from "../utils/source-loader.util";
-
+import {FeedbackCard} from '../../kits/polaris/ui/feedbacks/FeedbackCard'
 export function generateStaticParams() {
   return polarisDocComponentsData.map((comp) => ({
     componentSlug: comp.slug,
@@ -48,6 +48,7 @@ export default async function PolarisComponentDetailPage({
 
   return (
     <div className="mx-auto max-w-6xl w-full space-y-6 pb-10">
+     <FeedbackCard />
       {component.examples.map((example) => {
         const files: BlockFileItemType[] = example.fileSources.map((source) => ({
           name: source.name,
