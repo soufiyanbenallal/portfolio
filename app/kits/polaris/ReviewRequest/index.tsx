@@ -27,8 +27,6 @@ export type ReviewRequestPropsType = {
   minAppAge?: number;
 };
 
-// Compatibility alias
-export type ReviewRequestProps = ReviewRequestPropsType;
 
 export const ReviewRequest: React.FC<ReviewRequestPropsType> = ({
   showAsButton = false,

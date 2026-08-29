@@ -16,8 +16,6 @@ export type GiveFeedBacksPropsType = {
   onHide: () => void;
 };
 
-// Compatibility alias
-export type GiveFeedBacksProps = GiveFeedBacksPropsType;
 
 export const GiveFeedBacks = ({ onHide }: GiveFeedBacksPropsType): JSX.Element => {
   const ct = useCommonsT();

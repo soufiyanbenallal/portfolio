@@ -7,8 +7,6 @@ export type TicketMessagesListPropsType = {
   onSelect?: (ticket: TicketItemType) => void;
 };
 
-// Compatibility alias
-export type TicketMessagesListProps = TicketMessagesListPropsType;
 
 function getInitials(email: string) {
   if (!email) return "?";

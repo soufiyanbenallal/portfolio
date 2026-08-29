@@ -14,16 +14,11 @@ export type CardPropsType = {
   icon?: IconType | string;
   rightActions?: ReactNode;
   children?: ReactNode;
-  padding?: CardPaddingType;
-  background?: CardBackgroundType;
-  borderWidth?: "none" | "base";
-  borderRadius?: "none" | "base";
+  padding?: "none" | "base";
   id?: string;
   hideDivider?: boolean;
 };
 
-// Compatibility alias
-export type CardProps = CardPropsType;
 
 export function Card({
   title,
@@ -33,9 +28,6 @@ export function Card({
   rightActions,
   children,
   padding = "base",
-  background = "base",
-  borderWidth = "base",
-  borderRadius = "base",
   id,
   hideDivider = false,
 }: CardPropsType): ReactNode {
@@ -44,6 +36,7 @@ export function Card({
   return (
     <s-section
       id={id}
+      padding={padding}
     >
       <s-stack direction="block" gap="base">
         {hasHeader && (

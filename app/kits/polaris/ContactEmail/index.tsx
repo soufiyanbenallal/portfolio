@@ -18,8 +18,6 @@ export type ContactEmailPropsType = {
   onError?: (error: string) => void;
 };
 
-// Compatibility alias
-export type ContactEmailProps = ContactEmailPropsType;
 
 export const ContactEmail = ({
   currentEmail,

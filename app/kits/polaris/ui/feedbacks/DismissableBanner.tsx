@@ -7,8 +7,6 @@ export type DismissableBannerPropsType = {
   tone?: "info" | "success" | "warning" | "critical";
 };
 
-// Compatibility alias
-export type DismissableBannerProps = DismissableBannerPropsType;
 
 export function DismissableBanner({
   storageKey,

@@ -5,8 +5,6 @@ export type TicketDetailsPropsType = {
   onBack: () => void;
 };
 
-// Compatibility alias
-export type TicketDetailsProps = TicketDetailsPropsType;
 
 export const TicketDetails = ({
   selectedTicket,

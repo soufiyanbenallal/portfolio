@@ -7,8 +7,6 @@ export type SupportAppPropsType = {
   single?: boolean;
 };
 
-// Compatibility alias
-export type SupportAppProps = SupportAppPropsType;
 
 export const SupportApp = ({ single = false }: SupportAppPropsType): JSX.Element => {
   const [modalId, setModalId] = useState<string | null>(null);

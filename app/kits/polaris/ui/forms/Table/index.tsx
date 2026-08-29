@@ -5,8 +5,6 @@ export type ColumnType = {
   alignment?: "start" | "center" | "end";
 };
 
-// Compatibility alias
-export type Column = ColumnType;
 
 export type DataRowType = {
   id: string;
@@ -14,8 +12,6 @@ export type DataRowType = {
   [key: string]: unknown;
 };
 
-// Compatibility alias
-export type DataRow = DataRowType;
 
 export type TablePropsType = {
   columns: ColumnType[];
@@ -26,8 +22,6 @@ export type TablePropsType = {
   emptyState?: { title: string; description?: string };
 };
 
-// Compatibility alias
-export type TableProps = TablePropsType;
 
 export const Table = ({ columns, data, emptyState }: TablePropsType): JSX.Element => {
   if (data.length === 0 && emptyState) {

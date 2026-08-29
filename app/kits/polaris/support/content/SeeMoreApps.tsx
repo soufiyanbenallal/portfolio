@@ -10,7 +10,6 @@ export type AppDataInfoType = {
   url: string;
 };
 
-// Compatibility alias
 export type AppData = AppDataInfoType;
 
 export const SeeMoreApps = (): JSX.Element => {

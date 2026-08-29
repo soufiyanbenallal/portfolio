@@ -1,7 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import type { UsageLimitBannerPropsType } from "./types";
+
+export type UsageLimitBannerPropsType = {
+  title?: string;
+  resourceName: string;
+  currentUsage: number;
+  maxLimit: number;
+  unit?: string;
+  upgradeUrl?: string;
+  onUpgrade?: () => void;
+  dismissable?: boolean;
+  onDismiss?: () => void;
+  className?: string;
+};
+
 
 export function UsageLimitBanner({
   title,
@@ -65,4 +78,4 @@ export function UsageLimitBanner({
   );
 }
 
-export * from "./types";
+export default UsageLimitBanner;

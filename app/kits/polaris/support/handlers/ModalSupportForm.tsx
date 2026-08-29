@@ -6,8 +6,6 @@ export type ModalSupportFormPropsType = {
   content: ReactNode;
 };
 
-// Compatibility alias
-export type ModalSupportFormProps = ModalSupportFormPropsType;
 
 export const ModalSupportForm = ({
   onHide,

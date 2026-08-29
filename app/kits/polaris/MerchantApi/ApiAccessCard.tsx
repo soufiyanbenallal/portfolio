@@ -13,8 +13,6 @@ export type ApiAccessCardPropsType = {
   isInline?: boolean;
 };
 
-// Compatibility alias
-export type ApiAccessCardProps = ApiAccessCardPropsType;
 
 export const ApiAccessCard = ({
   tokens,

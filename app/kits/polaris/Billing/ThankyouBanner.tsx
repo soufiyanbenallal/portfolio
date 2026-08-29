@@ -6,8 +6,6 @@ export type ThankyouBannerPropsType = {
   exploreFeaturesUrl?: string | null;
 };
 
-// Compatibility alias
-export type ThankyouBannerProps = ThankyouBannerPropsType;
 
 export const ThankyouBanner = ({
   planHandle,

@@ -1,12 +1,38 @@
 "use client";
 
 import React, { useState } from "react";
-import type {
-  PlanPricingMatrixPropsType,
-  BillingIntervalType,
-  PlanTierItemType,
-} from "./types";
 import { PlanPricingCard } from "./partials/PlanPricingCard.part";
+
+export type BillingIntervalType = "monthly" | "annual";
+
+export type PlanFeatureItemType = {
+  text: string;
+  included: boolean;
+  highlight?: boolean;
+};
+
+export type PlanTierItemType = {
+  id: string;
+  name: string;
+  description: string;
+  monthlyPrice: number;
+  annualPrice: number;
+  badge?: string;
+  popular?: boolean;
+  features: PlanFeatureItemType[];
+  ctaLabel?: string;
+  disabled?: boolean;
+};
+
+export type PlanPricingMatrixPropsType = {
+  plans: PlanTierItemType[];
+  currentPlanId?: string;
+  defaultInterval?: BillingIntervalType;
+  annualDiscountPercentage?: number;
+  onSelectPlan?: (plan: PlanTierItemType, interval: BillingIntervalType) => void;
+  className?: string;
+};
+
 
 export function PlanPricingMatrix({
   plans,
@@ -63,4 +89,4 @@ export function PlanPricingMatrix({
   );
 }
 
-export * from "./types";
+export default PlanPricingMatrix;

@@ -36,8 +36,6 @@ export type ThemeAppStatusLabelsType = {
   status: Record<ThemeAppItemStatus, string>;
 };
 
-// Compatibility alias
-export type ThemeAppStatusLabels = ThemeAppStatusLabelsType;
 
 export const DEFAULT_THEME_APP_STATUS_LABELS: ThemeAppStatusLabelsType = {
   heading: "Theme app status",
@@ -100,8 +98,6 @@ export type ThemeAppStatusPropsType = {
   labels?: Partial<ThemeAppStatusLabelsType>;
 };
 
-// Compatibility alias
-export type ThemeAppStatusProps = ThemeAppStatusPropsType;
 
 function StatusRow({ item, labels }: { item: ThemeAppItem; labels: ThemeAppStatusLabelsType }) {
   const isActive = item.status === "active_on_published" || item.status === "active_on_any";

@@ -9,8 +9,6 @@ export type TogglePropsType = {
   disabled?: boolean;
 };
 
-// Compatibility alias
-export type ToggleProps = TogglePropsType;
 
 export const Toggle = ({
   id,

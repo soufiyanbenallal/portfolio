@@ -15,8 +15,6 @@ export type CustomCheckboxPropsType = {
   onChange?: (value: boolean) => void;
 };
 
-// Compatibility alias
-export type CustomCheckboxProps = CustomCheckboxPropsType;
 
 export function CheckBox({
   label,

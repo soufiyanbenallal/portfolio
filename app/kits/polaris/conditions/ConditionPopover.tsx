@@ -9,8 +9,6 @@ export type ConditionPopoverGroupType<T> = {
   disabled?: boolean;
 };
 
-// Compatibility alias
-export type ConditionPopoverGroup<T> = ConditionPopoverGroupType<T>;
 
 export type ConditionPopoverPropsType<T> = {
   groups: ConditionPopoverGroupType<T>[];
@@ -23,8 +21,6 @@ export type ConditionPopoverPropsType<T> = {
   getItemSoon?: (item: T) => boolean;
 };
 
-// Compatibility alias
-export type ConditionPopoverProps<T> = ConditionPopoverPropsType<T>;
 
 export function ConditionPopover<T>({
   groups,

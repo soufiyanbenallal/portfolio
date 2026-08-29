@@ -17,8 +17,6 @@ export type LibraryModalPropsType = {
   onHide?: () => void;
 };
 
-// Compatibility alias
-export type LibraryModalProps = LibraryModalPropsType;
 
 export const LibraryModal = ({
   stateKey,

@@ -13,7 +13,6 @@ export * from "./blocks/billing/UsageLimitBanner/UsageLimitBanner";
 export * from "./blocks/actions/DestructiveActionModal/DestructiveActionModal";
 export * from "./blocks/actions/ResourceFilterToolbar/ResourceFilterToolbar";
 export * from "./blocks/feedback/AppReviewPrompt/AppReviewPrompt";
-export * from "./blocks/tables/DataTable";
 
 // ── Standalone App Components ────────────────────────────────────────────────
 export * from "./Timeline";
@@ -28,6 +27,8 @@ export * from "./ui/feedbacks/FeedbackCard";
 export * from "./ui/layouts/Card";
 export * from "./ui/layouts/SectionCard";
 export * from "./ui/layouts/Tabs";
+export * from "./ui/layouts/Table";
+export * from "./ui/layouts/Filters";
 export * from "./ui/forms/Input";
 export * from "./ui/forms/Select";
 export * from "./ui/forms/CheckBox";

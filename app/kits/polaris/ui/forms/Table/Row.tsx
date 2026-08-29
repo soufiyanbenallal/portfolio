@@ -5,8 +5,6 @@ export type RowDataType = {
   [key: string]: React.ReactNode;
 };
 
-// Compatibility alias
-export type RowData = RowDataType;
 
 export type RowPropsType = {
   id: string;
@@ -18,8 +16,6 @@ export type RowPropsType = {
   childrenRows?: RowPropsType[];
 };
 
-// Compatibility alias
-export type RowProps = RowPropsType;
 
 export const Row = ({ id, columns, data, childrenRows = [] }: RowPropsType): JSX.Element => {
   return (

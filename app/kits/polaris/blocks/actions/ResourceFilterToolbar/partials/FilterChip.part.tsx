@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import type { ActiveFilterItemType } from "../types";
+import type { ActiveFilterItemType } from "../ResourceFilterToolbar";
 
 export type FilterChipPropsType = {
   filter: ActiveFilterItemType;

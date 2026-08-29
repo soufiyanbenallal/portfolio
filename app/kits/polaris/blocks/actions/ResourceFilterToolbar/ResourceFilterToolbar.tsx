@@ -1,8 +1,44 @@
 "use client";
 
 import React from "react";
-import type { ResourceFilterToolbarPropsType } from "./types";
 import { FilterChip } from "./partials/FilterChip.part";
+
+export type FilterCategoryOptionType = {
+  value: string;
+  label: string;
+};
+
+export type FilterCategoryItemType = {
+  id: string;
+  label: string;
+  options: FilterCategoryOptionType[];
+};
+
+export type ActiveFilterItemType = {
+  categoryId: string;
+  categoryLabel: string;
+  value: string;
+  label: string;
+};
+
+export type ResourceFilterToolbarPropsType = {
+  searchValue: string;
+  onSearchChange: (value: string) => void;
+  searchPlaceholder?: string;
+  filterCategories?: FilterCategoryItemType[];
+  activeFilters: ActiveFilterItemType[];
+  onAddFilter?: (filter: ActiveFilterItemType) => void;
+  onRemoveFilter: (filter: ActiveFilterItemType) => void;
+  onClearAllFilters: () => void;
+  primaryAction?: {
+    label: string;
+    onClick: () => void;
+    icon?: string;
+  };
+  totalCount?: number;
+  className?: string;
+};
+
 
 export function ResourceFilterToolbar({
   searchValue,
@@ -88,4 +124,4 @@ export function ResourceFilterToolbar({
   );
 }
 
-export * from "./types";
+export default ResourceFilterToolbar;

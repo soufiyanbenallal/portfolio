@@ -9,8 +9,6 @@ export type TabItemType = {
   disabled?: boolean;
 };
 
-// Compatibility alias
-export type TabItem = TabItemType;
 
 export type TabsPropsType<T = string | number> = {
   tabs: TabItemType[];
@@ -23,8 +21,6 @@ export type TabsPropsType<T = string | number> = {
   className?: string;
 };
 
-// Compatibility alias
-export type TabsProps<T = string | number> = TabsPropsType<T>;
 
 export const Tabs = <T extends string | number>({
   tabs,

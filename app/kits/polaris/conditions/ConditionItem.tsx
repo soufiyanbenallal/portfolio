@@ -14,8 +14,6 @@ export type ConditionItemPropsType = {
   renderFooter?: React.ReactNode;
 };
 
-// Compatibility alias
-export type ConditionItemProps = ConditionItemPropsType;
 
 export function ConditionItem({
   labelField = "Field",

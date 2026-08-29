@@ -20,7 +20,6 @@ export type EmailReportsCardPropsType = {
   onDirtyChange?: (dirty: boolean) => void;
 };
 
-// Compatibility alias
 export type Props = EmailReportsCardPropsType;
 
 const CADENCE_KEYS: Record<ReportFrequencyType, string> = {
@@ -38,8 +37,6 @@ export type EmailReportsCardRefType = {
   };
 };
 
-// Compatibility alias
-export type EmailReportsCardRef = EmailReportsCardRefType;
 
 export const EmailReportsCard = forwardRef<EmailReportsCardRefType, EmailReportsCardPropsType>(
   function EmailReportsCard(

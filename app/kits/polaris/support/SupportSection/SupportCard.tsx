@@ -4,8 +4,6 @@ export type SupportCardPropsType = {
   onClick: () => void;
 };
 
-// Compatibility alias
-export type SupportCardProps = SupportCardPropsType;
 
 export const SupportCard = ({ title, icon = "💬", onClick }: SupportCardPropsType): JSX.Element => {
   return (

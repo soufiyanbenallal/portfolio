@@ -19,8 +19,6 @@ export type AutoFitIframePreviewPropsType = {
   className?: string;
 };
 
-// Compatibility alias
-export type AutoFitIframePreviewProps = AutoFitIframePreviewPropsType;
 
 const IFRAME_SRCDOC = `<!DOCTYPE html>
 <html>

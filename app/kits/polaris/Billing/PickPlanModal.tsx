@@ -14,8 +14,6 @@ export type PlanModalPropsType = {
   getPlanUrl?: (plan: PlanItemType) => string;
 };
 
-// Compatibility alias
-export type PlanModalProps = PlanModalPropsType;
 
 export const PickPlanModal = ({
   appName,

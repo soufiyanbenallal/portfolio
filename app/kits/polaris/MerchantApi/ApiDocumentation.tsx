@@ -6,8 +6,6 @@ export type ApiDocumentationPropsType = {
   resources: string[];
 };
 
-// Compatibility alias
-export type ApiDocumentationProps = ApiDocumentationPropsType;
 
 function CodeBlock({ children, copyable = true }: { children: string; copyable?: boolean }) {
   const [copied, setCopied] = useState(false);

@@ -11,7 +11,6 @@ export type SomethingWentWrongPropsType = {
   error?: any;
 };
 
-// Compatibility alias
 export type Props = SomethingWentWrongPropsType;
 
 export type ErrorResponseType = {

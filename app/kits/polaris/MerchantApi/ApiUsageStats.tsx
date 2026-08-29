@@ -7,15 +7,11 @@ export type UsageStatsType = {
   requestsByEndpoint: Array<{ path: string; count: number }>;
 };
 
-// Compatibility alias
-export type UsageStats = UsageStatsType;
 
 export type ApiUsageStatsPropsType = {
   stats: UsageStatsType;
 };
 
-// Compatibility alias
-export type ApiUsageStatsProps = ApiUsageStatsPropsType;
 
 export const ApiUsageStats = ({ stats }: ApiUsageStatsPropsType): JSX.Element => {
   const ct = useCommonsT();

@@ -16,8 +16,6 @@ export type PlanItemType = {
   ctaText?: string;
 };
 
-// Compatibility alias
-export type Plan = PlanItemType;
 
 export type PickPlanPropsType = {
   appName?: string;
@@ -32,8 +30,6 @@ export type PickPlanPropsType = {
   getPlanUrl?: (plan: PlanItemType) => string;
 };
 
-// Compatibility alias
-export type PickPlanProps = PickPlanPropsType;
 
 export function PickPlan({
   appName,

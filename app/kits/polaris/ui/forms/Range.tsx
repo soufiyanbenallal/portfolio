@@ -18,7 +18,6 @@ export type CustomRangePropsType = {
   onChange?: (value: number) => void;
 };
 
-// Compatibility alias
 export type RangeProps = CustomRangePropsType;
 
 export function Range({

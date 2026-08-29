@@ -22,7 +22,6 @@ export type CustomSelectPropsType = {
   onChange?: (value: string) => void;
 };
 
-// Compatibility alias
 export type SelectProps = CustomSelectPropsType;
 
 export function Select({

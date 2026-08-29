@@ -5,8 +5,6 @@ export type UseTawkPropsType = {
   isTawkActive?: boolean;
 };
 
-// Compatibility alias
-export type UseTawkProps = UseTawkPropsType;
 
 export const useTawk = ({ appUrl, isTawkActive }: UseTawkPropsType): void => {
   const hasToggled = useRef(false);

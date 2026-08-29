@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import type { SetupGuideStepItemType } from "../types";
+import type { SetupGuideStepItemType } from "../SetupGuide";
 
 export type SetupGuideItemPropsType = {
   step: SetupGuideStepItemType;

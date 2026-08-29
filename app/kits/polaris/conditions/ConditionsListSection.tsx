@@ -23,8 +23,6 @@ export type ConditionsListSectionPropsType<T> = {
   storageKey?: string;
 };
 
-// Compatibility alias
-export type ConditionsListSectionProps<T> = ConditionsListSectionPropsType<T>;
 
 export function ConditionsListSection<T>({
   title,

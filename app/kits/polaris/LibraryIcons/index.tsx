@@ -10,8 +10,6 @@ export type LibraryIconsPropsType = {
   stateKey: string;
 };
 
-// Compatibility alias
-export type LibraryIconsProps = LibraryIconsPropsType;
 
 export const LibraryIcons = ({
   url,

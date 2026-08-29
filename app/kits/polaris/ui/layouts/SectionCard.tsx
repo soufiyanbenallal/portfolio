@@ -13,8 +13,6 @@ export type SectionCardPropsType = {
   hideDivider?: boolean;
 };
 
-// Compatibility alias
-export type SectionCardProps = SectionCardPropsType;
 
 export function SectionCard({
   title,

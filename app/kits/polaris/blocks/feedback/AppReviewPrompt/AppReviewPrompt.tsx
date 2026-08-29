@@ -1,7 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import type { AppReviewPromptPropsType } from "./types";
+
+export type AppReviewPromptPropsType = {
+  appName?: string;
+  appStoreUrl: string;
+  feedbackFormUrl?: string;
+  minRatingForAppStore?: number;
+  onReviewSubmitted?: (rating: number, destination: "app_store" | "feedback_form") => void;
+  onDismiss?: () => void;
+  dismissable?: boolean;
+  className?: string;
+};
+
 
 export function AppReviewPrompt({
   appName = "our app",
@@ -78,4 +89,4 @@ export function AppReviewPrompt({
   );
 }
 
-export * from "./types";
+export default AppReviewPrompt;

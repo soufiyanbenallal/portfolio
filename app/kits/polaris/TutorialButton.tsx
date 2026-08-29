@@ -24,8 +24,6 @@ export type TutorialButtonPropsType = {
   videos?: Record<string, TutorialVideoConfigType>;
 };
 
-// Compatibility alias
-export type TutorialButtonProps = TutorialButtonPropsType;
 
 export function TutorialButton({
   compact = false,

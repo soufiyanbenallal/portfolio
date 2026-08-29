@@ -11,8 +11,6 @@ export type ContentPropsType = {
   id?: string;
 };
 
-// Compatibility alias
-export type ContentProps = ContentPropsType;
 
 export function Content({
   children,

@@ -1,7 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import type { DestructiveActionModalPropsType } from "./types";
+import React, { useState, useEffect, type ReactNode } from "react";
+
+export type DestructiveActionModalPropsType = {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  title: string;
+  description: ReactNode;
+  /** Expected keyword the user must type (e.g. "DELETE" or resource name) */
+  verificationKeyword?: string;
+  verificationPrompt?: string;
+  confirmButtonLabel?: string;
+  cancelButtonLabel?: string;
+  isLoading?: boolean;
+};
+
 
 export function DestructiveActionModal({
   open,
@@ -85,4 +99,4 @@ export function DestructiveActionModal({
   );
 }
 
-export * from "./types";
+export default DestructiveActionModal;

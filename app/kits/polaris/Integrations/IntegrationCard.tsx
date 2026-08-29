@@ -60,8 +60,6 @@ export type IntegrationCardPropsType = {
   onToggle?: (definition: IntegrationDefinitionType, enabled: boolean) => void;
 };
 
-// Compatibility alias
-export type IntegrationCardProps = IntegrationCardPropsType;
 
 export const IntegrationCard = ({
   definition,

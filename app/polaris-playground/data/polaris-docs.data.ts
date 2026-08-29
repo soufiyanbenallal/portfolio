@@ -369,44 +369,15 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             language: "tsx",
           },
           {
-            name: "DataTable.tsx",
-            path: "blocks/tables/DataTable/DataTable.tsx",
-            sourcePath: "app/kits/polaris/blocks/tables/DataTable/DataTable.tsx",
+            name: "Table.tsx",
+            path: "ui/Table.tsx",
+            sourcePath: "app/kits/polaris/ui/layouts/Table.tsx",
             language: "tsx",
           },
           {
-            name: "TableHeaderCell.part.tsx",
-            path: "blocks/tables/DataTable/partials/TableHeaderCell.part.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/tables/DataTable/partials/TableHeaderCell.part.tsx",
-            language: "tsx",
-          },
-          {
-            name: "TableRow.part.tsx",
-            path: "blocks/tables/DataTable/partials/TableRow.part.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/tables/DataTable/partials/TableRow.part.tsx",
-            language: "tsx",
-          },
-          {
-            name: "TableFilterBar.part.tsx",
-            path: "blocks/tables/DataTable/partials/TableFilterBar.part.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/tables/DataTable/partials/TableFilterBar.part.tsx",
-            language: "tsx",
-          },
-          {
-            name: "TableActiveFilters.part.tsx",
-            path: "blocks/tables/DataTable/partials/TableActiveFilters.part.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/tables/DataTable/partials/TableActiveFilters.part.tsx",
-            language: "tsx",
-          },
-          {
-            name: "TableRowActionsMenu.part.tsx",
-            path: "blocks/tables/DataTable/partials/TableRowActionsMenu.part.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/tables/DataTable/partials/TableRowActionsMenu.part.tsx",
+            name: "Filters.tsx",
+            path: "ui/Filters.tsx",
+            sourcePath: "app/kits/polaris/ui/layouts/Filters.tsx",
             language: "tsx",
           },
           {
@@ -420,12 +391,6 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             path: "ui/Content.tsx",
             sourcePath: "app/kits/polaris/ui/typography/Content.tsx",
             language: "tsx",
-          },
-          {
-            name: "types.ts",
-            path: "blocks/tables/DataTable/types.ts",
-            sourcePath: "app/kits/polaris/blocks/tables/DataTable/types.ts",
-            language: "typescript",
           },
         ],
       },

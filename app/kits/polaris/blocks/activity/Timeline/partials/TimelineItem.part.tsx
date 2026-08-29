@@ -1,7 +1,7 @@
 "use client";
 
 import React, { type ReactNode } from "react";
-import type { TimelineItemType, TimelineEventToneType, IconType } from "../types";
+import type { TimelineItemType, TimelineEventToneType, IconType } from "../Timeline";
 
 const TIME_FORMAT: Intl.DateTimeFormatOptions = {
   hour: "numeric",

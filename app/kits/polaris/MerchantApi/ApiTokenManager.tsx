@@ -16,16 +16,12 @@ export type ApiTokenModelType = {
   revokedAt: string | null;
 };
 
-// Compatibility alias
-export type ApiToken = ApiTokenModelType;
 
 export type ApiTokenManagerPropsType = {
   tokens: ApiTokenModelType[];
   isInline?: boolean;
 };
 
-// Compatibility alias
-export type ApiTokenManagerProps = ApiTokenManagerPropsType;
 
 export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType): JSX.Element => {
   const ct = useCommonsT();

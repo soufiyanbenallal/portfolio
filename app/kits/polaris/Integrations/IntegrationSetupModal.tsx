@@ -18,8 +18,6 @@ export type IntegrationSetupModalPropsType = {
   onSave: (type: string, config: Record<string, unknown>) => Promise<void>;
 };
 
-// Compatibility alias
-export type IntegrationSetupModalProps = IntegrationSetupModalPropsType;
 
 export const IntegrationSetupModal = ({
   definition,

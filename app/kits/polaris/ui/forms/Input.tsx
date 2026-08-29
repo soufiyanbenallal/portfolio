@@ -20,7 +20,6 @@ export type CustomInputPropsType = {
   [key: string]: unknown;
 };
 
-// Compatibility alias
 export type InputProps = CustomInputPropsType;
 
 export function Input({

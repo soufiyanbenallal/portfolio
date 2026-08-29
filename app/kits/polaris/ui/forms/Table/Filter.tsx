@@ -10,8 +10,6 @@ export type FilterPropsType = {
   onTabChange?: (tabId: string) => void;
 };
 
-// Compatibility alias
-export type FilterProps = FilterPropsType;
 
 export function Filter({
   queryValue = "",

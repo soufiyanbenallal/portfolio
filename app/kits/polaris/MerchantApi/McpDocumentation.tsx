@@ -6,8 +6,6 @@ export type McpDocumentationPropsType = {
   mcpTools?: string[];
 };
 
-// Compatibility alias
-export type McpDocumentationProps = McpDocumentationPropsType;
 
 function CopyBlock({ label, value }: { label: string; value: string }) {
   const [copied, setCopied] = useState(false);

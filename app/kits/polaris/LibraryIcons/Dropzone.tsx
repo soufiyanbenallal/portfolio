@@ -5,8 +5,6 @@ export type DropzonePropsType = {
   icon_path: string;
 };
 
-// Compatibility alias
-export type DropzoneProps = DropzonePropsType;
 
 export const Dropzone = ({ icon_path }: DropzonePropsType): JSX.Element => {
   const [uploading, setUploading] = useState(false);

@@ -6,8 +6,6 @@ export type MinimalCardPropsType = {
   className?: string;
 };
 
-// Compatibility alias
-export type MinimalCardProps = MinimalCardPropsType;
 
 export const MinimalCard = ({
   children,

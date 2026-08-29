@@ -17,8 +17,6 @@ export type TicketListPropsType = {
   loadingTickets: boolean;
 };
 
-// Compatibility alias
-export type TicketListProps = TicketListPropsType;
 
 export const TicketList = ({ tickets, loadingTickets }: TicketListPropsType): JSX.Element => {
   const ct = useCommonsT();

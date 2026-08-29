@@ -9,8 +9,6 @@ export type FeedbackCardPropsType = {
   description?: string;
 };
 
-// Compatibility alias
-export type FeedbackCardProps = FeedbackCardPropsType;
 
 export function FeedbackCard({
   appUrl = "https://apps.shopify.com",

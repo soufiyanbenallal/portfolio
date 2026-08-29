@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import type { PlanTierItemType, BillingIntervalType } from "../types";
+import type { PlanTierItemType, BillingIntervalType } from "../PlanPricingMatrix";
 
 export type PlanPricingCardPropsType = {
   plan: PlanTierItemType;

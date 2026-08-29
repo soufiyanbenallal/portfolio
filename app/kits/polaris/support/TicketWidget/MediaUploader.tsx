@@ -7,8 +7,6 @@ export type UploadedFileType = {
   fileStatus: string;
 };
 
-// Compatibility alias
-export type UploadedFile = UploadedFileType;
 
 export type UploadingFileType = {
   file: File;
@@ -17,8 +15,6 @@ export type UploadingFileType = {
   error?: string;
 };
 
-// Compatibility alias
-export type UploadingFile = UploadingFileType;
 
 export type MediaUploaderPropsType = {
   onUploadComplete: (files: UploadedFileType[]) => void;
@@ -28,8 +24,6 @@ export type MediaUploaderPropsType = {
   folder?: string;
 };
 
-// Compatibility alias
-export type MediaUploaderProps = MediaUploaderPropsType;
 
 const MAX_PIXELS = 25000000; // 25 MP
 

@@ -14,8 +14,6 @@ export type WebhookEndpointRowType = {
   };
 };
 
-// Compatibility alias
-export type WebhookEndpointRow = WebhookEndpointRowType;
 
 export type WebhookEndpointsPagePropsType = {
   type: WebhookEndpointType;
@@ -24,8 +22,6 @@ export type WebhookEndpointsPagePropsType = {
   endpoints: WebhookEndpointRowType[];
 };
 
-// Compatibility alias
-export type WebhookEndpointsPageProps = WebhookEndpointsPagePropsType;
 
 type EndpointFormStateType = {
   name: string;

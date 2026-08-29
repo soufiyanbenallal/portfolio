@@ -23,8 +23,6 @@ export type AutocompletePropsType = {
   allowRemove?: boolean;
 };
 
-// Compatibility alias
-export type AutocompleteProps = AutocompletePropsType;
 
 export function Autocomplete({
   id,

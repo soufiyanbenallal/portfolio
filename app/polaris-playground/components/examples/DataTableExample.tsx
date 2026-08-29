@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import { Card } from "@/app/kits/polaris/ui/layouts/Card";
+import { Table, type TableColumnType, type TableRowType } from "@/app/kits/polaris/ui/layouts/Table";
 import {
-  DataTable,
-  type TableColumnType,
-  type TableRowType,
-  type TableTabItemType,
-  type TableActiveFilterItemType,
-  type TableFilterCategoryType,
-} from "@/app/kits/polaris/blocks/tables/DataTable";
+  Filters,
+  type FilterTabItemType,
+  type ActiveFilterItemType,
+  type FilterCategoryType,
+} from "@/app/kits/polaris/ui/layouts/Filters";
 
 type BundleDealRowType = {
   dealName: string;
@@ -61,31 +61,31 @@ const BUNDLE_COLUMNS: TableColumnType<BundleDealRowType>[] = [
   {
     id: "visitors",
     title: "Visitors",
-    tooltipContent: "Number of visitors who saw this bundle deal offer.",
+    tooltip: "Number of visitors who saw this bundle deal offer.",
     renderCell: (row) => <s-text>{row.visitors}</s-text>,
   },
   {
     id: "cr",
     title: "CR",
-    tooltipContent: "Conversion Rate: Percentage of visitors who purchased this deal.",
+    tooltip: "Conversion Rate: Percentage of visitors who purchased this deal.",
     renderCell: (row) => <s-text>{row.cr}</s-text>,
   },
   {
     id: "aov",
     title: "AOV",
-    tooltipContent: "Average Order Value for orders containing this deal.",
+    tooltip: "Average Order Value for orders containing this deal.",
     renderCell: (row) => <s-text>{row.aov}</s-text>,
   },
   {
     id: "addedRevenue",
     title: "Added revenue",
-    tooltipContent: "Additional revenue generated directly from bundle upsells.",
+    tooltip: "Additional revenue generated directly from bundle upsells.",
     renderCell: (row) => <s-text>{row.addedRevenue}</s-text>,
   },
   {
     id: "totalRevenue",
     title: "Total revenue",
-    tooltipContent: "Gross revenue generated across all variants in this offer.",
+    tooltip: "Gross revenue generated across all variants in this offer.",
     renderCell: (row) => <s-text>{row.totalRevenue}</s-text>,
   },
   {
@@ -212,13 +212,16 @@ const BUNDLE_ROWS: TableRowType<BundleDealRowType>[] = [
   },
 ];
 
-const TABS: TableTabItemType[] = [
-  { id: "all", label: "All deals", badge: 2 },
-  { id: "active", label: "Active", badge: 2 },
-  { id: "draft", label: "Drafts", badge: 0 },
+const TABS: FilterTabItemType[] = [
+  { id: "all", label: "All", badge: 2 },
+  { id: "unpaid", label: "Unpaid", badge: 0 },
+  { id: "open", label: "Open", badge: 2 },
+  { id: "closed", label: "Closed", badge: 0 },
+  { id: "local-delivery", label: "Local delivery" },
+  { id: "local-pickup", label: "Local pickup" },
 ];
 
-const FILTER_CATEGORIES: TableFilterCategoryType[] = [
+const FILTER_CATEGORIES: FilterCategoryType[] = [
   {
     id: "status",
     label: "Account status",
@@ -251,7 +254,7 @@ export function DataTableExample() {
   const [selectedTab, setSelectedTab] = useState("all");
   const [search, setSearch] = useState("");
   const [selectedIds, setSelectedIds] = useState<(string | number)[]>([]);
-  const [activeFilters, setActiveFilters] = useState<TableActiveFilterItemType[]>([
+  const [activeFilters, setActiveFilters] = useState<ActiveFilterItemType[]>([
     {
       id: "apple-tag",
       categoryId: "tag",
@@ -268,11 +271,11 @@ export function DataTableExample() {
     },
   ]);
 
-  const handleAddFilter = (filter: TableActiveFilterItemType) => {
+  const handleAddFilter = (filter: ActiveFilterItemType) => {
     setActiveFilters((prev) => [...prev, filter]);
   };
 
-  const handleRemoveFilter = (filter: TableActiveFilterItemType) => {
+  const handleRemoveFilter = (filter: ActiveFilterItemType) => {
     setActiveFilters((prev) => prev.filter((f) => f.id !== filter.id));
   };
 
@@ -282,35 +285,49 @@ export function DataTableExample() {
 
   return (
     <s-page>
-      <s-stack direction="block" gap="base">
-        <DataTable
-          title="Bundle deals"
-          tooltipContent="Manage active bundle discounts, volume tiers, and A/B test experiments across your store catalog."
-          columns={BUNDLE_COLUMNS}
-          rows={BUNDLE_ROWS}
+      <Card
+        title="Bundle deals"
+        tooltipContent="Manage active bundle discounts, volume tiers, and A/B test experiments across your store catalog."
+        padding="none"
+      >
+        <Table
           selectable
           selectedRowIds={selectedIds}
           onSelectionChange={setSelectedIds}
-          tabs={TABS}
-          selectedTab={selectedTab}
-          onTabChange={setSelectedTab}
-          searchValue={search}
-          onSearchChange={setSearch}
-          searchPlaceholder="Search by name or product"
-          filterCategories={FILTER_CATEGORIES}
-          activeFilters={activeFilters}
-          onAddFilter={handleAddFilter}
-          onRemoveFilter={handleRemoveFilter}
-          onClearAllFilters={handleClearAllFilters}
-          onSaveView={() => alert("Saved current view filter.")}
-          onSortClick={() => alert("Toggled sort column.")}
-          rightActions={
-            <s-button variant="primary" icon="plus" onClick={() => alert("Create bundle modal opened")}>
-              Create deal
-            </s-button>
+          bulkActions={[
+            {
+              id: "activate",
+              label: "Activate",
+              onClick: (ids) => alert(`Activated deals: ${ids.join(", ")}`),
+            },
+            {
+              id: "remove",
+              label: "Remove",
+              icon: "delete",
+              destructive: true,
+              onClick: (ids) => alert(`Removed deals: ${ids.join(", ")}`),
+            },
+          ]}
+          filters={
+            <Filters
+              tabs={TABS}
+              selectedTab={selectedTab}
+              onTabChange={setSelectedTab}
+              searchValue={search}
+              onSearchChange={setSearch}
+              searchPlaceholder="Search by name or product"
+              filterCategories={FILTER_CATEGORIES}
+              activeFilters={activeFilters}
+              onAddFilter={handleAddFilter}
+              onRemoveFilter={handleRemoveFilter}
+              onClearAllFilters={handleClearAllFilters}
+              onSaveView={() => alert("Saved current view filter.")}
+            />
           }
+          columns={BUNDLE_COLUMNS}
+          rows={BUNDLE_ROWS}
         />
-      </s-stack>
+      </Card>
     </s-page>
   );
 }

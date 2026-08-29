@@ -8,8 +8,6 @@ export type InfoTooltipPropsType = {
   tone?: "subdued" | "success" | "critical" | "caution";
 };
 
-// Compatibility alias
-export type InfoTooltipProps = InfoTooltipPropsType;
 
 export function InfoTooltip({ label, tooltip }: InfoTooltipPropsType): ReactNode {
   const id = useId();

@@ -8,7 +8,6 @@ export type SortableProductType = {
   image: string;
 };
 
-// Compatibility alias
 export type Product = SortableProductType;
 
 export type SortableListPropsType = {
@@ -18,8 +17,6 @@ export type SortableListPropsType = {
   onMove?: (movedItem: SortableProductType, fromIndex: number, toIndex: number) => void;
 };
 
-// Compatibility alias
-export type SortableListProps = SortableListPropsType;
 
 export function SortableList({
   initialProducts,

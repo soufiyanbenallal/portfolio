@@ -9,8 +9,6 @@ export type ActionsTablePropsType = {
   onDelete?: () => void;
 };
 
-// Compatibility alias
-export type ActionsTableProps = ActionsTablePropsType;
 
 export const ActionsTable = ({
   edit,

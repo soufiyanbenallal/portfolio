@@ -24,8 +24,6 @@ export type CreateTicketModalPropsType = {
   asModal?: boolean;
 };
 
-// Compatibility alias
-export type CreateTicketModalProps = CreateTicketModalPropsType;
 
 function maskEmail(email: string) {
   const [user, domain] = email.split("@");

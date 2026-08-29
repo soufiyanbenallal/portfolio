@@ -34,8 +34,6 @@ export type IntegrationsPagePropsType = {
   showTabs?: boolean;
 };
 
-// Compatibility alias
-export type IntegrationsPageProps = IntegrationsPagePropsType;
 
 const CATEGORY_TAB_VALUES: (IntegrationCategoryType | "all")[] = [
   "all",
