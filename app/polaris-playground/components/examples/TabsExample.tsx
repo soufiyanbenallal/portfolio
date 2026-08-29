@@ -14,17 +14,21 @@ export function TabsExample(): ReactNode {
   ];
 
   return (
-    <div className="w-full max-w-2xl space-y-4">
-      <Tabs
-        tabs={tabs}
-        selectedTab={selectedTab}
-        onTabChange={(tabId) => setSelectedTab(tabId)}
-      />
+    <s-page>
+      <s-stack direction="block" gap="base">
+        <Tabs
+          tabs={tabs}
+          selectedTab={selectedTab}
+          onTabChange={(tabId) => setSelectedTab(tabId)}
+        />
 
-      <div className="rounded-xl border border-border bg-card p-6 text-center text-xs text-muted-foreground">
-        Currently viewing tab: <strong className="text-foreground capitalize">{String(selectedTab)}</strong>
-      </div>
-    </div>
+        <s-box padding="base" borderWidth="base" borderRadius="base" background="base">
+          <s-text tone="neutral">
+            Currently viewing tab: {String(selectedTab)}
+          </s-text>
+        </s-box>
+      </s-stack>
+    </s-page>
   );
 }
 

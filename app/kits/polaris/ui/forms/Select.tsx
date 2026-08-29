@@ -53,35 +53,30 @@ export function Select({
   );
 
   return (
-    <div className="space-y-1">
-      {label && (
-        <label className="text-xs font-semibold text-foreground block">
-          {label}
-          {required && <span className="text-destructive ml-0.5">*</span>}
-        </label>
-      )}
-      <select
+    <s-stack direction="block" gap="small-200">
+      <s-select
         id={idProp}
         name={name}
+        label={label}
         value={selected}
         disabled={disabled}
-        onChange={(e) => handleSelectChange(e.target.value)}
-        className="w-full h-9 rounded-lg border border-border bg-card px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+        required={required}
+        onChange={(e: any) => handleSelectChange(e.target.value)}
       >
         {placeholder && (
-          <option value="" disabled>
+          <s-option value="" disabled>
             {placeholder}
-          </option>
+          </s-option>
         )}
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value} disabled={opt.disabled}>
+          <s-option key={opt.value} value={opt.value} disabled={opt.disabled}>
             {opt.label}
-          </option>
+          </s-option>
         ))}
-      </select>
-      {helpText && <p className="text-xs text-muted-foreground">{helpText}</p>}
-      {error && typeof error === "string" && <p className="text-xs text-destructive">{error}</p>}
-    </div>
+      </s-select>
+      {helpText && <s-text tone="neutral">{helpText}</s-text>}
+      {error && typeof error === "string" && <s-text tone="critical">{error}</s-text>}
+    </s-stack>
   );
 }
 

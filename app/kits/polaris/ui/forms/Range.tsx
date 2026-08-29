@@ -51,15 +51,15 @@ export function Range({
   );
 
   return (
-    <div className="space-y-1">
+    <s-stack direction="block" gap="small-200">
       {label && (
-        <div className="flex items-center justify-between text-xs font-semibold text-foreground">
-          <span>{label}</span>
-          {output && <span className="text-muted-foreground">{rangeValue}</span>}
-        </div>
+        <s-stack direction="inline" justifyContent="space-between" alignItems="center">
+          <s-text type="strong">{label}</s-text>
+          {output && <s-text tone="neutral">{rangeValue}</s-text>}
+        </s-stack>
       )}
-      <div className="flex items-center gap-2">
-        {prefix && <span className="text-xs text-muted-foreground">{prefix}</span>}
+      <s-stack direction="inline" gap="small-200" alignItems="center">
+        {prefix && <s-text tone="neutral">{prefix}</s-text>}
         <input
           type="range"
           id={idProp}
@@ -69,13 +69,13 @@ export function Range({
           value={rangeValue}
           disabled={disabled}
           onChange={(e) => handleRangeSliderChange(Number(e.target.value))}
-          className="w-full accent-primary h-2 bg-muted rounded-lg cursor-pointer"
+          style={{ width: "100%", cursor: "pointer" }}
         />
-        {suffix && <span className="text-xs text-muted-foreground">{suffix}</span>}
-      </div>
-      {helpText && <p className="text-xs text-muted-foreground">{helpText}</p>}
-      {error && typeof error === "string" && <p className="text-xs text-destructive">{error}</p>}
-    </div>
+        {suffix && <s-text tone="neutral">{suffix}</s-text>}
+      </s-stack>
+      {helpText && <s-text tone="neutral">{helpText}</s-text>}
+      {error && typeof error === "string" && <s-text tone="critical">{error}</s-text>}
+    </s-stack>
   );
 }
 

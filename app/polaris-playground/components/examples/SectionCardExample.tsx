@@ -7,7 +7,7 @@ export function SectionCardExample(): ReactNode {
   const [active, setActive] = useState(true);
 
   return (
-    <div className="w-full max-w-xl space-y-4">
+    <s-page>
       <SectionCard
         title="Checkout Customizations"
         description="Configure rules applied to customer checkout orders."
@@ -17,19 +17,21 @@ export function SectionCardExample(): ReactNode {
           </s-button>
         }
       >
-        <div className="space-y-3 pt-2 text-xs text-muted-foreground">
-          <p>
-            When enabled, custom discount rules and address validation triggers will run on all cart transactions.
-          </p>
-          <div className="flex items-center gap-2 font-medium">
-            <span className="text-foreground">Status:</span>
-            <s-badge tone={active ? "success" : "neutral"}>
-              {active ? "Active & Enforced" : "Inactive"}
-            </s-badge>
-          </div>
-        </div>
+        <s-box paddingBlockStart="small-200">
+          <s-stack direction="block" gap="small-200">
+            <s-paragraph>
+              When enabled, custom discount rules and address validation triggers will run on all cart transactions.
+            </s-paragraph>
+            <s-stack direction="inline" gap="small-200" alignItems="center">
+              <s-text type="strong">Status:</s-text>
+              <s-badge tone={active ? "success" : "neutral"}>
+                {active ? "Active & Enforced" : "Inactive"}
+              </s-badge>
+            </s-stack>
+          </s-stack>
+        </s-box>
       </SectionCard>
-    </div>
+    </s-page>
   );
 }
 

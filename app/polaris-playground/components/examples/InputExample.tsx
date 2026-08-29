@@ -9,30 +9,34 @@ export function InputExample(): ReactNode {
   const [notes, setNotes] = useState("");
 
   return (
-    <div className="w-full max-w-md space-y-4 rounded-xl border border-border bg-card p-5">
-      <Input
-        label="Store Name"
-        value={storeName}
-        placeholder="e.g. Acme Apparel"
-        onInputChange={(val) => setStoreName(val as string)}
-      />
+    <s-page>
+      <s-box padding="base" borderWidth="base" borderRadius="base" background="base">
+        <s-stack direction="block" gap="base">
+          <Input
+            label="Store Name"
+            value={storeName}
+            placeholder="e.g. Acme Apparel"
+            onInputChange={(val) => setStoreName(val as string)}
+          />
 
-      <Input
-        label="Contact Email"
-        type="email"
-        value={contactEmail}
-        placeholder="merchant@store.com"
-        onInputChange={(val) => setContactEmail(val as string)}
-      />
+          <Input
+            label="Contact Email"
+            type="email"
+            value={contactEmail}
+            placeholder="merchant@store.com"
+            onInputChange={(val) => setContactEmail(val as string)}
+          />
 
-      <Input
-        label="Internal Notes"
-        multiline={3}
-        value={notes}
-        placeholder="Optional notes visible only to staff..."
-        onInputChange={(val) => setNotes(val as string)}
-      />
-    </div>
+          <Input
+            label="Internal Notes"
+            multiline={3}
+            value={notes}
+            placeholder="Optional notes visible only to staff..."
+            onInputChange={(val) => setNotes(val as string)}
+          />
+        </s-stack>
+      </s-box>
+    </s-page>
   );
 }
 

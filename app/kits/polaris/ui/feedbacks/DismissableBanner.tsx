@@ -24,7 +24,7 @@ export function DismissableBanner({
   if (dismissed) return null;
 
   return (
-    <div className="mb-4">
+    <s-box paddingBlockEnd="base">
       <s-banner
         heading={heading}
         tone={tone}
@@ -38,7 +38,7 @@ export function DismissableBanner({
       >
         {children}
       </s-banner>
-    </div>
+    </s-box>
   );
 }
 

@@ -16,28 +16,29 @@ export function ThemeEmbedStatusExample() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-4 space-y-4">
-      <div className="flex items-center justify-between text-xs text-muted-foreground pb-2">
-        <span>Toggle state dynamically via the Re-check button:</span>
-        <button
-          type="button"
-          onClick={() => setIsActive(!isActive)}
-          className="text-primary hover:underline font-semibold"
-        >
-          Switch to {isActive ? "Disabled" : "Active"}
-        </button>
-      </div>
+    <s-page>
+      <s-stack direction="block" gap="base">
+        <s-stack direction="inline" justifyContent="space-between" alignItems="center">
+          <s-text tone="neutral">Toggle state dynamically via the button:</s-text>
+          <s-button
+            variant="secondary"
+            onClick={() => setIsActive(!isActive)}
+          >
+            Switch to {isActive ? "Disabled" : "Active"}
+          </s-button>
+        </s-stack>
 
-      <ThemeEmbedStatus
-        shopDomain="quickstart-store.myshopify.com"
-        appEmbedName="Sales Booster App Embed"
-        appEmbedHandle="sales-booster"
-        themeName="Dawn (Published)"
-        status={isActive ? "active" : "disabled"}
-        isChecking={isChecking}
-        onRecheck={handleRecheck}
-        onOpenThemeEditor={() => alert("Deep-linking to Shopify Theme Editor...")}
-      />
-    </div>
+        <ThemeEmbedStatus
+          shopDomain="quickstart-store.myshopify.com"
+          appEmbedName="Sales Booster App Embed"
+          appEmbedHandle="sales-booster"
+          themeName="Dawn (Published)"
+          status={isActive ? "active" : "disabled"}
+          isChecking={isChecking}
+          onRecheck={handleRecheck}
+          onOpenThemeEditor={() => alert("Deep-linking to Shopify Theme Editor...")}
+        />
+      </s-stack>
+    </s-page>
   );
 }

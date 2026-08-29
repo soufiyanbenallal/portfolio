@@ -46,7 +46,7 @@ export function CheckBox({
   );
 
   return (
-    <div className="space-y-1">
+    <s-stack direction="block" gap="small-200">
       <s-checkbox
         id={idProp}
         label={label}
@@ -56,11 +56,11 @@ export function CheckBox({
         disabled={disabled}
         onChange={(e: any) => handleChange(e.target.checked)}
       />
-      {helpText && <p className="text-xs text-muted-foreground ml-6">{helpText}</p>}
+      {helpText && <s-text tone="neutral">{helpText}</s-text>}
       {error && typeof error === "string" && (
-        <p className="text-xs text-destructive ml-6">{error}</p>
+        <s-text tone="critical">{error}</s-text>
       )}
-    </div>
+    </s-stack>
   );
 }
 

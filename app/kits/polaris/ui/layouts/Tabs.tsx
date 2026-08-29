@@ -33,7 +33,6 @@ export const Tabs = <T extends string | number>({
   showBadge = true,
   showContent = true,
   rightSide,
-  className = "",
 }: TabsPropsType<T>): ReactNode => {
   useEffect(() => {
     if (selectedTab === null && tabs.length > 0) {
@@ -42,38 +41,27 @@ export const Tabs = <T extends string | number>({
   }, [selectedTab, tabs, onTabChange]);
 
   return (
-    <div
-      className={`flex flex-wrap items-center justify-between gap-2 p-1 bg-muted/60 rounded-xl border border-border ${className}`}
-    >
-      <div className="flex flex-wrap items-center gap-1">
+    <s-stack direction="inline" justifyContent="space-between" alignItems="center">
+      <s-stack direction="inline" gap="small-200" alignItems="center">
         {tabs
           .filter((tab) => !tab.disabled)
           .map((tab) => {
             const isSelected = selectedTab === tab.id;
             return (
-              <button
+              <s-button
                 key={`tab-${tab.id}`}
-                type="button"
+                variant={isSelected ? "primary" : "secondary"}
                 onClick={() => onTabChange(tab.id as T)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 ${
-                  isSelected
-                    ? "bg-card text-foreground shadow-xs border border-border"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
-                title={tab.description}
               >
-                {tab.icon && <span>{tab.icon}</span>}
-                {showContent && tab.content && <span>{tab.content}</span>}
-                {showBadge && tab.badge !== undefined && (
-                  <s-badge tone={isSelected ? "info" : "neutral"}>{String(tab.badge)}</s-badge>
-                )}
-              </button>
+                {showContent && tab.content}
+                {showBadge && tab.badge !== undefined ? ` (${tab.badge})` : ""}
+              </s-button>
             );
           })}
-      </div>
+      </s-stack>
 
-      {rightSide && <div className="flex items-center gap-2">{rightSide}</div>}
-    </div>
+      {rightSide && <s-stack direction="inline" gap="small-200">{rightSide}</s-stack>}
+    </s-stack>
   );
 };
 

@@ -8,44 +8,41 @@ export function UsageLimitBannerExample() {
   const limit = 10000;
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-4 space-y-6">
-      <div className="flex items-center justify-between text-xs text-muted-foreground pb-2">
-        <span>Simulate usage quota change:</span>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setUsage(6500)}
-            className="text-primary hover:underline font-semibold"
-          >
-            65% (Normal)
-          </button>
-          <span>•</span>
-          <button
-            type="button"
-            onClick={() => setUsage(8800)}
-            className="text-amber-600 dark:text-amber-400 hover:underline font-semibold"
-          >
-            88% (Warning)
-          </button>
-          <span>•</span>
-          <button
-            type="button"
-            onClick={() => setUsage(9600)}
-            className="text-destructive hover:underline font-semibold"
-          >
-            96% (Critical)
-          </button>
-        </div>
-      </div>
+    <s-page>
+      <s-stack direction="block" gap="base">
+        <s-stack direction="inline" justifyContent="space-between" alignItems="center">
+          <s-text tone="neutral">Simulate usage quota change:</s-text>
+          <s-stack direction="inline" gap="small-200" alignItems="center">
+            <s-button
+              variant="secondary"
+              onClick={() => setUsage(6500)}
+            >
+              65% (Normal)
+            </s-button>
+            <s-button
+              variant="secondary"
+              onClick={() => setUsage(8800)}
+            >
+              88% (Warning)
+            </s-button>
+            <s-button
+              variant="secondary"
+              onClick={() => setUsage(9600)}
+            >
+              96% (Critical)
+            </s-button>
+          </s-stack>
+        </s-stack>
 
-      <UsageLimitBanner
-        resourceName="Monthly Tracked Orders"
-        currentUsage={usage}
-        maxLimit={limit}
-        dismissable
-        onUpgrade={() => alert("Redirecting to Plan upgrade page...")}
-        onDismiss={() => alert("Banner dismissed")}
-      />
-    </div>
+        <UsageLimitBanner
+          resourceName="Monthly Tracked Orders"
+          currentUsage={usage}
+          maxLimit={limit}
+          dismissable
+          onUpgrade={() => alert("Redirecting to Plan upgrade page...")}
+          onDismiss={() => alert("Banner dismissed")}
+        />
+      </s-stack>
+    </s-page>
   );
 }

@@ -15,33 +15,31 @@ export function DismissableBannerExample(): ReactNode {
   };
 
   return (
-    <div key={resetKey} className="w-full max-w-2xl space-y-4">
-      <DismissableBanner
-        storageKey="store-migration"
-        heading="Store migration completed"
-        tone="info"
-      >
-        Your inventory records and order tags have been synced across all locations.
-      </DismissableBanner>
-
-      <DismissableBanner
-        storageKey="shipping-update"
-        heading="Carrier rates updated"
-        tone="success"
-      >
-        DHL Express and FedEx international shipping profiles are now active.
-      </DismissableBanner>
-
-      <div className="pt-2 text-center">
-        <button
-          type="button"
-          onClick={handleReset}
-          className="text-xs text-muted-foreground hover:text-foreground underline cursor-pointer"
+    <s-page key={resetKey}>
+      <s-stack direction="block" gap="base">
+        <DismissableBanner
+          storageKey="store-migration"
+          heading="Store migration completed"
+          tone="info"
         >
-          Reset dismissed banners (clears localStorage)
-        </button>
-      </div>
-    </div>
+          Your inventory records and order tags have been synced across all locations.
+        </DismissableBanner>
+
+        <DismissableBanner
+          storageKey="shipping-update"
+          heading="Carrier rates updated"
+          tone="success"
+        >
+          DHL Express and FedEx international shipping profiles are now active.
+        </DismissableBanner>
+
+        <s-stack direction="inline" justifyContent="center">
+          <s-button variant="secondary" onClick={handleReset}>
+            Reset dismissed banners (clears localStorage)
+          </s-button>
+        </s-stack>
+      </s-stack>
+    </s-page>
   );
 }
 

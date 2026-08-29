@@ -34,9 +34,13 @@ export function TimelineExample() {
   ];
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4 bg-card rounded-xl border border-border">
-      <h3 className="text-sm font-semibold text-foreground mb-4">Store Activity Audit Trail</h3>
-      <Timeline items={events} />
-    </div>
+    <s-page>
+      <s-box padding="base" borderWidth="base" borderRadius="base" background="base">
+        <s-stack direction="block" gap="base">
+          <s-heading>Store Activity Audit Trail</s-heading>
+          <Timeline items={events} />
+        </s-stack>
+      </s-box>
+    </s-page>
   );
 }

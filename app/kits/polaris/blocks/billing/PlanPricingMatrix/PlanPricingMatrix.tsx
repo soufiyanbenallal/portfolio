@@ -14,7 +14,6 @@ export function PlanPricingMatrix({
   defaultInterval = "monthly",
   annualDiscountPercentage = 20,
   onSelectPlan,
-  className = "",
 }: PlanPricingMatrixPropsType) {
   const [interval, setInterval] = useState<BillingIntervalType>(defaultInterval);
 
@@ -22,60 +21,45 @@ export function PlanPricingMatrix({
     onSelectPlan?.(plan, interval);
   };
 
+  const columnsDef =
+    plans.length === 2
+      ? "1fr 1fr"
+      : plans.length === 3
+        ? "1fr 1fr 1fr"
+        : "repeat(auto-fit, minmax(240px, 1fr))";
+
   return (
-    <div className={`space-y-6 ${className}`}>
+    <s-stack direction="block" gap="base">
       {/* Interval Toggle Switch */}
-      <div className="flex items-center justify-center">
-        <div className="inline-flex items-center gap-1.5 p-1 rounded-lg border border-border bg-muted/40 text-xs font-medium">
-          <button
-            type="button"
-            onClick={() => setInterval("monthly")}
-            className={`px-3 py-1.5 rounded-md transition-all ${
-              interval === "monthly"
-                ? "bg-card text-foreground font-semibold shadow-xs"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Monthly billing
-          </button>
-          <button
-            type="button"
-            onClick={() => setInterval("annual")}
-            className={`px-3 py-1.5 rounded-md flex items-center gap-1.5 transition-all ${
-              interval === "annual"
-                ? "bg-card text-foreground font-semibold shadow-xs"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <span>Annual billing</span>
-            <span className="px-1.5 py-0.2 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-semibold text-[10px] rounded-full">
-              Save {annualDiscountPercentage}%
-            </span>
-          </button>
-        </div>
-      </div>
+      <s-stack direction="inline" justifyContent="center" alignItems="center" gap="small-200">
+        <s-button
+          variant={interval === "monthly" ? "primary" : "secondary"}
+          onClick={() => setInterval("monthly")}
+        >
+          Monthly billing
+        </s-button>
+        <s-button
+          variant={interval === "annual" ? "primary" : "secondary"}
+          onClick={() => setInterval("annual")}
+        >
+          Annual billing (Save {annualDiscountPercentage}%)
+        </s-button>
+      </s-stack>
 
       {/* Grid of Plans */}
-      <div
-        className={`grid gap-4 ${
-          plans.length === 2
-            ? "grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto"
-            : plans.length === 3
-              ? "grid-cols-1 md:grid-cols-3 max-w-5xl mx-auto"
-              : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-        }`}
-      >
+      <s-grid gridTemplateColumns={columnsDef} gap="base">
         {plans.map((plan) => (
-          <PlanPricingCard
-            key={plan.id}
-            plan={plan}
-            interval={interval}
-            isCurrent={currentPlanId === plan.id}
-            onSelect={() => handleSelect(plan)}
-          />
+          <s-grid-item key={plan.id}>
+            <PlanPricingCard
+              plan={plan}
+              interval={interval}
+              isCurrent={currentPlanId === plan.id}
+              onSelect={() => handleSelect(plan)}
+            />
+          </s-grid-item>
         ))}
-      </div>
-    </div>
+      </s-grid>
+    </s-stack>
   );
 }
 

@@ -74,13 +74,8 @@ export function Input({
 
   if (multiline) {
     return (
-      <div className="space-y-1">
-        {label && (
-          <label className="text-xs font-semibold text-foreground block">
-            {label}
-            {required && <span className="text-destructive ml-0.5">*</span>}
-          </label>
-        )}
+      <s-stack direction="block" gap="small-200">
+        {label && <s-text type="strong">{label}</s-text>}
         <textarea
           id={idProp}
           name={name}
@@ -90,16 +85,24 @@ export function Input({
           disabled={disabled}
           readOnly={readOnly}
           rows={typeof multiline === "number" ? multiline : 4}
-          className="w-full rounded-lg border border-border bg-card p-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary leading-relaxed"
+          style={{
+            width: "100%",
+            borderRadius: "8px",
+            border: "1px solid #d1d5db",
+            padding: "8px 12px",
+            fontFamily: "inherit",
+            fontSize: "14px",
+            boxSizing: "border-box",
+          }}
         />
-        {helpText && <p className="text-xs text-muted-foreground">{helpText}</p>}
-        {error && <p className="text-xs text-destructive">{error}</p>}
-      </div>
+        {helpText && <s-text tone="neutral">{helpText}</s-text>}
+        {error && <s-text tone="critical">{error}</s-text>}
+      </s-stack>
     );
   }
 
   return (
-    <div className="space-y-1">
+    <s-stack direction="block" gap="small-200">
       {type === "email" ? (
         <s-email-field
           id={idProp}
@@ -149,9 +152,9 @@ export function Input({
           required={required}
         />
       )}
-      {helpText && <p className="text-xs text-muted-foreground">{helpText}</p>}
-      {error && <p className="text-xs text-destructive">{error}</p>}
-    </div>
+      {helpText && <s-text tone="neutral">{helpText}</s-text>}
+      {error && <s-text tone="critical">{error}</s-text>}
+    </s-stack>
   );
 }
 

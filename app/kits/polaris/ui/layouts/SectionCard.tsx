@@ -23,48 +23,37 @@ export function SectionCard({
   actions,
   children,
   onDismiss,
-  padding = "base",
   id,
-  className = "",
 }: SectionCardPropsType): ReactNode {
-  const paddingClass =
-    padding === "none" ? "" : padding === "tight" ? "p-3" : padding === "loose" ? "p-6" : "p-5";
-
   return (
-    <div
-      id={id}
-      className={`rounded-xl border border-border bg-card shadow-xs ${paddingClass} ${className} space-y-4`}
-    >
-      {/* Header */}
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          {icon && <div className="text-primary">{icon}</div>}
-          <div>
-            <h3 className="text-sm font-bold text-foreground">{title}</h3>
-            {typeof description === "string" && (
-              <p className="text-xs text-muted-foreground">{description}</p>
+    <s-box id={id} padding="base" borderWidth="base" borderRadius="base" background="base">
+      <s-stack direction="block" gap="base">
+        {/* Header */}
+        <s-stack direction="inline" justifyContent="space-between" alignItems="center">
+          <s-stack direction="inline" gap="small-200" alignItems="center">
+            {icon}
+            <s-stack direction="block" gap="none">
+              {typeof title === "string" ? <s-heading>{title}</s-heading> : title}
+              {typeof description === "string" ? (
+                <s-text tone="neutral">{description}</s-text>
+              ) : (
+                description
+              )}
+            </s-stack>
+          </s-stack>
+
+          <s-stack direction="inline" gap="small-200" alignItems="center">
+            {actions}
+            {onDismiss && (
+              <s-button variant="secondary" onClick={onDismiss} icon="x" />
             )}
-          </div>
-        </div>
+          </s-stack>
+        </s-stack>
 
-        <div className="flex items-center gap-2">
-          {actions}
-          {onDismiss && (
-            <button
-              type="button"
-              onClick={onDismiss}
-              className="text-muted-foreground hover:text-foreground text-xs p-1"
-              aria-label="Dismiss"
-            >
-              ✕
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Children Content */}
-      {children}
-    </div>
+        {/* Children Content */}
+        {children}
+      </s-stack>
+    </s-box>
   );
 }
 

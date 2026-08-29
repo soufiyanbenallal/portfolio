@@ -57,29 +57,31 @@ export function ResourceFilterToolbarExample() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 space-y-4">
-      <ResourceFilterToolbar
-        searchValue={search}
-        onSearchChange={setSearch}
-        searchPlaceholder="Search banners by name, product, or country..."
-        filterCategories={filterCategories}
-        activeFilters={activeFilters}
-        onAddFilter={handleAddFilter}
-        onRemoveFilter={handleRemoveFilter}
-        onClearAllFilters={handleClearAll}
-        totalCount={24}
-        primaryAction={{
-          label: "Create Banner",
-          onClick: () => alert("Navigating to create banner form..."),
-        }}
-      />
+    <s-page>
+      <s-stack direction="block" gap="base">
+        <ResourceFilterToolbar
+          searchValue={search}
+          onSearchChange={setSearch}
+          searchPlaceholder="Search banners by name, product, or country..."
+          filterCategories={filterCategories}
+          activeFilters={activeFilters}
+          onAddFilter={handleAddFilter}
+          onRemoveFilter={handleRemoveFilter}
+          onClearAllFilters={handleClearAll}
+          totalCount={24}
+          primaryAction={{
+            label: "Create Banner",
+            onClick: () => alert("Navigating to create banner form..."),
+          }}
+        />
 
-      {/* Simulated Table Area */}
-      <div className="rounded-xl border border-border bg-card/60 p-6 text-center text-xs text-muted-foreground">
-        Showing filtered results for search query:{" "}
-        <strong className="text-foreground">{search || '""'}</strong> with{" "}
-        <strong className="text-foreground">{activeFilters.length}</strong> active filter(s).
-      </div>
-    </div>
+        {/* Simulated Table Area */}
+        <s-box padding="base" borderWidth="base" borderRadius="base" background="base">
+          <s-text tone="neutral">
+            Showing filtered results for search query: "{search}" with {activeFilters.length} active filter(s).
+          </s-text>
+        </s-box>
+      </s-stack>
+    </s-page>
   );
 }

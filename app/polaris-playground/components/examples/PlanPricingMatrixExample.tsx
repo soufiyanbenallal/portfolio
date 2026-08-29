@@ -63,7 +63,7 @@ export function PlanPricingMatrixExample() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-4 space-y-4">
+    <s-page>
       <PlanPricingMatrix
         plans={plans}
         currentPlanId={currentPlanId}
@@ -71,6 +71,6 @@ export function PlanPricingMatrixExample() {
         annualDiscountPercentage={20}
         onSelectPlan={handleSelectPlan}
       />
-    </div>
+    </s-page>
   );
 }

@@ -8,25 +8,29 @@ export function ToggleExample(): ReactNode {
   const [notifyCustomer, setNotifyCustomer] = useState(true);
 
   return (
-    <div className="w-full max-w-md space-y-4 rounded-xl border border-border bg-card p-5">
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="text-sm font-semibold text-foreground">Auto-fulfill digital items</div>
-          <div className="text-xs text-muted-foreground">Mark orders fulfilled upon successful payment capture.</div>
-        </div>
-        <Toggle active={autoFulfill} onChange={setAutoFulfill} />
-      </div>
+    <s-page>
+      <s-box padding="base" borderWidth="base" borderRadius="base" background="base">
+        <s-stack direction="block" gap="base">
+          <s-stack direction="inline" justifyContent="space-between" alignItems="center">
+            <s-stack direction="block" gap="none">
+              <s-text type="strong">Auto-fulfill digital items</s-text>
+              <s-text tone="neutral">Mark orders fulfilled upon successful payment capture.</s-text>
+            </s-stack>
+            <Toggle active={autoFulfill} onChange={setAutoFulfill} />
+          </s-stack>
 
-      <div className="h-px bg-border" />
+          <s-divider />
 
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="text-sm font-semibold text-foreground">Send customer notifications</div>
-          <div className="text-xs text-muted-foreground">Email order status links upon dispatch.</div>
-        </div>
-        <Toggle active={notifyCustomer} onChange={setNotifyCustomer} />
-      </div>
-    </div>
+          <s-stack direction="inline" justifyContent="space-between" alignItems="center">
+            <s-stack direction="block" gap="none">
+              <s-text type="strong">Send customer notifications</s-text>
+              <s-text tone="neutral">Email order status links upon dispatch.</s-text>
+            </s-stack>
+            <Toggle active={notifyCustomer} onChange={setNotifyCustomer} />
+          </s-stack>
+        </s-stack>
+      </s-box>
+    </s-page>
   );
 }
 

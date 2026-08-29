@@ -15,15 +15,17 @@ export function SelectExample(): ReactNode {
   const [currency, setCurrency] = useState("USD");
 
   return (
-    <div className="w-full max-w-md space-y-4 rounded-xl border border-border bg-card p-5">
-      <Select
-        label="Store base currency"
-        helpText="The standard currency used to price catalog items and calculate checkout payouts."
-        options={CURRENCY_OPTIONS}
-        value={currency}
-        onChange={setCurrency}
-      />
-    </div>
+    <s-page>
+      <s-box padding="base" borderWidth="base" borderRadius="base" background="base">
+        <Select
+          label="Store base currency"
+          helpText="The standard currency used to price catalog items and calculate checkout payouts."
+          options={CURRENCY_OPTIONS}
+          value={currency}
+          onChange={setCurrency}
+        />
+      </s-box>
+    </s-page>
   );
 }
 

@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Highlight, themes } from "prism-react-renderer";
 import { PolarisPreviewRenderer } from "./polaris-preview-renderer.part";
+import { AutoFitIframePreview } from "./auto-fit-iframe-preview.part";
 import type { PolarisExampleItemType } from "../data/polaris-docs.data";
 
 export type BlockFileItemType = {
@@ -248,18 +249,26 @@ export function PolarisBlockPreviewPart({
       {/* ── Main Container matching the Image ── */}
       {viewMode === "preview" ? (
         /* Preview Canvas (Default) */
-        <div className="flex min-h-[360px] w-full items-center justify-center overflow-x-auto rounded-xl border border-gray-200 bg-[#FAFAFA] p-6 shadow-xs [background-image:radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:14px_14px]">
+        <div className="flex min-h-[440px] w-full items-center justify-center overflow-x-auto rounded-xl border border-gray-200 bg-[#FAFAFA] p-6 shadow-xs [background-image:radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:14px_14px]">
           <div
             key={refreshKey}
-            className={`transition-all duration-300 flex items-center justify-center ${
+            className={`transition-all duration-300 h-[480px] flex items-center justify-center ${
               viewport === "desktop"
                 ? "w-full"
                 : viewport === "tablet"
-                  ? "w-[768px] rounded-xl border border-gray-300 bg-white p-6 shadow-md"
-                  : "w-[390px] rounded-2xl border-2 border-gray-400 bg-white p-6 shadow-lg"
+                  ? "w-[768px] overflow-hidden"
+                  : "w-[390px] overflow-hidden"
             }`}
           >
-            <PolarisPreviewRenderer renderKey={example.renderKey} />
+            <AutoFitIframePreview
+              key={`${refreshKey}-${viewport}-${example.renderKey}`}
+              interactive={true}
+              autoScale={false}
+              title={example.title}
+              padding={16}
+            >
+              <PolarisPreviewRenderer renderKey={example.renderKey} />
+            </AutoFitIframePreview>
           </div>
         </div>
       ) : (
@@ -352,7 +361,7 @@ export function PolarisBlockPreviewPart({
             </div>
 
             {/* Syntax Highlighted Code content with line numbers */}
-            <div className="flex flex-1 overflow-x-auto py-2 px-4 bg-white">
+            <div className="flex flex-1 overflow-x-auto py-2 px-4 bg-white overflow-y-auto max-h-[calc(70vh)]">
               <Highlight
                 theme={{
                   ...themes.github,

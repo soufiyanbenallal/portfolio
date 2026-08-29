@@ -53,9 +53,9 @@ const SAMPLE_STATS: StatsCardPropsType[] = [
 
 export function StatsSectionExample(): ReactNode {
   return (
-    <div className="w-full">
+    <s-page>
       <StatsSection items={SAMPLE_STATS} columns={4} />
-    </div>
+    </s-page>
   );
 }
 

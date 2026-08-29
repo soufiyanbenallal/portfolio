@@ -73,7 +73,7 @@ export function SetupGuideExample() {
   }));
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-4">
+    <s-page>
       <SetupGuide
         title="Get Started with Your Store App"
         subtitle="Complete these recommended steps to maximize conversions and publish your widgets."
@@ -82,6 +82,6 @@ export function SetupGuideExample() {
         dismissable
         onDismiss={() => alert("Setup guide dismissed")}
       />
-    </div>
+    </s-page>
   );
 }

@@ -49,24 +49,30 @@ export function FeedbackCard({
   };
 
   return (
-    <div className="space-y-3 rounded-xl border border-border bg-card p-4">
-      <h2 className="text-sm font-bold text-foreground">{title}</h2>
+    <s-box padding="base" borderWidth="base" borderRadius="base" background="base">
+      <s-stack direction="block" gap="base">
+        <s-heading>{title}</s-heading>
 
-      {submitted ? (
-        <s-banner tone="success">
-          Thanks for your feedback! We really appreciate your time.
-        </s-banner>
-      ) : (
-        <div className="space-y-3">
-          <p className="text-xs text-muted-foreground">{description}</p>
+        {submitted ? (
+          <s-banner tone="success">
+            Thanks for your feedback! We really appreciate your time.
+          </s-banner>
+        ) : (
+          <s-stack direction="block" gap="small-200">
+            <s-paragraph>{description}</s-paragraph>
 
-          <div className="flex items-center gap-2">
-            <s-button onClick={goodFeedback}>👍 Yes, I love it!</s-button>
-            <s-button onClick={badFeedback}>👎 Not really</s-button>
-          </div>
-        </div>
-      )}
-    </div>
+            <s-stack direction="inline" gap="small-200" alignItems="center">
+              <s-button variant="primary" onClick={goodFeedback}>
+                👍 Yes, I love it!
+              </s-button>
+              <s-button variant="secondary" onClick={badFeedback}>
+                👎 Not really
+              </s-button>
+            </s-stack>
+          </s-stack>
+        )}
+      </s-stack>
+    </s-box>
   );
 }
 

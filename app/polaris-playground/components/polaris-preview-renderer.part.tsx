@@ -87,7 +87,7 @@ export function PolarisPreviewRenderer({
     case "stats-card-example":
     case "stats-card":
       return (
-        <div className="w-full max-w-sm p-4">
+        <s-box padding="base">
           <StatsCard
             id="single-stat"
             title="Total Revenue"
@@ -99,7 +99,7 @@ export function PolarisPreviewRenderer({
             sparklineData={[15, 18, 22, 28, 26, 34, 38, 42]}
             sparklineStroke="#10b981"
           />
-        </div>
+        </s-box>
       );
 
     // ── Feedbacks ──
@@ -144,9 +144,9 @@ export function PolarisPreviewRenderer({
 
     default:
       return (
-        <div className="flex items-center justify-center p-8 text-center text-xs text-muted-foreground">
-          Component preview: <code className="ml-1 font-mono text-foreground">{renderKey}</code>
-        </div>
+        <s-box padding="base">
+          <s-text tone="neutral">Component preview: {renderKey}</s-text>
+        </s-box>
       );
   }
 }
