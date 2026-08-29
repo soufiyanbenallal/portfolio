@@ -17,6 +17,9 @@ importers:
       '@react-three/fiber':
         specifier: ^9.7.0
         version: 9.7.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(three@0.185.1)
+      '@shopify/polaris-types':
+        specifier: ^1.0.7
+        version: 1.0.7
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -539,6 +542,10 @@ packages:
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
+
+  '@shopify/polaris-types@1.0.7':
+    resolution: {integrity: sha512-e4OKlNHkDNHe9RCOnNgUuAkeTEH028YxS2pGEWhO/f1cHQyekhLVdY8AWznqfvgMlobwwvfgIaF+rc1jtNbYnw==}
+    engines: {node: '>=22.18.0', pnpm: '>=10.2.0'}
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
@@ -2642,6 +2649,8 @@ snapshots:
       - immer
 
   '@rtsao/scc@1.1.0': {}
+
+  '@shopify/polaris-types@1.0.7': {}
 
   '@swc/helpers@0.5.15':
     dependencies:

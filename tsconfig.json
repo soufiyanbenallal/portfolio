@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "types": ["@shopify/polaris-types"]
   },
   "include": [
     "next-env.d.ts",

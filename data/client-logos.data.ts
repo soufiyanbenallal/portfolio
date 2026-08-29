@@ -15,6 +15,7 @@ export const navLinksData: NavLinkItemType[] = [
   { label: "Work", href: "#projects", isAnchor: true },
   { label: "Services", href: "#services", isAnchor: true },
   { label: "Blog", href: "#blog", isAnchor: true },
+  { label: "Polaris", href: "/polaris-playground", isAnchor: false },
   { label: "Contact", href: "#contact", isAnchor: true },
 ];
 
