@@ -1,32 +1,13 @@
 export type PolarisCategoryIdType =
-  | "dashboard"
-  | "forms"
-  | "actions"
-  | "feedback"
-  | "tables"
-  | "layout";
+  "dashboard" | "forms" | "actions" | "feedback" | "tables" | "layout";
 
 export type PolarisButtonToneType = "auto" | "critical" | "neutral";
 
-export type PolarisBannerToneType =
-  | "auto"
-  | "success"
-  | "warning"
-  | "critical"
-  | "info";
+export type PolarisBannerToneType = "auto" | "success" | "warning" | "critical" | "info";
 
-export type PolarisBadgeToneType =
-  | "auto"
-  | "success"
-  | "warning"
-  | "critical"
-  | "info";
+export type PolarisBadgeToneType = "auto" | "success" | "warning" | "critical" | "info";
 
-export type PolarisButtonVariantType =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "auto";
+export type PolarisButtonVariantType = "primary" | "secondary" | "tertiary" | "auto";
 
 export type PolarisCategoryItemType = {
   id: PolarisCategoryIdType;

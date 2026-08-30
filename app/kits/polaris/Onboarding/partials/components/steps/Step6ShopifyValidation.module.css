@@ -149,7 +149,7 @@
 
 .dot::before,
 .dot::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: 9999px;

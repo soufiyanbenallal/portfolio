@@ -14,7 +14,6 @@ export type ConditionItemPropsType = {
   renderFooter?: React.ReactNode;
 };
 
-
 export function ConditionItem({
   labelField = "Field",
   labelOperator = "Operator",
@@ -28,36 +27,36 @@ export function ConditionItem({
   renderFooter,
 }: ConditionItemPropsType): JSX.Element {
   return (
-    <div className="p-4 bg-card rounded-xl border border-border shadow-xs space-y-3">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-        <div className="md:col-span-5 space-y-1">
-          <label className="text-[10px] uppercase font-bold text-muted-foreground">
+    <div className="bg-card border-border space-y-3 rounded-xl border p-4 shadow-xs">
+      <div className="grid grid-cols-1 items-end gap-3 md:grid-cols-12">
+        <div className="space-y-1 md:col-span-5">
+          <label className="text-muted-foreground text-[10px] font-bold uppercase">
             {labelField}
           </label>
           <div>{renderField}</div>
         </div>
 
-        <div className="md:col-span-3 space-y-1">
-          <label className="text-[10px] uppercase font-bold text-muted-foreground">
+        <div className="space-y-1 md:col-span-3">
+          <label className="text-muted-foreground text-[10px] font-bold uppercase">
             {labelOperator}
           </label>
           <div>{renderOperator}</div>
         </div>
 
-        <div className="md:col-span-3 space-y-1">
-          <label className="text-[10px] uppercase font-bold text-muted-foreground">
+        <div className="space-y-1 md:col-span-3">
+          <label className="text-muted-foreground text-[10px] font-bold uppercase">
             {labelValue}
           </label>
           <div>{renderValue}</div>
         </div>
 
-        <div className="md:col-span-1 flex items-center justify-end gap-1">
+        <div className="flex items-center justify-end gap-1 md:col-span-1">
           {renderActions}
           {showDelete && (
             <button
               type="button"
               onClick={onDelete}
-              className="p-2 text-destructive hover:bg-destructive/10 rounded-lg transition-colors text-xs"
+              className="text-destructive hover:bg-destructive/10 rounded-lg p-2 text-xs transition-colors"
               title="Delete Condition"
             >
               🗑
@@ -66,7 +65,7 @@ export function ConditionItem({
         </div>
       </div>
 
-      {renderFooter && <div className="pt-2 border-t border-border/40">{renderFooter}</div>}
+      {renderFooter && <div className="border-border/40 border-t pt-2">{renderFooter}</div>}
     </div>
   );
 }

@@ -17,7 +17,6 @@ export type ThemeEmbedStatusPropsType = {
   className?: string;
 };
 
-
 export function ThemeEmbedStatus({
   shopDomain = "my-store.myshopify.com",
   appEmbedName = "Core App Embed",
@@ -56,19 +55,12 @@ export function ThemeEmbedStatus({
         </s-paragraph>
 
         <s-stack direction="inline" gap="small-200" alignItems="center">
-          <s-button
-            variant={isActive ? "secondary" : "primary"}
-            onClick={handleOpenEditor}
-          >
+          <s-button variant={isActive ? "secondary" : "primary"} onClick={handleOpenEditor}>
             {isActive ? "Customize in Theme Editor" : "Activate in Theme Editor →"}
           </s-button>
 
           {onRecheck && (
-            <s-button
-              variant="secondary"
-              onClick={onRecheck}
-              disabled={isChecking}
-            >
+            <s-button variant="secondary" onClick={onRecheck} disabled={isChecking}>
               {isChecking ? "Checking..." : "Re-check status"}
             </s-button>
           )}

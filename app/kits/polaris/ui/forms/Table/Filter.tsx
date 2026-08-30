@@ -10,7 +10,6 @@ export type FilterPropsType = {
   onTabChange?: (tabId: string) => void;
 };
 
-
 export function Filter({
   queryValue = "",
   onQueryChange,
@@ -33,9 +32,9 @@ export function Filter({
   };
 
   return (
-    <div className="space-y-3 p-3 bg-card rounded-xl border border-border">
+    <div className="bg-card border-border space-y-3 rounded-xl border p-3">
       {tabs && tabs.length > 0 && (
-        <div className="flex items-center gap-1.5 border-b border-border/60 pb-2">
+        <div className="border-border/60 flex items-center gap-1.5 border-b pb-2">
           {tabs.map((t) => {
             const isSelected = selectedTab === t.id;
             return (
@@ -43,7 +42,7 @@ export function Filter({
                 key={t.id}
                 type="button"
                 onClick={() => onTabChange?.(t.id)}
-                className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
+                className={`rounded-md px-3 py-1 text-xs font-semibold transition-colors ${
                   isSelected
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -62,13 +61,13 @@ export function Filter({
           value={internalQuery}
           onChange={(e) => handleQuery(e.target.value)}
           placeholder={placeholder}
-          className="w-full text-xs px-3 py-2 pr-8 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+          className="border-border bg-background text-foreground focus:ring-primary w-full rounded-lg border px-3 py-2 pr-8 text-xs focus:ring-1 focus:outline-none"
         />
         {internalQuery && (
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs"
+            className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2.5 -translate-y-1/2 text-xs"
           >
             ✕
           </button>

@@ -16,7 +16,6 @@ export type PlanItemType = {
   ctaText?: string;
 };
 
-
 export type PickPlanPropsType = {
   appName?: string;
   plans?: PlanItemType[];
@@ -29,7 +28,6 @@ export type PickPlanPropsType = {
   customButtonText?: string;
   getPlanUrl?: (plan: PlanItemType) => string;
 };
-
 
 export function PickPlan({
   appName,
@@ -92,18 +90,18 @@ export function PickPlan({
         <button
           type="button"
           onClick={() => setIsAnnual(!isAnnual)}
-          className={`w-11 h-6 rounded-full p-1 transition-colors ${
+          className={`h-6 w-11 rounded-full p-1 transition-colors ${
             isAnnual ? "bg-primary" : "bg-muted"
           }`}
         >
           <div
-            className={`w-4 h-4 rounded-full bg-background shadow-xs transition-transform ${
+            className={`bg-background h-4 w-4 rounded-full shadow-xs transition-transform ${
               isAnnual ? "translate-x-5" : "translate-x-0"
             }`}
           />
         </button>
         <span
-          className={`text-xs font-semibold flex items-center gap-1 ${
+          className={`flex items-center gap-1 text-xs font-semibold ${
             isAnnual ? "text-foreground" : "text-muted-foreground"
           }`}
         >
@@ -116,9 +114,9 @@ export function PickPlan({
       <div
         className={`grid gap-5 ${
           visiblePlans.length === 1
-            ? "max-w-md mx-auto"
+            ? "mx-auto max-w-md"
             : visiblePlans.length === 2
-              ? "grid-cols-1 md:grid-cols-2 max-w-2xl mx-auto"
+              ? "mx-auto max-w-2xl grid-cols-1 md:grid-cols-2"
               : "grid-cols-1 md:grid-cols-3"
         }`}
       >
@@ -130,10 +128,10 @@ export function PickPlan({
           return (
             <div
               key={plan.name}
-              className={`rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between relative border ${
+              className={`relative flex flex-col justify-between rounded-2xl border p-6 transition-all duration-300 ${
                 isFeatured
-                  ? "bg-card border-primary ring-2 ring-primary/20 shadow-lg"
-                  : "bg-card border-border shadow-xs hover:border-border/80"
+                  ? "bg-card border-primary ring-primary/20 shadow-lg ring-2"
+                  : "bg-card border-border hover:border-border/80 shadow-xs"
               }`}
             >
               {isFeatured && (
@@ -144,34 +142,34 @@ export function PickPlan({
 
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-base font-bold text-foreground">{plan.name}</h3>
+                  <h3 className="text-foreground text-base font-bold">{plan.name}</h3>
                   {plan.description && (
-                    <p className="text-xs text-muted-foreground mt-1 min-h-[32px]">
+                    <p className="text-muted-foreground mt-1 min-h-[32px] text-xs">
                       {plan.description}
                     </p>
                   )}
                 </div>
 
                 <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-extrabold text-foreground tracking-tight">
+                  <span className="text-foreground text-3xl font-extrabold tracking-tight">
                     {formatPrice(effectivePrice)}
                   </span>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground text-xs">
                     /{ct("commons.billing.month") || "mo"}
                   </span>
                 </div>
 
                 {isAnnual && plan.annualPrice && (
-                  <p className="text-[10px] text-muted-foreground">
+                  <p className="text-muted-foreground text-[10px]">
                     Billed annually at ${plan.annualPrice}/year
                   </p>
                 )}
 
                 {plan.features && plan.features.length > 0 && (
-                  <ul className="space-y-2 pt-4 border-t border-border text-xs text-foreground">
+                  <ul className="border-border text-foreground space-y-2 border-t pt-4 text-xs">
                     {plan.features.map((feat, idx) => (
                       <li key={idx} className="flex items-center gap-2">
-                        <span className="text-emerald-500 font-bold">✓</span>
+                        <span className="font-bold text-emerald-500">✓</span>
                         <span>{feat}</span>
                       </li>
                     ))}

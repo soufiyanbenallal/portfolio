@@ -10,7 +10,8 @@ export function TutorialButtonExample() {
         <s-stack direction="block" gap="base" alignItems="center">
           <s-heading>Embedded Video & Onboarding Tutorial Hub</s-heading>
           <s-paragraph>
-            Click the tutorial button below to launch the video walkthrough without leaving the page.
+            Click the tutorial button below to launch the video walkthrough without leaving the
+            page.
           </s-paragraph>
 
           <TutorialButton

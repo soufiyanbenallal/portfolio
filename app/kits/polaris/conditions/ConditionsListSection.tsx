@@ -23,7 +23,6 @@ export type ConditionsListSectionPropsType<T> = {
   storageKey?: string;
 };
 
-
 export function ConditionsListSection<T>({
   title,
   description,
@@ -84,7 +83,7 @@ export function ConditionsListSection<T>({
         <div className="space-y-4">
           {(Object.entries(groups) as [string, any[]][]).map(([groupKey, groupItems]) => (
             <div key={groupKey} className="space-y-2">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <h4 className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
                 {groupKey.charAt(0).toUpperCase() + groupKey.slice(1)}
               </h4>
               <div className="space-y-2">
@@ -114,8 +113,8 @@ export function ConditionsListSection<T>({
       {(title || headerActions || allowGroupToggle) && (
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            {title && <h3 className="text-sm font-bold text-foreground">{title}</h3>}
-            {description && <p className="text-xs text-muted-foreground">{description}</p>}
+            {title && <h3 className="text-foreground text-sm font-bold">{title}</h3>}
+            {description && <p className="text-muted-foreground text-xs">{description}</p>}
           </div>
           <div className="flex items-center gap-2">
             {headerActions}

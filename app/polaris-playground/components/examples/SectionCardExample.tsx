@@ -20,7 +20,8 @@ export function SectionCardExample(): ReactNode {
         <s-box paddingBlockStart="small-200">
           <s-stack direction="block" gap="small-200">
             <s-paragraph>
-              When enabled, custom discount rules and address validation triggers will run on all cart transactions.
+              When enabled, custom discount rules and address validation triggers will run on all
+              cart transactions.
             </s-paragraph>
             <s-stack direction="inline" gap="small-200" alignItems="center">
               <s-text type="strong">Status:</s-text>

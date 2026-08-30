@@ -6,7 +6,6 @@ export type ModalSupportFormPropsType = {
   content: ReactNode;
 };
 
-
 export const ModalSupportForm = ({
   onHide,
   title,
@@ -14,7 +13,7 @@ export const ModalSupportForm = ({
 }: ModalSupportFormPropsType): JSX.Element => {
   return (
     <s-modal id="support-service-modal" heading={title} onHide={onHide}>
-      <div className="p-5 max-w-2xl max-h-[80vh] overflow-y-auto">{content}</div>
+      <div className="max-h-[80vh] max-w-2xl overflow-y-auto p-5">{content}</div>
     </s-modal>
   );
 };

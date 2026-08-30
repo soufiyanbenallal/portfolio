@@ -1,6 +1,6 @@
-import { useId, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from 'react';
-import { cn } from '../../utils';
-import styles from './ui.module.css';
+import { useId, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from "react";
+import { cn } from "../../utils";
+import styles from "./ui.module.css";
 
 export function Card({
   className,
@@ -12,16 +12,13 @@ export function Card({
   children: ReactNode;
 }) {
   return (
-    <div
-      style={style}
-      className={cn(styles.card, className)}
-    >
+    <div style={style} className={cn(styles.card, className)}>
       {children}
     </div>
   );
 }
 
-export type ButtonVariantType = 'primary' | 'secondary' | 'ghost';
+export type ButtonVariantType = "primary" | "secondary" | "ghost";
 
 export type ButtonPropsType = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariantType;
@@ -33,52 +30,30 @@ const buttonVariantClassMap: Record<ButtonVariantType, string> = {
   ghost: styles.buttonGhost,
 };
 
-export function Button({ variant = 'primary', className, children, ...rest }: ButtonPropsType) {
+export function Button({ variant = "primary", className, children, ...rest }: ButtonPropsType) {
   return (
-    <button
-      className={cn(
-        styles.button,
-        buttonVariantClassMap[variant],
-        className
-      )}
-      {...rest}
-    >
+    <button className={cn(styles.button, buttonVariantClassMap[variant], className)} {...rest}>
       {children}
     </button>
   );
 }
 
-export type BadgeToneType = 'green' | 'gray' | 'amber';
+export type BadgeToneType = "green" | "gray" | "amber";
 
-export function Badge({
-  tone = 'green',
-  children,
-}: {
-  tone?: BadgeToneType;
-  children: ReactNode;
-}) {
+export function Badge({ tone = "green", children }: { tone?: BadgeToneType; children: ReactNode }) {
   const toneClassMap: Record<BadgeToneType, string> = {
     green: styles.badgeGreen,
     gray: styles.badgeGray,
     amber: styles.badgeAmber,
   };
-  return (
-    <span
-      className={cn(
-        styles.badge,
-        toneClassMap[tone]
-      )}
-    >
-      {children}
-    </span>
-  );
+  return <span className={cn(styles.badge, toneClassMap[tone])}>{children}</span>;
 }
 
-export type IconTileToneType = 'green' | 'gray';
+export type IconTileToneType = "green" | "gray";
 
 export function IconTile({
   icon,
-  tone = 'green',
+  tone = "green",
   className,
 }: {
   icon: ReactNode;
@@ -89,17 +64,7 @@ export function IconTile({
     green: styles.iconTileGreen,
     gray: styles.iconTileGray,
   };
-  return (
-    <div
-      className={cn(
-        styles.iconTile,
-        toneClassMap[tone],
-        className
-      )}
-    >
-      {icon}
-    </div>
-  );
+  return <div className={cn(styles.iconTile, toneClassMap[tone], className)}>{icon}</div>;
 }
 
 export function ToggleSwitch({

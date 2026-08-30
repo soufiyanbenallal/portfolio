@@ -10,12 +10,7 @@ export type PlanPricingCardPropsType = {
   onSelect: () => void;
 };
 
-export function PlanPricingCard({
-  plan,
-  interval,
-  isCurrent,
-  onSelect,
-}: PlanPricingCardPropsType) {
+export function PlanPricingCard({ plan, interval, isCurrent, onSelect }: PlanPricingCardPropsType) {
   const price = interval === "annual" ? plan.annualPrice : plan.monthlyPrice;
   const isFree = price === 0;
 
@@ -48,9 +43,7 @@ export function PlanPricingCard({
                 type={feature.included ? "check" : "minus-circle"}
                 tone={feature.included ? (feature.highlight ? "info" : "success") : "neutral"}
               />
-              <s-text tone={feature.included ? undefined : "neutral"}>
-                {feature.text}
-              </s-text>
+              <s-text tone={feature.included ? undefined : "neutral"}>{feature.text}</s-text>
             </s-stack>
           ))}
         </s-stack>

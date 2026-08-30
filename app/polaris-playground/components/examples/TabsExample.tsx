@@ -23,9 +23,7 @@ export function TabsExample(): ReactNode {
         />
 
         <s-box padding="base" borderWidth="base" borderRadius="base" background="base">
-          <s-text tone="neutral">
-            Currently viewing tab: {String(selectedTab)}
-          </s-text>
+          <s-text tone="neutral">Currently viewing tab: {String(selectedTab)}</s-text>
         </s-box>
       </s-stack>
     </s-page>

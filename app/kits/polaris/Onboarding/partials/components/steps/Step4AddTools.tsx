@@ -1,15 +1,15 @@
-import type { Dispatch } from 'react';
-import { Boxes, Gift, Rocket, Zap } from 'lucide-react';
-import type { OnboardingActionType, OnboardingStateType, OptionalToolIdType } from '../../types';
-import { Badge, Button, Card, IconTile, ToggleSwitch } from '../shared/ui';
-import { cn } from '../../utils';
-import styles from './Step4AddTools.module.css';
+import type { Dispatch } from "react";
+import { Boxes, Gift, Rocket, Zap } from "lucide-react";
+import type { OnboardingActionType, OnboardingStateType, OptionalToolIdType } from "../../types";
+import { Badge, Button, Card, IconTile, ToggleSwitch } from "../shared/ui";
+import { cn } from "../../utils";
+import styles from "./Step4AddTools.module.css";
 
 const OPTIONAL_ICONS: Record<OptionalToolIdType, typeof Boxes> = {
-  'volume-discounts': Boxes,
-  'post-purchase-upsell': Rocket,
-  'product-addons': Gift,
-  'checkout-bumps': Zap,
+  "volume-discounts": Boxes,
+  "post-purchase-upsell": Rocket,
+  "product-addons": Gift,
+  "checkout-bumps": Zap,
 };
 
 export type Step4AddToolsPropsType = {
@@ -17,18 +17,13 @@ export type Step4AddToolsPropsType = {
   dispatch: Dispatch<OnboardingActionType>;
 };
 
-export function Step4AddTools({
-  state,
-  dispatch,
-}: Step4AddToolsPropsType) {
+export function Step4AddTools({ state, dispatch }: Step4AddToolsPropsType) {
   const selectedCount = state.optionalTools.filter((tool) => tool.selected).length;
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>
-          Add more revenue tools
-        </h1>
+        <h1 className={styles.title}>Add more revenue tools</h1>
         <p className={styles.subtitle}>
           Optional, high-impact modules. Nothing here is required to launch.
         </p>
@@ -40,17 +35,17 @@ export function Step4AddTools({
           return (
             <Card
               key={tool.id}
-              className={cn(
-                styles.toolCard,
-                tool.selected && styles.toolCardSelected
-              )}
+              className={cn(styles.toolCard, tool.selected && styles.toolCardSelected)}
               style={{ animationDelay: `${i * 60}ms` }}
             >
               <div className={styles.cardHeader}>
-                <IconTile icon={<Icon style={{ height: '1.25rem', width: '1.25rem' }} />} tone={tool.selected ? 'green' : 'gray'} />
+                <IconTile
+                  icon={<Icon style={{ height: "1.25rem", width: "1.25rem" }} />}
+                  tone={tool.selected ? "green" : "gray"}
+                />
                 <ToggleSwitch
                   checked={tool.selected}
-                  onChange={() => dispatch({ type: 'TOGGLE_OPTIONAL_TOOL', id: tool.id })}
+                  onChange={() => dispatch({ type: "TOGGLE_OPTIONAL_TOOL", id: tool.id })}
                   label={`Enable ${tool.name}`}
                 />
               </div>
@@ -71,10 +66,14 @@ export function Step4AddTools({
       <div className={styles.bottomBar}>
         <div className={styles.bottomBarInner}>
           <p className={styles.bottomBarText}>
-            {selectedCount === 0 ? 'No tools selected yet' : `${selectedCount} tool${selectedCount > 1 ? 's' : ''} selected`}
+            {selectedCount === 0
+              ? "No tools selected yet"
+              : `${selectedCount} tool${selectedCount > 1 ? "s" : ""} selected`}
           </p>
-          <Button onClick={() => dispatch({ type: 'GO_NEXT' })}>
-            {selectedCount === 0 ? 'Skip for now' : `Set up ${selectedCount} tool${selectedCount > 1 ? 's' : ''}`}
+          <Button onClick={() => dispatch({ type: "GO_NEXT" })}>
+            {selectedCount === 0
+              ? "Skip for now"
+              : `Set up ${selectedCount} tool${selectedCount > 1 ? "s" : ""}`}
           </Button>
         </div>
       </div>

@@ -5,7 +5,6 @@ export type TicketDetailsPropsType = {
   onBack: () => void;
 };
 
-
 export const TicketDetails = ({
   selectedTicket,
   onBack,
@@ -14,14 +13,14 @@ export const TicketDetails = ({
   const meta = selectedTicket.meta as Record<string, unknown> | undefined;
 
   return (
-    <div className="p-4 rounded-xl border border-border bg-card space-y-4 max-h-[380px] overflow-y-auto">
+    <div className="border-border bg-card max-h-[380px] space-y-4 overflow-y-auto rounded-xl border p-4">
       {/* Header */}
-      <div className="flex items-center justify-between gap-3 pb-2 border-b border-border">
+      <div className="border-border flex items-center justify-between gap-3 border-b pb-2">
         <div className="flex items-center gap-2">
           <s-button variant="tertiary" onClick={onBack}>
             ← Back
           </s-button>
-          <span className="font-bold text-sm text-foreground truncate max-w-[180px]">
+          <span className="text-foreground max-w-[180px] truncate text-sm font-bold">
             {selectedTicket.title}
           </span>
         </div>
@@ -31,39 +30,39 @@ export const TicketDetails = ({
       </div>
 
       {/* Meta info */}
-      <div className="space-y-1 text-xs text-muted-foreground">
+      <div className="text-muted-foreground space-y-1 text-xs">
         <div>
-          <span className="font-semibold text-foreground">Type: </span>
+          <span className="text-foreground font-semibold">Type: </span>
           {selectedTicket.type}
         </div>
         {Boolean(selectedTicket.email) && (
           <div>
-            <span className="font-semibold text-foreground">Contact Email: </span>
+            <span className="text-foreground font-semibold">Contact Email: </span>
             {selectedTicket.email}
           </div>
         )}
         {Boolean(meta?.sessionEmail) && (
           <div>
-            <span className="font-semibold text-foreground">Admin Email: </span>
+            <span className="text-foreground font-semibold">Admin Email: </span>
             {String(meta?.sessionEmail)}
           </div>
         )}
       </div>
 
       {/* Description */}
-      <div className="space-y-1 pt-2 border-t border-border">
-        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
+      <div className="border-border space-y-1 border-t pt-2">
+        <span className="text-muted-foreground block text-xs font-semibold tracking-wider uppercase">
           Description
         </span>
-        <div className="p-3 bg-muted/40 rounded-lg text-xs text-foreground leading-relaxed whitespace-pre-wrap border border-border/60">
+        <div className="bg-muted/40 text-foreground border-border/60 rounded-lg border p-3 text-xs leading-relaxed whitespace-pre-wrap">
           {selectedTicket.description}
         </div>
       </div>
 
       {/* Images */}
       {selectedTicket.images && selectedTicket.images.length > 0 && (
-        <div className="space-y-2 pt-2 border-t border-border">
-          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
+        <div className="border-border space-y-2 border-t pt-2">
+          <span className="text-muted-foreground block text-xs font-semibold tracking-wider uppercase">
             Attachments ({selectedTicket.images.length})
           </span>
           <div className="flex flex-wrap gap-2">
@@ -76,12 +75,12 @@ export const TicketDetails = ({
                   href={url}
                   target="_blank"
                   rel="noreferrer"
-                  className="block w-16 h-16 rounded-lg overflow-hidden border border-border bg-muted/30 hover:opacity-80 transition-opacity"
+                  className="border-border bg-muted/30 block h-16 w-16 overflow-hidden rounded-lg border transition-opacity hover:opacity-80"
                 >
                   <img
                     src={url}
                     alt={`Attachment ${idx + 1}`}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </a>
               );

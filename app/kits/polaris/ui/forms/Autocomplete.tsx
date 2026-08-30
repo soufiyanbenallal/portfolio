@@ -23,7 +23,6 @@ export type AutocompletePropsType = {
   allowRemove?: boolean;
 };
 
-
 export function Autocomplete({
   id,
   index,
@@ -152,7 +151,7 @@ export function Autocomplete({
   }, [options, inputValue]);
 
   return (
-    <div ref={containerRef} className="space-y-2 relative w-full">
+    <div ref={containerRef} className="relative w-full space-y-2">
       {/* Selected Tags */}
       {selectedOptions.length > 0 && (
         <div className="flex flex-wrap gap-1.5 pb-1">
@@ -162,14 +161,14 @@ export function Autocomplete({
             return (
               <span
                 key={opt}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-primary/10 text-primary border border-primary/20"
+                className="bg-primary/10 text-primary border-primary/20 inline-flex items-center gap-1 rounded-md border px-2.5 py-1 text-xs font-medium"
               >
                 <span>{label}</span>
                 {!disabled && (
                   <button
                     type="button"
                     onClick={() => removeOption(opt)}
-                    className="hover:text-destructive font-bold text-xs"
+                    className="hover:text-destructive text-xs font-bold"
                   >
                     ×
                   </button>
@@ -183,7 +182,7 @@ export function Autocomplete({
       {/* Input */}
       <div className="relative flex items-center">
         {connectedLeft && <div className="mr-2">{connectedLeft}</div>}
-        {prefix && <div className="absolute left-3 text-muted-foreground">{prefix}</div>}
+        {prefix && <div className="text-muted-foreground absolute left-3">{prefix}</div>}
         <input
           type="text"
           value={inputValue}
@@ -194,8 +193,8 @@ export function Autocomplete({
             setIsOpen(true);
           }}
           placeholder={ct("commons.autocomplete.search") || "Search or add..."}
-          className={`w-full text-xs py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-xs ${
-            prefix ? "pl-8 pr-3" : "px-3"
+          className={`border-border bg-background text-foreground focus:ring-primary w-full rounded-lg border py-2 text-xs shadow-xs focus:ring-1 focus:outline-none ${
+            prefix ? "pr-3 pl-8" : "px-3"
           }`}
         />
         {loading && (
@@ -207,10 +206,10 @@ export function Autocomplete({
 
       {/* Dropdown Options */}
       {isOpen && (
-        <div className="absolute left-0 top-full mt-1 w-full bg-popover border border-border rounded-xl shadow-xl z-50 overflow-hidden divide-y divide-border">
+        <div className="bg-popover border-border divide-border absolute top-full left-0 z-50 mt-1 w-full divide-y overflow-hidden rounded-xl border shadow-xl">
           <div className="max-h-56 overflow-y-auto p-1">
             {filteredOptions.length === 0 ? (
-              <div className="p-3 text-center text-xs text-muted-foreground">
+              <div className="text-muted-foreground p-3 text-center text-xs">
                 No matching options
               </div>
             ) : (
@@ -221,7 +220,7 @@ export function Autocomplete({
                     key={opt.value}
                     type="button"
                     onClick={() => handleSelect(opt.value)}
-                    className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors flex items-center justify-between ${
+                    className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs transition-colors ${
                       isSelected
                         ? "bg-primary/10 text-primary font-semibold"
                         : "text-foreground hover:bg-muted"

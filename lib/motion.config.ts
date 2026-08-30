@@ -103,17 +103,14 @@ export const VIEWPORT_EARLY = { once: true, margin: "-10% 0px -20% 0px" } as con
 export const transitionOf = (
   duration: number = DURATIONS.base,
   ease: CubicBezierType = EASINGS.entrance,
-  delay = 0,
+  delay = 0
 ): Transition => ({ duration, ease, delay });
 
 /**
  * Parent orchestrator. Children with the matching variant names inherit
  * the `animate` state and fire in sequence.
  */
-export const staggerContainer = (
-  stagger = 0.07,
-  delayChildren = 0,
-): Variants => ({
+export const staggerContainer = (stagger = 0.07, delayChildren = 0): Variants => ({
   initial: {},
   animate: { transition: { staggerChildren: stagger, delayChildren } },
   exit: { transition: { staggerChildren: stagger / 2, staggerDirection: -1 } },

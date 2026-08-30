@@ -27,7 +27,6 @@ export type ReviewRequestPropsType = {
   minAppAge?: number;
 };
 
-
 export const ReviewRequest: React.FC<ReviewRequestPropsType> = ({
   showAsButton = false,
   showAsModal = false,
@@ -198,8 +197,8 @@ export const ReviewRequest: React.FC<ReviewRequestPropsType> = ({
   if (showAsModal && isVisible) {
     return (
       <s-modal id="review-request-modal" heading={t.title} onHide={() => setIsVisible(false)}>
-        <div className="p-5 space-y-4">
-          <p className="text-xs text-muted-foreground leading-relaxed">{t.description}</p>
+        <div className="space-y-4 p-5">
+          <p className="text-muted-foreground text-xs leading-relaxed">{t.description}</p>
           <div className="flex items-center justify-end gap-2 pt-2">
             <s-button variant="secondary" onClick={() => setIsVisible(false)}>
               {t.maybeLater}

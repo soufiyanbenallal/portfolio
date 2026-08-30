@@ -45,9 +45,7 @@ export function ResourceFilterToolbarExample() {
 
   const handleRemoveFilter = (filter: ActiveFilterItemType) => {
     setActiveFilters((prev) =>
-      prev.filter(
-        (f) => !(f.categoryId === filter.categoryId && f.value === filter.value)
-      )
+      prev.filter((f) => !(f.categoryId === filter.categoryId && f.value === filter.value))
     );
   };
 
@@ -78,7 +76,8 @@ export function ResourceFilterToolbarExample() {
         {/* Simulated Table Area */}
         <s-box padding="base" borderWidth="base" borderRadius="base" background="base">
           <s-text tone="neutral">
-            Showing filtered results for search query: "{search}" with {activeFilters.length} active filter(s).
+            Showing filtered results for search query: "{search}" with {activeFilters.length} active
+            filter(s).
           </s-text>
         </s-box>
       </s-stack>

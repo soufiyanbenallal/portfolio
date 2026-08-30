@@ -15,7 +15,6 @@ export type CustomCheckboxPropsType = {
   onChange?: (value: boolean) => void;
 };
 
-
 export function CheckBox({
   label,
   checked: checkedProp = false,
@@ -55,9 +54,7 @@ export function CheckBox({
         onChange={(e: any) => handleChange(e.target.checked)}
       />
       {helpText && <s-text tone="neutral">{helpText}</s-text>}
-      {error && typeof error === "string" && (
-        <s-text tone="critical">{error}</s-text>
-      )}
+      {error && typeof error === "string" && <s-text tone="critical">{error}</s-text>}
     </s-stack>
   );
 }

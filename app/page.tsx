@@ -34,11 +34,11 @@ export default function HomePage() {
 
         {/* Scales the whole section down into a docked card, then runs the
             service details past it */}
-            <div className="w-full">
+        <div className="w-full">
           <BigQuotePart />
 
-        <ServicesPart />
-            </div>
+          <ServicesPart />
+        </div>
 
         <SectionShell id="about" tone="canvas">
           <AboutHistoryPart />

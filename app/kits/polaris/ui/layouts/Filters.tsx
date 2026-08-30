@@ -87,22 +87,12 @@ export function Filters({
               onTabChange={(tabId) => onTabChange?.(String(tabId))}
             />
 
-            {onAddTab && (
-              <s-button
-                variant="tertiary"
-                icon="plus"
-                onClick={onAddTab}
-              />
-            )}
+            {onAddTab && <s-button variant="tertiary" icon="plus" onClick={onAddTab} />}
           </s-stack>
 
           {/* Right Actions & Search Trigger */}
           <s-stack direction="inline" gap="small-200" alignItems="center">
-            <s-button
-              variant="secondary"
-              icon="search"
-              onClick={handleOpenSearch}
-            />
+            <s-button variant="secondary" icon="search" onClick={handleOpenSearch} />
             {rightActions}
           </s-stack>
         </s-stack>
@@ -110,7 +100,12 @@ export function Filters({
         /* ── Mode 2: Search + Filter Mode ── */
         <s-stack direction="block" gap="small-200">
           {/* Top Bar: Search Input, Cancel, Save as */}
-          <s-stack direction="inline" justifyContent="space-between" alignItems="center" gap="small-200">
+          <s-stack
+            direction="inline"
+            justifyContent="space-between"
+            alignItems="center"
+            gap="small-200"
+          >
             <div style={{ flex: 1 }}>
               <s-text-field
                 label="Search"
@@ -124,19 +119,13 @@ export function Filters({
 
             <s-stack direction="inline" gap="small-200" alignItems="center">
               {hasTabs && (
-                <s-button
-                  variant="tertiary"
-                  onClick={handleCancelSearch}
-                >
+                <s-button variant="tertiary" onClick={handleCancelSearch}>
                   Cancel
                 </s-button>
               )}
 
               {onSaveView && (
-                <s-button
-                  variant="secondary"
-                  onClick={onSaveView}
-                >
+                <s-button variant="secondary" onClick={onSaveView}>
                   Save as
                 </s-button>
               )}
@@ -160,10 +149,7 @@ export function Filters({
               {/* Add Filter Button & Category Selector Menu */}
               {hasCategories && (
                 <>
-                  <s-clickable-chip
-                    commandFor="filters-menu"
-                    color="subdued"
-                  >
+                  <s-clickable-chip commandFor="filters-menu" color="subdued">
                     <s-icon slot="graphic" size="small" type="plus" />
                     Add filter
                   </s-clickable-chip>
@@ -185,10 +171,7 @@ export function Filters({
                       </s-section>
                     ) : (
                       <>
-                        <s-button
-                          icon="chevron-left"
-                          onClick={() => setSelectedCategory(null)}
-                        />
+                        <s-button icon="chevron-left" onClick={() => setSelectedCategory(null)} />
                         <s-text type="strong">{selectedCategory.label}</s-text>
                         <s-divider />
                         {selectedCategory.options.map((opt) => (
@@ -215,10 +198,7 @@ export function Filters({
               )}
 
               {hasActiveFilters && onClearAllFilters && (
-                <s-clickable-chip
-                  color="base"
-                  onClick={onClearAllFilters}
-                >
+                <s-clickable-chip color="base" onClick={onClearAllFilters}>
                   Clear all
                 </s-clickable-chip>
               )}

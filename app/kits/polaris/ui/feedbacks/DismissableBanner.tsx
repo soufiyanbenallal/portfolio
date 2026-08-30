@@ -7,7 +7,6 @@ export type DismissableBannerPropsType = {
   tone?: "info" | "success" | "warning" | "critical";
 };
 
-
 export function DismissableBanner({
   storageKey,
   children,

@@ -19,8 +19,8 @@ export function NavbarActionsPart({
     <div
       className={cn(
         "flex items-center",
-        isCompact ? "gap-1.5" : "gap-2 animate-nav-pop-in",
-        className,
+        isCompact ? "gap-1.5" : "animate-nav-pop-in gap-2",
+        className
       )}
     >
       {/* Email action */}
@@ -28,14 +28,14 @@ export function NavbarActionsPart({
         type="button"
         size="icon-sm"
         onClick={onOpenContact}
-     data-cursor="grow"
+        data-cursor="grow"
         aria-label="Send email"
         title="Send email"
       >
         <Icons.Mail
           className={cn(
             "text-white transition-transform duration-200 group-hover:scale-110",
-            isCompact ? "h-3.5 w-3.5" : "h-4 w-4",
+            isCompact ? "h-3.5 w-3.5" : "h-4 w-4"
           )}
         />
       </ButtonUi>
@@ -50,13 +50,12 @@ export function NavbarActionsPart({
         aria-label="Book a call"
         title="Book a call"
         size="icon-sm"
-      variant="secondary"
-     
+        variant="secondary"
       >
         <Icons.Calendar
           className={cn(
             "text-black transition-transform duration-200 group-hover:scale-110",
-            isCompact ? "h-3.5 w-3.5" : "h-4 w-4",
+            isCompact ? "h-3.5 w-3.5" : "h-4 w-4"
           )}
         />
       </ButtonUi>

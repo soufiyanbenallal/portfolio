@@ -1,11 +1,11 @@
-import type { Dispatch } from 'react';
-import { BarChart3, Check, Layers, PanelRightOpen } from 'lucide-react';
-import type { CoreToolIdType, OnboardingActionType, OnboardingStateType } from '../../types';
-import { Badge, Button, Card, IconTile } from '../shared/ui';
-import styles from './Step2RevenueFoundation.module.css';
+import type { Dispatch } from "react";
+import { BarChart3, Check, Layers, PanelRightOpen } from "lucide-react";
+import type { CoreToolIdType, OnboardingActionType, OnboardingStateType } from "../../types";
+import { Badge, Button, Card, IconTile } from "../shared/ui";
+import styles from "./Step2RevenueFoundation.module.css";
 
 const CORE_ICONS: Record<CoreToolIdType, typeof PanelRightOpen> = {
-  'cart-drawer': PanelRightOpen,
+  "cart-drawer": PanelRightOpen,
   fbt: Layers,
   analytics: BarChart3,
 };
@@ -15,19 +15,14 @@ export type Step2RevenueFoundationPropsType = {
   dispatch: Dispatch<OnboardingActionType>;
 };
 
-export function Step2RevenueFoundation({
-  state,
-  dispatch,
-}: Step2RevenueFoundationPropsType) {
+export function Step2RevenueFoundation({ state, dispatch }: Step2RevenueFoundationPropsType) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <span className={styles.checkBadge}>
-          <Check style={{ height: '1.25rem', width: '1.25rem' }} strokeWidth={2.5} />
+          <Check style={{ height: "1.25rem", width: "1.25rem" }} strokeWidth={2.5} />
         </span>
-        <h1 className={styles.title}>
-          Your revenue foundation is ready
-        </h1>
+        <h1 className={styles.title}>Your revenue foundation is ready</h1>
         <p className={styles.subtitle}>
           We&rsquo;ve already configured the essentials — nothing to set up, nothing to break.
         </p>
@@ -42,7 +37,7 @@ export function Step2RevenueFoundation({
               className={styles.toolCard}
               style={{ animationDelay: `${i * 80}ms` }}
             >
-              <IconTile icon={<Icon style={{ height: '1.25rem', width: '1.25rem' }} />} />
+              <IconTile icon={<Icon style={{ height: "1.25rem", width: "1.25rem" }} />} />
               <div className={styles.toolInfo}>
                 <p className={styles.toolName}>{tool.name}</p>
                 <p className={styles.toolDescription}>{tool.description}</p>
@@ -54,7 +49,7 @@ export function Step2RevenueFoundation({
       </div>
 
       <div className={styles.footer}>
-        <Button className={styles.continueButton} onClick={() => dispatch({ type: 'GO_NEXT' })}>
+        <Button className={styles.continueButton} onClick={() => dispatch({ type: "GO_NEXT" })}>
           Continue
         </Button>
         <p className={styles.footnote}>Fully customizable anytime from the Hub.</p>

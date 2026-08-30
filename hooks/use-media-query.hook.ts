@@ -22,7 +22,7 @@ export function useMediaQuery(query: string): boolean {
       mediaQueryList.addEventListener("change", onStoreChange);
       return () => mediaQueryList.removeEventListener("change", onStoreChange);
     },
-    [query],
+    [query]
   );
 
   const getSnapshot = useCallback(() => {
@@ -54,5 +54,4 @@ export const useIsWide = () => useMediaQuery("(min-width: 1200px)");
  * you only need to soften values; use this one whenever the preference changes
  * what is rendered.
  */
-export const useReducedMotionSafe = () =>
-  useMediaQuery("(prefers-reduced-motion: reduce)");
+export const useReducedMotionSafe = () => useMediaQuery("(prefers-reduced-motion: reduce)");

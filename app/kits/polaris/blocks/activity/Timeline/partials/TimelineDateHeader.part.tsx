@@ -31,7 +31,9 @@ export function TimelineDateHeaderPart({
       <s-stack direction="inline" justifyContent="space-between" alignItems="center">
         <s-text type="strong">{dateString}</s-text>
         {typeof count === "number" && (
-          <s-badge tone="neutral">{count} {count === 1 ? "event" : "events"}</s-badge>
+          <s-badge tone="neutral">
+            {count} {count === 1 ? "event" : "events"}
+          </s-badge>
         )}
       </s-stack>
     </s-box>

@@ -6,7 +6,6 @@ export type ApiDocumentationPropsType = {
   resources: string[];
 };
 
-
 function CodeBlock({ children, copyable = true }: { children: string; copyable?: boolean }) {
   const [copied, setCopied] = useState(false);
 
@@ -17,8 +16,8 @@ function CodeBlock({ children, copyable = true }: { children: string; copyable?:
   }, [children]);
 
   return (
-    <div className="relative p-3.5 bg-muted/60 rounded-lg border border-border">
-      <pre className="font-mono text-xs text-foreground overflow-x-auto whitespace-pre-wrap break-all leading-relaxed">
+    <div className="bg-muted/60 border-border relative rounded-lg border p-3.5">
+      <pre className="text-foreground overflow-x-auto font-mono text-xs leading-relaxed break-all whitespace-pre-wrap">
         {children}
       </pre>
       {copyable && (
@@ -46,20 +45,20 @@ function Section({
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div className="rounded-xl border border-border bg-card p-4 space-y-3 shadow-xs">
+    <div className="border-border bg-card space-y-3 rounded-xl border p-4 shadow-xs">
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-2 text-left cursor-pointer"
+        className="flex w-full cursor-pointer items-center justify-between gap-2 text-left"
       >
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-sm text-foreground">{title}</span>
+          <span className="text-foreground text-sm font-semibold">{title}</span>
           {badge && <s-badge tone="info">{badge}</s-badge>}
         </div>
-        <span className="text-xs text-muted-foreground font-medium">{open ? "Hide" : "Show"}</span>
+        <span className="text-muted-foreground text-xs font-medium">{open ? "Hide" : "Show"}</span>
       </button>
 
-      {open && <div className="space-y-3 pt-2 border-t border-border">{children}</div>}
+      {open && <div className="border-border space-y-3 border-t pt-2">{children}</div>}
     </div>
   );
 }
@@ -75,21 +74,21 @@ export const ApiDocumentation = ({
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h3 className="text-base font-bold text-foreground">{ct("commons.api_docs.title")}</h3>
-          <p className="text-xs text-muted-foreground">{ct("commons.api_docs.subtitle")}</p>
+          <h3 className="text-foreground text-base font-bold">{ct("commons.api_docs.title")}</h3>
+          <p className="text-muted-foreground text-xs">{ct("commons.api_docs.subtitle")}</p>
         </div>
         <a
           href={`${baseUrl}/docs`}
           target="_blank"
           rel="noreferrer"
-          className="text-xs text-primary font-semibold underline"
+          className="text-primary text-xs font-semibold underline"
         >
           {ct("commons.api_docs.view_full_docs")} →
         </a>
       </div>
 
       <Section title={ct("commons.api_docs.authentication")} defaultOpen>
-        <p className="text-xs text-muted-foreground">{ct("commons.api_docs.auth_desc")}</p>
+        <p className="text-muted-foreground text-xs">{ct("commons.api_docs.auth_desc")}</p>
         <CodeBlock>{`Authorization: Bearer mak_your_token_here`}</CodeBlock>
       </Section>
 
@@ -103,7 +102,7 @@ export const ApiDocumentation = ({
             <div key={resource} className="space-y-1.5">
               <div className="flex items-center gap-2">
                 <s-badge tone="success">GET</s-badge>
-                <span className="font-mono text-xs font-semibold text-foreground">
+                <span className="text-foreground font-mono text-xs font-semibold">
                   {`/v1/${resource}`}
                 </span>
               </div>
@@ -116,7 +115,7 @@ export const ApiDocumentation = ({
       </Section>
 
       <Section title={ct("commons.api_docs.pagination")}>
-        <p className="text-xs text-muted-foreground">{ct("commons.api_docs.pagination_desc")}</p>
+        <p className="text-muted-foreground text-xs">{ct("commons.api_docs.pagination_desc")}</p>
         <CodeBlock>
           {`# Pagination
 ?page=1&page_size=25
@@ -128,7 +127,7 @@ export const ApiDocumentation = ({
       </Section>
 
       <Section title={ct("commons.api_docs.response_format")}>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-muted-foreground text-xs">
           {ct("commons.api_docs.response_format_desc")}
         </p>
         <div className="space-y-2">
@@ -161,7 +160,7 @@ export const ApiDocumentation = ({
       </Section>
 
       <Section title={ct("commons.api_docs.rate_limits")}>
-        <p className="text-xs text-muted-foreground">{ct("commons.api_docs.rate_limits_desc")}</p>
+        <p className="text-muted-foreground text-xs">{ct("commons.api_docs.rate_limits_desc")}</p>
         <CodeBlock copyable={false}>
           {`X-RateLimit-Limit: 60
 X-RateLimit-Remaining: 58

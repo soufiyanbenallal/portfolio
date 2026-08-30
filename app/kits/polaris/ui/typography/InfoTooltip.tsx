@@ -8,7 +8,6 @@ export type InfoTooltipPropsType = {
   tone?: "subdued" | "success" | "critical" | "caution";
 };
 
-
 export function InfoTooltip({ label, tooltip }: InfoTooltipPropsType): ReactNode {
   const id = useId();
 

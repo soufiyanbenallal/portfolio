@@ -6,7 +6,6 @@ export type McpDocumentationPropsType = {
   mcpTools?: string[];
 };
 
-
 function CopyBlock({ label, value }: { label: string; value: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -19,13 +18,13 @@ function CopyBlock({ label, value }: { label: string; value: string }) {
 
   return (
     <div className="space-y-1.5">
-      {label && <p className="text-xs font-semibold text-foreground">{label}</p>}
-      <div className="relative p-3 bg-zinc-950 text-emerald-400 rounded-lg font-mono text-xs overflow-x-auto whitespace-pre-wrap break-all border border-zinc-800 flex items-start justify-between gap-3">
+      {label && <p className="text-foreground text-xs font-semibold">{label}</p>}
+      <div className="relative flex items-start justify-between gap-3 overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950 p-3 font-mono text-xs break-all whitespace-pre-wrap text-emerald-400">
         <code className="flex-1">{value}</code>
         <button
           type="button"
           onClick={handleCopy}
-          className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-2 py-1 rounded cursor-pointer font-sans"
+          className="cursor-pointer rounded bg-zinc-800 px-2 py-1 font-sans text-xs text-zinc-200 hover:bg-zinc-700"
         >
           {copied ? "Copied" : "Copy"}
         </button>
@@ -61,14 +60,14 @@ export const McpDocumentation = ({
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h3 className="text-base font-bold text-foreground">{ct("commons.mcp_docs.title")}</h3>
-          <p className="text-xs text-muted-foreground">{ct("commons.mcp_docs.subtitle")}</p>
+          <h3 className="text-foreground text-base font-bold">{ct("commons.mcp_docs.title")}</h3>
+          <p className="text-muted-foreground text-xs">{ct("commons.mcp_docs.subtitle")}</p>
         </div>
         <a
           href={`${baseUrl}/docs`}
           target="_blank"
           rel="noreferrer"
-          className="text-xs text-primary font-semibold underline"
+          className="text-primary text-xs font-semibold underline"
         >
           {ct("commons.mcp_docs.view_tool_docs")} →
         </a>
@@ -77,10 +76,10 @@ export const McpDocumentation = ({
       <CopyBlock label={ct("commons.mcp_docs.mcp_endpoint")} value={mcpUrl} />
 
       <div className="space-y-2">
-        <span className="text-xs font-semibold text-foreground block">
+        <span className="text-foreground block text-xs font-semibold">
           {ct("commons.mcp_docs.claude_cursor_config")}
         </span>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-muted-foreground text-xs">
           {ct("commons.mcp_docs.config_instructions")}
         </p>
         <CopyBlock label="" value={claudeConfig} />
@@ -88,10 +87,10 @@ export const McpDocumentation = ({
 
       {mcpTools && mcpTools.length > 0 && (
         <div className="space-y-2">
-          <span className="text-xs font-semibold text-foreground block">
+          <span className="text-foreground block text-xs font-semibold">
             {ct("commons.mcp_docs.available_tools")}
           </span>
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex flex-wrap items-center gap-2">
             {mcpTools.map((tool) => (
               <s-badge key={tool} tone="info">
                 {tool}
@@ -101,8 +100,8 @@ export const McpDocumentation = ({
         </div>
       )}
 
-      <div className="p-4 bg-muted/50 rounded-xl border border-border space-y-1.5 text-xs text-muted-foreground">
-        <span className="font-semibold text-foreground block mb-1">
+      <div className="bg-muted/50 border-border text-muted-foreground space-y-1.5 rounded-xl border p-4 text-xs">
+        <span className="text-foreground mb-1 block font-semibold">
           {ct("commons.mcp_docs.how_to_connect")}
         </span>
         <p>{ct("commons.mcp_docs.step_1")}</p>

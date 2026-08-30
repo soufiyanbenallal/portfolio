@@ -32,9 +32,7 @@ export type PolarisPreviewRendererPropsType = {
   renderKey: string;
 };
 
-export function PolarisPreviewRenderer({
-  renderKey,
-}: PolarisPreviewRendererPropsType) {
+export function PolarisPreviewRenderer({ renderKey }: PolarisPreviewRendererPropsType) {
   switch (renderKey) {
     // ── Onboarding Blocks ──
     case "onboarding-example":

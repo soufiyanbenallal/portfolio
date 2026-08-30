@@ -16,7 +16,6 @@ export type GiveFeedBacksPropsType = {
   onHide: () => void;
 };
 
-
 export const GiveFeedBacks = ({ onHide }: GiveFeedBacksPropsType): JSX.Element => {
   const ct = useCommonsT();
   const fetcher = useFetcher<SubmitResponseType>();
@@ -84,13 +83,13 @@ export const GiveFeedBacks = ({ onHide }: GiveFeedBacksPropsType): JSX.Element =
   );
 
   return (
-    <div className="p-5 space-y-5 text-center">
-      <h3 className="text-base font-bold text-foreground">
+    <div className="space-y-5 p-5 text-center">
+      <h3 className="text-foreground text-base font-bold">
         {ct("commons.feedback.share") || "Share your feedback"}
       </h3>
 
       {/* Star ratings */}
-      <div className="flex justify-center items-center gap-2 cursor-pointer">
+      <div className="flex cursor-pointer items-center justify-center gap-2">
         {[...Array(5)].map((_, index) => {
           const starValue = index + 1;
           return (
@@ -100,7 +99,7 @@ export const GiveFeedBacks = ({ onHide }: GiveFeedBacksPropsType): JSX.Element =
               onClick={() => handleRating(starValue)}
               onMouseEnter={() => setHover(starValue)}
               onMouseLeave={() => setHover(0)}
-              className="p-1 text-amber-400 hover:scale-110 transition-transform"
+              className="p-1 text-amber-400 transition-transform hover:scale-110"
             >
               {starValue <= (hover || rating) ? filledStarSVG : outlinedStarSVG}
             </button>
@@ -108,13 +107,13 @@ export const GiveFeedBacks = ({ onHide }: GiveFeedBacksPropsType): JSX.Element =
         })}
       </div>
 
-      <div className="text-2xl h-8 flex items-center justify-center">
+      <div className="flex h-8 items-center justify-center text-2xl">
         {hover > 0 ? emojis[hover - 1] : rating > 0 ? emojis[rating - 1] : ""}
       </div>
 
       {rating > 0 && rating < 4 && (
-        <div className="space-y-4 text-left border-t border-border pt-4">
-          <h4 className="text-xs font-bold text-foreground">
+        <div className="border-border space-y-4 border-t pt-4 text-left">
+          <h4 className="text-foreground text-xs font-bold">
             {ct("commons.feedback.tell_more") || "Tell us what we can improve"}
           </h4>
 
@@ -122,13 +121,13 @@ export const GiveFeedBacks = ({ onHide }: GiveFeedBacksPropsType): JSX.Element =
             {choices.map((choice) => (
               <label
                 key={choice.value}
-                className="flex items-center gap-2 text-xs font-medium cursor-pointer"
+                className="flex cursor-pointer items-center gap-2 text-xs font-medium"
               >
                 <input
                   type="checkbox"
                   checked={selectedReason.includes(choice.value)}
                   onChange={() => handleChoiceChange(choice.value)}
-                  className="rounded border-border"
+                  className="border-border rounded"
                 />
                 <span>{choice.label}</span>
               </label>
@@ -140,7 +139,7 @@ export const GiveFeedBacks = ({ onHide }: GiveFeedBacksPropsType): JSX.Element =
             onChange={(e) => setOtherFeedback(e.target.value)}
             placeholder={ct("commons.feedback.placeholder") || "Any additional feedback..."}
             rows={3}
-            className="w-full text-xs p-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border-border bg-background text-foreground focus:ring-primary w-full rounded-lg border p-3 text-xs focus:ring-1 focus:outline-none"
           />
 
           <div className="flex justify-end pt-2">

@@ -24,7 +24,6 @@ export type CreateTicketModalPropsType = {
   asModal?: boolean;
 };
 
-
 function maskEmail(email: string) {
   const [user, domain] = email.split("@");
   if (!user || !domain) return email;
@@ -127,19 +126,19 @@ export const CreateTicketModal = ({
           required
         />
         {formErrors.contactEmail && (
-          <p className="text-xs text-destructive">{formErrors.contactEmail}</p>
+          <p className="text-destructive text-xs">{formErrors.contactEmail}</p>
         )}
       </div>
 
       <div className="space-y-1">
-        <label className="text-xs font-semibold text-foreground block">
+        <label className="text-foreground block text-xs font-semibold">
           {ct("commons.support.ticket_type")}
         </label>
         <select
           value={form.type}
           disabled={submitting}
           onChange={(e) => handleChange("type")(e.target.value)}
-          className="w-full h-9 rounded-lg border border-border bg-card px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+          className="border-border bg-card text-foreground focus:ring-primary h-9 w-full rounded-lg border px-3 text-sm focus:ring-1 focus:outline-none"
         >
           {ticketTypeOptions.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -156,28 +155,28 @@ export const CreateTicketModal = ({
           onInput={(e: any) => handleChange("title")(e.target.value)}
           required
         />
-        {formErrors.title && <p className="text-xs text-destructive">{formErrors.title}</p>}
+        {formErrors.title && <p className="text-destructive text-xs">{formErrors.title}</p>}
       </div>
 
       <div className="space-y-1">
-        <label className="text-xs font-semibold text-foreground block">
+        <label className="text-foreground block text-xs font-semibold">
           {ct("commons.support.description")}
         </label>
         <textarea
           value={form.description}
           onChange={(e) => handleChange("description")(e.target.value)}
           rows={4}
-          className="w-full rounded-lg border border-border bg-card p-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary leading-relaxed"
+          className="border-border bg-card text-foreground focus:ring-primary w-full rounded-lg border p-3 text-sm leading-relaxed focus:ring-1 focus:outline-none"
           placeholder="Please describe your issue or question..."
           required
         />
         {formErrors.description && (
-          <p className="text-xs text-destructive">{formErrors.description}</p>
+          <p className="text-destructive text-xs">{formErrors.description}</p>
         )}
       </div>
 
-      <div className="space-y-2 pt-2 border-t border-border">
-        <span className="text-xs font-semibold text-foreground block">
+      <div className="border-border space-y-2 border-t pt-2">
+        <span className="text-foreground block text-xs font-semibold">
           {ct("commons.support.add_attachments")}
         </span>
         <MediaUploader
@@ -212,13 +211,13 @@ export const CreateTicketModal = ({
               return (
                 <div
                   key={idx}
-                  className="relative group rounded-lg overflow-hidden border border-border aspect-square bg-muted/20"
+                  className="group border-border bg-muted/20 relative aspect-square overflow-hidden rounded-lg border"
                 >
-                  <img src={imgUrl} alt="attachment" className="w-full h-full object-cover" />
+                  <img src={imgUrl} alt="attachment" className="h-full w-full object-cover" />
                   <button
                     type="button"
                     onClick={() => handleRemoveImage(idx)}
-                    className="absolute top-1 right-1 p-1 rounded-full bg-destructive text-destructive-foreground opacity-90 hover:opacity-100 transition-opacity"
+                    className="bg-destructive text-destructive-foreground absolute top-1 right-1 rounded-full p-1 opacity-90 transition-opacity hover:opacity-100"
                   >
                     ×
                   </button>
@@ -239,9 +238,9 @@ export const CreateTicketModal = ({
         heading={ct("commons.support.create_ticket")}
         onHide={onClose}
       >
-        <div className="p-5 max-w-lg max-h-[80vh] overflow-y-auto space-y-4">
+        <div className="max-h-[80vh] max-w-lg space-y-4 overflow-y-auto p-5">
           {content}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-border">
+          <div className="border-border flex items-center justify-end gap-3 border-t pt-3">
             <s-button variant="secondary" onClick={onClose}>
               {ct("commons.cancel")}
             </s-button>
@@ -260,9 +259,9 @@ export const CreateTicketModal = ({
   }
 
   return (
-    <div className="flex flex-col h-full space-y-4">
+    <div className="flex h-full flex-col space-y-4">
       <div className="flex-1 overflow-y-auto">{content}</div>
-      <div className="flex items-center justify-between pt-3 border-t border-border">
+      <div className="border-border flex items-center justify-between border-t pt-3">
         <s-button
           variant="primary"
           onClick={handleSubmit}

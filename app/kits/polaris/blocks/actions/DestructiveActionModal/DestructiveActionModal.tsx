@@ -16,7 +16,6 @@ export type DestructiveActionModalPropsType = {
   isLoading?: boolean;
 };
 
-
 export function DestructiveActionModal({
   open,
   onClose,
@@ -40,9 +39,7 @@ export function DestructiveActionModal({
 
   if (!open) return null;
 
-  const isVerified = verificationKeyword
-    ? inputValue.trim() === verificationKeyword.trim()
-    : true;
+  const isVerified = verificationKeyword ? inputValue.trim() === verificationKeyword.trim() : true;
 
   const handleConfirm = () => {
     if (isVerified && !isLoading) {
@@ -51,11 +48,7 @@ export function DestructiveActionModal({
   };
 
   return (
-    <s-modal
-      id="destructive-action-modal"
-      heading={title}
-      onHide={onClose}
-    >
+    <s-modal id="destructive-action-modal" heading={title} onHide={onClose}>
       <s-box padding="base">
         <s-stack direction="block" gap="base">
           <s-banner tone="critical" heading="Danger Zone">

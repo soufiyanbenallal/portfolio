@@ -14,15 +14,9 @@ export function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ componentSlug: string }>;
-}) {
+export async function generateMetadata({ params }: { params: Promise<{ componentSlug: string }> }) {
   const { componentSlug } = await params;
-  const component = polarisDocComponentsData.find(
-    (c) => c.slug === componentSlug
-  );
+  const component = polarisDocComponentsData.find((c) => c.slug === componentSlug);
 
   if (!component) {
     return {
@@ -42,16 +36,14 @@ export default async function PolarisComponentDetailPage({
   params: Promise<{ componentSlug: string }>;
 }) {
   const { componentSlug } = await params;
-  const component = polarisDocComponentsData.find(
-    (c) => c.slug === componentSlug
-  );
+  const component = polarisDocComponentsData.find((c) => c.slug === componentSlug);
 
   if (!component) {
     notFound();
   }
 
   return (
-    <div className="mx-auto max-w-6xl w-full space-y-8 pb-12">
+    <div className="mx-auto w-full max-w-6xl space-y-8 pb-12">
       {component.examples.map((example) => {
         const files: BlockFileItemType[] = example.fileSources.map((source) => ({
           name: source.name,
@@ -75,7 +67,7 @@ export default async function PolarisComponentDetailPage({
       })}
 
       {/* Merchant / Developer Feedback Box */}
-      <div className="pt-4 max-w-xl mx-auto">
+      <div className="mx-auto max-w-xl pt-4">
         <FeedbackCard />
       </div>
     </div>

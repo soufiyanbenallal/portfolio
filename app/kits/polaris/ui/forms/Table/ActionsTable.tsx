@@ -9,7 +9,6 @@ export type ActionsTablePropsType = {
   onDelete?: () => void;
 };
 
-
 export const ActionsTable = ({
   edit,
   external,

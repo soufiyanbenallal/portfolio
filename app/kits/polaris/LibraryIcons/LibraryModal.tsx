@@ -17,7 +17,6 @@ export type LibraryModalPropsType = {
   onHide?: () => void;
 };
 
-
 export const LibraryModal = ({
   stateKey,
   loading,
@@ -38,27 +37,27 @@ export const LibraryModal = ({
 
   return (
     <s-modal id="library_icon" heading="Select an icon or upload your own" onHide={onHide}>
-      <div className="p-4 space-y-4 max-h-[70vh] overflow-y-auto">
+      <div className="max-h-[70vh] space-y-4 overflow-y-auto p-4">
         {loading ? (
           <SkeletonIcons />
         ) : (
-          <div className="flex flex-wrap gap-3 items-center">
+          <div className="flex flex-wrap items-center gap-3">
             <Dropzone icon_path={stateKey} />
             {icons.map((icon, index) => (
               <button
                 key={index}
                 type="button"
                 onClick={() => handleSelect(icon.url)}
-                className={`w-12 h-12 rounded-xl p-1 border transition-all ${
+                className={`h-12 w-12 rounded-xl border p-1 transition-all ${
                   selectedIcon === icon.url
-                    ? "border-primary ring-2 ring-primary/20 scale-105"
+                    ? "border-primary ring-primary/20 scale-105 ring-2"
                     : "border-border hover:border-primary/50"
                 }`}
               >
                 <img
                   src={icon.url}
                   alt="Icon"
-                  className="w-full h-full object-contain"
+                  className="h-full w-full object-contain"
                   loading="lazy"
                 />
               </button>

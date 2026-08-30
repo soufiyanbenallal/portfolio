@@ -55,7 +55,7 @@ export function FaqPart() {
                       delay: index * 0.06,
                       ease: EASINGS.entrance,
                     }}
-                    className="overflow-hidden rounded-2xl border border-gray-20 bg-white card-shadow"
+                    className="border-gray-20 card-shadow overflow-hidden rounded-2xl border bg-white"
                   >
                     <h3>
                       <button
@@ -66,15 +66,15 @@ export function FaqPart() {
                         className="group flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left"
                       >
                         <span className="flex items-center gap-3">
-                          <span className="shrink-0 font-mono text-xs text-gray-40">
+                          <span className="text-gray-40 shrink-0 font-mono text-xs">
                             {String(index + 1).padStart(2, "0")}
                           </span>
-                          <span className="text-sm font-medium leading-snug text-black">
+                          <span className="text-sm leading-snug font-medium text-black">
                             {item.question}
                           </span>
                         </span>
 
-                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gray-30 transition-all duration-300 group-hover:border-black group-hover:bg-black">
+                        <span className="border-gray-30 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-black group-hover:bg-black">
                           <motion.span
                             animate={{ rotate: isOpen ? 135 : 0 }}
                             transition={{
@@ -105,7 +105,7 @@ export function FaqPart() {
                             animate={{ y: 0 }}
                             exit={{ y: 4 }}
                             transition={{ duration: DURATIONS.fast }}
-                            className="border-t border-gray-20 px-5 pb-5 pt-4 text-sm leading-[1.6] text-gray-60"
+                            className="border-gray-20 text-gray-60 border-t px-5 pt-4 pb-5 text-sm leading-[1.6]"
                           >
                             {item.answer}
                           </motion.p>
@@ -142,19 +142,14 @@ export function FaqPart() {
                     />
                   </span>
 
-                  <div
-                    className="flex flex-col gap-3"
-                    style={{ transform: "translateZ(20px)" }}
-                  >
-                    <p className="text-[17px] font-medium leading-snug tracking-[-0.02em]">
+                  <div className="flex flex-col gap-3" style={{ transform: "translateZ(20px)" }}>
+                    <p className="text-[17px] leading-snug font-medium tracking-[-0.02em]">
                       Still not sure?{" "}
-                      <span className="text-gray-50">
-                        Book a free discovery call.
-                      </span>
+                      <span className="text-gray-50">Book a free discovery call.</span>
                     </p>
-                    <p className="text-sm leading-relaxed text-gray-60">
-                      Learn more about how I work and how I can help you and your
-                      business take the next step.
+                    <p className="text-gray-60 text-sm leading-relaxed">
+                      Learn more about how I work and how I can help you and your business take the
+                      next step.
                     </p>
                   </div>
 
@@ -164,15 +159,13 @@ export function FaqPart() {
                       data-cal-link={CAL_LINK}
                       data-cal-config='{"layout":"month_view"}'
                       data-cursor="grow"
-                      className="w-full cursor-pointer rounded-full bg-white py-3 text-sm font-medium tracking-tight text-black transition-colors duration-200 hover:bg-gray-20"
+                      className="hover:bg-gray-20 w-full cursor-pointer rounded-full bg-white py-3 text-sm font-medium tracking-tight text-black transition-colors duration-200"
                     >
                       Schedule Now
                     </button>
                   </Magnetic>
 
-                  <span className="text-label text-gray-60">
-                    Powered by Cal.com
-                  </span>
+                  <span className="text-label text-gray-60">Powered by Cal.com</span>
                 </div>
               </Tilt3D>
             </Reveal>

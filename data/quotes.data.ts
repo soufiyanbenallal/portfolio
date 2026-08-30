@@ -18,7 +18,8 @@ export const quotesData: QuoteDetailType[] = [
       {
         id: "li-1",
         title: "Brand Identity & Design System",
-        description: "Vector logo suite, typography hierarchy, dark/light surface tokens, custom icon set, and comprehensive Figma variable library.",
+        description:
+          "Vector logo suite, typography hierarchy, dark/light surface tokens, custom icon set, and comprehensive Figma variable library.",
         quantity: 1,
         unitPrice: 4500,
         timeline: "2 weeks",
@@ -26,7 +27,8 @@ export const quotesData: QuoteDetailType[] = [
       {
         id: "li-2",
         title: "Interactive Web Application & Marketing Flagship",
-        description: "Bespoke Next.js App Router frontend with React 19, Tailwind CSS v4, Framer Motion scroll sequences, and dynamic CMS integration.",
+        description:
+          "Bespoke Next.js App Router frontend with React 19, Tailwind CSS v4, Framer Motion scroll sequences, and dynamic CMS integration.",
         quantity: 1,
         unitPrice: 7500,
         timeline: "3 weeks",
@@ -34,7 +36,8 @@ export const quotesData: QuoteDetailType[] = [
       {
         id: "li-3",
         title: "Interactive 3D Product Visuals & Canvas Shaders",
-        description: "Three.js interactive model pipeline visualizer with responsive fallback optimization.",
+        description:
+          "Three.js interactive model pipeline visualizer with responsive fallback optimization.",
         quantity: 1,
         unitPrice: 3000,
         timeline: "1 week",
@@ -44,7 +47,8 @@ export const quotesData: QuoteDetailType[] = [
     discount: 1000,
     total: 14000,
     estimatedTimeline: "6 weeks total",
-    paymentTerms: "50% upfront retainer ($7,000) upon signing; 50% ($7,000) upon production launch approval.",
+    paymentTerms:
+      "50% upfront retainer ($7,000) upon signing; 50% ($7,000) upon production launch approval.",
     terms: [
       "All delivered design files, prototypes, and source code become the exclusive intellectual property of the client upon final settlement.",
       "Includes up to 3 revision cycles per milestone.",

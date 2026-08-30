@@ -111,7 +111,14 @@ export function Row({
                     />
                   )}
                   {isSubRow && (
-                    <div style={{ paddingLeft: "24px", display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                    <div
+                      style={{
+                        paddingLeft: "24px",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                      }}
+                    >
                       <s-icon type="chevron-right" tone="neutral" />
                     </div>
                   )}
@@ -175,17 +182,19 @@ export function Row({
       </s-table-row>
 
       {/* Sub-Rows recursive rendering */}
-      {hasSubRows && expanded && row.subRows?.map((subRow, subIdx) => (
-        <Row
-          key={subRow.id}
-          row={subRow}
-          columns={columns}
-          index={subIdx}
-          selectable={selectable}
-          isSelected={false}
-          isSubRow={true}
-        />
-      ))}
+      {hasSubRows &&
+        expanded &&
+        row.subRows?.map((subRow, subIdx) => (
+          <Row
+            key={subRow.id}
+            row={subRow}
+            columns={columns}
+            index={subIdx}
+            selectable={selectable}
+            isSelected={false}
+            isSubRow={true}
+          />
+        ))}
     </Fragment>
   );
 }
@@ -205,7 +214,6 @@ export type TablePropsType<T = any> = {
   accessibilityLabel?: string;
 };
 
-
 export function Table<T = any>({
   columns,
   rows = [],
@@ -220,7 +228,8 @@ export function Table<T = any>({
   onResetFilters,
   accessibilityLabel = "Data table section",
 }: TablePropsType<T>): ReactNode {
-  const [internalSelectedIds, setInternalSelectedIds] = useState<(string | number)[]>(selectedRowIds);
+  const [internalSelectedIds, setInternalSelectedIds] =
+    useState<(string | number)[]>(selectedRowIds);
 
   const currentSelectedIds = onSelectionChange ? selectedRowIds : internalSelectedIds;
 
@@ -262,7 +271,12 @@ export function Table<T = any>({
 
         {/* Native Polaris bulkActions Slot */}
         {(bulkActions.length > 0 || bulkActionsSlot) && (
-          <s-stack slot={"bulkActions" as any} direction="inline" gap="small-200" alignItems="center">
+          <s-stack
+            slot={"bulkActions" as any}
+            direction="inline"
+            gap="small-200"
+            alignItems="center"
+          >
             {bulkActionsSlot ?? (
               <Fragment>
                 {bulkActions.map((action) => (
@@ -287,23 +301,13 @@ export function Table<T = any>({
         <s-table-header-row>
           {selectable && (
             <s-table-header>
-              <s-checkbox
-                checked={allSelected}
-                onChange={handleSelectAll}
-              />
+              <s-checkbox checked={allSelected} onChange={handleSelectAll} />
             </s-table-header>
           )}
 
           {columns.map((col) => (
-            <s-table-header
-              key={col.id}
-              format={col.format}
-              listSlot={col.listSlot}
-            >
-              <Content
-                tooltip={col.tooltip}
-                underline={false}
-              >
+            <s-table-header key={col.id} format={col.format} listSlot={col.listSlot}>
+              <Content tooltip={col.tooltip} underline={false}>
                 {col.title}
               </Content>
             </s-table-header>

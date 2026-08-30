@@ -4,14 +4,13 @@ export type SupportCardPropsType = {
   onClick: () => void;
 };
 
-
 export const SupportCard = ({ title, icon = "💬", onClick }: SupportCardPropsType): JSX.Element => {
   return (
     <button
       type="button"
       onClick={onClick}
       title={title}
-      className="w-10 h-10 rounded-xl bg-card border border-border hover:border-primary/50 shadow-xs flex items-center justify-center text-base hover:scale-105 transition-all cursor-pointer"
+      className="bg-card border-border hover:border-primary/50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border text-base shadow-xs transition-all hover:scale-105"
     >
       <span>{icon}</span>
     </button>

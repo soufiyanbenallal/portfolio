@@ -6,7 +6,6 @@ export type MinimalCardPropsType = {
   className?: string;
 };
 
-
 export const MinimalCard = ({
   children,
   padding = "base",
@@ -17,7 +16,7 @@ export const MinimalCard = ({
 
   return (
     <div
-      className={`rounded-xl border border-border bg-card shadow-xs ${paddingClass} ${className}`}
+      className={`border-border bg-card rounded-xl border shadow-xs ${paddingClass} ${className}`}
     >
       {children}
     </div>

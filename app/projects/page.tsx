@@ -11,12 +11,7 @@ import { PageTransition } from "@/components/motion/page-transition.motion";
 import { SPRINGS, DURATIONS, EASINGS } from "@/lib/motion.config";
 import type { ProjectCategoryType } from "@/types";
 
-const CATEGORIES: ProjectCategoryType[] = [
-  "All",
-  "Design",
-  "Development",
-  "Branding",
-];
+const CATEGORIES: ProjectCategoryType[] = ["All", "Design", "Development", "Branding"];
 
 /**
  * Work archive.
@@ -27,26 +22,23 @@ const CATEGORIES: ProjectCategoryType[] = [
  * rather than replaced.
  */
 export default function ProjectsIndexPage() {
-  const [selectedCategory, setSelectedCategory] =
-    useState<ProjectCategoryType>("All");
+  const [selectedCategory, setSelectedCategory] = useState<ProjectCategoryType>("All");
 
   const filteredProjects = useMemo(
     () =>
       selectedCategory === "All"
         ? projectsData
         : projectsData.filter((project) => project.category === selectedCategory),
-    [selectedCategory],
+    [selectedCategory]
   );
 
   return (
     <PageTransition>
       <div className="w-full">
-        <Container className="flex flex-col gap-12 pb-24 pt-32">
-          <div className="flex flex-col justify-between gap-6 border-b border-gray-30 pb-8 md:flex-row md:items-end">
+        <Container className="flex flex-col gap-12 pt-32 pb-24">
+          <div className="border-gray-30 flex flex-col justify-between gap-6 border-b pb-8 md:flex-row md:items-end">
             <div>
-              <span className="text-label mb-2 block text-gray-50">
-                Work archive
-              </span>
+              <span className="text-label mb-2 block text-gray-50">Work archive</span>
               <TextReveal
                 as="h1"
                 by="word"
@@ -73,7 +65,7 @@ export default function ProjectsIndexPage() {
                       className={`relative cursor-pointer rounded-full px-4 py-2 text-xs font-medium transition-colors ${
                         isSelected
                           ? "text-white"
-                          : "border border-gray-30 bg-white text-gray-60 hover:bg-gray-10 hover:text-black"
+                          : "border-gray-30 text-gray-60 hover:bg-gray-10 border bg-white hover:text-black"
                       }`}
                     >
                       {isSelected && (
@@ -91,10 +83,7 @@ export default function ProjectsIndexPage() {
             </LayoutGroup>
           </div>
 
-          <motion.div
-            layout
-            className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8"
-          >
+          <motion.div layout className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, index) => (
                 <motion.div
@@ -117,7 +106,7 @@ export default function ProjectsIndexPage() {
 
           {filteredProjects.length === 0 && (
             <Reveal preset="fadeUp">
-              <p className="py-16 text-center text-body-l text-gray-50">
+              <p className="text-body-l py-16 text-center text-gray-50">
                 No projects in this category yet.
               </p>
             </Reveal>

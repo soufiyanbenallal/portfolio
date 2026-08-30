@@ -9,7 +9,6 @@ export type FeedbackCardPropsType = {
   description?: string;
 };
 
-
 export function FeedbackCard({
   appUrl = "https://apps.shopify.com",
   feedbackFormUrl = "https://xco.agency/pages/maestro-feedback?rate=buy",
@@ -20,9 +19,7 @@ export function FeedbackCard({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const alreadyFeedback = !!window.localStorage.getItem(
-        `alreadyFeedback-${appUrl}`
-      );
+      const alreadyFeedback = !!window.localStorage.getItem(`alreadyFeedback-${appUrl}`);
 
       if (alreadyFeedback) {
         setSubmitted(true);

@@ -1,13 +1,7 @@
 "use client";
 
 import React, { useRef, useCallback } from "react";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-  useMotionTemplate,
-} from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "motion/react";
 import { useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { PERSPECTIVE, SPRINGS } from "@/lib/motion.config";
 import { cn } from "@/lib/utils";
@@ -63,11 +57,11 @@ export function Tilt3D({
 
   const rotateX = useSpring(
     useTransform(pointerY, [-0.5, 0.5], [intensity, -intensity]),
-    SPRINGS.tilt,
+    SPRINGS.tilt
   );
   const rotateY = useSpring(
     useTransform(pointerX, [-0.5, 0.5], [-intensity, intensity]),
-    SPRINGS.tilt,
+    SPRINGS.tilt
   );
   const translateZ = useSpring(hoverLift, SPRINGS.tilt);
   const scale = useSpring(hoverScale, SPRINGS.tilt);
@@ -87,7 +81,7 @@ export function Tilt3D({
       pointerX.set((event.clientX - rect.left) / rect.width - 0.5);
       pointerY.set((event.clientY - rect.top) / rect.height - 0.5);
     },
-    [prefersReducedMotion, pointerX, pointerY],
+    [prefersReducedMotion, pointerX, pointerY]
   );
 
   const handlePointerEnter = useCallback(
@@ -97,7 +91,7 @@ export function Tilt3D({
       hoverScale.set(scaleOnHover);
       hoverGlare.set(1);
     },
-    [prefersReducedMotion, lift, scaleOnHover, hoverLift, hoverScale, hoverGlare],
+    [prefersReducedMotion, lift, scaleOnHover, hoverLift, hoverScale, hoverGlare]
   );
 
   const handlePointerLeave = useCallback(() => {

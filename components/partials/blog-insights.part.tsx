@@ -26,11 +26,9 @@ export function BlogInsightsPart() {
   return (
     <div className="w-full select-none">
       <Container className="flex flex-col gap-10 py-12 md:gap-14 md:py-24 lg:py-32">
-        <div className="flex flex-col items-start justify-between gap-4 border-b border-gray-30 pb-6 sm:flex-row sm:items-end">
+        <div className="border-gray-30 flex flex-col items-start justify-between gap-4 border-b pb-6 sm:flex-row sm:items-end">
           <div>
-            <span className="text-label mb-1 block text-gray-50">
-              Thoughts &amp; insights
-            </span>
+            <span className="text-label mb-1 block text-gray-50">Thoughts &amp; insights</span>
             <TextReveal
               as="h2"
               by="word"
@@ -43,7 +41,7 @@ export function BlogInsightsPart() {
             <Link
               href="/blog"
               transitionTypes={["nav-forward"]}
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-black transition-colors hover:text-gray-60"
+              className="hover:text-gray-60 inline-flex items-center gap-1.5 text-xs font-medium text-black transition-colors"
             >
               <span>View all articles</span>
               <Icons.ArrowRight className="h-3.5 w-3.5" />
@@ -59,12 +57,12 @@ export function BlogInsightsPart() {
               transitionTypes={["nav-forward"]}
               data-cursor="article"
               data-cursor-text="Read"
-              className="block overflow-hidden rounded-[20px] border border-gray-30 bg-white p-4 transition-shadow duration-300 card-shadow hover:card-shadow-hover sm:p-5"
+              className="border-gray-30 card-shadow hover:card-shadow-hover block overflow-hidden rounded-[20px] border bg-white p-4 transition-shadow duration-300 sm:p-5"
             >
               <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-12">
                 <div className="md:col-span-6">
                   <SharedElement name={`article-media-${featured.slug}`}>
-                    <div className="relative aspect-16/10 overflow-hidden rounded-[16px] bg-gray-10 md:aspect-4/3">
+                    <div className="bg-gray-10 relative aspect-16/10 overflow-hidden rounded-[16px] md:aspect-4/3">
                       <Image
                         src={featured.coverImage}
                         alt={featured.title}
@@ -72,7 +70,7 @@ export function BlogInsightsPart() {
                         sizes="(max-width: 768px) 100vw, 500px"
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
-                      <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 font-mono text-[11px] font-medium text-black backdrop-blur-md">
+                      <span className="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 font-mono text-[11px] font-medium text-black backdrop-blur-md">
                         Featured
                       </span>
                     </div>
@@ -86,10 +84,10 @@ export function BlogInsightsPart() {
                       <span>·</span>
                       <span>{featured.readTime}</span>
                     </div>
-                    <h3 className="text-xl font-medium tracking-tight text-black transition-colors group-hover:text-gray-60 sm:text-2xl">
+                    <h3 className="group-hover:text-gray-60 text-xl font-medium tracking-tight text-black transition-colors sm:text-2xl">
                       {featured.title}
                     </h3>
-                    <p className="line-clamp-3 text-xs leading-relaxed text-gray-60 sm:text-sm">
+                    <p className="text-gray-60 line-clamp-3 text-xs leading-relaxed sm:text-sm">
                       {featured.excerpt}
                     </p>
                   </div>
@@ -104,23 +102,18 @@ export function BlogInsightsPart() {
           </Reveal>
 
           {supporting.map((article, index) => (
-            <Reveal
-              key={article.id}
-              preset="card3D"
-              delay={0.1 * (index + 1)}
-              className="group"
-            >
+            <Reveal key={article.id} preset="card3D" delay={0.1 * (index + 1)} className="group">
               <Tilt3D intensity={5} lift={10} className="h-full">
                 <Link
                   href={`/blog/${article.slug}`}
                   transitionTypes={["nav-forward"]}
                   data-cursor="article"
                   data-cursor-text="Read"
-                  className="flex h-full flex-col justify-between gap-4 overflow-hidden rounded-[20px] border border-gray-30 bg-white p-4 transition-shadow duration-300 card-shadow hover:card-shadow-hover"
+                  className="border-gray-30 card-shadow hover:card-shadow-hover flex h-full flex-col justify-between gap-4 overflow-hidden rounded-[20px] border bg-white p-4 transition-shadow duration-300"
                 >
                   <div className="flex flex-col gap-4">
                     <SharedElement name={`article-media-${article.slug}`}>
-                      <div className="relative aspect-16/10 w-full overflow-hidden rounded-[16px] bg-gray-10">
+                      <div className="bg-gray-10 relative aspect-16/10 w-full overflow-hidden rounded-[16px]">
                         <Image
                           src={article.coverImage}
                           alt={article.title}
@@ -137,18 +130,18 @@ export function BlogInsightsPart() {
                         <span>·</span>
                         <span>{article.readTime}</span>
                       </div>
-                      <h3 className="text-base font-medium tracking-tight text-black transition-colors group-hover:text-gray-60 sm:text-lg">
+                      <h3 className="group-hover:text-gray-60 text-base font-medium tracking-tight text-black transition-colors sm:text-lg">
                         {article.title}
                       </h3>
-                      <p className="line-clamp-2 text-xs leading-relaxed text-gray-60">
+                      <p className="text-gray-60 line-clamp-2 text-xs leading-relaxed">
                         {article.excerpt}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1.5 border-t border-gray-20 pt-2 text-xs font-medium text-black">
+                  <div className="border-gray-20 flex items-center gap-1.5 border-t pt-2 text-xs font-medium text-black">
                     <span>Read article</span>
-                    <Icons.ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    <Icons.ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
                 </Link>
               </Tilt3D>

@@ -34,7 +34,7 @@ export const RequestFeatureContent = (): JSX.Element => {
   }, [title, description, fetcher]);
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="space-y-4 p-4">
       {justSubmitted && (
         <s-banner tone="success">
           Your request has been submitted! We&apos;ll review it soon.
@@ -47,26 +47,26 @@ export const RequestFeatureContent = (): JSX.Element => {
       )}
 
       <div className="space-y-1">
-        <label className="text-xs font-semibold text-foreground">Title</label>
+        <label className="text-foreground text-xs font-semibold">Title</label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="E.g.: Bulk edit feature or Checkout issue"
           disabled={submitting}
-          className="w-full text-xs px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-xs"
+          className="border-border bg-background text-foreground focus:ring-primary w-full rounded-lg border px-3 py-2 text-xs shadow-xs focus:ring-1 focus:outline-none"
         />
       </div>
 
       <div className="space-y-1">
-        <label className="text-xs font-semibold text-foreground">Description</label>
+        <label className="text-foreground text-xs font-semibold">Description</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={4}
           placeholder="Describe the feature you'd like or the issue you're facing."
           disabled={submitting}
-          className="w-full text-xs p-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-xs"
+          className="border-border bg-background text-foreground focus:ring-primary w-full rounded-lg border p-3 text-xs shadow-xs focus:ring-1 focus:outline-none"
         />
       </div>
 

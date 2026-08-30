@@ -10,9 +10,12 @@ export const projectsData: ProjectDetailType[] = [
     typeOfWork: "Consulting Site",
     year: "2025",
     tagline: "High-conversion digital presence for a strategic fintech advisory.",
-    description: "Designed and built an end-to-end bespoke digital experience with Framer, driving 140% higher lead qualification.",
-    thumbnail: "https://framerusercontent.com/images/wn56GiYIGN9okbMTZQ8fV2UQ0.jpg?width=1600&height=1200",
-    heroImage: "https://framerusercontent.com/images/wn56GiYIGN9okbMTZQ8fV2UQ0.jpg?width=1600&height=1200",
+    description:
+      "Designed and built an end-to-end bespoke digital experience with Framer, driving 140% higher lead qualification.",
+    thumbnail:
+      "https://framerusercontent.com/images/wn56GiYIGN9okbMTZQ8fV2UQ0.jpg?width=1600&height=1200",
+    heroImage:
+      "https://framerusercontent.com/images/wn56GiYIGN9okbMTZQ8fV2UQ0.jpg?width=1600&height=1200",
     accentColor: "#000000",
     liveUrl: "https://launchfolio.framer.website/projects/kora",
     featured: true,
@@ -58,10 +61,14 @@ export const projectsData: ProjectDetailType[] = [
     category: "Design",
     typeOfWork: "AI Agency",
     year: "2025",
-    tagline: "Ultra-clean visual identity and interactive web experience for an applied AI collective.",
-    description: "Architected a distinct modern identity, fluid 3D graphics, and responsive web presence that helped secure $3.2M seed financing.",
-    thumbnail: "https://framerusercontent.com/images/tBF8hMQFxONWA4CXtHf3R4.jpg?width=1600&height=1200",
-    heroImage: "https://framerusercontent.com/images/tBF8hMQFxONWA4CXtHf3R4.jpg?width=1600&height=1200",
+    tagline:
+      "Ultra-clean visual identity and interactive web experience for an applied AI collective.",
+    description:
+      "Architected a distinct modern identity, fluid 3D graphics, and responsive web presence that helped secure $3.2M seed financing.",
+    thumbnail:
+      "https://framerusercontent.com/images/tBF8hMQFxONWA4CXtHf3R4.jpg?width=1600&height=1200",
+    heroImage:
+      "https://framerusercontent.com/images/tBF8hMQFxONWA4CXtHf3R4.jpg?width=1600&height=1200",
     accentColor: "#000000",
     liveUrl: "https://launchfolio.framer.website/projects/kyma",
     featured: true,
@@ -108,7 +115,8 @@ export const projectsData: ProjectDetailType[] = [
     typeOfWork: "Design Studio",
     year: "2024",
     tagline: "Experimental 3D portfolio and interactive digital gallery.",
-    description: "Engineered an experimental digital stage showcasing forward-thinking architectural and industrial designs.",
+    description:
+      "Engineered an experimental digital stage showcasing forward-thinking architectural and industrial designs.",
     thumbnail: "https://framerusercontent.com/images/AZe7hFsRlGAWp9spF25RMEwS0gA.jpg",
     heroImage: "https://framerusercontent.com/images/AZe7hFsRlGAWp9spF25RMEwS0gA.jpg",
     accentColor: "#1e1e1e",
@@ -157,7 +165,8 @@ export const projectsData: ProjectDetailType[] = [
     typeOfWork: "Ecommerce Site",
     year: "2024",
     tagline: "Crafting a revolutionary e-commerce presence for architectural menswear.",
-    description: "Built a high-performance headless Shopify commerce flagship with custom sizing algorithms and instant checkout.",
+    description:
+      "Built a high-performance headless Shopify commerce flagship with custom sizing algorithms and instant checkout.",
     thumbnail: "https://framerusercontent.com/images/q3ruKmoVYmFXP9EeyZlQPnTDuVw.jpg",
     heroImage: "https://framerusercontent.com/images/q3ruKmoVYmFXP9EeyZlQPnTDuVw.jpg",
     accentColor: "#0d0d0d",
@@ -206,9 +215,12 @@ export const projectsData: ProjectDetailType[] = [
     typeOfWork: "Server Architecture",
     year: "2024",
     tagline: "Visualizing next-gen server architecture & distributed cloud infrastructure.",
-    description: "Architected a real-time cluster monitoring dashboard and modern brand marketing website.",
-    thumbnail: "https://framerusercontent.com/images/K6cUNifhQFa6qEX3kqNwfqMkiY.jpg?scale-down-to=1024",
-    heroImage: "https://framerusercontent.com/images/K6cUNifhQFa6qEX3kqNwfqMkiY.jpg?scale-down-to=2048",
+    description:
+      "Architected a real-time cluster monitoring dashboard and modern brand marketing website.",
+    thumbnail:
+      "https://framerusercontent.com/images/K6cUNifhQFa6qEX3kqNwfqMkiY.jpg?scale-down-to=1024",
+    heroImage:
+      "https://framerusercontent.com/images/K6cUNifhQFa6qEX3kqNwfqMkiY.jpg?scale-down-to=2048",
     accentColor: "#151515",
     liveUrl: "https://launchfolio.framer.website/projects/quantum",
     featured: false,
@@ -249,9 +261,12 @@ export const projectsData: ProjectDetailType[] = [
     typeOfWork: "Brand Identity",
     year: "2024",
     tagline: "Building a better brand for clean energy longevity technology.",
-    description: "Complete visual identity, 3D packaging systems, and digital guidelines for a sustainable bio-tech brand.",
-    thumbnail: "https://framerusercontent.com/images/wn56GiYIGN9okbMTZQ8fV2UQ0.jpg?scale-down-to=1024",
-    heroImage: "https://framerusercontent.com/images/wn56GiYIGN9okbMTZQ8fV2UQ0.jpg?scale-down-to=2048",
+    description:
+      "Complete visual identity, 3D packaging systems, and digital guidelines for a sustainable bio-tech brand.",
+    thumbnail:
+      "https://framerusercontent.com/images/wn56GiYIGN9okbMTZQ8fV2UQ0.jpg?scale-down-to=1024",
+    heroImage:
+      "https://framerusercontent.com/images/wn56GiYIGN9okbMTZQ8fV2UQ0.jpg?scale-down-to=2048",
     accentColor: "#1c1c1c",
     liveUrl: "https://launchfolio.framer.website/projects/essentia",
     featured: false,

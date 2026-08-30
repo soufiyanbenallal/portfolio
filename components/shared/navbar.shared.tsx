@@ -41,7 +41,7 @@ export function NavbarShared({ className }: NavbarSharedPropsType) {
       navLinksData
         .filter((link) => link.isAnchor && link.href.startsWith("#"))
         .map((link) => link.href.slice(1)),
-    [],
+    []
   );
   const activeSection = useActiveSection(sectionIds, isHomepage);
 
@@ -101,20 +101,19 @@ export function NavbarShared({ className }: NavbarSharedPropsType) {
       if (lenis) lenis.scrollTo(target, { offset: -96, duration: 0.7 });
       else target.scrollIntoView({ block: "start" });
     },
-    [isHomepage, lenis, openContact],
+    [isHomepage, lenis, openContact]
   );
 
   const resolveHref = useCallback(
-    (href: string, isAnchor?: boolean) =>
-      isHomepage ? href : isAnchor ? `/${href}` : href,
-    [isHomepage],
+    (href: string, isAnchor?: boolean) => (isHomepage ? href : isAnchor ? `/${href}` : href),
+    [isHomepage]
   );
 
   return (
     <header
       className={cn(
-        "fixed left-1/2 top-6 z-40 w-auto min-w-60 max-w-[calc(100vw-32px)] border border-gray-500/10 bg-white/40 -translate-x-1/2 backdrop-blur-sm rounded-3xl shadow-[0_0_15px_rgba(15,23,42,0.05)]",
-        className,
+        "fixed top-6 left-1/2 z-40 w-auto max-w-[calc(100vw-32px)] min-w-60 -translate-x-1/2 rounded-3xl border border-gray-500/10 bg-white/40 shadow-[0_0_15px_rgba(15,23,42,0.05)] backdrop-blur-sm",
+        className
       )}
       style={{ viewTransitionName: "site-header" }}
     >

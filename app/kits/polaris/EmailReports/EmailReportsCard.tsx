@@ -37,7 +37,6 @@ export type EmailReportsCardRefType = {
   };
 };
 
-
 export const EmailReportsCard = forwardRef<EmailReportsCardRefType, EmailReportsCardPropsType>(
   function EmailReportsCard(
     {
@@ -157,12 +156,12 @@ export const EmailReportsCard = forwardRef<EmailReportsCardRefType, EmailReports
         });
 
     return (
-      <div className="p-5 rounded-xl border border-border bg-card space-y-4">
+      <div className="border-border bg-card space-y-4 rounded-xl border p-5">
         <div>
-          <h3 className="text-base font-bold text-foreground">
+          <h3 className="text-foreground text-base font-bold">
             {ct("commons.email_reports.title")}
           </h3>
-          <p className="text-xs text-muted-foreground mt-0.5">
+          <p className="text-muted-foreground mt-0.5 text-xs">
             {ct("commons.email_reports.subtitle")}
           </p>
         </div>
@@ -177,16 +176,16 @@ export const EmailReportsCard = forwardRef<EmailReportsCardRefType, EmailReports
         />
 
         {enabled && (
-          <div className="space-y-4 pt-3 border-t border-border">
+          <div className="border-border space-y-4 border-t pt-3">
             <div className="space-y-2">
-              <span className="text-xs font-semibold text-foreground block">
+              <span className="text-foreground block text-xs font-semibold">
                 {ct("commons.email_reports.frequency")}
               </span>
               <div className="flex items-center gap-4">
                 {FREQUENCIES.map((f) => (
                   <label
                     key={f}
-                    className="flex items-center gap-1.5 text-xs text-foreground cursor-pointer"
+                    className="text-foreground flex cursor-pointer items-center gap-1.5 text-xs"
                   >
                     <input
                       type="radio"
@@ -201,11 +200,11 @@ export const EmailReportsCard = forwardRef<EmailReportsCardRefType, EmailReports
               </div>
             </div>
 
-            <div className="space-y-2 pt-3 border-t border-border">
-              <span className="text-xs font-semibold text-foreground block">
+            <div className="border-border space-y-2 border-t pt-3">
+              <span className="text-foreground block text-xs font-semibold">
                 {ct("commons.email_reports.recipients")}
               </span>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 {ct("commons.email_reports.recipients_limit", {
                   max: RECIPIENT_CAP,
                 })}
@@ -215,11 +214,11 @@ export const EmailReportsCard = forwardRef<EmailReportsCardRefType, EmailReports
               </p>
 
               {recipients.length > 0 && (
-                <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex flex-wrap items-center gap-2">
                   {recipients.map((r) => (
                     <span
                       key={r}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-muted text-foreground text-xs"
+                      className="bg-muted text-foreground inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs"
                     >
                       {r}
                       <button
@@ -235,7 +234,7 @@ export const EmailReportsCard = forwardRef<EmailReportsCardRefType, EmailReports
               )}
 
               {recipients.length < RECIPIENT_CAP && (
-                <div className="flex items-center gap-2 max-w-md pt-1">
+                <div className="flex max-w-md items-center gap-2 pt-1">
                   <s-email-field
                     label={ct("commons.email_reports.add_recipient")}
                     placeholder="ops@your-store.com"
@@ -250,15 +249,15 @@ export const EmailReportsCard = forwardRef<EmailReportsCardRefType, EmailReports
                   </s-button>
                 </div>
               )}
-              {recipientError && <p className="text-xs text-destructive">{recipientError}</p>}
+              {recipientError && <p className="text-destructive text-xs">{recipientError}</p>}
             </div>
 
-            <p className="text-xs text-muted-foreground pt-2">{previewLine}</p>
+            <p className="text-muted-foreground pt-2 text-xs">{previewLine}</p>
           </div>
         )}
 
         {inlineSave && (
-          <div className="flex justify-end pt-3 border-t border-border">
+          <div className="border-border flex justify-end border-t pt-3">
             <s-button variant="primary" onClick={save} loading={saving}>
               {ct("commons.save")}
             </s-button>

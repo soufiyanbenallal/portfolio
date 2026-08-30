@@ -19,7 +19,6 @@ export type CardPropsType = {
   hideDivider?: boolean;
 };
 
-
 export function Card({
   title,
   tooltipContent,
@@ -34,10 +33,7 @@ export function Card({
   const hasHeader = title || description || icon || rightActions;
 
   return (
-    <s-section
-      id={id}
-      padding={padding}
-    >
+    <s-section id={id} padding={padding}>
       <s-stack direction="block" gap="base">
         {hasHeader && (
           <s-stack direction="inline" justifyContent="space-between" alignItems="center">
@@ -45,17 +41,12 @@ export function Card({
               {title && (
                 <s-stack direction="inline" gap="small-200" alignItems="center">
                   {icon && <s-icon type={icon as IconType} tone="neutral" />}
-                  <Content
-                    tooltip={tooltipContent}
-                    variant="headingMd"
-                  >
+                  <Content tooltip={tooltipContent} variant="headingMd">
                     {title}
                   </Content>
                 </s-stack>
               )}
-              {description && (
-                <s-text tone="neutral">{description}</s-text>
-              )}
+              {description && <s-text tone="neutral">{description}</s-text>}
             </s-stack>
 
             {rightActions && (

@@ -17,7 +17,6 @@ export type TicketListPropsType = {
   loadingTickets: boolean;
 };
 
-
 export const TicketList = ({ tickets, loadingTickets }: TicketListPropsType): JSX.Element => {
   const ct = useCommonsT();
   const [selectedTicket, setSelectedTicket] = useState<TicketItemType | null>(null);
@@ -36,19 +35,19 @@ export const TicketList = ({ tickets, loadingTickets }: TicketListPropsType): JS
       <s-banner heading={ct("commons.support")} tone="info">
         <p className="text-sm">{ct("commons.support.banner_desc")}</p>
         {openTicketsCount > 0 && (
-          <p className="text-xs text-muted-foreground mt-1">
+          <p className="text-muted-foreground mt-1 text-xs">
             {ct("commons.support.banner_followup")}
           </p>
         )}
       </s-banner>
 
-      <div className="bg-card rounded-xl border border-border p-5 space-y-4 shadow-xs">
+      <div className="bg-card border-border space-y-4 rounded-xl border p-5 shadow-xs">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-foreground">
+            <h3 className="text-foreground text-base font-bold">
               {ct("commons.support.recent_tickets")}
             </h3>
-            <p className="text-xs text-muted-foreground">{ct("commons.support.need_help")}</p>
+            <p className="text-muted-foreground text-xs">{ct("commons.support.need_help")}</p>
           </div>
         </div>
 
@@ -57,14 +56,14 @@ export const TicketList = ({ tickets, loadingTickets }: TicketListPropsType): JS
             <s-spinner size="base" />
           </div>
         ) : !tickets || tickets.length === 0 ? (
-          <div className="text-center py-8 border border-dashed border-border rounded-lg space-y-1">
-            <p className="text-sm font-semibold text-foreground">
+          <div className="border-border space-y-1 rounded-lg border border-dashed py-8 text-center">
+            <p className="text-foreground text-sm font-semibold">
               {ct("commons.support.no_tickets")}
             </p>
-            <p className="text-xs text-muted-foreground">{ct("commons.support.no_tickets_desc")}</p>
+            <p className="text-muted-foreground text-xs">{ct("commons.support.no_tickets_desc")}</p>
           </div>
         ) : (
-          <div className="border border-border rounded-lg overflow-hidden">
+          <div className="border-border overflow-hidden rounded-lg border">
             <s-table>
               <s-table-header-row>
                 <s-table-header>{ct("commons.support.col_title")}</s-table-header>
@@ -78,10 +77,10 @@ export const TicketList = ({ tickets, loadingTickets }: TicketListPropsType): JS
                 {tickets.map((ticket, idx) => (
                   <s-table-row key={idx}>
                     <s-table-cell>
-                      <span className="font-semibold text-foreground">{ticket.title}</span>
+                      <span className="text-foreground font-semibold">{ticket.title}</span>
                     </s-table-cell>
                     <s-table-cell>
-                      <span className="text-xs text-muted-foreground truncate max-w-xs block">
+                      <span className="text-muted-foreground block max-w-xs truncate text-xs">
                         {ticket.description}
                       </span>
                     </s-table-cell>
@@ -91,10 +90,10 @@ export const TicketList = ({ tickets, loadingTickets }: TicketListPropsType): JS
                       </s-badge>
                     </s-table-cell>
                     <s-table-cell>
-                      <span className="text-xs text-foreground font-medium">{ticket.type}</span>
+                      <span className="text-foreground text-xs font-medium">{ticket.type}</span>
                     </s-table-cell>
                     <s-table-cell>
-                      <span className="text-xs text-muted-foreground">{ticket.email}</span>
+                      <span className="text-muted-foreground text-xs">{ticket.email}</span>
                     </s-table-cell>
                     <s-table-cell>
                       <s-button variant="tertiary" onClick={() => handleCardClick(ticket)}>
@@ -116,32 +115,32 @@ export const TicketList = ({ tickets, loadingTickets }: TicketListPropsType): JS
           heading={selectedTicket.title || ct("commons.support.ticket_details")}
           onHide={() => setModalOpen(false)}
         >
-          <div className="p-5 max-w-lg space-y-4">
+          <div className="max-w-lg space-y-4 p-5">
             <div className="space-y-1">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
+              <span className="text-muted-foreground block text-xs font-semibold tracking-wider uppercase">
                 {ct("commons.support.col_email")}
               </span>
-              <p className="text-sm font-medium text-foreground">{selectedTicket.email}</p>
+              <p className="text-foreground text-sm font-medium">{selectedTicket.email}</p>
             </div>
 
             <div className="space-y-1">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
+              <span className="text-muted-foreground block text-xs font-semibold tracking-wider uppercase">
                 {ct("commons.support.col_type")}
               </span>
-              <p className="text-sm font-medium text-foreground">{selectedTicket.type}</p>
+              <p className="text-foreground text-sm font-medium">{selectedTicket.type}</p>
             </div>
 
             <div className="space-y-1">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
+              <span className="text-muted-foreground block text-xs font-semibold tracking-wider uppercase">
                 {ct("commons.support.col_description")}
               </span>
-              <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
+              <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">
                 {selectedTicket.description}
               </p>
             </div>
 
             <div className="space-y-1">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
+              <span className="text-muted-foreground block text-xs font-semibold tracking-wider uppercase">
                 {ct("commons.support.col_status")}
               </span>
               <s-badge tone={selectedTicket.status === "open" ? "info" : "success"}>
@@ -150,23 +149,23 @@ export const TicketList = ({ tickets, loadingTickets }: TicketListPropsType): JS
             </div>
 
             {selectedTicket.images && selectedTicket.images.length > 0 && (
-              <div className="space-y-2 pt-2 border-t border-border">
-                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
+              <div className="border-border space-y-2 border-t pt-2">
+                <span className="text-muted-foreground block text-xs font-semibold tracking-wider uppercase">
                   {ct("commons.support.col_images")}
                 </span>
-                <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex flex-wrap items-center gap-2">
                   {selectedTicket.images.map((img, i) => (
                     <a
                       key={i}
                       href={img}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block w-16 h-16 rounded-lg overflow-hidden border border-border hover:opacity-80 transition-opacity"
+                      className="border-border block h-16 w-16 overflow-hidden rounded-lg border transition-opacity hover:opacity-80"
                     >
                       <img
                         src={img}
                         alt="ticket attachment"
-                        className="w-full h-full object-cover"
+                        className="h-full w-full object-cover"
                       />
                     </a>
                   ))}
@@ -174,7 +173,7 @@ export const TicketList = ({ tickets, loadingTickets }: TicketListPropsType): JS
               </div>
             )}
 
-            <div className="flex justify-end pt-3 border-t border-border">
+            <div className="border-border flex justify-end border-t pt-3">
               <s-button variant="secondary" onClick={() => setModalOpen(false)}>
                 {ct("commons.close")}
               </s-button>

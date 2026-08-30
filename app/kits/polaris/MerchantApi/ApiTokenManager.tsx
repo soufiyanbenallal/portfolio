@@ -16,12 +16,10 @@ export type ApiTokenModelType = {
   revokedAt: string | null;
 };
 
-
 export type ApiTokenManagerPropsType = {
   tokens: ApiTokenModelType[];
   isInline?: boolean;
 };
-
 
 export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType): JSX.Element => {
   const ct = useCommonsT();
@@ -103,8 +101,8 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
       {/* Header */}
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h3 className="text-base font-bold text-foreground">{ct("commons.api.tokens")}</h3>
-          <p className="text-xs text-muted-foreground">
+          <h3 className="text-foreground text-base font-bold">{ct("commons.api.tokens")}</h3>
+          <p className="text-muted-foreground text-xs">
             {ct("commons.api.tokens_active", { count: activeTokens.length })}
           </p>
         </div>
@@ -125,8 +123,8 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
 
       {/* Inline Generate Form */}
       {showInlineGenerate ? (
-        <div className="p-4 bg-muted/50 rounded-xl border border-border space-y-3">
-          <span className="text-sm font-semibold text-foreground">
+        <div className="bg-muted/50 border-border space-y-3 rounded-xl border p-4">
+          <span className="text-foreground text-sm font-semibold">
             {ct("commons.api.generate_new")}
           </span>
           <s-text-field
@@ -150,13 +148,13 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
           </div>
         </div>
       ) : newRawToken && isInline ? (
-        <div className="p-4 bg-amber-500/10 rounded-xl border border-amber-500/30 space-y-3">
+        <div className="space-y-3 rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
           <s-banner tone="warning" heading={ct("commons.api.your_new_token")}>
             {ct("commons.api.copy_warning")}
           </s-banner>
 
-          <div className="p-3 bg-card rounded-lg border border-border flex items-center justify-between gap-3">
-            <span className="font-mono text-sm break-all select-all text-foreground">
+          <div className="bg-card border-border flex items-center justify-between gap-3 rounded-lg border p-3">
+            <span className="text-foreground font-mono text-sm break-all select-all">
               {newRawToken}
             </span>
             <s-button variant="primary" onClick={handleCopy}>
@@ -177,10 +175,10 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
           </div>
         </div>
       ) : showRevokeConfirm !== null && isInline ? (
-        <div className="p-4 bg-destructive/10 rounded-xl border border-destructive/30 space-y-3">
-          <h4 className="text-sm font-bold text-foreground">{ct("commons.api.revoke")}</h4>
-          <p className="text-sm text-foreground">{ct("commons.api.revoke_confirm")}</p>
-          <p className="text-xs text-muted-foreground">{ct("commons.api.revoke_warning")}</p>
+        <div className="bg-destructive/10 border-destructive/30 space-y-3 rounded-xl border p-4">
+          <h4 className="text-foreground text-sm font-bold">{ct("commons.api.revoke")}</h4>
+          <p className="text-foreground text-sm">{ct("commons.api.revoke_confirm")}</p>
+          <p className="text-muted-foreground text-xs">{ct("commons.api.revoke_warning")}</p>
           <div className="flex items-center gap-2">
             <s-button
               variant="primary"
@@ -199,9 +197,9 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
         <>
           {/* Empty State */}
           {activeTokens.length === 0 && (
-            <div className="p-6 text-center border border-dashed border-border rounded-xl space-y-3">
-              <h4 className="text-sm font-bold text-foreground">{ct("commons.api.no_tokens")}</h4>
-              <p className="text-xs text-muted-foreground">{ct("commons.api.no_tokens_desc")}</p>
+            <div className="border-border space-y-3 rounded-xl border border-dashed p-6 text-center">
+              <h4 className="text-foreground text-sm font-bold">{ct("commons.api.no_tokens")}</h4>
+              <p className="text-muted-foreground text-xs">{ct("commons.api.no_tokens_desc")}</p>
               <s-button
                 variant="primary"
                 onClick={() => {
@@ -221,16 +219,16 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
           {activeTokens.map((token) => (
             <div
               key={token.id}
-              className="p-4 rounded-xl border border-border bg-card space-y-3 shadow-xs"
+              className="border-border bg-card space-y-3 rounded-xl border p-4 shadow-xs"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold text-xs">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-xs font-bold text-emerald-600">
                     API
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-foreground">{token.name}</h4>
-                    <span className="font-mono text-xs text-muted-foreground">
+                    <h4 className="text-foreground text-sm font-semibold">{token.name}</h4>
+                    <span className="text-muted-foreground font-mono text-xs">
                       {`${token.tokenPrefix}...`}
                     </span>
                   </div>
@@ -245,18 +243,18 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
                 </s-button>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 p-2.5 rounded-lg bg-muted/40 text-xs">
+              <div className="bg-muted/40 grid grid-cols-3 gap-2 rounded-lg p-2.5 text-xs">
                 <div>
                   <span className="text-muted-foreground block text-[11px]">
                     {ct("commons.api.col_created")}
                   </span>
-                  <span className="font-medium text-foreground">{formatDate(token.createdAt)}</span>
+                  <span className="text-foreground font-medium">{formatDate(token.createdAt)}</span>
                 </div>
                 <div>
                   <span className="text-muted-foreground block text-[11px]">
                     {ct("commons.api.col_last_used")}
                   </span>
-                  <span className="font-medium text-foreground">
+                  <span className="text-foreground font-medium">
                     {formatRelativeDate(token.lastUsedAt)}
                   </span>
                 </div>
@@ -264,7 +262,7 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
                   <span className="text-muted-foreground block text-[11px]">
                     {ct("commons.api.col_requests")}
                   </span>
-                  <span className="font-medium text-foreground">
+                  <span className="text-foreground font-medium">
                     {formatCount(token.requestCount)}
                   </span>
                 </div>
@@ -274,8 +272,8 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
 
           {/* Revoked Tokens List */}
           {revokedTokens.length > 0 && (
-            <div className="space-y-2 pt-2 border-t border-border">
-              <span className="text-xs text-muted-foreground">
+            <div className="border-border space-y-2 border-t pt-2">
+              <span className="text-muted-foreground text-xs">
                 {ct("commons.api.previously_revoked", {
                   count: revokedTokens.length,
                 })}
@@ -283,10 +281,10 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
               {revokedTokens.map((token) => (
                 <div
                   key={token.id}
-                  className="flex items-center justify-between p-2.5 rounded-lg bg-muted/30 border border-border/50 text-xs"
+                  className="bg-muted/30 border-border/50 flex items-center justify-between rounded-lg border p-2.5 text-xs"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="line-through text-muted-foreground font-medium">
+                    <span className="text-muted-foreground font-medium line-through">
                       {token.name}
                     </span>
                     <s-badge tone="auto">{`${token.tokenPrefix}...`}</s-badge>
@@ -306,8 +304,8 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
           heading={ct("commons.api.generate_new")}
           onHide={() => setShowGenerateModal(false)}
         >
-          <div className="p-5 max-w-md space-y-4">
-            <p className="text-xs text-muted-foreground">{ct("commons.api.token_name_help")}</p>
+          <div className="max-w-md space-y-4 p-5">
+            <p className="text-muted-foreground text-xs">{ct("commons.api.token_name_help")}</p>
             <s-text-field
               label={ct("commons.api.token_name")}
               value={tokenName}
@@ -315,7 +313,7 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
               placeholder={ct("commons.api.token_name_placeholder")}
               required
             />
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-border">
+            <div className="border-border flex items-center justify-end gap-3 border-t pt-3">
               <s-button variant="secondary" onClick={() => setShowGenerateModal(false)}>
                 {ct("commons.cancel")}
               </s-button>
@@ -342,12 +340,12 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
             setCopied(false);
           }}
         >
-          <div className="p-5 max-w-lg space-y-4">
+          <div className="max-w-lg space-y-4 p-5">
             <s-banner tone="warning">{ct("commons.api.copy_warning")}</s-banner>
-            <div className="p-3 bg-muted rounded-lg font-mono text-sm break-all select-all text-foreground border border-border">
+            <div className="bg-muted text-foreground border-border rounded-lg border p-3 font-mono text-sm break-all select-all">
               {newRawToken}
             </div>
-            <div className="flex items-center justify-between gap-3 pt-3 border-t border-border">
+            <div className="border-border flex items-center justify-between gap-3 border-t pt-3">
               <s-button variant="primary" onClick={handleCopy}>
                 {copied ? ct("commons.copied") : ct("commons.api.copy_token")}
               </s-button>
@@ -373,10 +371,10 @@ export const ApiTokenManager = ({ tokens, isInline }: ApiTokenManagerPropsType):
           heading={ct("commons.api.revoke")}
           onHide={() => setShowRevokeConfirm(null)}
         >
-          <div className="p-5 max-w-md space-y-3">
-            <p className="text-sm text-foreground">{ct("commons.api.revoke_confirm")}</p>
-            <p className="text-xs text-muted-foreground">{ct("commons.api.revoke_warning")}</p>
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-border">
+          <div className="max-w-md space-y-3 p-5">
+            <p className="text-foreground text-sm">{ct("commons.api.revoke_confirm")}</p>
+            <p className="text-muted-foreground text-xs">{ct("commons.api.revoke_warning")}</p>
+            <div className="border-border flex items-center justify-end gap-3 border-t pt-3">
               <s-button variant="secondary" onClick={() => setShowRevokeConfirm(null)}>
                 {ct("commons.cancel")}
               </s-button>

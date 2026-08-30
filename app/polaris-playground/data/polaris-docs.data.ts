@@ -70,8 +70,7 @@ export const polarisNavSectionsData: PolarisNavCategoryType[] = [
   {
     id: "actions",
     label: "Actions & Workflows",
-    description:
-      "Double-check destructive confirmation dialogs and table search/filter toolbars.",
+    description: "Double-check destructive confirmation dialogs and table search/filter toolbars.",
     items: [
       { slug: "data-table", label: "Data table" },
       { slug: "destructive-action-modal", label: "Destructive action modal" },
@@ -83,9 +82,7 @@ export const polarisNavSectionsData: PolarisNavCategoryType[] = [
     label: "Stats & Analytics",
     description:
       "Interactive KPI metrics sections, sparklines, and metric cards for analytics dashboards.",
-    items: [
-      { slug: "stats-section", label: "Stats section" },
-    ],
+    items: [{ slug: "stats-section", label: "Stats section" }],
   },
   {
     id: "feedbacks",
@@ -101,8 +98,7 @@ export const polarisNavSectionsData: PolarisNavCategoryType[] = [
   {
     id: "layouts",
     label: "Layout & Structure",
-    description:
-      "Contained section cards, tabs, timelines, and structural layout containers.",
+    description: "Contained section cards, tabs, timelines, and structural layout containers.",
     items: [
       { slug: "section-card", label: "Section card" },
       { slug: "tabs", label: "Tabs" },
@@ -112,8 +108,7 @@ export const polarisNavSectionsData: PolarisNavCategoryType[] = [
   {
     id: "typography",
     label: "Typography & Utilities",
-    description:
-      "Contextual helper tooltips, video tutorial launchers, and inline badges.",
+    description: "Contextual helper tooltips, video tutorial launchers, and inline badges.",
     items: [
       { slug: "tutorial-button", label: "Tutorial video button" },
       { slug: "info-tooltip", label: "Info tooltip" },
@@ -122,8 +117,7 @@ export const polarisNavSectionsData: PolarisNavCategoryType[] = [
   {
     id: "forms",
     label: "Forms",
-    description:
-      "Form inputs, selects, checkboxes, switches, and sliders.",
+    description: "Form inputs, selects, checkboxes, switches, and sliders.",
     items: [
       { slug: "input", label: "Input" },
       { slug: "select", label: "Select" },
@@ -159,8 +153,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "OnboardingExample.tsx",
             path: "example/OnboardingExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/OnboardingExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/OnboardingExample.tsx",
             language: "tsx",
           },
           {
@@ -172,22 +165,19 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "OnboardingFlow.tsx",
             path: "Onboarding/partials/components/OnboardingFlow.tsx",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/OnboardingFlow.tsx",
+            sourcePath: "app/kits/polaris/Onboarding/partials/components/OnboardingFlow.tsx",
             language: "tsx",
           },
           {
             name: "OnboardingFlow.module.css",
             path: "Onboarding/partials/components/OnboardingFlow.module.css",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/OnboardingFlow.module.css",
+            sourcePath: "app/kits/polaris/Onboarding/partials/components/OnboardingFlow.module.css",
             language: "css",
           },
           {
             name: "useOnboarding.ts",
             path: "Onboarding/partials/useOnboarding.ts",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/useOnboarding.ts",
+            sourcePath: "app/kits/polaris/Onboarding/partials/useOnboarding.ts",
             language: "ts",
           },
           {
@@ -211,8 +201,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "ProgressHeader.tsx",
             path: "Onboarding/partials/components/shared/ProgressHeader.tsx",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/shared/ProgressHeader.tsx",
+            sourcePath: "app/kits/polaris/Onboarding/partials/components/shared/ProgressHeader.tsx",
             language: "tsx",
           },
           {
@@ -225,8 +214,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "StepTransition.tsx",
             path: "Onboarding/partials/components/shared/StepTransition.tsx",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/shared/StepTransition.tsx",
+            sourcePath: "app/kits/polaris/Onboarding/partials/components/shared/StepTransition.tsx",
             language: "tsx",
           },
           {
@@ -239,8 +227,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "Confetti.tsx",
             path: "Onboarding/partials/components/shared/Confetti.tsx",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/shared/Confetti.tsx",
+            sourcePath: "app/kits/polaris/Onboarding/partials/components/shared/Confetti.tsx",
             language: "tsx",
           },
           {
@@ -253,15 +240,13 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "ui.tsx",
             path: "Onboarding/partials/components/shared/ui.tsx",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/shared/ui.tsx",
+            sourcePath: "app/kits/polaris/Onboarding/partials/components/shared/ui.tsx",
             language: "tsx",
           },
           {
             name: "ui.module.css",
             path: "Onboarding/partials/components/shared/ui.module.css",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/shared/ui.module.css",
+            sourcePath: "app/kits/polaris/Onboarding/partials/components/shared/ui.module.css",
             language: "css",
           },
           {
@@ -309,8 +294,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "Step4AddTools.tsx",
             path: "Onboarding/partials/components/steps/Step4AddTools.tsx",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/steps/Step4AddTools.tsx",
+            sourcePath: "app/kits/polaris/Onboarding/partials/components/steps/Step4AddTools.tsx",
             language: "tsx",
           },
           {
@@ -389,15 +373,13 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "SetupGuideExample.tsx",
             path: "example/SetupGuideExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/SetupGuideExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/SetupGuideExample.tsx",
             language: "tsx",
           },
           {
             name: "SetupGuide.tsx",
             path: "blocks/onboarding/SetupGuide/SetupGuide.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/onboarding/SetupGuide/SetupGuide.tsx",
+            sourcePath: "app/kits/polaris/blocks/onboarding/SetupGuide/SetupGuide.tsx",
             language: "tsx",
           },
           {
@@ -417,8 +399,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "types.ts",
             path: "blocks/onboarding/SetupGuide/types.ts",
-            sourcePath:
-              "app/kits/polaris/blocks/onboarding/SetupGuide/types.ts",
+            sourcePath: "app/kits/polaris/blocks/onboarding/SetupGuide/types.ts",
             language: "ts",
           },
         ],
@@ -434,37 +415,32 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       "Live status card checking if the app's Theme App Extension is activated, with direct deep-linking to the Shopify Theme Editor.",
     summary:
       "Embed verification banner providing 1-click navigation to admin.shopify.com theme editor with live re-check.",
-    docsUrl:
-      "https://shopify.dev/docs/apps/online-store/theme-app-extensions",
+    docsUrl: "https://shopify.dev/docs/apps/online-store/theme-app-extensions",
     previewType: "theme-embed-status",
     examples: [
       {
         id: "theme-embed-status-block",
         title: "Theme App Extension verification card",
-        description:
-          "Status card with re-check button and 1-click theme customizer deep link.",
+        description: "Status card with re-check button and 1-click theme customizer deep link.",
         renderKey: "theme-embed-status-example",
         installCommand: "npx shadcn@latest add theme-embed-status",
         fileSources: [
           {
             name: "ThemeEmbedStatusExample.tsx",
             path: "example/ThemeEmbedStatusExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/ThemeEmbedStatusExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/ThemeEmbedStatusExample.tsx",
             language: "tsx",
           },
           {
             name: "ThemeEmbedStatus.tsx",
             path: "blocks/onboarding/ThemeEmbedStatus/ThemeEmbedStatus.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/onboarding/ThemeEmbedStatus/ThemeEmbedStatus.tsx",
+            sourcePath: "app/kits/polaris/blocks/onboarding/ThemeEmbedStatus/ThemeEmbedStatus.tsx",
             language: "tsx",
           },
           {
             name: "types.ts",
             path: "blocks/onboarding/ThemeEmbedStatus/types.ts",
-            sourcePath:
-              "app/kits/polaris/blocks/onboarding/ThemeEmbedStatus/types.ts",
+            sourcePath: "app/kits/polaris/blocks/onboarding/ThemeEmbedStatus/types.ts",
             language: "ts",
           },
         ],
@@ -488,23 +464,20 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       {
         id: "plan-pricing-matrix-block",
         title: "Tiered subscription plans with billing cycle toggle",
-        description:
-          "3-tier subscription cards with monthly and annual pricing discounts.",
+        description: "3-tier subscription cards with monthly and annual pricing discounts.",
         renderKey: "plan-pricing-matrix-example",
         installCommand: "npx shadcn@latest add plan-pricing-matrix",
         fileSources: [
           {
             name: "PlanPricingMatrixExample.tsx",
             path: "example/PlanPricingMatrixExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/PlanPricingMatrixExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/PlanPricingMatrixExample.tsx",
             language: "tsx",
           },
           {
             name: "PlanPricingMatrix.tsx",
             path: "blocks/billing/PlanPricingMatrix/PlanPricingMatrix.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/billing/PlanPricingMatrix/PlanPricingMatrix.tsx",
+            sourcePath: "app/kits/polaris/blocks/billing/PlanPricingMatrix/PlanPricingMatrix.tsx",
             language: "tsx",
           },
           {
@@ -517,8 +490,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "types.ts",
             path: "blocks/billing/PlanPricingMatrix/types.ts",
-            sourcePath:
-              "app/kits/polaris/blocks/billing/PlanPricingMatrix/types.ts",
+            sourcePath: "app/kits/polaris/blocks/billing/PlanPricingMatrix/types.ts",
             language: "ts",
           },
         ],
@@ -532,38 +504,33 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
     categoryLabel: "Billing & Monetization",
     description:
       "Contextual usage quota warning banner with visual meter bar and instant plan upgrade CTA.",
-    summary:
-      "Dynamic meter alert for API quotas, order limits, and tracked volume thresholds.",
+    summary: "Dynamic meter alert for API quotas, order limits, and tracked volume thresholds.",
     docsUrl: "https://shopify.dev/docs/apps/billing/usage-billing",
     previewType: "usage-limit-banner",
     examples: [
       {
         id: "usage-limit-banner-block",
         title: "Quota usage warning banner",
-        description:
-          "Adaptive warning and critical meter bar with upgrade CTA button.",
+        description: "Adaptive warning and critical meter bar with upgrade CTA button.",
         renderKey: "usage-limit-banner-example",
         installCommand: "npx shadcn@latest add usage-limit-banner",
         fileSources: [
           {
             name: "UsageLimitBannerExample.tsx",
             path: "example/UsageLimitBannerExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/UsageLimitBannerExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/UsageLimitBannerExample.tsx",
             language: "tsx",
           },
           {
             name: "UsageLimitBanner.tsx",
             path: "blocks/billing/UsageLimitBanner/UsageLimitBanner.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/billing/UsageLimitBanner/UsageLimitBanner.tsx",
+            sourcePath: "app/kits/polaris/blocks/billing/UsageLimitBanner/UsageLimitBanner.tsx",
             language: "tsx",
           },
           {
             name: "types.ts",
             path: "blocks/billing/UsageLimitBanner/types.ts",
-            sourcePath:
-              "app/kits/polaris/blocks/billing/UsageLimitBanner/types.ts",
+            sourcePath: "app/kits/polaris/blocks/billing/UsageLimitBanner/types.ts",
             language: "ts",
           },
         ],
@@ -595,8 +562,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "DataTableExample.tsx",
             path: "example/DataTableExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/DataTableExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/DataTableExample.tsx",
             language: "tsx",
           },
           {
@@ -642,8 +608,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       {
         id: "destructive-action-modal-block",
         title: "Safety keyword verification modal",
-        description:
-          "Modal dialog with input keyword verification guard.",
+        description: "Modal dialog with input keyword verification guard.",
         renderKey: "destructive-action-modal-example",
         installCommand: "npx shadcn@latest add destructive-action-modal",
         fileSources: [
@@ -664,8 +629,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "types.ts",
             path: "blocks/actions/DestructiveActionModal/types.ts",
-            sourcePath:
-              "app/kits/polaris/blocks/actions/DestructiveActionModal/types.ts",
+            sourcePath: "app/kits/polaris/blocks/actions/DestructiveActionModal/types.ts",
             language: "ts",
           },
         ],
@@ -687,8 +651,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       {
         id: "resource-filter-toolbar-block",
         title: "Table search and filter chip toolbar",
-        description:
-          "Search bar with categorized dropdown filter options and active chip tags.",
+        description: "Search bar with categorized dropdown filter options and active chip tags.",
         renderKey: "resource-filter-toolbar-example",
         installCommand: "npx shadcn@latest add resource-filter-toolbar",
         fileSources: [
@@ -716,8 +679,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "types.ts",
             path: "blocks/actions/ResourceFilterToolbar/types.ts",
-            sourcePath:
-              "app/kits/polaris/blocks/actions/ResourceFilterToolbar/types.ts",
+            sourcePath: "app/kits/polaris/blocks/actions/ResourceFilterToolbar/types.ts",
             language: "ts",
           },
         ],
@@ -741,16 +703,14 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       {
         id: "stats-section-block",
         title: "KPI metrics grid with sparklines",
-        description:
-          "Responsive 4-column metrics section with SVG trend sparklines.",
+        description: "Responsive 4-column metrics section with SVG trend sparklines.",
         renderKey: "stats-section-example",
         installCommand: "npx shadcn@latest add stats-section",
         fileSources: [
           {
             name: "StatsSectionExample.tsx",
             path: "example/StatsSectionExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/StatsSectionExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/StatsSectionExample.tsx",
             language: "tsx",
           },
           {
@@ -780,8 +740,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       "Contextual notification banner that remembers its dismissed state in localStorage.",
     summary:
       "Persistently dismissable alert banners for store migrations, announcements, and success messages.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/feedback/banner",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/feedback/banner",
     previewType: "dismissable-banner",
     examples: [
       {
@@ -794,8 +753,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "DismissableBannerExample.tsx",
             path: "example/DismissableBannerExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/DismissableBannerExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/DismissableBannerExample.tsx",
             language: "tsx",
           },
           {
@@ -817,8 +775,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       "Lightweight merchant sentiment card with thumbs up/down rating and persistent feedback state.",
     summary:
       "Simple, friendly merchant feedback card with thumbs rating and thank-you confirmation.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/feedback/banner",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/feedback/banner",
     previewType: "feedback-card",
     examples: [
       {
@@ -831,8 +788,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "FeedbackCardExample.tsx",
             path: "example/FeedbackCardExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/FeedbackCardExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/FeedbackCardExample.tsx",
             language: "tsx",
           },
           {
@@ -852,38 +808,33 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
     categoryLabel: "Feedback & Status",
     description:
       "Milestone-triggered 5-star rating prompt routing high ratings to Shopify App Store and lower ratings to a private feedback form.",
-    summary:
-      "Smart App Store review card with interactive star selection and feedback routing.",
+    summary: "Smart App Store review card with interactive star selection and feedback routing.",
     docsUrl: "https://shopify.dev/docs/apps/app-store",
     previewType: "app-review-prompt",
     examples: [
       {
         id: "app-review-prompt-block",
         title: "5-star App Store review card",
-        description:
-          "Interactive star rating card with smart routing.",
+        description: "Interactive star rating card with smart routing.",
         renderKey: "app-review-prompt-example",
         installCommand: "npx shadcn@latest add app-review-prompt",
         fileSources: [
           {
             name: "AppReviewPromptExample.tsx",
             path: "example/AppReviewPromptExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/AppReviewPromptExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/AppReviewPromptExample.tsx",
             language: "tsx",
           },
           {
             name: "AppReviewPrompt.tsx",
             path: "blocks/feedback/AppReviewPrompt/AppReviewPrompt.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/feedback/AppReviewPrompt/AppReviewPrompt.tsx",
+            sourcePath: "app/kits/polaris/blocks/feedback/AppReviewPrompt/AppReviewPrompt.tsx",
             language: "tsx",
           },
           {
             name: "types.ts",
             path: "blocks/feedback/AppReviewPrompt/types.ts",
-            sourcePath:
-              "app/kits/polaris/blocks/feedback/AppReviewPrompt/types.ts",
+            sourcePath: "app/kits/polaris/blocks/feedback/AppReviewPrompt/types.ts",
             language: "ts",
           },
         ],
@@ -907,16 +858,14 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       {
         id: "section-card-block",
         title: "Standard section card with actions",
-        description:
-          "Card with header action menu and primary/secondary footer actions.",
+        description: "Card with header action menu and primary/secondary footer actions.",
         renderKey: "section-card-example",
         installCommand: "npx shadcn@latest add section-card",
         fileSources: [
           {
             name: "SectionCardExample.tsx",
             path: "example/SectionCardExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/SectionCardExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/SectionCardExample.tsx",
             language: "tsx",
           },
           {
@@ -938,8 +887,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       "Horizontal navigation tabs for organizing settings, segmented views, and multi-step forms.",
     summary:
       "Accessible Polaris tabs with badge counters, disabled states, and dynamic panel rendering.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/navigation/tabs",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/navigation/tabs",
     previewType: "tabs",
     examples: [
       {
@@ -952,8 +900,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "TabsExample.tsx",
             path: "example/TabsExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/TabsExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/TabsExample.tsx",
             language: "tsx",
           },
           {
@@ -989,8 +936,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "TimelineExample.tsx",
             path: "example/TimelineExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/TimelineExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/TimelineExample.tsx",
             language: "tsx",
           },
           {
@@ -1002,8 +948,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "TimelineItem.part.tsx",
             path: "blocks/activity/Timeline/partials/TimelineItem.part.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/activity/Timeline/partials/TimelineItem.part.tsx",
+            sourcePath: "app/kits/polaris/blocks/activity/Timeline/partials/TimelineItem.part.tsx",
             language: "tsx",
           },
           {
@@ -1047,16 +992,14 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       {
         id: "tutorial-button-block",
         title: "Video tutorial launcher",
-        description:
-          "Floating video guide launcher with modal walkthrough.",
+        description: "Floating video guide launcher with modal walkthrough.",
         renderKey: "tutorial-button-example",
         installCommand: "npx shadcn@latest add tutorial-button",
         fileSources: [
           {
             name: "TutorialButtonExample.tsx",
             path: "example/TutorialButtonExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/TutorialButtonExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/TutorialButtonExample.tsx",
             language: "tsx",
           },
           {
@@ -1076,10 +1019,8 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
     categoryLabel: "Typography & Content",
     description:
       "Inline contextual help icon that displays explanatory popovers on hover or focus.",
-    summary:
-      "Helper tooltip for clarifying complex settings, tax rules, and Shopify API limits.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/overlay/tooltip",
+    summary: "Helper tooltip for clarifying complex settings, tax rules, and Shopify API limits.",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/overlay/tooltip",
     previewType: "info-tooltip",
     examples: [
       {
@@ -1092,8 +1033,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "InfoTooltipExample.tsx",
             path: "example/InfoTooltipExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/InfoTooltipExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/InfoTooltipExample.tsx",
             language: "tsx",
           },
           {
@@ -1117,8 +1057,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       "Text input field with support for prefixes, suffixes, error states, and helper text.",
     summary:
       "Flexible single-line text input adhering to Shopify Polaris web component specifications.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/forms/text-field",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/forms/text-field",
     previewType: "input",
     examples: [
       {
@@ -1131,8 +1070,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "InputExample.tsx",
             path: "example/InputExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/InputExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/InputExample.tsx",
             language: "tsx",
           },
           {
@@ -1150,12 +1088,9 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
     name: "Select",
     category: "forms",
     categoryLabel: "Forms",
-    description:
-      "Dropdown selection menu for choosing from a list of predefined options.",
-    summary:
-      "Accessible select menu with option groups, placeholder, and disabled states.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/forms/select",
+    description: "Dropdown selection menu for choosing from a list of predefined options.",
+    summary: "Accessible select menu with option groups, placeholder, and disabled states.",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/forms/select",
     previewType: "select",
     examples: [
       {
@@ -1168,8 +1103,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "SelectExample.tsx",
             path: "example/SelectExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/SelectExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/SelectExample.tsx",
             language: "tsx",
           },
           {
@@ -1189,10 +1123,8 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
     categoryLabel: "Forms",
     description:
       "Boolean toggle checkbox with support for indeterminate states, help text, and labels.",
-    summary:
-      "Standard Polaris checkbox for multiple choice selections and agreement toggles.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/forms/checkbox",
+    summary: "Standard Polaris checkbox for multiple choice selections and agreement toggles.",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/forms/checkbox",
     previewType: "checkbox",
     examples: [
       {
@@ -1205,8 +1137,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "CheckBoxExample.tsx",
             path: "example/CheckBoxExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/CheckBoxExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/CheckBoxExample.tsx",
             language: "tsx",
           },
           {
@@ -1224,12 +1155,9 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
     name: "Toggle",
     category: "forms",
     categoryLabel: "Forms",
-    description:
-      "Interactive on/off switch for instant feature activation and preferences.",
-    summary:
-      "Boolean switch toggle with smooth transitions and clear active states.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/forms/choice-list",
+    description: "Interactive on/off switch for instant feature activation and preferences.",
+    summary: "Boolean switch toggle with smooth transitions and clear active states.",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/forms/choice-list",
     previewType: "toggle",
     examples: [
       {
@@ -1242,8 +1170,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "ToggleExample.tsx",
             path: "example/ToggleExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/ToggleExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/ToggleExample.tsx",
             language: "tsx",
           },
           {
@@ -1261,12 +1188,9 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
     name: "Range",
     category: "forms",
     categoryLabel: "Forms",
-    description:
-      "Slider input for selecting numerical values within a bounded range.",
-    summary:
-      "Range slider with min/max labels, step increments, and dynamic value output.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/forms/range-slider",
+    description: "Slider input for selecting numerical values within a bounded range.",
+    summary: "Range slider with min/max labels, step increments, and dynamic value output.",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/forms/range-slider",
     previewType: "range",
     examples: [
       {
@@ -1279,8 +1203,7 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "RangeExample.tsx",
             path: "example/RangeExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/RangeExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/RangeExample.tsx",
             language: "tsx",
           },
           {

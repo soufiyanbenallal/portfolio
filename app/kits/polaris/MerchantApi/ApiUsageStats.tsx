@@ -7,11 +7,9 @@ export type UsageStatsType = {
   requestsByEndpoint: Array<{ path: string; count: number }>;
 };
 
-
 export type ApiUsageStatsPropsType = {
   stats: UsageStatsType;
 };
-
 
 export const ApiUsageStats = ({ stats }: ApiUsageStatsPropsType): JSX.Element => {
   const ct = useCommonsT();
@@ -28,14 +26,14 @@ export const ApiUsageStats = ({ stats }: ApiUsageStatsPropsType): JSX.Element =>
     return (
       <div className="space-y-3">
         <div>
-          <h3 className="text-base font-bold text-foreground">{ct("commons.api_usage.title")}</h3>
-          <p className="text-xs text-muted-foreground">{ct("commons.api_usage.last_30_days")}</p>
+          <h3 className="text-foreground text-base font-bold">{ct("commons.api_usage.title")}</h3>
+          <p className="text-muted-foreground text-xs">{ct("commons.api_usage.last_30_days")}</p>
         </div>
-        <div className="p-8 text-center bg-muted/40 rounded-xl border border-border space-y-1">
-          <p className="text-sm font-semibold text-foreground">
+        <div className="bg-muted/40 border-border space-y-1 rounded-xl border p-8 text-center">
+          <p className="text-foreground text-sm font-semibold">
             {ct("commons.api_usage.no_requests")}
           </p>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-muted-foreground text-xs">
             {ct("commons.api_usage.no_requests_desc")}
           </p>
         </div>
@@ -46,12 +44,12 @@ export const ApiUsageStats = ({ stats }: ApiUsageStatsPropsType): JSX.Element =>
   return (
     <div className="space-y-4">
       <div>
-        <h3 className="text-base font-bold text-foreground">{ct("commons.api_usage.title")}</h3>
-        <p className="text-xs text-muted-foreground">{ct("commons.api_usage.last_30_days")}</p>
+        <h3 className="text-foreground text-base font-bold">{ct("commons.api_usage.title")}</h3>
+        <p className="text-muted-foreground text-xs">{ct("commons.api_usage.last_30_days")}</p>
       </div>
 
       {/* Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         {[
           {
             value: formatCount(stats.totalRequests),
@@ -68,23 +66,23 @@ export const ApiUsageStats = ({ stats }: ApiUsageStatsPropsType): JSX.Element =>
         ].map((metric) => (
           <div
             key={metric.label}
-            className="p-4 rounded-xl bg-muted/40 border border-border text-center space-y-0.5"
+            className="bg-muted/40 border-border space-y-0.5 rounded-xl border p-4 text-center"
           >
-            <span className="text-2xl font-extrabold text-foreground tracking-tight block">
+            <span className="text-foreground block text-2xl font-extrabold tracking-tight">
               {metric.value}
             </span>
-            <span className="text-xs text-muted-foreground block">{metric.label}</span>
+            <span className="text-muted-foreground block text-xs">{metric.label}</span>
           </div>
         ))}
       </div>
 
       {/* Bar Chart */}
       {stats.requestsByDay.length > 0 && (
-        <div className="p-4 rounded-xl bg-muted/40 border border-border space-y-3">
-          <span className="text-xs font-semibold text-foreground block">
+        <div className="bg-muted/40 border-border space-y-3 rounded-xl border p-4">
+          <span className="text-foreground block text-xs font-semibold">
             {ct("commons.api_usage.daily_requests")}
           </span>
-          <div className="flex items-end gap-1 h-20 pt-2">
+          <div className="flex h-20 items-end gap-1 pt-2">
             {stats.requestsByDay.slice(-14).map((day, i) => {
               const count = day.count;
               const heightPct = Math.max(6, (count / maxCount) * 100);
@@ -92,13 +90,13 @@ export const ApiUsageStats = ({ stats }: ApiUsageStatsPropsType): JSX.Element =>
                 <div
                   key={i}
                   title={`${day.date}: ${count} requests`}
-                  className="flex-1 bg-primary hover:bg-primary/80 transition-all rounded-t-sm"
+                  className="bg-primary hover:bg-primary/80 flex-1 rounded-t-sm transition-all"
                   style={{ height: `${heightPct}%` }}
                 />
               );
             })}
           </div>
-          <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-1 border-t border-border/40">
+          <div className="text-muted-foreground border-border/40 flex items-center justify-between border-t pt-1 text-[11px]">
             <span>
               {stats.requestsByDay[Math.max(0, stats.requestsByDay.length - 14)]?.date || ""}
             </span>
@@ -110,15 +108,15 @@ export const ApiUsageStats = ({ stats }: ApiUsageStatsPropsType): JSX.Element =>
       {/* Top Endpoints */}
       {stats.requestsByEndpoint.length > 0 && (
         <div className="space-y-2">
-          <span className="text-xs font-semibold text-foreground block">
+          <span className="text-foreground block text-xs font-semibold">
             {ct("commons.api_usage.top_endpoints")}
           </span>
           {stats.requestsByEndpoint.slice(0, 5).map((endpoint, i) => (
             <div
               key={i}
-              className="flex items-center justify-between p-3 rounded-lg bg-card border border-border text-xs"
+              className="bg-card border-border flex items-center justify-between rounded-lg border p-3 text-xs"
             >
-              <span className="font-mono font-medium text-foreground">{endpoint.path}</span>
+              <span className="text-foreground font-mono font-medium">{endpoint.path}</span>
               <span className="text-muted-foreground">
                 {`${formatCount(endpoint.count)} ${ct("commons.api_usage.req")}`}
               </span>

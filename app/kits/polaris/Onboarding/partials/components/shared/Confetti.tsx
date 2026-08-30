@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
-import styles from './Confetti.module.css';
+import { useMemo } from "react";
+import styles from "./Confetti.module.css";
 
-const COLORS = ['#059669', '#10b981', '#34d399', '#f59e0b', '#111827'];
+const COLORS = ["#059669", "#10b981", "#34d399", "#f59e0b", "#111827"];
 const PIECE_COUNT = 60;
 
 export type ConfettiPieceType = {

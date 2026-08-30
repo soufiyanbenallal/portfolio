@@ -5,7 +5,6 @@ export type DropzonePropsType = {
   icon_path: string;
 };
 
-
 export const Dropzone = ({ icon_path }: DropzonePropsType): JSX.Element => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -46,9 +45,9 @@ export const Dropzone = ({ icon_path }: DropzonePropsType): JSX.Element => {
 
   return (
     <div className="space-y-2">
-      {error && <p className="text-xs text-destructive">{error}</p>}
-      <label className="flex flex-col items-center justify-center w-14 h-14 rounded-xl border-2 border-dashed border-border hover:border-primary cursor-pointer bg-muted/20 transition-colors">
-        <span className="text-xs text-muted-foreground font-bold">{uploading ? "..." : "+"}</span>
+      {error && <p className="text-destructive text-xs">{error}</p>}
+      <label className="border-border hover:border-primary bg-muted/20 flex h-14 w-14 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed transition-colors">
+        <span className="text-muted-foreground text-xs font-bold">{uploading ? "..." : "+"}</span>
         <input
           type="file"
           accept="image/*"

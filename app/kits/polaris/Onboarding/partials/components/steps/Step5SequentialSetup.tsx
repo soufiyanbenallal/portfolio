@@ -1,15 +1,15 @@
-import { useEffect, type Dispatch } from 'react';
-import { Boxes, Check, Gift, Rocket, Zap } from 'lucide-react';
-import type { OnboardingActionType, OnboardingStateType, OptionalToolIdType } from '../../types';
-import { Button, Card, IconTile } from '../shared/ui';
-import { cn } from '../../utils';
-import styles from './Step5SequentialSetup.module.css';
+import { useEffect, type Dispatch } from "react";
+import { Boxes, Check, Gift, Rocket, Zap } from "lucide-react";
+import type { OnboardingActionType, OnboardingStateType, OptionalToolIdType } from "../../types";
+import { Button, Card, IconTile } from "../shared/ui";
+import { cn } from "../../utils";
+import styles from "./Step5SequentialSetup.module.css";
 
 const OPTIONAL_ICONS: Record<OptionalToolIdType, typeof Boxes> = {
-  'volume-discounts': Boxes,
-  'post-purchase-upsell': Rocket,
-  'product-addons': Gift,
-  'checkout-bumps': Zap,
+  "volume-discounts": Boxes,
+  "post-purchase-upsell": Rocket,
+  "product-addons": Gift,
+  "checkout-bumps": Zap,
 };
 
 export type Step5SequentialSetupPropsType = {
@@ -17,10 +17,7 @@ export type Step5SequentialSetupPropsType = {
   dispatch: Dispatch<OnboardingActionType>;
 };
 
-export function Step5SequentialSetup({
-  state,
-  dispatch,
-}: Step5SequentialSetupPropsType) {
+export function Step5SequentialSetup({ state, dispatch }: Step5SequentialSetupPropsType) {
   const queue = state.optionalTools.filter((tool) => tool.selected);
   const current = queue[state.queueIndex];
   const isLast = state.queueIndex >= queue.length - 1;
@@ -29,20 +26,20 @@ export function Step5SequentialSetup({
   // "Apply & continue" always has a sensible one-click choice ready.
   useEffect(() => {
     if (current && !current.selectedPresetId) {
-      dispatch({ type: 'SELECT_PRESET', id: current.id, presetId: current.presets[0].id });
+      dispatch({ type: "SELECT_PRESET", id: current.id, presetId: current.presets[0].id });
     }
   }, [current, dispatch]);
 
   // Guard: if the queue is ever empty when this step renders, leave immediately.
   useEffect(() => {
-    if (!current) dispatch({ type: 'GO_NEXT' });
+    if (!current) dispatch({ type: "GO_NEXT" });
   }, [current, dispatch]);
 
   if (!current) return null;
 
   const Icon = OPTIONAL_ICONS[current.id];
 
-  const advance = () => dispatch(isLast ? { type: 'GO_NEXT' } : { type: 'NEXT_IN_QUEUE' });
+  const advance = () => dispatch(isLast ? { type: "GO_NEXT" } : { type: "NEXT_IN_QUEUE" });
 
   return (
     <div className={styles.container}>
@@ -60,7 +57,7 @@ export function Step5SequentialSetup({
         </div>
 
         <div className={styles.toolHeader}>
-          <IconTile icon={<Icon style={{ height: '1.25rem', width: '1.25rem' }} />} />
+          <IconTile icon={<Icon style={{ height: "1.25rem", width: "1.25rem" }} />} />
           <div>
             <p className={styles.toolHeaderBadge}>
               Tool {state.queueIndex + 1} of {queue.length}
@@ -79,19 +76,17 @@ export function Step5SequentialSetup({
                 type="button"
                 role="radio"
                 aria-checked={selected}
-                onClick={() => dispatch({ type: 'SELECT_PRESET', id: current.id, presetId: preset.id })}
-                className={cn(
-                  styles.radioItem,
-                  selected && styles.radioItemSelected
-                )}
+                onClick={() =>
+                  dispatch({ type: "SELECT_PRESET", id: current.id, presetId: preset.id })
+                }
+                className={cn(styles.radioItem, selected && styles.radioItemSelected)}
               >
                 <span
-                  className={cn(
-                    styles.radioIndicator,
-                    selected && styles.radioIndicatorSelected
-                  )}
+                  className={cn(styles.radioIndicator, selected && styles.radioIndicatorSelected)}
                 >
-                  {selected ? <Check style={{ height: '0.625rem', width: '0.625rem' }} strokeWidth={3} /> : null}
+                  {selected ? (
+                    <Check style={{ height: "0.625rem", width: "0.625rem" }} strokeWidth={3} />
+                  ) : null}
                 </span>
                 <span>
                   <span className={styles.presetLabel}>{preset.label}</span>
@@ -106,7 +101,7 @@ export function Step5SequentialSetup({
           <Button
             className={styles.fullWidthButton}
             onClick={() => {
-              dispatch({ type: 'CONFIRM_TOOL_CONFIG', id: current.id });
+              dispatch({ type: "CONFIRM_TOOL_CONFIG", id: current.id });
               advance();
             }}
           >
@@ -115,7 +110,7 @@ export function Step5SequentialSetup({
           <button
             type="button"
             onClick={() => {
-              dispatch({ type: 'DEFER_TOOL_CONFIG', id: current.id });
+              dispatch({ type: "DEFER_TOOL_CONFIG", id: current.id });
               advance();
             }}
             className={styles.deferButton}

@@ -92,9 +92,8 @@ export function Marquee({
     <div
       className={cn(
         "relative w-full overflow-hidden",
-        fade &&
-          "[mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]",
-        className,
+        fade && "[mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]",
+        className
       )}
       onPointerEnter={pause}
       onPointerLeave={resume}

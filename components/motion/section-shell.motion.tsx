@@ -49,11 +49,6 @@ export function SectionShell({
   pinned = false,
   divider = true,
 }: SectionShellPropsType) {
-
-
-
-
-
   return (
     <section
       id={id}
@@ -61,14 +56,11 @@ export function SectionShell({
         "relative w-full",
         !pinned && "overflow-hidden",
         TONE_CLASS[tone],
-        divider && tone !== "ink" && "border-t border-gray-30",
-        className,
+        divider && tone !== "ink" && "border-gray-30 border-t",
+        className
       )}
-
     >
       <div className={cn("relative z-10", contentClassName)}>{children}</div>
-
-
     </section>
   );
 }

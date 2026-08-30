@@ -52,6 +52,7 @@ A production-grade editorial portfolio application for a full-stack designer, cl
 ## 🛠️ Data Customization
 
 All website content is managed through typed data files in `data/`:
+
 - `data/projects.data.ts` — Case studies, metrics, screenshots, and live links
 - `data/articles.data.ts` — Blog posts, reading times, categories, and sections
 - `data/testimonials.data.ts` — Client quotes, ratings, and avatars

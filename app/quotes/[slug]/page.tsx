@@ -14,11 +14,7 @@ export function generateStaticParams() {
   }));
 }
 
-export default async function QuoteDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function QuoteDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const quote = getQuoteBySlug(slug);
 
@@ -29,138 +25,145 @@ export default async function QuoteDetailPage({
   return (
     <PageTransition>
       <div className="w-full">
-      <Container className="max-w-[840px] flex flex-col gap-10 pt-32 pb-24">
-        {/* Back Link */}
-        <div>
-          <Link
-            href="/"
-            transitionTypes={["nav-back"]}
-            className="inline-flex items-center gap-2 text-xs font-medium text-gray-60 hover:text-black transition-colors"
-          >
-            <Icons.ArrowLeft className="w-3.5 h-3.5" />
-            <span>Return to Portfolio</span>
-          </Link>
-        </div>
-
-        {/* Quote Document Card */}
-        <div className="rounded-[28px] bg-white border border-gray-30 p-8 sm:p-12 card-shadow flex flex-col gap-8">
-          {/* Header & Status */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-30 pb-6">
-            <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-gray-50 block mb-1">
-                Project Proposal & Estimate
-              </span>
-              <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-black">
-                {quote.projectTitle}
-              </h1>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-gray-50">{quote.quoteNumber}</span>
-              <TagBadgeUi variant={quote.status === "Sent" ? "dark" : "light"}>
-                {quote.status}
-              </TagBadgeUi>
-            </div>
-          </div>
-
-          {/* Client & Date Details */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-gray-5 border border-gray-20 text-xs">
-            <div>
-              <span className="text-gray-40 block mb-0.5">Prepared For</span>
-              <span className="font-semibold text-black block">{quote.clientName}</span>
-              <span className="text-gray-50">{quote.clientCompany}</span>
-            </div>
-            <div>
-              <span className="text-gray-40 block mb-0.5">Issue Date</span>
-              <span className="font-semibold text-black block">{quote.issueDate}</span>
-            </div>
-            <div>
-              <span className="text-gray-40 block mb-0.5">Valid Until</span>
-              <span className="font-semibold text-black block">{quote.validUntil}</span>
-            </div>
-            <div>
-              <span className="text-gray-40 block mb-0.5">Est. Timeline</span>
-              <span className="font-semibold text-black block">{quote.estimatedTimeline}</span>
-            </div>
-          </div>
-
-          {/* Summary */}
+        <Container className="flex max-w-[840px] flex-col gap-10 pt-32 pb-24">
+          {/* Back Link */}
           <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-gray-50 block mb-2">
-              Scope Summary
-            </span>
-            <p className="text-sm text-gray-60 leading-relaxed">{quote.summary}</p>
+            <Link
+              href="/"
+              transitionTypes={["nav-back"]}
+              className="text-gray-60 inline-flex items-center gap-2 text-xs font-medium transition-colors hover:text-black"
+            >
+              <Icons.ArrowLeft className="h-3.5 w-3.5" />
+              <span>Return to Portfolio</span>
+            </Link>
           </div>
 
-          {/* Deliverables / Line Items Table */}
-          <div className="flex flex-col gap-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-gray-50 block">
-              Deliverables & Milestones
-            </span>
-            <div className="rounded-xl border border-gray-30 overflow-hidden divide-y divide-gray-20">
-              {quote.lineItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white"
-                >
-                  <div className="flex flex-col gap-1 max-w-lg">
-                    <span className="text-sm font-semibold text-black">{item.title}</span>
-                    <span className="text-xs text-gray-50 leading-relaxed">
-                      {item.description}
-                    </span>
-                    <span className="text-[11px] font-mono text-gray-40 mt-1">
-                      Timeline: {item.timeline}
-                    </span>
-                  </div>
-                  <div className="text-right sm:text-right shrink-0">
-                    <span className="text-base font-semibold text-black font-price">
-                      ${item.unitPrice.toLocaleString()}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Total & Pricing Breakdown */}
-          <div className="flex flex-col items-end gap-2 pt-4 border-t border-gray-30">
-            <div className="flex items-center justify-between w-full sm:w-64 text-xs text-gray-60">
-              <span>Subtotal:</span>
-              <span className="font-mono text-black font-medium">${quote.subtotal.toLocaleString()}</span>
-            </div>
-            {quote.discount && (
-              <div className="flex items-center justify-between w-full sm:w-64 text-xs text-availability-green">
-                <span>Partner Discount:</span>
-                <span className="font-mono font-medium">-${quote.discount.toLocaleString()}</span>
+          {/* Quote Document Card */}
+          <div className="border-gray-30 card-shadow flex flex-col gap-8 rounded-[28px] border bg-white p-8 sm:p-12">
+            {/* Header & Status */}
+            <div className="border-gray-30 flex flex-col justify-between gap-4 border-b pb-6 sm:flex-row sm:items-center">
+              <div>
+                <span className="mb-1 block font-mono text-xs tracking-widest text-gray-50 uppercase">
+                  Project Proposal & Estimate
+                </span>
+                <h1 className="text-2xl font-medium tracking-tight text-black sm:text-3xl">
+                  {quote.projectTitle}
+                </h1>
               </div>
-            )}
-            <div className="flex items-center justify-between w-full sm:w-64 text-base font-semibold text-black pt-2 border-t border-gray-20">
-              <span>Total Investment:</span>
-              <span className="text-2xl font-bold font-price">${quote.total.toLocaleString()}</span>
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs text-gray-50">{quote.quoteNumber}</span>
+                <TagBadgeUi variant={quote.status === "Sent" ? "dark" : "light"}>
+                  {quote.status}
+                </TagBadgeUi>
+              </div>
+            </div>
+
+            {/* Client & Date Details */}
+            <div className="bg-gray-5 border-gray-20 grid grid-cols-2 gap-4 rounded-xl border p-4 text-xs sm:grid-cols-4">
+              <div>
+                <span className="text-gray-40 mb-0.5 block">Prepared For</span>
+                <span className="block font-semibold text-black">{quote.clientName}</span>
+                <span className="text-gray-50">{quote.clientCompany}</span>
+              </div>
+              <div>
+                <span className="text-gray-40 mb-0.5 block">Issue Date</span>
+                <span className="block font-semibold text-black">{quote.issueDate}</span>
+              </div>
+              <div>
+                <span className="text-gray-40 mb-0.5 block">Valid Until</span>
+                <span className="block font-semibold text-black">{quote.validUntil}</span>
+              </div>
+              <div>
+                <span className="text-gray-40 mb-0.5 block">Est. Timeline</span>
+                <span className="block font-semibold text-black">{quote.estimatedTimeline}</span>
+              </div>
+            </div>
+
+            {/* Summary */}
+            <div>
+              <span className="mb-2 block font-mono text-xs tracking-widest text-gray-50 uppercase">
+                Scope Summary
+              </span>
+              <p className="text-gray-60 text-sm leading-relaxed">{quote.summary}</p>
+            </div>
+
+            {/* Deliverables / Line Items Table */}
+            <div className="flex flex-col gap-3">
+              <span className="block font-mono text-xs tracking-widest text-gray-50 uppercase">
+                Deliverables & Milestones
+              </span>
+              <div className="border-gray-30 divide-gray-20 divide-y overflow-hidden rounded-xl border">
+                {quote.lineItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex flex-col justify-between gap-4 bg-white p-4 sm:flex-row sm:items-center sm:p-5"
+                  >
+                    <div className="flex max-w-lg flex-col gap-1">
+                      <span className="text-sm font-semibold text-black">{item.title}</span>
+                      <span className="text-xs leading-relaxed text-gray-50">
+                        {item.description}
+                      </span>
+                      <span className="text-gray-40 mt-1 font-mono text-[11px]">
+                        Timeline: {item.timeline}
+                      </span>
+                    </div>
+                    <div className="shrink-0 text-right sm:text-right">
+                      <span className="font-price text-base font-semibold text-black">
+                        ${item.unitPrice.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Total & Pricing Breakdown */}
+            <div className="border-gray-30 flex flex-col items-end gap-2 border-t pt-4">
+              <div className="text-gray-60 flex w-full items-center justify-between text-xs sm:w-64">
+                <span>Subtotal:</span>
+                <span className="font-mono font-medium text-black">
+                  ${quote.subtotal.toLocaleString()}
+                </span>
+              </div>
+              {quote.discount && (
+                <div className="text-availability-green flex w-full items-center justify-between text-xs sm:w-64">
+                  <span>Partner Discount:</span>
+                  <span className="font-mono font-medium">-${quote.discount.toLocaleString()}</span>
+                </div>
+              )}
+              <div className="border-gray-20 flex w-full items-center justify-between border-t pt-2 text-base font-semibold text-black sm:w-64">
+                <span>Total Investment:</span>
+                <span className="font-price text-2xl font-bold">
+                  ${quote.total.toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+            {/* Payment Terms & Conditions */}
+            <div className="bg-gray-5 border-gray-20 flex flex-col gap-3 rounded-2xl border p-5 text-xs">
+              <span className="font-semibold text-black">Terms & Payment Schedule:</span>
+              <p className="text-gray-60">{quote.paymentTerms}</p>
+              <ul className="text-gray-60 mt-1 list-disc space-y-1 pl-4">
+                {quote.terms.map((t, i) => (
+                  <li key={i}>{t}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Action CTA */}
+            <div className="border-gray-30 flex flex-col items-center justify-between gap-4 border-t pt-4 sm:flex-row">
+              <span className="text-xs text-gray-50">
+                Questions? Reply directly to{" "}
+                <a href={`mailto:${quote.clientEmail}`} className="text-black underline">
+                  joseph@launchnow.design
+                </a>
+              </span>
+              <ButtonUi variant="primary" size="lg" className="h-12 w-full px-8 sm:w-auto">
+                Accept Proposal & Proceed
+              </ButtonUi>
             </div>
           </div>
-
-          {/* Payment Terms & Conditions */}
-          <div className="flex flex-col gap-3 p-5 rounded-2xl bg-gray-5 border border-gray-20 text-xs">
-            <span className="font-semibold text-black">Terms & Payment Schedule:</span>
-            <p className="text-gray-60">{quote.paymentTerms}</p>
-            <ul className="list-disc pl-4 text-gray-60 space-y-1 mt-1">
-              {quote.terms.map((t, i) => (
-                <li key={i}>{t}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Action CTA */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-gray-30">
-            <span className="text-xs text-gray-50">
-              Questions? Reply directly to <a href={`mailto:${quote.clientEmail}`} className="underline text-black">joseph@launchnow.design</a>
-            </span>
-            <ButtonUi variant="primary" size="lg" className="w-full sm:w-auto h-12 px-8">
-              Accept Proposal & Proceed
-            </ButtonUi>
-          </div>
-        </div>
-      </Container>
+        </Container>
       </div>
     </PageTransition>
   );

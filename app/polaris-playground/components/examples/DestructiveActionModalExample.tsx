@@ -22,7 +22,8 @@ export function DestructiveActionModalExample() {
         <s-stack direction="block" gap="base" alignItems="center">
           <s-heading>Destructive Action Safety Verification</s-heading>
           <s-paragraph>
-            Click the button below to test the double-check confirmation dialog with keyword verification.
+            Click the button below to test the double-check confirmation dialog with keyword
+            verification.
           </s-paragraph>
 
           <s-button variant="primary" tone="critical" onClick={() => setOpen(true)}>

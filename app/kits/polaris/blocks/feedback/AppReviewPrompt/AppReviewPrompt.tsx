@@ -13,7 +13,6 @@ export type AppReviewPromptPropsType = {
   className?: string;
 };
 
-
 export function AppReviewPrompt({
   appName = "our app",
   appStoreUrl,
@@ -56,9 +55,7 @@ export function AppReviewPrompt({
       <s-stack direction="block" gap="base">
         <s-stack direction="inline" justifyContent="space-between" alignItems="center">
           <s-heading>How has your experience been with {appName}?</s-heading>
-          {dismissable && (
-            <s-button variant="secondary" onClick={handleDismiss} icon="x" />
-          )}
+          {dismissable && <s-button variant="secondary" onClick={handleDismiss} icon="x" />}
         </s-stack>
 
         {submitted ? (
@@ -73,11 +70,7 @@ export function AppReviewPrompt({
 
             <s-stack direction="inline" gap="small-200" alignItems="center">
               {[1, 2, 3, 4, 5].map((star) => (
-                <s-button
-                  key={star}
-                  variant="secondary"
-                  onClick={() => handleSelectRating(star)}
-                >
+                <s-button key={star} variant="secondary" onClick={() => handleSelectRating(star)}>
                   {star} ★
                 </s-button>
               ))}

@@ -15,7 +15,6 @@ export type UsageLimitBannerPropsType = {
   className?: string;
 };
 
-
 export function UsageLimitBanner({
   title,
   resourceName,

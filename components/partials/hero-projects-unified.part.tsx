@@ -24,13 +24,7 @@ import { Tilt3D } from "@/components/motion/tilt-3d.motion";
 import { SharedElement } from "@/components/motion/page-transition.motion";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { CAL_LINK } from "@/components/shared/cal-embed.shared";
-import {
-  DURATIONS,
-  EASINGS,
-  SPRINGS,
-  SCROLL_OFFSETS,
-  PERSPECTIVE,
-} from "@/lib/motion.config";
+import { DURATIONS, EASINGS, SPRINGS, SCROLL_OFFSETS, PERSPECTIVE } from "@/lib/motion.config";
 import { useIsDesktop, useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { cn } from "@/lib/utils";
 import type { DeckCardConfigType, ProjectDetailType } from "@/types";
@@ -92,13 +86,7 @@ type UnifiedCardPropsType = {
   activeIndex: number;
 };
 
-function UnifiedCard({
-  project,
-  index,
-  config,
-  progress,
-  activeIndex,
-}: UnifiedCardPropsType) {
+function UnifiedCard({ project, index, config, progress, activeIndex }: UnifiedCardPropsType) {
   const isActive = activeIndex === index;
 
   // Hover target for Hero 3D depth lift
@@ -154,7 +142,7 @@ function UnifiedCard({
     // Stage 3: Asymmetric 3D Outgoing Flick Arc
     if (index === 0) {
       if (p <= 0.42) return "0px";
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         const throwX = flickDir * 160 * (t * t);
         return `${throwX}px`;
@@ -209,7 +197,7 @@ function UnifiedCard({
     // Stage 3: Asymmetric Exit Arc vs Incoming Z-Pop
     if (index === 0) {
       if (p <= 0.42) return "0px";
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         const arcY = -45 * Math.sin(t * Math.PI * 0.8);
         return `${arcY}px`;
@@ -220,7 +208,7 @@ function UnifiedCard({
     if (index === 1) {
       if (p < 0.42) return "16px";
       // Incoming Card: Z-Pop entrance to active 0px
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         const easeT = t * t * (3 - 2 * t);
         return `${16 * (1 - easeT)}px`;
@@ -237,7 +225,7 @@ function UnifiedCard({
 
     if (index === 2) {
       if (p < 0.42) return "32px";
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         return `${32 - 16 * t}px`;
       }
@@ -260,7 +248,7 @@ function UnifiedCard({
 
     // index === 3
     if (p < 0.42) return "48px";
-    if (p <= 0.50) {
+    if (p <= 0.5) {
       const t = (p - 0.42) / 0.08;
       return `${48 - 16 * t}px`;
     }
@@ -298,7 +286,7 @@ function UnifiedCard({
     // Stage 3: Outgoing Flick Rotation
     if (index === 0) {
       if (p <= 0.42) return 0;
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         return flickDir * 20 * (t * t);
       }
@@ -307,7 +295,7 @@ function UnifiedCard({
 
     if (index === 1) {
       if (p < 0.42) return -flickDir * 2;
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         return -flickDir * 2 * (1 - t);
       }
@@ -351,7 +339,7 @@ function UnifiedCard({
 
     if (index === 0) {
       if (p <= 0.42) return 0;
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         return flickDir * -26 * t;
       }
@@ -360,7 +348,7 @@ function UnifiedCard({
 
     if (index === 1) {
       if (p < 0.42) return flickDir * 6;
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         return flickDir * 6 * (1 - t);
       }
@@ -404,7 +392,7 @@ function UnifiedCard({
 
     if (index === 0) {
       if (p <= 0.42) return 0;
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         return 14 * t;
       }
@@ -413,7 +401,7 @@ function UnifiedCard({
 
     if (index === 1) {
       if (p < 0.42) return -12;
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         return -12 * (1 - t);
       }
@@ -468,19 +456,19 @@ function UnifiedCard({
     if (p >= 0.88) {
       const t = Math.min(1, (p - 0.88) / 0.08);
       const easeT = t * t * (3 - 2 * t);
-      return 1.0 - 0.60 * easeT; // 0.40 scale
+      return 1.0 - 0.6 * easeT; // 0.40 scale
     }
 
     // Stage 3
     if (index === 0) {
       if (p <= 0.42) return 1.0;
-      if (p <= 0.50) return 1.0 - 0.12 * ((p - 0.42) / 0.08);
+      if (p <= 0.5) return 1.0 - 0.12 * ((p - 0.42) / 0.08);
       return 0.88;
     }
 
     if (index === 1) {
       if (p < 0.42) return 0.96;
-      if (p <= 0.50) {
+      if (p <= 0.5) {
         const t = (p - 0.42) / 0.08;
         return 0.96 + 0.04 * t;
       }
@@ -491,7 +479,7 @@ function UnifiedCard({
 
     if (index === 2) {
       if (p < 0.42) return 0.92;
-      if (p <= 0.50) return 0.92 + 0.04 * ((p - 0.42) / 0.08);
+      if (p <= 0.5) return 0.92 + 0.04 * ((p - 0.42) / 0.08);
       if (p <= 0.58) return 0.96;
       if (p <= 0.66) return 0.96 + 0.04 * ((p - 0.58) / 0.08);
       if (p <= 0.74) return 1.0;
@@ -501,7 +489,7 @@ function UnifiedCard({
 
     // index === 3
     if (p < 0.42) return 0.88;
-    if (p <= 0.50) return 0.88 + 0.04 * ((p - 0.42) / 0.08);
+    if (p <= 0.5) return 0.88 + 0.04 * ((p - 0.42) / 0.08);
     if (p <= 0.58) return 0.92;
     if (p <= 0.66) return 0.92 + 0.04 * ((p - 0.58) / 0.08);
     if (p <= 0.74) return 0.96;
@@ -528,21 +516,21 @@ function UnifiedCard({
 
     if (index === 0) {
       if (p <= 0.42) return 1.0;
-      if (p <= 0.50) return Math.max(0, 1.0 - (p - 0.42) / 0.08);
+      if (p <= 0.5) return Math.max(0, 1.0 - (p - 0.42) / 0.08);
       return 0;
     }
 
     if (index === 1) {
       if (p < 0.42) return 0.75;
-      if (p <= 0.50) return 0.75 + 0.25 * ((p - 0.42) / 0.08);
+      if (p <= 0.5) return 0.75 + 0.25 * ((p - 0.42) / 0.08);
       if (p <= 0.58) return 1.0;
       if (p <= 0.66) return Math.max(0, 1.0 - (p - 0.58) / 0.08);
       return 0;
     }
 
     if (index === 2) {
-      if (p < 0.42) return 0.50;
-      if (p <= 0.50) return 0.50 + 0.25 * ((p - 0.42) / 0.08);
+      if (p < 0.42) return 0.5;
+      if (p <= 0.5) return 0.5 + 0.25 * ((p - 0.42) / 0.08);
       if (p <= 0.58) return 0.75;
       if (p <= 0.66) return 0.75 + 0.25 * ((p - 0.58) / 0.08);
       if (p <= 0.74) return 1.0;
@@ -551,10 +539,10 @@ function UnifiedCard({
     }
 
     // index === 3
-    if (p < 0.42) return 0.30;
-    if (p <= 0.50) return 0.30 + 0.20 * ((p - 0.42) / 0.08);
-    if (p <= 0.58) return 0.50;
-    if (p <= 0.66) return 0.50 + 0.25 * ((p - 0.58) / 0.08);
+    if (p < 0.42) return 0.3;
+    if (p <= 0.5) return 0.3 + 0.2 * ((p - 0.42) / 0.08);
+    if (p <= 0.58) return 0.5;
+    if (p <= 0.66) return 0.5 + 0.25 * ((p - 0.58) / 0.08);
     if (p <= 0.74) return 0.75;
     if (p <= 0.82) return 0.75 + 0.25 * ((p - 0.74) / 0.08);
     return 1.0;
@@ -577,13 +565,13 @@ function UnifiedCard({
     }
     if (index === 1) {
       if (p < 0.42) return -30;
-      if (p <= 0.50) return -30 * (1 - (p - 0.42) / 0.08);
+      if (p <= 0.5) return -30 * (1 - (p - 0.42) / 0.08);
       if (p <= 0.58) return 0;
       return -80 * ((p - 0.58) / 0.08);
     }
     if (index === 2) {
       if (p < 0.42) return -60;
-      if (p <= 0.50) return -60 + 30 * ((p - 0.42) / 0.08);
+      if (p <= 0.5) return -60 + 30 * ((p - 0.42) / 0.08);
       if (p <= 0.58) return -30;
       if (p <= 0.66) return -30 * (1 - (p - 0.58) / 0.08);
       if (p <= 0.74) return 0;
@@ -591,7 +579,7 @@ function UnifiedCard({
     }
     if (index === 3) {
       if (p < 0.42) return -90;
-      if (p <= 0.50) return -90 + 30 * ((p - 0.42) / 0.08);
+      if (p <= 0.5) return -90 + 30 * ((p - 0.42) / 0.08);
       if (p <= 0.58) return -60;
       if (p <= 0.66) return -60 + 30 * ((p - 0.58) / 0.08);
       if (p <= 0.74) return -30;
@@ -606,7 +594,7 @@ function UnifiedCard({
     if (p >= 0.88) return 20 + index;
 
     if (index === 0) {
-      return p <= 0.50 ? 40 : 10;
+      return p <= 0.5 ? 40 : 10;
     }
     if (index === 1) {
       return p <= 0.66 ? 30 : 11;
@@ -621,8 +609,8 @@ function UnifiedCard({
   const pointerEvents = useTransform(progress, (p) => {
     if (p <= 0.15 || p >= 0.88) return "auto";
     if (index === 0 && p <= 0.44) return "auto";
-    if (index === 1 && p > 0.44 && p <= 0.60) return "auto";
-    if (index === 2 && p > 0.60 && p <= 0.76) return "auto";
+    if (index === 1 && p > 0.44 && p <= 0.6) return "auto";
+    if (index === 2 && p > 0.6 && p <= 0.76) return "auto";
     if (index === 3 && p > 0.76 && p < 0.88) return "auto";
     return "none";
   });
@@ -662,7 +650,11 @@ function UnifiedCard({
       onMouseMove={handleCardMouseMove}
     >
       <div className="w-full max-w-[720px] p-2 lg:p-4">
-        <Tilt3D intensity={isHeroPhase ? 0 : isOutroPhase ? 5 : 7} lift={isHeroPhase ? 0 : 8} className="w-full">
+        <Tilt3D
+          intensity={isHeroPhase ? 0 : isOutroPhase ? 5 : 7}
+          lift={isHeroPhase ? 0 : 8}
+          className="w-full"
+        >
           <Link
             href={`/projects/${project.slug}`}
             transitionTypes={["nav-forward"]}
@@ -673,7 +665,7 @@ function UnifiedCard({
           >
             {/* Specular 3D Glass Shell */}
             <div
-              className="relative overflow-hidden rounded-[26px] bg-white p-3.5 sm:p-4 transition-all duration-300 hover:shadow-2xl"
+              className="relative overflow-hidden rounded-[26px] bg-white p-3.5 transition-all duration-300 hover:shadow-2xl sm:p-4"
               style={{
                 boxShadow:
                   "0 24px 48px -12px rgba(0, 0, 0, 0.12), 0 12px 24px -8px rgba(0, 0, 0, 0.08), inset 0 1px 1.5px rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(0, 0, 0, 0.06)",
@@ -694,7 +686,7 @@ function UnifiedCard({
 
               {/* Media Preview Container */}
               <SharedElement name={`project-media-${project.slug}`}>
-                <div className="relative aspect-16/10 w-full overflow-hidden rounded-[20px] bg-gray-10 shadow-inner">
+                <div className="bg-gray-10 relative aspect-16/10 w-full overflow-hidden rounded-[20px] shadow-inner">
                   <Image
                     src={project.thumbnail}
                     alt={project.title}
@@ -705,16 +697,16 @@ function UnifiedCard({
                   />
 
                   {/* Glassmorphic Project Badge */}
-                  <div className="absolute left-3.5 top-3.5 z-10 flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1 text-[11px] font-mono font-medium text-white shadow-md backdrop-blur-md border border-white/15">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/60 px-3 py-1 font-mono text-[11px] font-medium text-white shadow-md backdrop-blur-md">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
                       <span>{project.category}</span>
                     </span>
                   </div>
 
                   {/* Year Tag */}
-                  <div className="absolute right-3.5 top-3.5 z-10">
-                    <span className="rounded-full bg-black/50 px-2.5 py-1 font-mono text-[11px] font-medium text-white/90 backdrop-blur-md border border-white/10">
+                  <div className="absolute top-3.5 right-3.5 z-10">
+                    <span className="rounded-full border border-white/10 bg-black/50 px-2.5 py-1 font-mono text-[11px] font-medium text-white/90 backdrop-blur-md">
                       {project.year}
                     </span>
                   </div>
@@ -730,14 +722,14 @@ function UnifiedCard({
               </SharedElement>
 
               {/* Card Footer Details */}
-              <div className="flex items-end justify-between gap-4 sm:gap-6 px-1 pb-0.5 pt-3 sm:pt-4">
+              <div className="flex items-end justify-between gap-4 px-1 pt-3 pb-0.5 sm:gap-6 sm:pt-4">
                 <div className="flex min-w-0 flex-col gap-1.5">
                   <div className="flex items-center gap-2.5">
-                    <span className="truncate text-base sm:text-lg font-semibold tracking-tight text-black transition-colors group-hover:text-gray-60">
+                    <span className="group-hover:text-gray-60 truncate text-base font-semibold tracking-tight text-black transition-colors sm:text-lg">
                       {project.title}
                     </span>
-                    <span className="font-mono text-xs text-gray-30">/</span>
-                    <span className="truncate text-xs sm:text-sm font-medium text-gray-60">
+                    <span className="text-gray-30 font-mono text-xs">/</span>
+                    <span className="text-gray-60 truncate text-xs font-medium sm:text-sm">
                       {project.typeOfWork}
                     </span>
                   </div>
@@ -746,7 +738,7 @@ function UnifiedCard({
                     {project.stats.slice(0, 2).map((stat) => (
                       <span
                         key={stat.label}
-                        className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs text-gray-60 bg-gray-10 px-2 py-0.5 rounded-md border border-gray-20"
+                        className="text-gray-60 bg-gray-10 border-gray-20 inline-flex items-center gap-1 rounded-md border px-2 py-0.5 font-mono text-[11px] sm:text-xs"
                       >
                         <span className="font-semibold text-black">{stat.value}</span>{" "}
                         <span>{stat.label}</span>
@@ -755,7 +747,7 @@ function UnifiedCard({
                   </div>
                 </div>
 
-                <span className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full border border-gray-30 text-black transition-all duration-300 group-hover:border-black group-hover:bg-black group-hover:text-white shadow-xs">
+                <span className="border-gray-30 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-black shadow-xs transition-all duration-300 group-hover:border-black group-hover:bg-black group-hover:text-white sm:h-10 sm:w-10">
                   <Icons.ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
               </div>
@@ -782,17 +774,15 @@ function StickyAside({ activeIndex, progress, onSelectProject }: StickyAsideProp
   const railProgress = useTransform(progress, [0.28, 0.88], [0, 1]);
 
   return (
-    <div className="flex w-full flex-col justify-center py-6 pr-6 lg:pr-8 select-none">
+    <div className="flex w-full flex-col justify-center py-6 pr-6 select-none lg:pr-8">
       <div className="flex flex-col gap-6">
         {/* Status Badge */}
         <div className="flex items-center gap-2.5">
           <span className="relative flex h-2.5 w-2.5 items-center justify-center">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-availability-green opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-availability-green shadow-[0_0_8px_rgba(33,179,11,0.6)]" />
+            <span className="bg-availability-green absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+            <span className="bg-availability-green relative inline-flex h-2 w-2 rounded-full shadow-[0_0_8px_rgba(33,179,11,0.6)]" />
           </span>
-          <span className="text-label text-gray-50">
-            Selected work
-          </span>
+          <span className="text-label text-gray-50">Selected work</span>
         </div>
 
         {/* Counter & Step Dots */}
@@ -805,7 +795,7 @@ function StickyAside({ activeIndex, progress, onSelectProject }: StickyAsideProp
                 animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                 exit={{ y: 24, opacity: 0, filter: "blur(4px)" }}
                 transition={{ duration: DURATIONS.base, ease: EASINGS.entrance }}
-                className="flex items-center font-mono text-2xl lg:text-3xl font-semibold text-black"
+                className="flex items-center font-mono text-2xl font-semibold text-black lg:text-3xl"
               >
                 <span>{String(activeIndex + 1).padStart(2, "0")}</span>
                 <span className="text-gray-30 mx-1.5 font-light">/</span>
@@ -824,10 +814,8 @@ function StickyAside({ activeIndex, progress, onSelectProject }: StickyAsideProp
                 type="button"
                 onClick={() => onSelectProject?.(idx)}
                 className={cn(
-                  "h-2 rounded-full transition-all duration-400 cursor-pointer",
-                  idx === activeIndex
-                    ? "w-6 bg-black"
-                    : "w-2 bg-gray-30 hover:bg-gray-50"
+                  "h-2 cursor-pointer rounded-full transition-all duration-400",
+                  idx === activeIndex ? "w-6 bg-black" : "bg-gray-30 w-2 hover:bg-gray-50"
                 )}
                 aria-label={`Jump to project ${p.title}`}
               />
@@ -847,14 +835,14 @@ function StickyAside({ activeIndex, progress, onSelectProject }: StickyAsideProp
               className="absolute inset-0 flex flex-col gap-3"
             >
               <div className="flex items-center gap-2.5">
-                <h3 className="text-2xl lg:text-3xl font-medium text-black tracking-tight">
+                <h3 className="text-2xl font-medium tracking-tight text-black lg:text-3xl">
                   {project.title}
                 </h3>
-                <span className="rounded-full bg-gray-10 px-2.5 py-0.5 font-mono text-[11px] font-medium text-gray-60 border border-gray-30">
+                <span className="bg-gray-10 text-gray-60 border-gray-30 rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-medium">
                   {project.category}
                 </span>
               </div>
-              <p className="text-sm lg:text-base text-gray-60 leading-relaxed max-w-[290px]">
+              <p className="text-gray-60 max-w-[290px] text-sm leading-relaxed lg:text-base">
                 {project.tagline}
               </p>
             </motion.div>
@@ -866,7 +854,7 @@ function StickyAside({ activeIndex, progress, onSelectProject }: StickyAsideProp
           {project.stats.slice(0, 2).map((stat) => (
             <div
               key={stat.label}
-              className="rounded-lg bg-white/90 px-3 py-1.5 text-xs border border-gray-20 shadow-xs backdrop-blur-sm"
+              className="border-gray-20 rounded-lg border bg-white/90 px-3 py-1.5 text-xs shadow-xs backdrop-blur-sm"
             >
               <span className="font-semibold text-black">{stat.value}</span>{" "}
               <span className="text-gray-60">{stat.label}</span>
@@ -876,17 +864,17 @@ function StickyAside({ activeIndex, progress, onSelectProject }: StickyAsideProp
 
         {/* Progress Rail */}
         <div className="flex flex-col gap-2 pt-2">
-          <div className="h-1.5 w-full max-w-[220px] rounded-full bg-gray-20 overflow-hidden">
+          <div className="bg-gray-20 h-1.5 w-full max-w-[220px] overflow-hidden rounded-full">
             <motion.div
-              className="h-full origin-left bg-black rounded-full"
+              className="h-full origin-left rounded-full bg-black"
               style={{ scaleX: railProgress }}
             />
           </div>
-          <div className="flex items-center justify-between max-w-[220px]">
-            <span className="font-mono text-[11px] font-medium text-gray-60">
+          <div className="flex max-w-[220px] items-center justify-between">
+            <span className="text-gray-60 font-mono text-[11px] font-medium">
               Scroll to explore
             </span>
-            <span className="font-mono text-[11px] text-gray-40">
+            <span className="text-gray-40 font-mono text-[11px]">
               {Math.round((activeIndex + 1) * 25)}%
             </span>
           </div>
@@ -908,7 +896,7 @@ function Stage4Outro({ progress }: Stage4OutroPropsType) {
   const outroOpacity = useTransform(progress, [0.88, 0.95], [0, 1]);
   const outroY = useTransform(progress, [0.88, 0.95], [20, 0]);
   const outroBlur = useTransform(progress, [0.88, 0.95], ["blur(8px)", "blur(0px)"]);
-  const outroPointerEvents = useTransform(progress, (p) => (p >= 0.90 ? "auto" : "none"));
+  const outroPointerEvents = useTransform(progress, (p) => (p >= 0.9 ? "auto" : "none"));
 
   return (
     <motion.div
@@ -920,18 +908,18 @@ function Stage4Outro({ progress }: Stage4OutroPropsType) {
         pointerEvents: outroPointerEvents as unknown as "auto" | "none",
       }}
     >
-      <div className="flex flex-col sm:flex-row items-center gap-4 rounded-full border border-gray-30 bg-white/95 px-6 py-3 shadow-xl backdrop-blur-md">
-        <div className="flex items-center gap-4 text-xs font-mono text-gray-60">
+      <div className="border-gray-30 flex flex-col items-center gap-4 rounded-full border bg-white/95 px-6 py-3 shadow-xl backdrop-blur-md sm:flex-row">
+        <div className="text-gray-60 flex items-center gap-4 font-mono text-xs">
           <span>
-            <strong className="text-black font-semibold">6+</strong> Featured Cases
+            <strong className="font-semibold text-black">6+</strong> Featured Cases
           </span>
           <span className="text-gray-30">•</span>
           <span>
-            <strong className="text-black font-semibold">$40M+</strong> Value Created
+            <strong className="font-semibold text-black">$40M+</strong> Value Created
           </span>
           <span className="text-gray-30">•</span>
           <span>
-            <strong className="text-black font-semibold">99.8%</strong> Satisfaction
+            <strong className="font-semibold text-black">99.8%</strong> Satisfaction
           </span>
         </div>
 
@@ -950,7 +938,7 @@ function Stage4Outro({ progress }: Stage4OutroPropsType) {
           <Magnetic strength={0.4}>
             <a
               href={CAL_LINK}
-              className="inline-flex items-center rounded-full border border-gray-30 bg-gray-10 px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-gray-20"
+              className="border-gray-30 bg-gray-10 hover:bg-gray-20 inline-flex items-center rounded-full border px-4 py-2 text-xs font-semibold text-black transition-colors"
             >
               Start a project
             </a>
@@ -976,14 +964,8 @@ export function HeroProjectsUnifiedPart() {
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
 
-  const pointerYaw = useSpring(
-    useTransform(pointerX, [-0.5, 0.5], [-16, 16]),
-    SPRINGS.tilt
-  );
-  const rigRotateX = useSpring(
-    useTransform(pointerY, [-0.5, 0.5], [12, -12]),
-    SPRINGS.tilt
-  );
+  const pointerYaw = useSpring(useTransform(pointerX, [-0.5, 0.5], [-16, 16]), SPRINGS.tilt);
+  const rigRotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [12, -12]), SPRINGS.tilt);
 
   // Unified Scroll Progress across master track
   const { scrollYProgress } = useScroll({
@@ -1021,7 +1003,9 @@ export function HeroProjectsUnifiedPart() {
   });
   const showcaseY = useTransform(smoothProgress, [0.16, 0.28], [40, 0]);
   const showcaseBlur = useTransform(smoothProgress, [0.16, 0.28], ["blur(8px)", "blur(0px)"]);
-  const showcasePointerEvents = useTransform(smoothProgress, (p) => (p >= 0.20 && p < 0.88 ? "auto" : "none"));
+  const showcasePointerEvents = useTransform(smoothProgress, (p) =>
+    p >= 0.2 && p < 0.88 ? "auto" : "none"
+  );
 
   // Final Stage 4 Spread Header ("Curated Showcase / All 4 Featured Projects")
   const spreadHeaderOpacity = useTransform(smoothProgress, [0.88, 0.95], [0, 1]);
@@ -1083,23 +1067,22 @@ export function HeroProjectsUnifiedPart() {
   /* ── Responsive Fallback for Mobile / Reduced Motion ── */
   if (prefersReducedMotion || !isDesktop) {
     return (
-      <div className="relative w-full flex flex-col items-center">
+      <div className="relative flex w-full flex-col items-center">
         {/* Mobile Hero */}
-        <section id="hero" className="w-full pb-12 pt-28">
+        <section id="hero" className="w-full pt-28 pb-12">
           <Container className="flex flex-col gap-8">
             <div className="flex flex-col gap-6">
               <AvailabilityBadgeUi text="Available for August'25" />
               <h1 className="text-4xl font-medium tracking-tight text-black">
                 Design that delivers results.
               </h1>
-              <p className="text-base text-gray-60">
-                Strategic design that drives growth, not just looks good. I create
-                everything your brand needs to attract customers and turn them into
-                sales.
+              <p className="text-gray-60 text-base">
+                Strategic design that drives growth, not just looks good. I create everything your
+                brand needs to attract customers and turn them into sales.
               </p>
               <div>
                 <button
-                   data-cal-link={CAL_LINK}
+                  data-cal-link={CAL_LINK}
                   data-cal-config='{"layout":"month_view"}'
                   data-cursor="grow"
                   className="inline-flex items-center rounded-full bg-black px-6 py-3 text-sm font-medium text-white shadow-lg"
@@ -1115,9 +1098,9 @@ export function HeroProjectsUnifiedPart() {
                 <Link
                   key={project.id}
                   href={`/projects/${project.slug}`}
-                  className="block rounded-2xl border border-gray-30 bg-white p-3.5 card-shadow"
+                  className="border-gray-30 card-shadow block rounded-2xl border bg-white p-3.5"
                 >
-                  <div className="relative aspect-16/10 w-full overflow-hidden rounded-xl bg-gray-10">
+                  <div className="bg-gray-10 relative aspect-16/10 w-full overflow-hidden rounded-xl">
                     <Image
                       src={project.thumbnail}
                       alt={project.title}
@@ -1128,7 +1111,7 @@ export function HeroProjectsUnifiedPart() {
                   </div>
                   <div className="mt-3 flex items-center justify-between">
                     <span className="font-medium text-black">{project.title}</span>
-                    <span className="text-xs text-gray-50 font-mono">{project.typeOfWork}</span>
+                    <span className="font-mono text-xs text-gray-50">{project.typeOfWork}</span>
                   </div>
                 </Link>
               ))}
@@ -1146,10 +1129,10 @@ export function HeroProjectsUnifiedPart() {
     <div
       ref={containerRef}
       id="hero"
-      className="relative w-full border-b border-gray-30"
+      className="border-gray-30 relative w-full border-b"
       style={{ height: "500vh" }}
     >
-      <div id="projects" className="absolute top-[28%] pointer-events-none" />
+      <div id="projects" className="pointer-events-none absolute top-[28%]" />
 
       {/* Pinned Viewport Stage */}
       <div
@@ -1171,8 +1154,8 @@ export function HeroProjectsUnifiedPart() {
           }}
         >
           <Container className="w-full">
-            <div className="grid grid-cols-2 gap-8 items-center">
-              <div className="flex flex-col gap-6 max-w-[500px]">
+            <div className="grid grid-cols-2 items-center gap-8">
+              <div className="flex max-w-[500px] flex-col gap-6">
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -1186,7 +1169,7 @@ export function HeroProjectsUnifiedPart() {
                 </motion.div>
 
                 <h1
-                  className="font-medium leading-[0.95] tracking-[-0.03em]"
+                  className="leading-[0.95] font-medium tracking-[-0.03em]"
                   style={{ fontSize: "clamp(42px, 5.5vw, 72px)" }}
                 >
                   <TextReveal
@@ -1222,13 +1205,13 @@ export function HeroProjectsUnifiedPart() {
                     delay: 0.55,
                     ease: EASINGS.entrance,
                   }}
-                  className="text-[16px] leading-[1.4] tracking-[-0.02em] text-gray-60 sm:text-[18px]"
+                  className="text-gray-60 text-[16px] leading-[1.4] tracking-[-0.02em] sm:text-[18px]"
                 >
                   <strong className="font-semibold text-black">
                     Strategic design that drives growth, not just looks good.
                   </strong>{" "}
-                  I create everything your brand needs to attract customers and turn
-                  them into sales.
+                  I create everything your brand needs to attract customers and turn them into
+                  sales.
                 </motion.p>
 
                 <motion.div
@@ -1247,7 +1230,7 @@ export function HeroProjectsUnifiedPart() {
                       data-cal-link={CAL_LINK}
                       data-cal-config='{"layout":"month_view"}'
                       data-cursor="grow"
-                      className="group inline-flex cursor-pointer items-center rounded-full bg-black py-2 pl-2 pr-5 text-sm font-medium text-white transition-colors duration-200 hover:bg-[#1a1a1a]"
+                      className="group inline-flex cursor-pointer items-center rounded-full bg-black py-2 pr-5 pl-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-[#1a1a1a]"
                       style={{
                         boxShadow:
                           "inset 0 1.5px 3px rgba(255,255,255,0.35), 0 2px 6px rgba(0,0,0,0.15), 0 10px 20px rgba(0,0,0,0.1)",
@@ -1259,19 +1242,19 @@ export function HeroProjectsUnifiedPart() {
                           alt="Joseph Alexander"
                           fill
                           sizes="28px"
-                          className="object-cover relative z-1"
+                          className="relative z-1 object-cover"
                         />
                       </span>
 
-                      <span className="text-xs transition-all w-0 opacity-0 group-hover:w-6 group-hover:opacity-100 text-center duration-400 font-semibold leading-none text-white/70">
+                      <span className="w-0 text-center text-xs leading-none font-semibold text-white/70 opacity-0 transition-all duration-400 group-hover:w-6 group-hover:opacity-100">
                         +
                       </span>
 
-                      <span className="flex h-7 scale-0 w-0 group-hover:w-7 group-hover:scale-100 -translate-x-7 group-hover:translate-x-0 transition-all shrink-0 duration-400 items-center justify-center rounded-full bg-white text-[10px] font-bold tracking-tight text-black">
+                      <span className="flex h-7 w-0 shrink-0 -translate-x-7 scale-0 items-center justify-center rounded-full bg-white text-[10px] font-bold tracking-tight text-black transition-all duration-400 group-hover:w-7 group-hover:translate-x-0 group-hover:scale-100">
                         You
                       </span>
 
-                      <span className="whitespace-nowrap pl-3 text-sm font-medium tracking-tight text-white">
+                      <span className="pl-3 text-sm font-medium tracking-tight whitespace-nowrap text-white">
                         Book a call with me
                       </span>
                     </button>
@@ -1294,12 +1277,10 @@ export function HeroProjectsUnifiedPart() {
         >
           {/* Top Header */}
           <Container className="w-full">
-            <div className="flex items-end justify-between border-b border-gray-30 pb-4">
+            <div className="border-gray-30 flex items-end justify-between border-b pb-4">
               <div>
-                <span className="text-label mb-1 block text-gray-50">
-                  Selected portfolio
-                </span>
-                <h2 className="text-h2-sm text-black font-medium">Latest projects</h2>
+                <span className="text-label mb-1 block text-gray-50">Selected portfolio</span>
+                <h2 className="text-h2-sm font-medium text-black">Latest projects</h2>
               </div>
               <span className="font-mono text-xs text-gray-50">
                 {String(FEATURED.length).padStart(2, "0")} /{" "}
@@ -1309,7 +1290,7 @@ export function HeroProjectsUnifiedPart() {
           </Container>
 
           {/* 30% Left Aside Column */}
-          <Container className="h-full flex items-center">
+          <Container className="flex h-full items-center">
             <div className="w-[30%] shrink-0">
               <StickyAside
                 activeIndex={activeIndex}
@@ -1325,20 +1306,20 @@ export function HeroProjectsUnifiedPart() {
 
         {/* ── 3. Stage 4 Final Spread Top Header ── */}
         <motion.div
-          className="pointer-events-none absolute top-20 inset-x-0 z-20 flex flex-col items-center justify-center text-center px-3 md:px-6"
+          className="pointer-events-none absolute inset-x-0 top-20 z-20 flex flex-col items-center justify-center px-3 text-center md:px-6"
           style={{
             opacity: spreadHeaderOpacity,
             y: spreadHeaderY,
           }}
         >
-          <Container className="w-full flex flex-col items-center">
-            <span className="text-label text-gray-60 bg-gray-10 px-3.5 py-1 rounded-full border border-gray-30 shadow-xs mb-2.5">
+          <Container className="flex w-full flex-col items-center">
+            <span className="text-label text-gray-60 bg-gray-10 border-gray-30 mb-2.5 rounded-full border px-3.5 py-1 shadow-xs">
               Selected Portfolio Archive
             </span>
-            <h3 className="text-2xl lg:text-3xl font-medium text-black tracking-tight mb-1">
+            <h3 className="mb-1 text-2xl font-medium tracking-tight text-black lg:text-3xl">
               Explore All 4 Featured Case Studies
             </h3>
-            <p className="text-xs text-gray-50 font-mono">
+            <p className="font-mono text-xs text-gray-50">
               Click any project card below to open the complete case study
             </p>
           </Container>
@@ -1346,15 +1327,15 @@ export function HeroProjectsUnifiedPart() {
 
         {/* ── 4. THE MASTER ALL-CARD 3D RIG (CONTAINER ALIGNED) ── */}
         <motion.div
-          className="stage-3d absolute inset-0 z-10 pointer-events-auto"
+          className="stage-3d pointer-events-auto absolute inset-0 z-10"
           style={{
             rotateX: activeRigRotateX,
             rotateY: activeRigRotateY,
           }}
         >
-          <Container className="h-full flex items-center">
+          <Container className="flex h-full items-center">
             <motion.div
-              className="relative ml-auto h-full flex items-center justify-center will-change-transform"
+              className="relative ml-auto flex h-full items-center justify-center will-change-transform"
               style={{
                 width: stageWidth,
               }}

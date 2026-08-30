@@ -5,7 +5,8 @@ export const articlesData: ArticleDetailType[] = [
     id: "art-1",
     slug: "how-designers-and-developers-can-actually-collaborate",
     title: "How designers and developers can actually collaborate.",
-    subtitle: "Discover proven strategies to bridge the designer-developer gap and ship better products faster.",
+    subtitle:
+      "Discover proven strategies to bridge the designer-developer gap and ship better products faster.",
     publishedAt: "Mar 6, 2025",
     author: {
       name: "Joseph Alexander",
@@ -14,7 +15,8 @@ export const articlesData: ArticleDetailType[] = [
     },
     readTime: "5 min read",
     category: "Process",
-    coverImage: "https://framerusercontent.com/images/tBF8hMQFxONWA4CXtHf3R4.jpg?scale-down-to=1024",
+    coverImage:
+      "https://framerusercontent.com/images/tBF8hMQFxONWA4CXtHf3R4.jpg?scale-down-to=1024",
     featured: true,
     excerpt:
       "Discover proven strategies to bridge the designer-developer gap. Learn how top teams eliminate handoff friction and ship better products faster through true collaboration.",
@@ -27,7 +29,8 @@ export const articlesData: ArticleDetailType[] = [
           "Designers think in flows, spatial relationships, visual hierarchy, and emotional resonance. Developers think in state machines, edge cases, bundle constraints, and API contracts. When these two worldviews only communicate via static Figma frames or Jira tickets, nuance is lost.",
           "The solution isn't making every designer a senior backend engineer, nor turning every engineer into a typographer. It's establishing a shared vocabulary built around functional tokens and living code components.",
         ],
-        quote: "Design and engineering are not sequential steps in a waterfall—they are two hands shaping the same clay simultaneously.",
+        quote:
+          "Design and engineering are not sequential steps in a waterfall—they are two hands shaping the same clay simultaneously.",
       },
       {
         heading: "Tools That Actually Bridge The Gap",
@@ -51,7 +54,8 @@ export const articlesData: ArticleDetailType[] = [
     id: "art-2",
     slug: "why-faster-isn-t-always-better",
     title: "Why faster isn't always better.",
-    subtitle: "When Google's golden child sprinted to failure, and the rise of intentional slow design.",
+    subtitle:
+      "When Google's golden child sprinted to failure, and the rise of intentional slow design.",
     publishedAt: "Apr 22, 2025",
     author: {
       name: "Joseph Alexander",
@@ -60,7 +64,8 @@ export const articlesData: ArticleDetailType[] = [
     },
     readTime: "7 min read",
     category: "Strategy",
-    coverImage: "https://framerusercontent.com/images/AZe7hFsRlGAWp9spF25RMEwS0gA.jpg?scale-down-to=1024",
+    coverImage:
+      "https://framerusercontent.com/images/AZe7hFsRlGAWp9spF25RMEwS0gA.jpg?scale-down-to=1024",
     featured: false,
     excerpt:
       "Speed is the tech industry's favorite metric. But when velocity replaces reflection, products lose their soul. Here is how balanced design velocity outperforms manic sprints.",
@@ -81,13 +86,17 @@ export const articlesData: ArticleDetailType[] = [
         ],
       },
     ],
-    relatedArticleSlugs: ["how-designers-and-developers-can-actually-collaborate", "the-psychology-of-white-space"],
+    relatedArticleSlugs: [
+      "how-designers-and-developers-can-actually-collaborate",
+      "the-psychology-of-white-space",
+    ],
   },
   {
     id: "art-3",
     slug: "designing-for-human-connection",
     title: "Designing for human connection.",
-    subtitle: "How thoughtful micro-interactions transform cold screens into memorable emotional moments.",
+    subtitle:
+      "How thoughtful micro-interactions transform cold screens into memorable emotional moments.",
     publishedAt: "Apr 1, 2025",
     author: {
       name: "Joseph Alexander",
@@ -96,7 +105,8 @@ export const articlesData: ArticleDetailType[] = [
     },
     readTime: "4 min read",
     category: "Design",
-    coverImage: "https://framerusercontent.com/images/q3ruKmoVYmFXP9EeyZlQPnTDuVw.jpg?scale-down-to=1024",
+    coverImage:
+      "https://framerusercontent.com/images/q3ruKmoVYmFXP9EeyZlQPnTDuVw.jpg?scale-down-to=1024",
     featured: false,
     excerpt:
       "Micro-interactions are the heartbeat of modern UI. Explore how physics-based animation, haptic feedback, and emotional design systems foster deep user trust.",
@@ -111,7 +121,10 @@ export const articlesData: ArticleDetailType[] = [
         ],
       },
     ],
-    relatedArticleSlugs: ["how-designers-and-developers-can-actually-collaborate", "the-psychology-of-white-space"],
+    relatedArticleSlugs: [
+      "how-designers-and-developers-can-actually-collaborate",
+      "the-psychology-of-white-space",
+    ],
   },
   {
     id: "art-4",
@@ -126,7 +139,8 @@ export const articlesData: ArticleDetailType[] = [
     },
     readTime: "6 min read",
     category: "Psychology",
-    coverImage: "https://framerusercontent.com/images/3IIKOQ9VkCZyf0KlL2N5yBg1cQ.jpg?scale-down-to=1024",
+    coverImage:
+      "https://framerusercontent.com/images/3IIKOQ9VkCZyf0KlL2N5yBg1cQ.jpg?scale-down-to=1024",
     featured: false,
     excerpt:
       "White space isn't empty—it's your most powerful design tool. Learn why generous spacing improves comprehension 32% and drives premium perception.",

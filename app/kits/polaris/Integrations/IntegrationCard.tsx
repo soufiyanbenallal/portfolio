@@ -60,7 +60,6 @@ export type IntegrationCardPropsType = {
   onToggle?: (definition: IntegrationDefinitionType, enabled: boolean) => void;
 };
 
-
 export const IntegrationCard = ({
   definition,
   integration,
@@ -79,12 +78,12 @@ export const IntegrationCard = ({
   const brand = BRAND[definition.type] ?? { bg: "#F3F4F6", color: "#6B7280" };
 
   return (
-    <div className="flex flex-col justify-between h-full bg-card rounded-xl border border-border p-5 shadow-xs hover:shadow-md transition-shadow">
+    <div className="bg-card border-border flex h-full flex-col justify-between rounded-xl border p-5 shadow-xs transition-shadow hover:shadow-md">
       <div className="space-y-3">
         {/* Logo and Category */}
         <div className="flex items-start justify-between gap-2">
           <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 overflow-hidden border border-border"
+            className="border-border flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border"
             style={{ backgroundColor: imageError ? brand.color : brand.bg }}
           >
             {!imageError ? (
@@ -97,7 +96,7 @@ export const IntegrationCard = ({
                 onError={() => setImageError(true)}
               />
             ) : (
-              <span className="text-white font-bold text-lg leading-none">
+              <span className="text-lg leading-none font-bold text-white">
                 {definition.name[0].toUpperCase()}
               </span>
             )}
@@ -109,8 +108,8 @@ export const IntegrationCard = ({
         </div>
 
         {/* Name and Active Status */}
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="font-semibold text-foreground text-base">{definition.name}</span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-foreground text-base font-semibold">{definition.name}</span>
           {isMultiEndpoint ? (
             endpointCount !== undefined && endpointCount > 0 ? (
               <s-badge tone="success">
@@ -131,11 +130,11 @@ export const IntegrationCard = ({
         </div>
 
         {/* Description */}
-        <p className="text-sm text-muted-foreground line-clamp-3">{definition.description}</p>
+        <p className="text-muted-foreground line-clamp-3 text-sm">{definition.description}</p>
       </div>
 
       {/* Actions Footer */}
-      <div className="pt-4 mt-4 border-t border-border flex items-center justify-between gap-2">
+      <div className="border-border mt-4 flex items-center justify-between gap-2 border-t pt-4">
         {isMultiEndpoint ? (
           <s-button variant="secondary" onClick={() => onConfigure(definition)}>
             {ct("commons.integrations.manage")} →

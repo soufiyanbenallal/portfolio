@@ -2,13 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  type MotionValue,
-} from "motion/react";
+import { motion, useScroll, useTransform, useSpring, type MotionValue } from "motion/react";
 import { useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { socialLinksData, navLinksData } from "@/data/client-logos.data";
@@ -100,7 +94,7 @@ export function FooterShared() {
           timeZone: "Europe/London",
           hour: "2-digit",
           minute: "2-digit",
-        })} GMT`,
+        })} GMT`
       );
     };
     updateTime();
@@ -119,28 +113,17 @@ export function FooterShared() {
   };
 
   return (
-    <footer
-      ref={footerRef}
-      className="relative z-10 w-full overflow-hidden bg-black text-white"
-    >
+    <footer ref={footerRef} className="relative z-10 w-full overflow-hidden bg-black text-white">
       <motion.div
         className="will-change-transform"
-        style={
-          prefersReducedMotion
-            ? undefined
-            : { y: contentY, opacity: contentOpacity }
-        }
+        style={prefersReducedMotion ? undefined : { y: contentY, opacity: contentOpacity }}
       >
-        <Container
-          className="flex flex-col gap-16 pb-[120px] pt-16 md:gap-24 md:pb-[180px] lg:pb-[211px]"
-        >
+        <Container className="flex flex-col gap-16 pt-16 pb-[120px] md:gap-24 md:pb-[180px] lg:pb-[211px]">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
             {/* Contact */}
             <div className="flex flex-col gap-6 md:col-span-5">
               <div>
-                <span className="text-label mb-2 block text-white/50">
-                  Speak to me
-                </span>
+                <span className="text-label mb-2 block text-white/50">Speak to me</span>
                 <h2 className="text-2xl font-medium tracking-tight text-white sm:text-3xl">
                   Email or book a call.
                 </h2>
@@ -160,7 +143,7 @@ export function FooterShared() {
                   type="button"
                   data-cal-link={CAL_LINK}
                   data-cal-config='{"layout":"month_view"}'
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-black transition-colors hover:bg-gray-20"
+                  className="hover:bg-gray-20 inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-black transition-colors"
                 >
                   <Icons.Calendar className="size-4 text-black" />
                   <span>Book a call</span>
@@ -215,9 +198,7 @@ export function FooterShared() {
                   Privacy policy
                 </Link>
                 <div className="mt-4 border-t border-white/10 pt-3">
-                  <span className="block text-xs text-white/50">
-                    Based in London / Remote
-                  </span>
+                  <span className="block text-xs text-white/50">Based in London / Remote</span>
                   <span className="mt-0.5 block font-mono text-xs text-white/70">
                     {currentTime || "—— GMT"}
                   </span>
@@ -227,32 +208,29 @@ export function FooterShared() {
           </div>
 
           {/* Wordmark */}
-          <div className="flex w-full select-none flex-col items-center pt-4">
+          <div className="flex w-full flex-col items-center pt-4 select-none">
             <div className="relative">
               <span className="absolute left-0 block h-full w-px bg-linear-to-b from-transparent via-white/20 to-transparent" />
               <span className="absolute right-0 block h-full w-px bg-linear-to-b from-transparent via-white/20 to-transparent" />
               <span className="absolute top-0 block h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
               <span className="absolute bottom-0 block h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
-              {[
-                "-top-2 -left-2",
-                "-bottom-2 -left-2",
-                "-bottom-2 -right-2",
-                "-top-2 -right-2",
-              ].map((position) => (
-                <span
-                  key={position}
-                  className={`absolute ${position} flex size-4 items-center justify-center`}
-                >
-                  <span className="absolute h-4 w-[0.5px] bg-white/40" />
-                  <span className="absolute h-[0.5px] w-4 bg-white/40" />
-                </span>
-              ))}
+              {["-top-2 -left-2", "-bottom-2 -left-2", "-bottom-2 -right-2", "-top-2 -right-2"].map(
+                (position) => (
+                  <span
+                    key={position}
+                    className={`absolute ${position} flex size-4 items-center justify-center`}
+                  >
+                    <span className="absolute h-4 w-[0.5px] bg-white/40" />
+                    <span className="absolute h-[0.5px] w-4 bg-white/40" />
+                  </span>
+                )
+              )}
 
               <p
                 aria-hidden="true"
-                className="w-full px-12 py-6 text-center text-[12vw] font-black uppercase text-white/90"
-                style={{ lineHeight: 1, }}
+                className="w-full px-12 py-6 text-center text-[12vw] font-black text-white/90 uppercase"
+                style={{ lineHeight: 1 }}
               >
                 {prefersReducedMotion
                   ? WORDMARK
@@ -270,13 +248,8 @@ export function FooterShared() {
             </div>
 
             <div className="mt-8 flex w-full flex-col items-center justify-between pt-6 font-mono text-xs text-white/50 sm:flex-row">
-              <span>
-                © {new Date().getFullYear()} Joseph Alexander. All rights
-                reserved.
-              </span>
-              <span className="mt-2 sm:mt-0">
-                Designed &amp; engineered with craft.
-              </span>
+              <span>© {new Date().getFullYear()} Joseph Alexander. All rights reserved.</span>
+              <span className="mt-2 sm:mt-0">Designed &amp; engineered with craft.</span>
             </div>
           </div>
         </Container>

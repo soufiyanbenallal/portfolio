@@ -5,27 +5,24 @@ import { Icons } from "@/components/ui/social-icons.ui";
 
 export default function NotFound() {
   return (
-    <div className="w-full min-h-[70vh] flex items-center justify-center px-6 sm:px-11 select-none">
-      <div className="max-w-[480px] w-full text-center flex flex-col items-center gap-6 p-8 sm:p-12 rounded-[28px] bg-white border border-gray-30 card-shadow">
-        <span className="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-gray-10 border border-gray-30 text-gray-50 uppercase tracking-widest">
+    <div className="flex min-h-[70vh] w-full items-center justify-center px-6 select-none sm:px-11">
+      <div className="border-gray-30 card-shadow flex w-full max-w-[480px] flex-col items-center gap-6 rounded-[28px] border bg-white p-8 text-center sm:p-12">
+        <span className="bg-gray-10 border-gray-30 rounded-full border px-3 py-1 font-mono text-xs font-semibold tracking-widest text-gray-50 uppercase">
           Error 404
         </span>
 
         <div className="flex flex-col gap-2">
-          <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-black">
+          <h1 className="text-3xl font-medium tracking-tight text-black sm:text-4xl">
             Oops! Wrong turn.
           </h1>
-          <p className="text-sm text-gray-60 leading-relaxed">
-            The page you are looking for doesn&apos;t exist, has been removed, or the link has changed.
+          <p className="text-gray-60 text-sm leading-relaxed">
+            The page you are looking for doesn&apos;t exist, has been removed, or the link has
+            changed.
           </p>
         </div>
 
         <Link href="/">
-          <ButtonUi
-            variant="primary"
-            size="md"
-            leftIcon={<Icons.ArrowLeft className="w-4 h-4" />}
-          >
+          <ButtonUi variant="primary" size="md" leftIcon={<Icons.ArrowLeft className="h-4 w-4" />}>
             Return to Homepage
           </ButtonUi>
         </Link>

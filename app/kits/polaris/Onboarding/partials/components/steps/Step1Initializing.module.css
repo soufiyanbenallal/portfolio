@@ -74,7 +74,7 @@
 
 .pingDot::before,
 .pingDot::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: 9999px;
@@ -172,7 +172,9 @@
 .taskLabel {
   font-size: 0.875rem;
   line-height: 1.25rem;
-  transition: color 300ms ease, font-weight 300ms ease;
+  transition:
+    color 300ms ease,
+    font-weight 300ms ease;
 }
 
 .taskLabelDone {

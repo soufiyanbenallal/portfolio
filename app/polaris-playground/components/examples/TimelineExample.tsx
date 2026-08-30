@@ -8,7 +8,8 @@ const INITIAL_EVENTS: TimelineItemType[] = [
     id: "evt-1",
     timestamp: new Date().toISOString(),
     title: "Theme App Extension auto-activated",
-    description: "App embed 'Sales Booster Widget' was successfully injected into published theme Dawn v15.0.0.",
+    description:
+      "App embed 'Sales Booster Widget' was successfully injected into published theme Dawn v15.0.0.",
     actor: "Theme Extension Engine",
     icon: "theme-edit",
     tone: "success",
@@ -24,7 +25,8 @@ const INITIAL_EVENTS: TimelineItemType[] = [
     id: "evt-2",
     timestamp: new Date(Date.now() - 3600 * 1000 * 2).toISOString(),
     title: "Webhook delivery timeout warning",
-    description: "Endpoint 'https://api.store.com/webhooks/orders-create' responded with HTTP 504 Gateway Timeout after 3 retries.",
+    description:
+      "Endpoint 'https://api.store.com/webhooks/orders-create' responded with HTTP 504 Gateway Timeout after 3 retries.",
     actor: "Shopify Event Dispatcher",
     icon: "alert-circle",
     tone: "warning",
@@ -40,7 +42,8 @@ const INITIAL_EVENTS: TimelineItemType[] = [
     id: "evt-3",
     timestamp: new Date(Date.now() - 3600 * 1000 * 5).toISOString(),
     title: "Catalog inventory synchronized",
-    description: "Synchronized 350 product variants with Shopify Admin GraphQL API. 0 discrepancies found.",
+    description:
+      "Synchronized 350 product variants with Shopify Admin GraphQL API. 0 discrepancies found.",
     actor: "Automated Cron Job",
     icon: "inventory",
     tone: "info",
@@ -50,7 +53,8 @@ const INITIAL_EVENTS: TimelineItemType[] = [
     id: "evt-4",
     timestamp: new Date(Date.now() - 3600 * 1000 * 25).toISOString(),
     title: "Plan subscription upgraded to Growth Tier",
-    description: "Store owner upgraded subscription from Starter ($9/mo) to Growth Plan ($29/mo with 50,000 monthly views).",
+    description:
+      "Store owner upgraded subscription from Starter ($9/mo) to Growth Plan ($29/mo with 50,000 monthly views).",
     actor: "Store Owner (alex@store.com)",
     icon: "payment",
     tone: "success",
@@ -71,7 +75,8 @@ const INITIAL_EVENTS: TimelineItemType[] = [
     id: "evt-6",
     timestamp: new Date(Date.now() - 3600 * 1000 * 52).toISOString(),
     title: "API rate limit threshold exceeded",
-    description: "GraphQL API cost points reached 98% of 1,000 pts/sec bucket limit during batch export.",
+    description:
+      "GraphQL API cost points reached 98% of 1,000 pts/sec bucket limit during batch export.",
     actor: "Bulk Operation Service",
     icon: "alert-octagon",
     tone: "critical",
@@ -103,7 +108,8 @@ export function TimelineExample() {
       id: `evt-${Date.now()}`,
       timestamp: new Date().toISOString(),
       title: "Manual audit check triggered",
-      description: "Staff triggered an on-demand integrity audit for all product schema metaobjects.",
+      description:
+        "Staff triggered an on-demand integrity audit for all product schema metaobjects.",
       actor: "Staff • Admin",
       icon: "check-circle",
       tone: "info",

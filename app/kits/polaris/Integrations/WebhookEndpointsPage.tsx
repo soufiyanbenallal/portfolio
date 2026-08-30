@@ -14,14 +14,12 @@ export type WebhookEndpointRowType = {
   };
 };
 
-
 export type WebhookEndpointsPagePropsType = {
   type: WebhookEndpointType;
   integrationName: string;
   availableEvents: WebhookEventDefinitionType[];
   endpoints: WebhookEndpointRowType[];
 };
-
 
 type EndpointFormStateType = {
   name: string;
@@ -149,7 +147,7 @@ export const WebhookEndpointsPage = ({
     <s-page>
       <div className="space-y-6">
         {/* Page Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-border">
+        <div className="border-border flex flex-wrap items-center justify-between gap-4 border-b pb-2">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <s-button
@@ -170,7 +168,7 @@ export const WebhookEndpointsPage = ({
                 </s-badge>
               )}
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Configure webhook URL endpoints and dispatch event topics.
             </p>
           </div>
@@ -183,8 +181,8 @@ export const WebhookEndpointsPage = ({
         {/* Endpoints Table or Empty State */}
         {endpoints.length === 0 ? (
           <s-box padding="base" background="subdued" borderRadius="base">
-            <div className="text-center py-8 space-y-3">
-              <p className="text-sm text-muted-foreground">
+            <div className="space-y-3 py-8 text-center">
+              <p className="text-muted-foreground text-sm">
                 {ct("commons.integrations.no_endpoints_desc")}
               </p>
               <s-button variant="primary" onClick={openAdd}>
@@ -193,7 +191,7 @@ export const WebhookEndpointsPage = ({
             </div>
           </s-box>
         ) : (
-          <div className="bg-card border border-border rounded-xl overflow-hidden shadow-xs">
+          <div className="bg-card border-border overflow-hidden rounded-xl border shadow-xs">
             <s-table>
               <s-table-header-row>
                 <s-table-header>{ct("commons.webhooks.col_name")}</s-table-header>
@@ -206,12 +204,12 @@ export const WebhookEndpointsPage = ({
                 {endpoints.map((endpoint) => (
                   <s-table-row key={endpoint.id}>
                     <s-table-cell>
-                      <span className="font-semibold text-foreground">
+                      <span className="text-foreground font-semibold">
                         {endpoint.config.name || "—"}
                       </span>
                     </s-table-cell>
                     <s-table-cell>
-                      <span className="font-mono text-xs text-muted-foreground truncate max-w-xs block">
+                      <span className="text-muted-foreground block max-w-xs truncate font-mono text-xs">
                         {endpoint.config.url}
                       </span>
                     </s-table-cell>
@@ -266,7 +264,7 @@ export const WebhookEndpointsPage = ({
           }
           onHide={() => setModalOpen(false)}
         >
-          <div className="p-5 max-w-lg space-y-4">
+          <div className="max-w-lg space-y-4 p-5">
             {urlError && (
               <s-banner tone="critical" dismissible>
                 {urlError}
@@ -302,11 +300,11 @@ export const WebhookEndpointsPage = ({
               />
 
               {availableEvents.length > 0 && (
-                <div className="space-y-2 pt-2 border-t border-border">
-                  <span className="text-sm font-semibold text-foreground">
+                <div className="border-border space-y-2 border-t pt-2">
+                  <span className="text-foreground text-sm font-semibold">
                     {ct("commons.integrations.events")}
                   </span>
-                  <div className="grid grid-cols-1 gap-2 max-h-48 overflow-y-auto pr-1">
+                  <div className="grid max-h-48 grid-cols-1 gap-2 overflow-y-auto pr-1">
                     {availableEvents.map((ev) => (
                       <s-checkbox
                         key={ev.slug}
@@ -320,7 +318,7 @@ export const WebhookEndpointsPage = ({
                 </div>
               )}
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
+              <div className="border-border flex items-center justify-end gap-3 border-t pt-4">
                 <s-button variant="secondary" onClick={() => setModalOpen(false)}>
                   {ct("commons.cancel")}
                 </s-button>

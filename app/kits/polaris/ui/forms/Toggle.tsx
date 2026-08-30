@@ -9,13 +9,7 @@ export type TogglePropsType = {
   disabled?: boolean;
 };
 
-
-export const Toggle = ({
-  id,
-  onChange,
-  active,
-  disabled = false,
-}: TogglePropsType): ReactNode => {
+export const Toggle = ({ id, onChange, active, disabled = false }: TogglePropsType): ReactNode => {
   const [checked, setChecked] = useState<boolean>(active);
 
   useEffect(() => {

@@ -1,12 +1,7 @@
 "use client";
 
 import React, { useRef, useCallback } from "react";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { SPRINGS } from "@/lib/motion.config";
 import { cn } from "@/lib/utils";
@@ -58,11 +53,11 @@ export function Magnetic({
   const ratio = strength === 0 ? 0 : innerStrength / strength;
   const innerX = useSpring(
     useTransform(offsetX, (value) => value * ratio),
-    { ...SPRINGS.magnetic, stiffness: 170, damping: 20 },
+    { ...SPRINGS.magnetic, stiffness: 170, damping: 20 }
   );
   const innerY = useSpring(
     useTransform(offsetY, (value) => value * ratio),
-    { ...SPRINGS.magnetic, stiffness: 170, damping: 20 },
+    { ...SPRINGS.magnetic, stiffness: 170, damping: 20 }
   );
 
   const handlePointerMove = useCallback(
@@ -75,7 +70,7 @@ export function Magnetic({
       offsetX.set((event.clientX - (rect.left + rect.width / 2)) * strength);
       offsetY.set((event.clientY - (rect.top + rect.height / 2)) * strength);
     },
-    [prefersReducedMotion, strength, offsetX, offsetY],
+    [prefersReducedMotion, strength, offsetX, offsetY]
   );
 
   const handleRelease = useCallback(() => {

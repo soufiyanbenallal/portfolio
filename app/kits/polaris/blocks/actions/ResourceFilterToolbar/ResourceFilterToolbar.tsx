@@ -39,7 +39,6 @@ export type ResourceFilterToolbarPropsType = {
   className?: string;
 };
 
-
 export function ResourceFilterToolbar({
   searchValue,
   onSearchChange,
@@ -92,9 +91,7 @@ export function ResourceFilterToolbar({
 
         {/* Right Side: Total Count & Primary Action CTA */}
         <s-stack direction="inline" gap="small-200" alignItems="center">
-          {typeof totalCount === "number" && (
-            <s-text tone="neutral">{totalCount} results</s-text>
-          )}
+          {typeof totalCount === "number" && <s-text tone="neutral">{totalCount} results</s-text>}
 
           {primaryAction && (
             <s-button variant="primary" onClick={primaryAction.onClick}>

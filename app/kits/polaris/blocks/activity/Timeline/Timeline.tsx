@@ -8,12 +8,7 @@ import { TimelineFilterBarPart } from "./partials/TimelineFilterBar.part";
 export type IconType = JSX.IntrinsicElements["s-icon"]["type"];
 
 export type TimelineEventToneType =
-  | "auto"
-  | "success"
-  | "info"
-  | "neutral"
-  | "warning"
-  | "critical";
+  "auto" | "success" | "info" | "neutral" | "warning" | "critical";
 
 export type TimelineActionItemType = {
   label: string;
@@ -38,7 +33,6 @@ export type TimelineItemType = {
   metadata?: Record<string, string>;
 };
 
-
 export type TimelinePropsType = {
   title?: string;
   subtitle?: string;
@@ -51,7 +45,6 @@ export type TimelinePropsType = {
   onRefresh?: () => void;
   className?: string;
 };
-
 
 export function Timeline({
   title = "Store Activity & Audit Trail",
@@ -71,7 +64,12 @@ export function Timeline({
   // Filter items by search query and tone filter
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
-      const titleStr = typeof item.title === "string" ? item.title : typeof item.timelineEvent === "string" ? item.timelineEvent : "";
+      const titleStr =
+        typeof item.title === "string"
+          ? item.title
+          : typeof item.timelineEvent === "string"
+            ? item.timelineEvent
+            : "";
       const descStr = typeof item.description === "string" ? item.description : "";
       const actorStr = item.actor || "";
       const tagStr = item.tag || "";

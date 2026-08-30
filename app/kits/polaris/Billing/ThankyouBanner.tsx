@@ -6,7 +6,6 @@ export type ThankyouBannerPropsType = {
   exploreFeaturesUrl?: string | null;
 };
 
-
 export const ThankyouBanner = ({
   planHandle,
   exploreFeaturesUrl,
@@ -14,10 +13,10 @@ export const ThankyouBanner = ({
   const navigate = useNavigate();
 
   return (
-    <div className="p-6 bg-card rounded-2xl border border-border space-y-4 shadow-sm">
+    <div className="bg-card border-border space-y-4 rounded-2xl border p-6 shadow-sm">
       <div className="space-y-1">
-        <h2 className="text-xl font-extrabold text-foreground">🎉 Congratulations!</h2>
-        <p className="text-xs text-muted-foreground">
+        <h2 className="text-foreground text-xl font-extrabold">🎉 Congratulations!</h2>
+        <p className="text-muted-foreground text-xs">
           Welcome to the club! We are thrilled to have you onboard and excited to support your
           journey to even greater revenue success.
         </p>
@@ -40,7 +39,7 @@ export const ThankyouBanner = ({
       </div>
 
       {planHandle && (
-        <div className="text-xs text-muted-foreground bg-muted/60 p-2 rounded-lg border border-border/60">
+        <div className="text-muted-foreground bg-muted/60 border-border/60 rounded-lg border p-2 text-xs">
           Plan confirmation reference: <code className="font-mono">{planHandle}</code>
         </div>
       )}

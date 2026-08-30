@@ -105,12 +105,12 @@ export function FloatingButton({
           ...buttonPos,
           zIndex: isInline ? 1 : 200,
         }}
-        className="flex items-center gap-2 cursor-pointer"
+        className="flex cursor-pointer items-center gap-2"
       >
         {isInline ? (
           <button
             type="button"
-            className="flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="text-muted-foreground hover:bg-muted hover:text-foreground flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold transition-colors"
             aria-label={ct("commons.help_menu")}
           >
             {ct("commons.help")}
@@ -118,14 +118,14 @@ export function FloatingButton({
         ) : (
           <button
             type="button"
-            className="w-11 h-11 rounded-full bg-zinc-900 text-white flex items-center justify-center shadow-lg hover:scale-105 transition-transform"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-zinc-900 text-white shadow-lg transition-transform hover:scale-105"
             aria-label={ct("commons.help_menu")}
           >
             ?
           </button>
         )}
         {!isOpen && isHovered && !isInline && (
-          <div className="bg-zinc-900 text-white rounded-full px-3 py-1 text-xs font-medium whitespace-nowrap shadow-md">
+          <div className="rounded-full bg-zinc-900 px-3 py-1 text-xs font-medium whitespace-nowrap text-white shadow-md">
             {ct("commons.help_resources")}
           </div>
         )}
@@ -141,16 +141,16 @@ export function FloatingButton({
             ...(!isInline ? panelPos : {}),
             zIndex: isInline ? 300 : 200,
           }}
-          className="w-64 bg-card rounded-2xl border border-border shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150"
+          className="bg-card border-border animate-in fade-in zoom-in-95 w-64 overflow-hidden rounded-2xl border shadow-2xl duration-150"
         >
-          <div className="p-3 border-b border-border flex items-center justify-between">
-            <span className="font-bold text-xs text-foreground uppercase tracking-wider">
+          <div className="border-border flex items-center justify-between border-b p-3">
+            <span className="text-foreground text-xs font-bold tracking-wider uppercase">
               {ct("commons.help_resources")}
             </span>
             <button
               type="button"
               onClick={close}
-              className="text-muted-foreground hover:text-foreground text-sm font-bold p-1"
+              className="text-muted-foreground hover:text-foreground p-1 text-sm font-bold"
             >
               ✕
             </button>
@@ -166,14 +166,14 @@ export function FloatingButton({
                       item.onClick!();
                       close();
                     }}
-                    className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-muted/60 transition-colors"
+                    className="hover:bg-muted/60 flex w-full items-center gap-3 px-3 py-2 text-left transition-colors"
                   >
-                    <img src={item.icon} alt="" className="w-7 h-7 rounded-md shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <span className="font-medium text-xs text-foreground block truncate">
+                    <img src={item.icon} alt="" className="h-7 w-7 shrink-0 rounded-md" />
+                    <div className="min-w-0 flex-1">
+                      <span className="text-foreground block truncate text-xs font-medium">
                         {item.title}
                       </span>
-                      <span className="text-[11px] text-muted-foreground block truncate">
+                      <span className="text-muted-foreground block truncate text-[11px]">
                         {item.subtitle}
                       </span>
                     </div>
@@ -184,14 +184,14 @@ export function FloatingButton({
                     target="_blank"
                     rel="noreferrer"
                     onClick={close}
-                    className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-muted/60 transition-colors"
+                    className="hover:bg-muted/60 flex w-full items-center gap-3 px-3 py-2 text-left transition-colors"
                   >
-                    <img src={item.icon} alt="" className="w-7 h-7 rounded-md shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <span className="font-medium text-xs text-foreground block truncate">
+                    <img src={item.icon} alt="" className="h-7 w-7 shrink-0 rounded-md" />
+                    <div className="min-w-0 flex-1">
+                      <span className="text-foreground block truncate text-xs font-medium">
                         {item.title}
                       </span>
-                      <span className="text-[11px] text-muted-foreground block truncate">
+                      <span className="text-muted-foreground block truncate text-[11px]">
                         {item.subtitle}
                       </span>
                     </div>
@@ -203,14 +203,14 @@ export function FloatingButton({
                       if (item.url) navigate(item.url);
                       close();
                     }}
-                    className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-muted/60 transition-colors"
+                    className="hover:bg-muted/60 flex w-full items-center gap-3 px-3 py-2 text-left transition-colors"
                   >
-                    <img src={item.icon} alt="" className="w-7 h-7 rounded-md shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <span className="font-medium text-xs text-foreground block truncate">
+                    <img src={item.icon} alt="" className="h-7 w-7 shrink-0 rounded-md" />
+                    <div className="min-w-0 flex-1">
+                      <span className="text-foreground block truncate text-xs font-medium">
                         {item.title}
                       </span>
-                      <span className="text-[11px] text-muted-foreground block truncate">
+                      <span className="text-muted-foreground block truncate text-[11px]">
                         {item.subtitle}
                       </span>
                     </div>

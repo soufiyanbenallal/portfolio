@@ -21,9 +21,29 @@ export const navLinksData: NavLinkItemType[] = [
 
 export const socialLinksData: SocialLinkItemType[] = [
   { platform: "X / Twitter", url: "https://x.com", handle: "@josephalexander", iconName: "x" },
-  { platform: "LinkedIn", url: "https://linkedin.com", handle: "Joseph Alexander", iconName: "linkedin" },
-  { platform: "Dribbble", url: "https://dribbble.com", handle: "josephalexander", iconName: "dribbble" },
-  { platform: "Behance", url: "https://behance.net", handle: "josephalexander", iconName: "behance" },
-  { platform: "Instagram", url: "https://instagram.com", handle: "@josephalexander", iconName: "instagram" },
+  {
+    platform: "LinkedIn",
+    url: "https://linkedin.com",
+    handle: "Joseph Alexander",
+    iconName: "linkedin",
+  },
+  {
+    platform: "Dribbble",
+    url: "https://dribbble.com",
+    handle: "josephalexander",
+    iconName: "dribbble",
+  },
+  {
+    platform: "Behance",
+    url: "https://behance.net",
+    handle: "josephalexander",
+    iconName: "behance",
+  },
+  {
+    platform: "Instagram",
+    url: "https://instagram.com",
+    handle: "@josephalexander",
+    iconName: "instagram",
+  },
   { platform: "GitHub", url: "https://github.com", handle: "josephalexander", iconName: "github" },
 ];

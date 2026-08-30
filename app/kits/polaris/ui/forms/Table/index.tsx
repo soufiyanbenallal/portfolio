@@ -5,13 +5,11 @@ export type ColumnType = {
   alignment?: "start" | "center" | "end";
 };
 
-
 export type DataRowType = {
   id: string;
   children?: DataRowType[];
   [key: string]: unknown;
 };
-
 
 export type TablePropsType = {
   columns: ColumnType[];
@@ -22,21 +20,20 @@ export type TablePropsType = {
   emptyState?: { title: string; description?: string };
 };
 
-
 export const Table = ({ columns, data, emptyState }: TablePropsType): JSX.Element => {
   if (data.length === 0 && emptyState) {
     return (
-      <div className="p-8 text-center bg-card rounded-xl border border-border space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">{emptyState.title}</h3>
+      <div className="bg-card border-border space-y-2 rounded-xl border p-8 text-center">
+        <h3 className="text-foreground text-sm font-semibold">{emptyState.title}</h3>
         {emptyState.description && (
-          <p className="text-xs text-muted-foreground">{emptyState.description}</p>
+          <p className="text-muted-foreground text-xs">{emptyState.description}</p>
         )}
       </div>
     );
   }
 
   return (
-    <div className="bg-card rounded-xl border border-border overflow-hidden">
+    <div className="bg-card border-border overflow-hidden rounded-xl border">
       <s-table>
         <s-table-header-row>
           {columns.map((col, idx) => (

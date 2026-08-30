@@ -14,7 +14,6 @@ export type PlanModalPropsType = {
   getPlanUrl?: (plan: PlanItemType) => string;
 };
 
-
 export const PickPlanModal = ({
   appName,
   plans,
@@ -55,7 +54,7 @@ export const PickPlanModal = ({
 
   return (
     <s-modal id="pick-plan-modal" heading={ct("commons.billing.choose_plan")} onHide={onClose}>
-      <div className="p-4 max-w-4xl max-h-[80vh] overflow-y-auto">
+      <div className="max-h-[80vh] max-w-4xl overflow-y-auto p-4">
         <PickPlan
           appName={appName}
           plans={plans}

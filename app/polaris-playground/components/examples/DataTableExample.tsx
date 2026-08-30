@@ -2,7 +2,11 @@
 
 import React, { useState } from "react";
 import { Card } from "@/app/kits/polaris/ui/layouts/Card";
-import { Table, type TableColumnType, type TableRowType } from "@/app/kits/polaris/ui/layouts/Table";
+import {
+  Table,
+  type TableColumnType,
+  type TableRowType,
+} from "@/app/kits/polaris/ui/layouts/Table";
 import {
   Filters,
   type FilterTabItemType,
@@ -91,10 +95,7 @@ const BUNDLE_COLUMNS: TableColumnType<BundleDealRowType>[] = [
   {
     id: "status",
     title: "Status",
-    renderCell: (row, _, isSubRow) =>
-      !isSubRow ? (
-        <s-switch checked={row.enabled} />
-      ) : null,
+    renderCell: (row, _, isSubRow) => (!isSubRow ? <s-switch checked={row.enabled} /> : null),
   },
 ];
 
@@ -285,9 +286,7 @@ export function DataTableExample() {
 
   return (
     <s-page>
-      <s-section
-        padding="none"
-      >
+      <s-section padding="none">
         <Table
           selectable
           selectedRowIds={selectedIds}

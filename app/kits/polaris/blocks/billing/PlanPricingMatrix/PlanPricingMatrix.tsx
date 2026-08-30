@@ -33,7 +33,6 @@ export type PlanPricingMatrixPropsType = {
   className?: string;
 };
 
-
 export function PlanPricingMatrix({
   plans,
   currentPlanId,

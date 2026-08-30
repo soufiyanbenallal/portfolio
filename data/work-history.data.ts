@@ -7,7 +7,8 @@ export const workHistoryData: WorkHistoryItemType[] = [
     company: "Studio Alexander",
     location: "Remote",
     period: "2022 — Present",
-    description: "Operating an independent design & development practice for high-growth tech startups and venture studios.",
+    description:
+      "Operating an independent design & development practice for high-growth tech startups and venture studios.",
     highlights: [
       "Shipped 40+ production web applications and design systems",
       "Average client revenue increase of 140% post-launch",
@@ -21,7 +22,8 @@ export const workHistoryData: WorkHistoryItemType[] = [
     company: "Axiom Digital",
     location: "San Francisco, CA",
     period: "2020 — 2022",
-    description: "Led core product UX and design engineering for an enterprise developer tooling platform.",
+    description:
+      "Led core product UX and design engineering for an enterprise developer tooling platform.",
     highlights: [
       "Spearheaded redesign of cluster telemetry monitoring dashboard",
       "Authored multi-brand Figma-to-code design system tokens",
@@ -35,7 +37,8 @@ export const workHistoryData: WorkHistoryItemType[] = [
     company: "Nexus Labs",
     location: "New York, NY",
     period: "2016 — 2020",
-    description: "Designed multi-platform consumer apps, commerce flagships, and viral brand campaign microsites.",
+    description:
+      "Designed multi-platform consumer apps, commerce flagships, and viral brand campaign microsites.",
     highlights: [
       "Led design team of 5 across 12 high-impact product launches",
       "Pioneered responsive headless Shopify themes",
@@ -49,7 +52,8 @@ export const workHistoryData: WorkHistoryItemType[] = [
     company: "Kora Interactive",
     location: "London, UK",
     period: "2012 — 2016",
-    description: "Front-end engineering, interactive motion design, and digital brand identities for creative agencies.",
+    description:
+      "Front-end engineering, interactive motion design, and digital brand identities for creative agencies.",
     highlights: [
       "Engineered bespoke GSAP and CSS animations for Fortune 500 brands",
       "Built custom CMS architectures and responsive landing pages",

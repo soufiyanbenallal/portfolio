@@ -4,11 +4,7 @@ import React, { useState, type ReactNode } from "react";
 import { SetupGuideProgress } from "./partials/SetupGuideProgress.part";
 import { SetupGuideItem } from "./partials/SetupGuideItem.part";
 
-export type SetupGuideStepStatusType =
-  | "completed"
-  | "in_progress"
-  | "not_started"
-  | "optional";
+export type SetupGuideStepStatusType = "completed" | "in_progress" | "not_started" | "optional";
 
 export type SetupGuideActionType = {
   label: string;
@@ -44,7 +40,6 @@ export type SetupGuidePropsType = {
   className?: string;
 };
 
-
 export function SetupGuide({
   title = "Setup Guide",
   subtitle = "Complete these steps to get your app fully configured and live on your store.",
@@ -57,7 +52,7 @@ export function SetupGuide({
   const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
   const [openStepId, setOpenStepId] = useState<string | null>(() => {
     const firstIncomplete = steps.find((s) => s.status !== "completed");
-    return firstIncomplete ? firstIncomplete.id : steps[0]?.id ?? null;
+    return firstIncomplete ? firstIncomplete.id : (steps[0]?.id ?? null);
   });
 
   const completedCount = steps.filter((s) => s.status === "completed").length;

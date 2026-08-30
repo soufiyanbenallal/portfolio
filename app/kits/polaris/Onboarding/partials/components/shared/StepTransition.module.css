@@ -16,7 +16,9 @@
 .stepPanelExit {
   opacity: 0;
   transform: translateY(-6px);
-  transition: opacity 0.18s ease-in, transform 0.18s ease-in;
+  transition:
+    opacity 0.18s ease-in,
+    transform 0.18s ease-in;
 }
 
 @media (prefers-reduced-motion: reduce) {

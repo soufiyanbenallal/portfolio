@@ -24,7 +24,6 @@ export type TutorialButtonPropsType = {
   videos?: Record<string, TutorialVideoConfigType>;
 };
 
-
 export function TutorialButton({
   compact = false,
   currentPath: propCurrentPath,
@@ -43,8 +42,7 @@ export function TutorialButton({
 
   if (!mounted) return null;
 
-  const videoConfig =
-    videos[pathname] || videos["*"] || videos["default"] || { disabled: true };
+  const videoConfig = videos[pathname] || videos["*"] || videos["default"] || { disabled: true };
 
   if (videoConfig.disabled) return null;
 
@@ -58,11 +56,7 @@ export function TutorialButton({
 
   return (
     <>
-      <s-button
-        variant="primary"
-        onClick={handleClick}
-        icon="play"
-      >
+      <s-button variant="primary" onClick={handleClick} icon="play">
         {compact ? "Tutorial" : videoConfig.title || "Watch Tutorial"}
       </s-button>
 

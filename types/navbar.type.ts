@@ -18,7 +18,7 @@ export type NavbarDesktopPropsType = {
   onAnchorClick: (
     event: React.MouseEvent<HTMLAnchorElement>,
     href: string,
-    isAnchor?: boolean,
+    isAnchor?: boolean
   ) => void;
   onOpenContact: () => void;
   onOpenBooking: () => void;
@@ -35,7 +35,7 @@ export type NavbarMobilePropsType = {
   onAnchorClick: (
     event: React.MouseEvent<HTMLAnchorElement>,
     href: string,
-    isAnchor?: boolean,
+    isAnchor?: boolean
   ) => void;
   onOpenContact: () => void;
   onOpenBooking: () => void;

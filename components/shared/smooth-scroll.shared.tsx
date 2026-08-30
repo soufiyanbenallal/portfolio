@@ -38,15 +38,12 @@ export function SmoothScrollShared({ children }: { children: React.ReactNode }) 
             // Touch devices keep native inertia — smoothing them fights the OS.
             syncTouch: false,
           },
-    [prefersReducedMotion],
+    [prefersReducedMotion]
   );
 
   return (
     <ReactLenis root options={lenisOptions}>
-      <MotionConfig
-        reducedMotion="user"
-        transition={{ duration: 0.5, ease: EASINGS.entrance }}
-      >
+      <MotionConfig reducedMotion="user" transition={{ duration: 0.5, ease: EASINGS.entrance }}>
         {children}
       </MotionConfig>
     </ReactLenis>

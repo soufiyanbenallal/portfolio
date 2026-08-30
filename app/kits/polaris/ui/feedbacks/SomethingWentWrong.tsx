@@ -131,13 +131,13 @@ export const SomethingWentWrong = ({
 
   if (is404) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh] p-6">
-        <div className="max-w-md w-full text-center p-8 bg-card rounded-2xl border border-border shadow-md space-y-4">
-          <div className="w-16 h-16 rounded-full bg-indigo-500/10 text-indigo-600 flex items-center justify-center mx-auto text-2xl font-bold">
+      <div className="flex min-h-[60vh] items-center justify-center p-6">
+        <div className="bg-card border-border w-full max-w-md space-y-4 rounded-2xl border p-8 text-center shadow-md">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-indigo-500/10 text-2xl font-bold text-indigo-600">
             404
           </div>
-          <h1 className="text-xl font-bold text-foreground">{ct("commons.error.not_found")}</h1>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <h1 className="text-foreground text-xl font-bold">{ct("commons.error.not_found")}</h1>
+          <p className="text-muted-foreground text-sm leading-relaxed">
             {ct("commons.error.not_found_desc")}
           </p>
           <div className="flex items-center justify-center gap-3 pt-2">
@@ -154,21 +154,21 @@ export const SomethingWentWrong = ({
   }
 
   return (
-    <div className="flex items-center justify-center min-h-[60vh] p-6">
-      <div className="max-w-md w-full text-center p-8 bg-card rounded-2xl border border-border shadow-md space-y-4">
-        <div className="w-16 h-16 rounded-full bg-destructive/10 text-destructive flex items-center justify-center mx-auto text-2xl font-bold">
+    <div className="flex min-h-[60vh] items-center justify-center p-6">
+      <div className="bg-card border-border w-full max-w-md space-y-4 rounded-2xl border p-8 text-center shadow-md">
+        <div className="bg-destructive/10 text-destructive mx-auto flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold">
           !
         </div>
 
-        <h1 className="text-xl font-bold text-foreground">
+        <h1 className="text-foreground text-xl font-bold">
           {title || ct("commons.error.default_title")}
         </h1>
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p className="text-muted-foreground text-sm leading-relaxed">
           {message || ct("commons.error.default_desc")}
         </p>
 
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-600">
           <span>✓</span>
           <span>{ct("commons.error.notified")}</span>
         </div>
@@ -182,9 +182,9 @@ export const SomethingWentWrong = ({
           </s-button>
         </div>
 
-        <div className="pt-4 border-t border-border text-xs text-muted-foreground">
+        <div className="border-border text-muted-foreground border-t pt-4 text-xs">
           {ticketDone ? (
-            <span className="text-emerald-600 font-medium">
+            <span className="font-medium text-emerald-600">
               {ct("commons.support.ticket_submitted_short")}
             </span>
           ) : ticketError ? (
@@ -192,7 +192,7 @@ export const SomethingWentWrong = ({
               {ct("commons.support.ticket_failed")}{" "}
               <a
                 href={`mailto:${ct("commons.support.support_email")}`}
-                className="text-primary underline font-medium"
+                className="text-primary font-medium underline"
               >
                 {ct("commons.support.support_email")}
               </a>
@@ -203,7 +203,7 @@ export const SomethingWentWrong = ({
               <button
                 type="button"
                 onClick={() => setTicketOpen(true)}
-                className="text-primary underline font-medium cursor-pointer"
+                className="text-primary cursor-pointer font-medium underline"
               >
                 {ct("commons.error.create_ticket")}
               </button>

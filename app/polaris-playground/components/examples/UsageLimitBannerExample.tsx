@@ -13,22 +13,13 @@ export function UsageLimitBannerExample() {
         <s-stack direction="inline" justifyContent="space-between" alignItems="center">
           <s-text tone="neutral">Simulate usage quota change:</s-text>
           <s-stack direction="inline" gap="small-200" alignItems="center">
-            <s-button
-              variant="secondary"
-              onClick={() => setUsage(6500)}
-            >
+            <s-button variant="secondary" onClick={() => setUsage(6500)}>
               65% (Normal)
             </s-button>
-            <s-button
-              variant="secondary"
-              onClick={() => setUsage(8800)}
-            >
+            <s-button variant="secondary" onClick={() => setUsage(8800)}>
               88% (Warning)
             </s-button>
-            <s-button
-              variant="secondary"
-              onClick={() => setUsage(9600)}
-            >
+            <s-button variant="secondary" onClick={() => setUsage(9600)}>
               96% (Critical)
             </s-button>
           </s-stack>

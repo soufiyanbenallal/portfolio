@@ -18,7 +18,6 @@ export type IntegrationSetupModalPropsType = {
   onSave: (type: string, config: Record<string, unknown>) => Promise<void>;
 };
 
-
 export const IntegrationSetupModal = ({
   definition,
   integration,
@@ -141,7 +140,7 @@ export const IntegrationSetupModal = ({
       heading={ct("commons.integrations.connect_name", { name: definition.name })}
       onHide={onClose}
     >
-      <div className="p-5 max-w-xl max-h-[80vh] overflow-y-auto space-y-4">
+      <div className="max-h-[80vh] max-w-xl space-y-4 overflow-y-auto p-5">
         {renderProviderContent()}
 
         {verificationError && (
@@ -160,7 +159,7 @@ export const IntegrationSetupModal = ({
           >
             {definition.configFields.map((field) => (
               <div key={field.key} className="space-y-1.5">
-                <label className="text-xs font-semibold text-foreground">
+                <label className="text-foreground text-xs font-semibold">
                   {field.label}
                   {field.required && <span className="text-destructive ml-0.5">*</span>}
                 </label>
@@ -171,10 +170,10 @@ export const IntegrationSetupModal = ({
                   placeholder={field.placeholder}
                   disabled={isLoading}
                   required={field.required}
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="border-border bg-background text-foreground focus:ring-primary w-full rounded-lg border px-3 py-2 text-xs focus:ring-1 focus:outline-none"
                 />
                 {field.helpText && (
-                  <p className="text-xs text-muted-foreground">{field.helpText}</p>
+                  <p className="text-muted-foreground text-xs">{field.helpText}</p>
                 )}
               </div>
             ))}
@@ -182,7 +181,7 @@ export const IntegrationSetupModal = ({
         )}
 
         {verifying && (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="text-muted-foreground flex items-center gap-2 text-xs">
             <s-spinner size="base" />
             <span>
               {ct("commons.integrations.verifying_with", {
@@ -193,16 +192,16 @@ export const IntegrationSetupModal = ({
         )}
 
         {hasFeatures && (
-          <div className="space-y-3 pt-3 border-t border-border">
+          <div className="border-border space-y-3 border-t pt-3">
             <div className="space-y-0.5">
-              <span className="text-sm font-semibold text-foreground">
+              <span className="text-foreground text-sm font-semibold">
                 {ct("commons.integrations.events")}
               </span>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 {ct("commons.integrations.events_desc")}
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {features!.map((feature) => (
                 <div key={feature.key} className="flex items-start gap-2">
                   <s-checkbox
@@ -218,13 +217,13 @@ export const IntegrationSetupModal = ({
         )}
 
         {definition.docsUrl && (
-          <div className="text-xs text-muted-foreground pt-2">
+          <div className="text-muted-foreground pt-2 text-xs">
             {ct("commons.integrations.need_help")}{" "}
             <a
               href={definition.docsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary underline font-medium"
+              className="text-primary font-medium underline"
             >
               {ct("commons.integrations.view_docs")}
             </a>
@@ -232,7 +231,7 @@ export const IntegrationSetupModal = ({
         )}
 
         {/* Modal Actions */}
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
+        <div className="border-border flex items-center justify-end gap-3 border-t pt-4">
           <s-button variant="secondary" onClick={onClose}>
             {ct("commons.cancel")}
           </s-button>

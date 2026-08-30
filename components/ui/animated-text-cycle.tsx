@@ -54,7 +54,7 @@ export default function AnimatedTextCycle({
   useEffect(() => {
     const timer = window.setInterval(
       () => setCurrentIndex((index) => (index + 1) % words.length),
-      interval,
+      interval
     );
     return () => window.clearInterval(timer);
   }, [interval, words.length]);
@@ -91,20 +91,10 @@ export default function AnimatedTextCycle({
             key={currentIndex}
             className={`inline-block ${className}`}
             initial={
-              prefersReducedMotion
-                ? { opacity: 0 }
-                : { rotateX: -80, y: "-55%", opacity: 0 }
+              prefersReducedMotion ? { opacity: 0 } : { rotateX: -80, y: "-55%", opacity: 0 }
             }
-            animate={
-              prefersReducedMotion
-                ? { opacity: 1 }
-                : { rotateX: 0, y: "0%", opacity: 1 }
-            }
-            exit={
-              prefersReducedMotion
-                ? { opacity: 0 }
-                : { rotateX: 80, y: "55%", opacity: 0 }
-            }
+            animate={prefersReducedMotion ? { opacity: 1 } : { rotateX: 0, y: "0%", opacity: 1 }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { rotateX: 80, y: "55%", opacity: 0 }}
             transition={{ duration: DURATIONS.base, ease: EASINGS.editorial }}
             style={{ whiteSpace: "nowrap", transformOrigin: "50% 50%" }}
           >

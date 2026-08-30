@@ -62,27 +62,17 @@ export function TimelineItemPart({ item }: TimelineItemPartPropsType): ReactNode
         </s-stack>
 
         {/* Description / Secondary text */}
-        {item.description && (
-          <s-paragraph>{item.description}</s-paragraph>
-        )}
+        {item.description && <s-paragraph>{item.description}</s-paragraph>}
 
         {/* Actor and Actions footer */}
         {(item.actor || (item.actions && item.actions.length > 0)) && (
           <s-stack direction="inline" justifyContent="space-between" alignItems="center">
-            {item.actor ? (
-              <s-text tone="neutral">Triggered by: {item.actor}</s-text>
-            ) : (
-              <s-box />
-            )}
+            {item.actor ? <s-text tone="neutral">Triggered by: {item.actor}</s-text> : <s-box />}
 
             {item.actions && item.actions.length > 0 && (
               <s-stack direction="inline" gap="small-200" alignItems="center">
                 {item.actions.map((act, i) => (
-                  <s-button
-                    key={i}
-                    variant={act.variant || "secondary"}
-                    onClick={act.onClick}
-                  >
+                  <s-button key={i} variant={act.variant || "secondary"} onClick={act.onClick}>
                     {act.label}
                   </s-button>
                 ))}

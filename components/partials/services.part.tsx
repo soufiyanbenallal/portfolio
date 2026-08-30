@@ -36,11 +36,10 @@ function ServicesPanel() {
       </div>
 
       <h2
-        className="max-w-[16ch] font-medium leading-[1.02] tracking-[-0.03em]"
+        className="max-w-[16ch] leading-[1.02] font-medium tracking-[-0.03em]"
         style={{ fontSize: "clamp(34px, 6.4vw, 92px)" }}
       >
-        Services that{" "}
-        <em className="not-italic text-white/35">supercharge</em> your business.
+        Services that <em className="text-white/35 not-italic">supercharge</em> your business.
       </h2>
 
       <div className="flex flex-wrap items-center gap-[0.6vw]">
@@ -69,29 +68,26 @@ type ServiceDetailCardPropsType = {
 
 function ServiceDetailCard({ service, index, total }: ServiceDetailCardPropsType) {
   return (
-    <article className="w-full rounded-[24px] border border-gray-30 bg-white p-8 card-shadow-3d lg:p-10">
-      <div className="flex items-start justify-between gap-6 border-b border-gray-20 pb-6">
-        <span className="font-mono text-sm text-gray-40">
+    <article className="border-gray-30 card-shadow-3d w-full rounded-[24px] border bg-white p-8 lg:p-10">
+      <div className="border-gray-20 flex items-start justify-between gap-6 border-b pb-6">
+        <span className="text-gray-40 font-mono text-sm">
           {String(index + 1).padStart(2, "0")}
           <span className="text-gray-30">/{String(total).padStart(2, "0")}</span>
         </span>
         {service.isPrimary && (
-          <span className="rounded-full bg-black px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white">
+          <span className="rounded-full bg-black px-3 py-1 text-[10px] font-semibold tracking-widest text-white uppercase">
             Core
           </span>
         )}
       </div>
 
-      <h3 className="pt-6 text-h3-lg text-black">{service.title}</h3>
-      <p className="pt-3 text-body-l text-gray-60">{service.description}</p>
+      <h3 className="text-h3-lg pt-6 text-black">{service.title}</h3>
+      <p className="text-body-l text-gray-60 pt-3">{service.description}</p>
 
       <ul className="flex flex-col gap-3 pt-7">
         {service.deliverables.map((deliverable) => (
-          <li
-            key={deliverable}
-            className="flex items-center gap-3 text-body-m text-black"
-          >
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gray-30">
+          <li key={deliverable} className="text-body-m flex items-center gap-3 text-black">
+            <span className="border-gray-30 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border">
               <Icons.Check className="h-3 w-3" />
             </span>
             {deliverable}
@@ -108,19 +104,15 @@ function ServiceDetailCard({ service, index, total }: ServiceDetailCardPropsType
 
 export function ServicesPart() {
   return (
-    <div className="relative w-full border-t bg-white z-10 px-3 md:px-0">
+    <div className="relative z-10 w-full border-t bg-white px-3 md:px-0">
       <SectionDock
         id="services"
         items={servicesData}
         scrollPerItem={0.48}
         panel={<ServicesPanel />}
- 
+
         renderItem={(service, { index }) => (
-          <ServiceDetailCard
-            service={service}
-            index={index}
-            total={servicesData.length}
-          />
+          <ServiceDetailCard service={service} index={index} total={servicesData.length} />
         )}
       />
     </div>

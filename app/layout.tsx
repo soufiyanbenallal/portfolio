@@ -42,19 +42,15 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     // No `scroll-smooth` here: Lenis owns the scroll position, and native
     // smooth scrolling fights it for the same frames.
     <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body className="relative flex min-h-screen flex-col overflow-x-clip bg-gray-5 font-sans text-black antialiased">
+      <body className="bg-gray-5 relative flex min-h-screen flex-col overflow-x-clip font-sans text-black antialiased">
         <a
           href="#main-content"
-          className="sr-only rounded-full bg-black px-4 py-2 text-sm text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-9999"
+          className="sr-only rounded-full bg-black px-4 py-2 text-sm text-white focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-9999"
         >
           Skip to content
         </a>

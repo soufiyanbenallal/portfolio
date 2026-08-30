@@ -24,28 +24,28 @@ export const SeeMoreApps = (): JSX.Element => {
   }, [shop_url, appsData.length]);
 
   return (
-    <div className="p-6 space-y-6">
-      <h2 className="text-xl font-bold text-foreground">Try Our Apps</h2>
+    <div className="space-y-6 p-6">
+      <h2 className="text-foreground text-xl font-bold">Try Our Apps</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {appsData.map((app) => (
           <div
             key={app.id}
-            className="p-4 rounded-xl border border-border bg-card shadow-xs flex items-start gap-3"
+            className="border-border bg-card flex items-start gap-3 rounded-xl border p-4 shadow-xs"
           >
             <img
               src={app.image}
               alt={app.title}
-              className="w-12 h-12 rounded-lg object-contain shrink-0 border border-border"
+              className="border-border h-12 w-12 shrink-0 rounded-lg border object-contain"
             />
-            <div className="space-y-1 min-w-0 flex-1">
-              <h3 className="text-xs font-bold text-foreground truncate">{app.title}</h3>
-              <p className="text-[10px] text-muted-foreground line-clamp-2">{app.description}</p>
+            <div className="min-w-0 flex-1 space-y-1">
+              <h3 className="text-foreground truncate text-xs font-bold">{app.title}</h3>
+              <p className="text-muted-foreground line-clamp-2 text-[10px]">{app.description}</p>
               <a
                 href={app.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-semibold text-primary underline block pt-1"
+                className="text-primary block pt-1 text-xs font-semibold underline"
               >
                 Open →
               </a>

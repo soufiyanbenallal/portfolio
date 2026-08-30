@@ -26,14 +26,14 @@ export function NavbarMobilePart({
       <div
         className={cn(
           "flex flex-col overflow-hidden rounded-[24px] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          isPastHero ? "px-1.5 py-1" : "px-1.5 py-1",
+          isPastHero ? "px-1.5 py-1" : "px-1.5 py-1"
         )}
       >
         {/* Top Header Row */}
         <div
           className={cn(
             "flex items-center justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
-            isPastHero ? "gap-2 px-1.5 py-1" : "gap-3 px-2 py-1.5",
+            isPastHero ? "gap-2 px-1.5 py-1" : "gap-3 px-2 py-1.5"
           )}
         >
           {/* Avatar button that toggles the menu, with collapsible name */}
@@ -46,10 +46,8 @@ export function NavbarMobilePart({
           >
             <span
               className={cn(
-                "relative flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gray-30 transition-all duration-200 active:scale-95 group-hover:scale-105",
-                isOpen
-                  ? "ring-2 ring-black/25 border-black scale-105"
-                  : "hover:border-gray-50",
+                "border-gray-30 relative flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full border transition-all duration-200 group-hover:scale-105 active:scale-95",
+                isOpen ? "scale-105 border-black ring-2 ring-black/25" : "hover:border-gray-50"
               )}
             >
               <Image
@@ -64,10 +62,10 @@ export function NavbarMobilePart({
             {/* Name collapses on scroll past hero to save mobile space */}
             <span
               className={cn(
-                "whitespace-nowrap text-sm font-medium tracking-tight text-black transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden",
+                "overflow-hidden text-sm font-medium tracking-tight whitespace-nowrap text-black transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
                 isPastHero
-                  ? "max-w-0 opacity-0 -translate-x-2 pointer-events-none"
-                  : "max-w-[160px] opacity-100 translate-x-0 pr-1",
+                  ? "pointer-events-none max-w-0 -translate-x-2 opacity-0"
+                  : "max-w-[160px] translate-x-0 pr-1 opacity-100"
               )}
             >
               Joseph Alexander
@@ -79,8 +77,8 @@ export function NavbarMobilePart({
             className={cn(
               "flex items-center transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
               isPastHero
-                ? "scale-100 opacity-100 max-w-[120px] translate-x-0"
-                : "scale-75 opacity-0 max-w-0 overflow-hidden pointer-events-none translate-x-3",
+                ? "max-w-[120px] translate-x-0 scale-100 opacity-100"
+                : "pointer-events-none max-w-0 translate-x-3 scale-75 overflow-hidden opacity-0"
             )}
           >
             <NavbarActionsPart
@@ -95,21 +93,17 @@ export function NavbarMobilePart({
         <div
           className={cn(
             "grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
-            isOpen
-              ? "grid-rows-[1fr] opacity-100"
-              : "grid-rows-[0fr] opacity-0 pointer-events-none",
+            isOpen ? "grid-rows-[1fr] opacity-100" : "pointer-events-none grid-rows-[0fr] opacity-0"
           )}
         >
           <div className="overflow-hidden">
-            <div className="flex flex-col gap-3 border-t border-gray-20 px-4 pb-3.5 pt-3">
+            <div className="border-gray-20 flex flex-col gap-3 border-t px-4 pt-3 pb-3.5">
               {navLinks.map((link, index) => (
                 <div
                   key={link.label}
                   className={cn(
                     "transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
-                    isOpen
-                      ? "translate-x-0 opacity-100"
-                      : "-translate-x-3 opacity-0",
+                    isOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0"
                   )}
                   style={{
                     transitionDelay: isOpen ? `${50 + index * 40}ms` : "0ms",
@@ -117,10 +111,8 @@ export function NavbarMobilePart({
                 >
                   <Link
                     href={resolveHref(link.href, link.isAnchor)}
-                    onClick={(event) =>
-                      onAnchorClick(event, link.href, link.isAnchor)
-                    }
-                    className="block py-1 text-base font-medium text-black transition-colors hover:text-gray-60"
+                    onClick={(event) => onAnchorClick(event, link.href, link.isAnchor)}
+                    className="hover:text-gray-60 block py-1 text-base font-medium text-black transition-colors"
                   >
                     {link.label}
                   </Link>

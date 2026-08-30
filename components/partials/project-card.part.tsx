@@ -37,7 +37,7 @@ export function ProjectCardPart({
   tilt = true,
 }: ProjectCardPartPropsType) {
   const media = (
-    <div className="relative aspect-4/3 w-full overflow-hidden rounded-[14px] bg-gray-10">
+    <div className="bg-gray-10 relative aspect-4/3 w-full overflow-hidden rounded-[14px]">
       <Image
         src={project.thumbnail}
         alt={project.title}
@@ -63,30 +63,28 @@ export function ProjectCardPart({
       data-cursor-text="View case"
       className={cn("group block h-full w-full", className)}
     >
-      <div className="h-full overflow-hidden rounded-[20px] border border-gray-30 bg-white p-3.5 card-shadow transition-shadow duration-300 hover:card-shadow-hover">
+      <div className="border-gray-30 card-shadow hover:card-shadow-hover h-full overflow-hidden rounded-[20px] border bg-white p-3.5 transition-shadow duration-300">
         {withSharedElement ? (
           <SharedElement name={`project-media-${project.slug}`}>{media}</SharedElement>
         ) : (
           media
         )}
 
-        <div className="flex items-center justify-between gap-4 px-1 pb-1 pt-4">
+        <div className="flex items-center justify-between gap-4 px-1 pt-4 pb-1">
           <div className="flex min-w-0 flex-col gap-0.5">
             <div className="flex items-center gap-2">
-              <span className="truncate text-[15px] font-medium tracking-tight text-black transition-colors group-hover:text-gray-60">
+              <span className="group-hover:text-gray-60 truncate text-[15px] font-medium tracking-tight text-black transition-colors">
                 {project.title}
               </span>
-              <span className="font-mono text-[11px] text-gray-40">/</span>
-              <span className="truncate text-[12px] font-medium text-gray-60">
+              <span className="text-gray-40 font-mono text-[11px]">/</span>
+              <span className="text-gray-60 truncate text-[12px] font-medium">
                 {project.typeOfWork}
               </span>
             </div>
-            <span className="line-clamp-1 text-[12px] text-gray-50">
-              {project.tagline}
-            </span>
+            <span className="line-clamp-1 text-[12px] text-gray-50">{project.tagline}</span>
           </div>
 
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gray-30 text-black transition-all duration-300 group-hover:border-black group-hover:bg-black group-hover:text-white">
+          <span className="border-gray-30 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-black transition-all duration-300 group-hover:border-black group-hover:bg-black group-hover:text-white">
             <Icons.ArrowUpRight className="h-4 w-4" />
           </span>
         </div>

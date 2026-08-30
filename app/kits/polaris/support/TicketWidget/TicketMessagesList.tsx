@@ -7,7 +7,6 @@ export type TicketMessagesListPropsType = {
   onSelect?: (ticket: TicketItemType) => void;
 };
 
-
 function getInitials(email: string) {
   if (!email) return "?";
   const [name] = email.split("@");
@@ -23,7 +22,7 @@ export const TicketMessagesList = ({
 
   if (loadingTickets) {
     return (
-      <div className="flex items-center justify-center p-8 min-h-[200px]">
+      <div className="flex min-h-[200px] items-center justify-center p-8">
         <s-spinner size="base" />
       </div>
     );
@@ -31,9 +30,9 @@ export const TicketMessagesList = ({
 
   if (!tickets || tickets.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-8 text-center min-h-[200px] space-y-1">
-        <span className="text-sm font-semibold text-foreground">No messages yet</span>
-        <p className="text-xs text-muted-foreground">
+      <div className="flex min-h-[200px] flex-col items-center justify-center space-y-1 p-8 text-center">
+        <span className="text-foreground text-sm font-semibold">No messages yet</span>
+        <p className="text-muted-foreground text-xs">
           You have not created any support tickets yet.
         </p>
       </div>
@@ -41,7 +40,7 @@ export const TicketMessagesList = ({
   }
 
   return (
-    <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1">
+    <div className="max-h-[380px] space-y-2 overflow-y-auto pr-1">
       {tickets.map((ticket, idx) => (
         <div
           key={ticket.id || idx}
@@ -53,25 +52,25 @@ export const TicketMessagesList = ({
           }}
           onMouseEnter={() => setHovered(idx)}
           onMouseLeave={() => setHovered(null)}
-          className={`p-3 rounded-xl border border-border transition-colors cursor-pointer flex items-center justify-between gap-3 ${
+          className={`border-border flex cursor-pointer items-center justify-between gap-3 rounded-xl border p-3 transition-colors ${
             hovered === idx ? "bg-muted/60" : "bg-card"
           }`}
         >
           <div className="flex items-center gap-3 overflow-hidden">
-            <div className="w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center shrink-0">
+            <div className="bg-primary/10 text-primary flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold">
               {getInitials(ticket.email)}
             </div>
             <div className="overflow-hidden">
-              <span className="font-semibold text-sm text-foreground block truncate">
+              <span className="text-foreground block truncate text-sm font-semibold">
                 {ticket.title || "(No title)"}
               </span>
-              <span className="text-xs text-muted-foreground block truncate">
+              <span className="text-muted-foreground block truncate text-xs">
                 {ticket.description || "No description"}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex shrink-0 items-center gap-2">
             <s-badge tone={ticket.status === "open" ? "info" : "success"}>{ticket.status}</s-badge>
             <span className="text-muted-foreground text-xs">→</span>
           </div>

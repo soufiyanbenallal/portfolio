@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { BookOpen, ExternalLink } from "lucide-react"
-import { AppSidebar } from "@/components/app-sidebar"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { BookOpen, ExternalLink } from "lucide-react";
+import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,24 +12,16 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { PolarisScriptLoader } from "@/components/shared/polaris-script-loader.shared"
-import { polarisDocComponentsData } from "./data/polaris-docs.data"
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { PolarisScriptLoader } from "@/components/shared/polaris-script-loader.shared";
+import { polarisDocComponentsData } from "./data/polaris-docs.data";
 
-export default function PolarisPlaygroundLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const pathname = usePathname()
-  const slug = pathname.replace("/polaris-playground/", "").replace("/polaris-playground", "")
-  const currentComponent = polarisDocComponentsData.find((c) => c.slug === slug)
+export default function PolarisPlaygroundLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const slug = pathname.replace("/polaris-playground/", "").replace("/polaris-playground", "");
+  const currentComponent = polarisDocComponentsData.find((c) => c.slug === slug);
 
   return (
     <SidebarProvider>
@@ -41,7 +33,7 @@ export default function PolarisPlaygroundLayout({
 
       {/* ── Canonical sidebar-08 Inset ── */}
       <SidebarInset>
-        <header className="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-sidebar-border/80 px-4">
+        <header className="border-sidebar-border/80 flex h-12 shrink-0 items-center justify-between gap-2 border-b px-4">
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator
@@ -86,7 +78,7 @@ export default function PolarisPlaygroundLayout({
               href={currentComponent.docsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 rounded-md border border-sidebar-border bg-background px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors"
+              className="border-sidebar-border bg-background text-muted-foreground hover:text-foreground hover:bg-sidebar-accent flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs transition-colors"
             >
               <BookOpen className="size-3.5" />
               <span className="hidden sm:inline">Shopify Docs</span>
@@ -95,10 +87,8 @@ export default function PolarisPlaygroundLayout({
           )}
         </header>
 
-        <div className="flex flex-1 flex-col gap-6 p-4 pt-0">
-          {children}
-        </div>
+        <div className="flex flex-1 flex-col gap-6 p-4 pt-0">{children}</div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

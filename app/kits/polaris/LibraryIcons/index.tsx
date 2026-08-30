@@ -10,7 +10,6 @@ export type LibraryIconsPropsType = {
   stateKey: string;
 };
 
-
 export const LibraryIcons = ({
   url,
   title,
@@ -56,17 +55,17 @@ export const LibraryIcons = ({
   }, [url]);
 
   return (
-    <div className="flex items-center justify-between gap-3 p-3 bg-card rounded-xl border border-border">
-      <h4 className="text-xs font-semibold text-foreground">{title}</h4>
+    <div className="bg-card border-border flex items-center justify-between gap-3 rounded-xl border p-3">
+      <h4 className="text-foreground text-xs font-semibold">{title}</h4>
       <button
         type="button"
         onClick={handleLoadIcon}
-        className="w-10 h-10 rounded-lg border border-border p-1 bg-muted/20 hover:border-primary transition-colors flex items-center justify-center overflow-hidden"
+        className="border-border bg-muted/20 hover:border-primary flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg border p-1 transition-colors"
       >
         {state.selectedIcon ? (
-          <img src={state.selectedIcon} alt="icon" className="w-full h-full object-contain" />
+          <img src={state.selectedIcon} alt="icon" className="h-full w-full object-contain" />
         ) : (
-          <span className="text-xs text-muted-foreground">Select</span>
+          <span className="text-muted-foreground text-xs">Select</span>
         )}
       </button>
 

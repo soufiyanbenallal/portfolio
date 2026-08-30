@@ -5,7 +5,6 @@ export type RowDataType = {
   [key: string]: React.ReactNode;
 };
 
-
 export type RowPropsType = {
   id: string;
   columns: string[];
@@ -16,14 +15,13 @@ export type RowPropsType = {
   childrenRows?: RowPropsType[];
 };
 
-
 export const Row = ({ id, columns, data, childrenRows = [] }: RowPropsType): JSX.Element => {
   return (
     <>
       <s-table-row key={id}>
         {columns.map((column, index) => (
           <s-table-cell key={index}>
-            <span className="text-xs text-foreground font-medium">{data[column]}</span>
+            <span className="text-foreground text-xs font-medium">{data[column]}</span>
           </s-table-cell>
         ))}
       </s-table-row>

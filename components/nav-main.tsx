@@ -1,13 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -18,44 +14,44 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import { ChevronRightIcon, LayoutDashboardIcon } from "lucide-react"
+} from "@/components/ui/sidebar";
+import { ChevronRightIcon, LayoutDashboardIcon } from "lucide-react";
 
 export function NavMain({
   items,
 }: {
   items: {
-    title: string
-    url: string
-    icon: React.ReactNode
-    isActive?: boolean
+    title: string;
+    url: string;
+    icon: React.ReactNode;
+    isActive?: boolean;
     items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+      title: string;
+      url: string;
+    }[];
+  }[];
 }) {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   // Track open state for each category group so users can toggle expand / collapse freely
   const [openGroups, setOpenGroups] = React.useState<Record<string, boolean>>(() => {
-    const initialState: Record<string, boolean> = {}
+    const initialState: Record<string, boolean> = {};
     items.forEach((item) => {
       // Open if item is active by default or if current route is inside this category
-      const isRouteActive = item.items?.some((sub) => sub.url === pathname)
-      initialState[item.title] = isRouteActive ?? item.isActive ?? true
-    })
-    return initialState
-  })
+      const isRouteActive = item.items?.some((sub) => sub.url === pathname);
+      initialState[item.title] = isRouteActive ?? item.isActive ?? true;
+    });
+    return initialState;
+  });
 
   const toggleGroup = (title: string) => {
     setOpenGroups((prev) => ({
       ...prev,
       [title]: !prev[title],
-    }))
-  }
+    }));
+  };
 
-  const isOverviewActive = pathname === "/polaris-playground"
+  const isOverviewActive = pathname === "/polaris-playground";
 
   return (
     <SidebarGroup>
@@ -75,8 +71,8 @@ export function NavMain({
 
         {/* ── Grouped Categories (Collapsible) ── */}
         {items.map((item) => {
-          const isCategoryOpen = openGroups[item.title] ?? false
-          const isChildActive = item.items?.some((sub) => sub.url === pathname)
+          const isCategoryOpen = openGroups[item.title] ?? false;
+          const isChildActive = item.items?.some((sub) => sub.url === pathname);
 
           return (
             <Collapsible
@@ -103,10 +99,10 @@ export function NavMain({
                     render={
                       <SidebarMenuAction
                         onClick={(e) => {
-                          e.stopPropagation()
-                          toggleGroup(item.title)
+                          e.stopPropagation();
+                          toggleGroup(item.title);
                         }}
-                        className={`transition-transform duration-200 cursor-pointer ${
+                        className={`cursor-pointer transition-transform duration-200 ${
                           isCategoryOpen ? "rotate-90" : ""
                         }`}
                       >
@@ -118,7 +114,7 @@ export function NavMain({
                   <CollapsibleContent>
                     <SidebarMenuSub>
                       {item.items?.map((subItem) => {
-                        const isSubActive = pathname === subItem.url
+                        const isSubActive = pathname === subItem.url;
                         return (
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton
@@ -128,16 +124,16 @@ export function NavMain({
                               <span>{subItem.title}</span>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
-                        )
+                        );
                       })}
                     </SidebarMenuSub>
                   </CollapsibleContent>
                 </>
               ) : null}
             </Collapsible>
-          )
+          );
         })}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }

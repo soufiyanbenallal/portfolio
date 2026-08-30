@@ -7,14 +7,12 @@ export type UploadedFileType = {
   fileStatus: string;
 };
 
-
 export type UploadingFileType = {
   file: File;
   previewUrl: string;
   status: "pending" | "uploading" | "done" | "error";
   error?: string;
 };
-
 
 export type MediaUploaderPropsType = {
   onUploadComplete: (files: UploadedFileType[]) => void;
@@ -23,7 +21,6 @@ export type MediaUploaderPropsType = {
   children?: React.ReactNode;
   folder?: string;
 };
-
 
 const MAX_PIXELS = 25000000; // 25 MP
 
@@ -204,26 +201,26 @@ export const MediaUploader = ({
       </div>
 
       {uploadingFiles.length > 0 && (
-        <div className="flex items-center gap-2 flex-wrap pt-2">
+        <div className="flex flex-wrap items-center gap-2 pt-2">
           {uploadingFiles.map((uf, idx) => (
             <div
               key={idx}
-              className="relative w-16 h-16 rounded-lg border border-border overflow-hidden bg-muted/40"
+              className="border-border bg-muted/40 relative h-16 w-16 overflow-hidden rounded-lg border"
             >
               <img
                 src={uf.previewUrl}
                 alt={uf.file.name}
-                className={`w-full h-full object-cover ${
+                className={`h-full w-full object-cover ${
                   uf.status === "done" ? "opacity-100" : "opacity-70"
                 }`}
               />
               {uf.status === "uploading" && (
-                <div className="absolute inset-0 bg-background/60 flex items-center justify-center">
+                <div className="bg-background/60 absolute inset-0 flex items-center justify-center">
                   <s-spinner size="base" />
                 </div>
               )}
               {uf.status === "error" && (
-                <div className="absolute inset-0 bg-destructive/80 text-destructive-foreground text-[10px] font-bold flex items-center justify-center p-1 text-center">
+                <div className="bg-destructive/80 text-destructive-foreground absolute inset-0 flex items-center justify-center p-1 text-center text-[10px] font-bold">
                   Error
                 </div>
               )}
@@ -232,7 +229,7 @@ export const MediaUploader = ({
         </div>
       )}
 
-      {error && <div className="text-xs text-destructive font-medium pt-1">{error}</div>}
+      {error && <div className="text-destructive pt-1 text-xs font-medium">{error}</div>}
     </div>
   );
 };

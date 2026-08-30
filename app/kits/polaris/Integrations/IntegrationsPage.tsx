@@ -34,7 +34,6 @@ export type IntegrationsPagePropsType = {
   showTabs?: boolean;
 };
 
-
 const CATEGORY_TAB_VALUES: (IntegrationCategoryType | "all")[] = [
   "all",
   "marketing",
@@ -349,8 +348,8 @@ export const IntegrationsPage = ({
       {/* Top Banner and Actions */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-foreground">{ct("commons.integrations")}</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-foreground text-xl font-bold">{ct("commons.integrations")}</h1>
+          <p className="text-muted-foreground text-sm">
             Connect marketing, reviews, support, and custom automation webhooks.
           </p>
         </div>
@@ -376,7 +375,7 @@ export const IntegrationsPage = ({
         <button
           type="button"
           onClick={() => handleOpenTicketModal("bug")}
-          className="font-semibold underline cursor-pointer"
+          className="cursor-pointer font-semibold underline"
         >
           {ct("commons.integrations.report_issues")}
         </button>{" "}
@@ -385,13 +384,13 @@ export const IntegrationsPage = ({
 
       {/* Connected Summary */}
       {connectedCount > 0 && (
-        <div className="flex items-center justify-between p-4 bg-card border border-border rounded-xl shadow-xs">
-          <span className="text-sm text-muted-foreground">
+        <div className="bg-card border-border flex items-center justify-between rounded-xl border p-4 shadow-xs">
+          <span className="text-muted-foreground text-sm">
             {connectedCount} {ct("commons.integrations.of")} {supportedDefinitions.length}{" "}
             {ct("commons.integrations.active")}{" "}
             {connectedCount === 1 ? "integration" : "integrations"}
           </span>
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex flex-wrap items-center gap-2">
             {supportedDefinitions
               .filter((def) => {
                 if (def.multiEndpoint) {
@@ -411,7 +410,7 @@ export const IntegrationsPage = ({
 
       {/* Category Tabs */}
       {showTabs && (
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-border">
+        <div className="border-border flex items-center gap-2 overflow-x-auto border-b pb-2">
           {CATEGORY_TAB_VALUES.map((cat) => {
             const hasIntegrations =
               cat === "all" || supportedDefinitions.some((d) => d.category === cat);
@@ -423,7 +422,7 @@ export const IntegrationsPage = ({
                 type="button"
                 disabled={!hasIntegrations}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                className={`rounded-lg px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-colors ${
                   isSelected
                     ? "bg-primary text-primary-foreground shadow-xs"
                     : hasIntegrations
@@ -441,14 +440,14 @@ export const IntegrationsPage = ({
       {/* Integration Grid */}
       {filteredDefinitions.length === 0 ? (
         <s-box padding="base" background="subdued" borderRadius="base">
-          <div className="text-center py-8">
-            <p className="text-sm text-muted-foreground">
+          <div className="py-8 text-center">
+            <p className="text-muted-foreground text-sm">
               {ct("commons.integrations.no_category_desc")}
             </p>
           </div>
         </s-box>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredDefinitions.map((def) => (
             <IntegrationCard
               key={def.type}
@@ -467,37 +466,37 @@ export const IntegrationsPage = ({
 
       {/* Developer Tools Card */}
       {apiBaseUrl && (
-        <div className="p-5 bg-card border border-border rounded-xl space-y-3">
-          <h2 className="text-base font-bold text-foreground">
+        <div className="bg-card border-border space-y-3 rounded-xl border p-5">
+          <h2 className="text-foreground text-base font-bold">
             {ct("commons.integrations.developer_tools")}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-1">
-              <span className="text-sm font-semibold text-foreground">
+              <span className="text-foreground text-sm font-semibold">
                 {ct("commons.integrations.rest_api")}
               </span>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 {ct("commons.integrations.rest_api_desc")}
               </p>
               <a
                 href={`${apiBaseUrl}/docs`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs text-primary font-medium underline inline-block pt-1"
+                className="text-primary inline-block pt-1 text-xs font-medium underline"
               >
                 {ct("commons.integrations.api_docs")} →
               </a>
             </div>
             <div className="space-y-1">
-              <span className="text-sm font-semibold text-foreground">
+              <span className="text-foreground text-sm font-semibold">
                 {ct("commons.integrations.mcp")}
               </span>
-              <p className="text-xs text-muted-foreground">{ct("commons.integrations.mcp_desc")}</p>
+              <p className="text-muted-foreground text-xs">{ct("commons.integrations.mcp_desc")}</p>
               <a
                 href={`${apiBaseUrl}/mcp`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs text-primary font-medium underline inline-block pt-1"
+                className="text-primary inline-block pt-1 text-xs font-medium underline"
               >
                 {ct("commons.integrations.mcp_endpoint")} →
               </a>
@@ -546,7 +545,7 @@ export const IntegrationsPage = ({
             setEndpointFormOpen(false);
           }}
         >
-          <div className="p-5 max-w-xl max-h-[80vh] overflow-y-auto space-y-4">
+          <div className="max-h-[80vh] max-w-xl space-y-4 overflow-y-auto p-5">
             {epSuccessMsg && !endpointFormOpen && (
               <s-banner tone="success" dismissible>
                 {epSuccessMsg}
@@ -580,11 +579,11 @@ export const IntegrationsPage = ({
                 />
 
                 {webhookEvents.length > 0 && (
-                  <div className="space-y-2 pt-2 border-t border-border">
-                    <span className="text-sm font-semibold text-foreground">
+                  <div className="border-border space-y-2 border-t pt-2">
+                    <span className="text-foreground text-sm font-semibold">
                       {ct("commons.integrations.events")}
                     </span>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                       {webhookEvents.map((ev) => (
                         <s-checkbox
                           key={ev.slug}
@@ -598,7 +597,7 @@ export const IntegrationsPage = ({
                   </div>
                 )}
 
-                <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
+                <div className="border-border flex items-center justify-end gap-3 border-t pt-4">
                   <s-button variant="secondary" onClick={() => setEndpointFormOpen(false)}>
                     {ct("commons.back")}
                   </s-button>
@@ -616,12 +615,12 @@ export const IntegrationsPage = ({
                 </div>
               </div>
             ) : !endpointsLoaded ? (
-              <div className="text-center py-6 text-sm text-muted-foreground">
+              <div className="text-muted-foreground py-6 text-center text-sm">
                 {ct("commons.integrations.loading_endpoints")}
               </div>
             ) : endpointsList.length === 0 ? (
-              <div className="text-center py-6 space-y-3">
-                <p className="text-sm text-muted-foreground">
+              <div className="space-y-3 py-6 text-center">
+                <p className="text-muted-foreground text-sm">
                   {ct("commons.integrations.no_endpoints_desc")}
                 </p>
                 <s-button variant="primary" onClick={openAddEndpoint}>
@@ -638,20 +637,20 @@ export const IntegrationsPage = ({
                 {endpointsList.map((ep) => (
                   <div
                     key={ep.id}
-                    className="p-3.5 rounded-lg border border-border bg-card space-y-2"
+                    className="border-border bg-card space-y-2 rounded-lg border p-3.5"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-foreground text-sm">
+                      <span className="text-foreground text-sm font-semibold">
                         {ep.config.name || ct("commons.integrations.unnamed")}
                       </span>
                       <s-badge tone={ep.isEnabled ? "success" : "warning"}>
                         {ep.isEnabled ? ct("commons.active") : ct("commons.disabled_label")}
                       </s-badge>
                     </div>
-                    <span className="font-mono text-xs text-muted-foreground block truncate">
+                    <span className="text-muted-foreground block truncate font-mono text-xs">
                       {ep.config.url}
                     </span>
-                    <div className="flex items-center gap-2 pt-2 border-t border-border">
+                    <div className="border-border flex items-center gap-2 border-t pt-2">
                       <s-button variant="tertiary" onClick={() => openEditEndpoint(ep)}>
                         {ct("commons.edit")}
                       </s-button>

@@ -13,7 +13,6 @@ export type ApiAccessCardPropsType = {
   isInline?: boolean;
 };
 
-
 export const ApiAccessCard = ({
   tokens,
   usageStats,
@@ -33,9 +32,9 @@ export const ApiAccessCard = ({
   ];
 
   return (
-    <div className="bg-card rounded-xl border border-border overflow-hidden shadow-xs">
+    <div className="bg-card border-border overflow-hidden rounded-xl border shadow-xs">
       {/* Tabs Header */}
-      <div className="flex items-center gap-2 px-4 pt-3 border-b border-border bg-muted/20 overflow-x-auto">
+      <div className="border-border bg-muted/20 flex items-center gap-2 overflow-x-auto border-b px-4 pt-3">
         {tabs.map((tab) => {
           const isActive = selectedTab === tab.id;
           return (
@@ -43,10 +42,10 @@ export const ApiAccessCard = ({
               key={tab.id}
               type="button"
               onClick={() => setSelectedTab(tab.id)}
-              className={`px-3.5 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 cursor-pointer ${
+              className={`cursor-pointer rounded-t-lg border-b-2 px-3.5 py-2 text-xs font-semibold transition-colors ${
                 isActive
                   ? "border-primary text-primary bg-card"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground border-transparent"
               }`}
             >
               {tab.label}

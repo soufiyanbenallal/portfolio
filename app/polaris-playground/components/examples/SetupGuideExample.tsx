@@ -1,14 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { SetupGuide, type SetupGuideStepItemType } from "@/app/kits/polaris/blocks/onboarding/SetupGuide/SetupGuide";
+import {
+  SetupGuide,
+  type SetupGuideStepItemType,
+} from "@/app/kits/polaris/blocks/onboarding/SetupGuide/SetupGuide";
 
 export function SetupGuideExample() {
   const [steps, setSteps] = useState<SetupGuideStepItemType[]>([
     {
       id: "step-1",
       title: "Activate the Theme App Extension",
-      description: "Enable the app embed inside your live Shopify theme so widgets appear correctly on product pages.",
+      description:
+        "Enable the app embed inside your live Shopify theme so widgets appear correctly on product pages.",
       status: "completed",
       estimatedTime: "2 mins",
       badgeLabel: "Required",
@@ -20,7 +24,8 @@ export function SetupGuideExample() {
     {
       id: "step-2",
       title: "Customize Announcement Bar & Colors",
-      description: "Match your store branding by configuring background colors, banner copy, countdown timers, and typography.",
+      description:
+        "Match your store branding by configuring background colors, banner copy, countdown timers, and typography.",
       status: "in_progress",
       estimatedTime: "3 mins",
       primaryAction: {
@@ -35,7 +40,8 @@ export function SetupGuideExample() {
     {
       id: "step-3",
       title: "Connect Customer Email Marketing",
-      description: "Sync collected subscribers automatically with Klaviyo, Mailchimp, or Shopify Customers.",
+      description:
+        "Sync collected subscribers automatically with Klaviyo, Mailchimp, or Shopify Customers.",
       status: "not_started",
       estimatedTime: "5 mins",
       badgeLabel: "Recommended",
@@ -60,9 +66,7 @@ export function SetupGuideExample() {
   const handleToggleComplete = (stepId: string, completed: boolean) => {
     setSteps((prev) =>
       prev.map((s) =>
-        s.id === stepId
-          ? { ...s, status: completed ? "completed" : "not_started" }
-          : s
+        s.id === stepId ? { ...s, status: completed ? "completed" : "not_started" } : s
       )
     );
   };

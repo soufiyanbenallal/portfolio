@@ -17,7 +17,6 @@ export type SortableListPropsType = {
   onMove?: (movedItem: SortableProductType, fromIndex: number, toIndex: number) => void;
 };
 
-
 export function SortableList({
   initialProducts,
   draggable = true,
@@ -79,7 +78,7 @@ export function SortableList({
   }
 
   return (
-    <div className="rounded-xl border border-border bg-card divide-y divide-border overflow-hidden">
+    <div className="border-border bg-card divide-border divide-y overflow-hidden rounded-xl border">
       {displayProducts.map((product, index) => (
         <div
           key={product.id}
@@ -102,24 +101,24 @@ export function SortableList({
               onMouseDown={() => setIsHandleActive(true)}
               onMouseUp={() => setIsHandleActive(false)}
               onMouseLeave={() => setIsHandleActive(false)}
-              className="text-muted-foreground hover:text-foreground cursor-grab active:cursor-grabbing p-1"
+              className="text-muted-foreground hover:text-foreground cursor-grab p-1 active:cursor-grabbing"
               aria-label="Drag to reorder"
             >
               ⠿
             </button>
           )}
 
-          <span className="text-xs font-semibold text-muted-foreground w-6">{index + 1}.</span>
+          <span className="text-muted-foreground w-6 text-xs font-semibold">{index + 1}.</span>
 
-          <div className="w-9 h-9 rounded-lg border border-border bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center">
+          <div className="border-border bg-muted/30 flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border">
             {product.image ? (
-              <img src={product.image} alt={product.title} className="w-full h-full object-cover" />
+              <img src={product.image} alt={product.title} className="h-full w-full object-cover" />
             ) : (
-              <span className="text-xs text-muted-foreground">📦</span>
+              <span className="text-muted-foreground text-xs">📦</span>
             )}
           </div>
 
-          <span className="text-xs font-medium text-foreground truncate">{product.title}</span>
+          <span className="text-foreground truncate text-xs font-medium">{product.title}</span>
         </div>
       ))}
     </div>

@@ -90,7 +90,7 @@ export function Stagger({
   const MotionComponent = MOTION_ELEMENTS[as];
   const variants = React.useMemo(
     () => staggerContainer(stagger, delayChildren),
-    [stagger, delayChildren],
+    [stagger, delayChildren]
   );
 
   return (

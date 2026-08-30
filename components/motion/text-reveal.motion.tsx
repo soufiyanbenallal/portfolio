@@ -1,13 +1,7 @@
 "use client";
 
 import React, { useMemo, useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-  type Variants,
-} from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue, type Variants } from "motion/react";
 import { useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { MOTION_ELEMENTS, type MotionTagType } from "@/components/motion/motion-elements";
 import { cn } from "@/lib/utils";
@@ -73,10 +67,7 @@ export function TextReveal({
   const MotionComponent = MOTION_ELEMENTS[as];
   const stepDelay = stagger ?? (by === "char" ? 0.022 : by === "word" ? 0.05 : 0.09);
 
-  const lines = useMemo(
-    () => (Array.isArray(text) ? text : [text]),
-    [text],
-  );
+  const lines = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
   const readableText = lines.join(" ");
 
   // Fragment indices are numbered across the whole block, so the stagger reads
@@ -85,13 +76,11 @@ export function TextReveal({
   // counter inside JSX desynchronises on re-render.
   const splitLines = useMemo<SplitLineType[]>(() => {
     const perLine = lines.map((line) =>
-      by === "line" ? [line] : by === "word" ? line.split(" ") : Array.from(line),
+      by === "line" ? [line] : by === "word" ? line.split(" ") : Array.from(line)
     );
     return perLine.map((fragments, index) => ({
       fragments,
-      offset: perLine
-        .slice(0, index)
-        .reduce((total, previous) => total + previous.length, 0),
+      offset: perLine.slice(0, index).reduce((total, previous) => total + previous.length, 0),
     }));
   }, [lines, by]);
 
@@ -114,9 +103,7 @@ export function TextReveal({
   }, [by, delay, stepDelay]);
 
   const resolveFragmentClass = (lineIndex: number) =>
-    typeof fragmentClassName === "function"
-      ? fragmentClassName(lineIndex)
-      : fragmentClassName;
+    typeof fragmentClassName === "function" ? fragmentClassName(lineIndex) : fragmentClassName;
 
   return (
     <MotionComponent
@@ -136,7 +123,7 @@ export function TextReveal({
           // follows (a rotating word, a link) onto its own line.
           className={cn(
             splitLines.length > 1 ? "block" : "inline",
-            by !== "line" && "whitespace-pre-wrap",
+            by !== "line" && "whitespace-pre-wrap"
           )}
         >
           {line.fragments.map((fragment, i) => (
@@ -182,13 +169,7 @@ type ScrollWordPropsType = {
   dimClassName: string;
 };
 
-function ScrollWord({
-  word,
-  index,
-  total,
-  progress,
-  dimClassName,
-}: ScrollWordPropsType) {
+function ScrollWord({ word, index, total, progress, dimClassName }: ScrollWordPropsType) {
   // Each word owns a narrow slice of the scroll range, overlapping its
   // neighbours so the highlight sweeps rather than steps.
   const start = index / total;
@@ -241,10 +222,7 @@ export function ScrollDimmedText({
   }
 
   return (
-    <MotionComponent
-      ref={ref as React.Ref<never>}
-      className={cn("flex flex-wrap", className)}
-    >
+    <MotionComponent ref={ref as React.Ref<never>} className={cn("flex flex-wrap", className)}>
       {words.map((word, index) => (
         <ScrollWord
           key={`${word}-${index}`}

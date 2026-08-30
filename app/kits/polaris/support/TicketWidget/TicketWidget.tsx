@@ -96,7 +96,7 @@ export const TicketWidget = (): JSX.Element => {
   return (
     <>
       {/* Floating Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed right-6 bottom-6 z-50">
         <s-button variant="primary" onClick={() => setOpen(!open)}>
           {open ? ct("commons.close") : ct("commons.support")}
         </s-button>
@@ -104,11 +104,11 @@ export const TicketWidget = (): JSX.Element => {
 
       {/* Widget Panel */}
       {open && (
-        <div className="fixed bottom-20 right-6 z-50 w-[380px] h-[560px] rounded-2xl bg-card border border-border shadow-2xl overflow-hidden flex flex-col animate-in fade-in slide-in-from-bottom-5 duration-200">
+        <div className="bg-card border-border animate-in fade-in slide-in-from-bottom-5 fixed right-6 bottom-20 z-50 flex h-[560px] w-[380px] flex-col overflow-hidden rounded-2xl border shadow-2xl duration-200">
           {/* Header */}
-          <div className="p-4 border-b border-border flex items-center justify-between">
+          <div className="border-border flex items-center justify-between border-b p-4">
             <div className="flex items-center gap-2">
-              <h2 className="font-bold text-base text-foreground">{ct("commons.support")}</h2>
+              <h2 className="text-foreground text-base font-bold">{ct("commons.support")}</h2>
               {openTicketsCount > 0 && (
                 <s-badge tone="success">
                   {openTicketsCount} {ct("commons.support.open")}
@@ -118,21 +118,21 @@ export const TicketWidget = (): JSX.Element => {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="text-muted-foreground hover:text-foreground font-bold p-1"
+              className="text-muted-foreground hover:text-foreground p-1 font-bold"
             >
               ✕
             </button>
           </div>
 
           {/* Tabs */}
-          <div className="flex items-center border-b border-border bg-muted/20 px-3 pt-2 gap-2">
+          <div className="border-border bg-muted/20 flex items-center gap-2 border-b px-3 pt-2">
             <button
               type="button"
               onClick={() => setSelectedTab("tickets")}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-t-lg transition-colors border-b-2 ${
+              className={`rounded-t-lg border-b-2 px-3 py-1.5 text-xs font-semibold transition-colors ${
                 selectedTab === "tickets"
                   ? "border-primary text-primary bg-card"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground border-transparent"
               }`}
             >
               {localTickets.length > 0
@@ -144,10 +144,10 @@ export const TicketWidget = (): JSX.Element => {
             <button
               type="button"
               onClick={() => setSelectedTab("new")}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-t-lg transition-colors border-b-2 ${
+              className={`rounded-t-lg border-b-2 px-3 py-1.5 text-xs font-semibold transition-colors ${
                 selectedTab === "new"
                   ? "border-primary text-primary bg-card"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground border-transparent"
               }`}
             >
               {ct("commons.support.new_ticket")}
@@ -155,7 +155,7 @@ export const TicketWidget = (): JSX.Element => {
           </div>
 
           {/* Tab Content */}
-          <div className="flex-1 p-4 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto p-4">
             {selectedTab === "tickets" && (
               <div>
                 {view === "list" ? (

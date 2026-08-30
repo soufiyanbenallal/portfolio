@@ -9,11 +9,7 @@ export type SetupGuideItemPropsType = {
   onToggleOpen: () => void;
 };
 
-export function SetupGuideItem({
-  step,
-  isOpen,
-  onToggleOpen,
-}: SetupGuideItemPropsType) {
+export function SetupGuideItem({ step, isOpen, onToggleOpen }: SetupGuideItemPropsType) {
   const isCompleted = step.status === "completed";
 
   return (
@@ -28,9 +24,7 @@ export function SetupGuideItem({
               label=""
             />
             <s-clickable onClick={onToggleOpen}>
-              <s-text type="strong">
-                {step.title}
-              </s-text>
+              <s-text type="strong">{step.title}</s-text>
             </s-clickable>
             {step.badgeLabel && <s-badge tone="info">{step.badgeLabel}</s-badge>}
             {step.status === "optional" && <s-text tone="neutral">Optional</s-text>}

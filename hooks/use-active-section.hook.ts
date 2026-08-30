@@ -31,7 +31,7 @@ export function useActiveSection(sectionIds: string[], enabled = true): string {
 
         if (visible[0]?.target.id) setActiveId(visible[0].target.id);
       },
-      { rootMargin: "-20% 0px -70% 0px", threshold: [0, 0.25, 0.5, 1] },
+      { rootMargin: "-20% 0px -70% 0px", threshold: [0, 0.25, 0.5, 1] }
     );
 
     elements.forEach((element) => observer.observe(element));

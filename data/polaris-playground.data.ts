@@ -1,7 +1,4 @@
-import type {
-  PolarisCategoryItemType,
-  PolarisComponentDocType,
-} from "@/types";
+import type { PolarisCategoryItemType, PolarisComponentDocType } from "@/types";
 
 export const polarisCategoriesData: PolarisCategoryItemType[] = [
   {
@@ -56,8 +53,7 @@ export const polarisComponentsData: PolarisComponentDocType[] = [
     category: "layout",
     description:
       "Top-level container for an App Home view. Sets the max inline size, heading, and breadcrumb navigation actions.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/layout-and-structure/page",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/layout-and-structure/page",
     propsList: ["heading", "inlineSize", "subtitle"],
     snippetTsx: `<s-page heading="Store Analytics" inlineSize="base">
   <s-section heading="Performance Overview">
@@ -77,8 +73,7 @@ export const polarisComponentsData: PolarisComponentDocType[] = [
     category: "layout",
     description:
       "A card-like content container that groups related controls and information with consistent padding.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/layout-and-structure/section",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/layout-and-structure/section",
     propsList: ["heading", "padding"],
     snippetTsx: `<s-section heading="Product Inventory">
   <s-stack direction="block" gap="base">
@@ -100,8 +95,7 @@ export const polarisComponentsData: PolarisComponentDocType[] = [
     category: "layout",
     description:
       "Multi-column responsive grid container. Recommended over inline stacks for aligning inputs and action buttons.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/layout-and-structure/grid",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/layout-and-structure/grid",
     propsList: ["gridTemplateColumns", "gap", "alignItems"],
     snippetTsx: `<s-grid gridTemplateColumns="1fr 1fr 1fr" gap="base">
   <s-box padding="base" background="subdued" border="base" borderRadius="base">
@@ -139,8 +133,7 @@ export const polarisComponentsData: PolarisComponentDocType[] = [
     category: "actions",
     description:
       "Triggers an action or event with distinct visual weights, tones, icons, and loading states.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/actions/button",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/actions/button",
     propsList: ["variant", "tone", "icon", "disabled", "loading", "type"],
     snippetTsx: `<s-button-group gap="base">
   <s-button variant="primary" icon="save">Save Changes</s-button>
@@ -160,8 +153,7 @@ export const polarisComponentsData: PolarisComponentDocType[] = [
     category: "forms",
     description:
       "Input element for single-line text data with icons, validation errors, and clear buttons.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/forms/text-field",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/forms/text-field",
     propsList: ["label", "name", "value", "placeholder", "icon", "required"],
     snippetTsx: `<s-text-field
   label="Product Title"
@@ -185,8 +177,7 @@ export const polarisComponentsData: PolarisComponentDocType[] = [
     category: "forms",
     description:
       "A toggle control that immediately activates or deactivates a specific feature or setting.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/forms/switch",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/forms/switch",
     propsList: ["label", "name", "checked", "disabled"],
     snippetTsx: `<s-switch
   label="Enable Automated Fulfillment Sync"
@@ -206,8 +197,7 @@ export const polarisComponentsData: PolarisComponentDocType[] = [
     category: "feedback",
     description:
       "Informs merchants about important system status, warnings, errors, or critical next steps.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/feedback/banner",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/feedback/banner",
     propsList: ["heading", "tone", "dismissible"],
     snippetTsx: `<s-banner heading="API Key Verification Required" tone="warning" dismissible>
   Your webhook endpoint returned a 401 Unauthorized status. Please update your secret key in Settings.
@@ -221,10 +211,8 @@ export const polarisComponentsData: PolarisComponentDocType[] = [
     tag: "s-badge",
     name: "Badge",
     category: "feedback",
-    description:
-      "Compact visual indicator for item statuses, tones, and categorical labels.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/feedback/badge",
+    description: "Compact visual indicator for item statuses, tones, and categorical labels.",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/feedback/badge",
     propsList: ["tone", "color", "icon", "size"],
     snippetTsx: `<s-stack direction="inline" gap="base" alignItems="center">
   <s-badge tone="success" icon="check-circle">Active &amp; Published</s-badge>
@@ -246,8 +234,7 @@ export const polarisComponentsData: PolarisComponentDocType[] = [
     category: "tables",
     description:
       "Data grid designed to present tabular datasets with structured header and body rows.",
-    docsUrl:
-      "https://shopify.dev/docs/api/app-home/web-components/data-display/table",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/data-display/table",
     propsList: ["variant"],
     snippetTsx: `<s-table variant="auto">
   <s-table-header-row>

@@ -1,11 +1,11 @@
 export function cn(...classes: Array<string | false | null | undefined>): string {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 export function formatCurrency(amount: number, currency: string): string {
   try {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
       currency,
       maximumFractionDigits: 0,
     }).format(amount);
@@ -27,7 +27,7 @@ export function getThemeEditorDeepLink(
   appEmbedBlockHandle: string
 ): string {
   const params = new URLSearchParams({
-    context: 'apps',
+    context: "apps",
     activateAppId: `${appEmbedBlockHandle}/journeva-embed`,
   });
   return `https://${shopDomain}/admin/themes/${themeId}/editor?${params.toString()}`;

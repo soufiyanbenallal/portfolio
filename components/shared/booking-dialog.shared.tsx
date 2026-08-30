@@ -59,7 +59,7 @@ export function BookingDialogShared() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 select-none sm:p-6">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -73,11 +73,11 @@ export function BookingDialogShared() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 16 }}
             transition={{ type: "spring", duration: 0.4, bounce: 0.1 }}
-            className="relative w-full max-w-[540px] bg-white rounded-[24px] border border-gray-30 shadow-2xl p-6 sm:p-8 z-10 text-black max-h-[90vh] overflow-y-auto"
+            className="border-gray-30 relative z-10 max-h-[90vh] w-full max-w-[540px] overflow-y-auto rounded-[24px] border bg-white p-6 text-black shadow-2xl sm:p-8"
           >
-            <div className="flex items-start justify-between mb-6">
+            <div className="mb-6 flex items-start justify-between">
               <div className="flex items-center gap-3">
-                <div className="relative w-11 h-11 rounded-full overflow-hidden border border-gray-30 shrink-0">
+                <div className="border-gray-30 relative h-11 w-11 shrink-0 overflow-hidden rounded-full border">
                   <Image
                     src="https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg"
                     alt="Joseph Alexander"
@@ -86,11 +86,11 @@ export function BookingDialogShared() {
                   />
                 </div>
                 <div>
-                  <h3 className="font-medium text-lg leading-tight text-black">
+                  <h3 className="text-lg leading-tight font-medium text-black">
                     Discovery Call with Joseph
                   </h3>
-                  <span className="text-xs text-gray-50 flex items-center gap-1.5 mt-0.5">
-                    <Icons.Calendar className="w-3.5 h-3.5" /> 30 min · Google Meet
+                  <span className="mt-0.5 flex items-center gap-1.5 text-xs text-gray-50">
+                    <Icons.Calendar className="h-3.5 w-3.5" /> 30 min · Google Meet
                   </span>
                 </div>
               </div>
@@ -98,27 +98,28 @@ export function BookingDialogShared() {
                 type="button"
                 onClick={closeBooking}
                 aria-label="Close scheduler"
-                className="p-1.5 rounded-full hover:bg-gray-20 text-gray-50 hover:text-black transition-colors cursor-pointer"
+                className="hover:bg-gray-20 cursor-pointer rounded-full p-1.5 text-gray-50 transition-colors hover:text-black"
               >
-                <Icons.Close className="w-5 h-5" />
+                <Icons.Close className="h-5 w-5" />
               </button>
             </div>
 
             {status === "confirmed" ? (
-              <div className="py-12 flex flex-col items-center justify-center text-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-availability-green/20 text-availability-green flex items-center justify-center">
-                  <Icons.Check className="w-6 h-6" />
+              <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
+                <div className="bg-availability-green/20 text-availability-green flex h-12 w-12 items-center justify-center rounded-full">
+                  <Icons.Check className="h-6 w-6" />
                 </div>
                 <h4 className="text-xl font-medium text-black">Discovery Call Confirmed!</h4>
-                <p className="text-sm text-gray-50 max-w-xs">
-                  We&apos;ve sent the Google Meet calendar invite to <strong>{email}</strong> for {availableDays[selectedDay].date} at {selectedSlot}.
+                <p className="max-w-xs text-sm text-gray-50">
+                  We&apos;ve sent the Google Meet calendar invite to <strong>{email}</strong> for{" "}
+                  {availableDays[selectedDay].date} at {selectedSlot}.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleConfirm} className="flex flex-col gap-5">
                 {/* Day selector */}
                 <div>
-                  <span className="text-xs font-semibold text-gray-50 uppercase tracking-wider block mb-2">
+                  <span className="mb-2 block text-xs font-semibold tracking-wider text-gray-50 uppercase">
                     Select a Date
                   </span>
                   <div className="grid grid-cols-4 gap-2">
@@ -130,14 +131,14 @@ export function BookingDialogShared() {
                           setSelectedDay(i);
                           setSelectedSlot(null);
                         }}
-                        className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                        className={`cursor-pointer rounded-xl border p-2.5 text-center transition-all ${
                           selectedDay === i
                             ? "border-black bg-black text-white"
                             : "border-gray-30 bg-gray-5 hover:bg-gray-20 text-black"
                         }`}
                       >
-                        <span className="text-xs opacity-75 block">{d.day}</span>
-                        <span className="text-sm font-semibold block">{d.date.split(" ")[1]}</span>
+                        <span className="block text-xs opacity-75">{d.day}</span>
+                        <span className="block text-sm font-semibold">{d.date.split(" ")[1]}</span>
                       </button>
                     ))}
                   </div>
@@ -145,7 +146,7 @@ export function BookingDialogShared() {
 
                 {/* Time slot selector */}
                 <div>
-                  <span className="text-xs font-semibold text-gray-50 uppercase tracking-wider block mb-2">
+                  <span className="mb-2 block text-xs font-semibold tracking-wider text-gray-50 uppercase">
                     Select Time (GMT)
                   </span>
                   <div className="grid grid-cols-3 gap-2">
@@ -154,7 +155,7 @@ export function BookingDialogShared() {
                         key={slot}
                         type="button"
                         onClick={() => setSelectedSlot(slot)}
-                        className={`py-2 px-3 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
+                        className={`cursor-pointer rounded-xl border px-3 py-2 text-xs font-medium transition-all ${
                           selectedSlot === slot
                             ? "border-black bg-black text-white"
                             : "border-gray-30 bg-gray-5 hover:bg-gray-20 text-black"
@@ -167,14 +168,14 @@ export function BookingDialogShared() {
                 </div>
 
                 {/* User info */}
-                <div className="flex flex-col gap-3 pt-2 border-t border-gray-20">
+                <div className="border-gray-20 flex flex-col gap-3 border-t pt-2">
                   <input
                     type="text"
                     required
                     placeholder="Your Full Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-30 bg-gray-5 text-black placeholder:text-gray-40 text-sm focus:outline-none focus:border-black"
+                    className="border-gray-30 bg-gray-5 placeholder:text-gray-40 w-full rounded-xl border px-3.5 py-2.5 text-sm text-black focus:border-black focus:outline-none"
                   />
                   <input
                     type="email"
@@ -182,7 +183,7 @@ export function BookingDialogShared() {
                     placeholder="Your Work Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-30 bg-gray-5 text-black placeholder:text-gray-40 text-sm focus:outline-none focus:border-black"
+                    className="border-gray-30 bg-gray-5 placeholder:text-gray-40 w-full rounded-xl border px-3.5 py-2.5 text-sm text-black focus:border-black focus:outline-none"
                   />
                 </div>
 

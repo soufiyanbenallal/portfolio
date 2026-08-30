@@ -1,12 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useSpring,
-} from "motion/react";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "motion/react";
 import { SPRINGS, EASINGS, DURATIONS } from "@/lib/motion.config";
 import { useMediaQuery, useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import type { CursorModeType } from "@/types";
@@ -58,7 +53,7 @@ export function Cursor() {
       setIsVisible(true);
 
       const target = (event.target as HTMLElement | null)?.closest?.(
-        "[data-cursor]",
+        "[data-cursor]"
       ) as HTMLElement | null;
 
       if (target) {
@@ -87,7 +82,7 @@ export function Cursor() {
   return (
     <motion.div
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-9999 flex items-center justify-center rounded-full"
+      className="pointer-events-none fixed top-0 left-0 z-9999 flex items-center justify-center rounded-full"
       style={{
         x: springX,
         y: springY,
@@ -111,7 +106,7 @@ export function Cursor() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.9 }}
             transition={{ duration: DURATIONS.instant }}
-            className="whitespace-nowrap px-2 text-center text-[10px] font-semibold uppercase tracking-widest"
+            className="px-2 text-center text-[10px] font-semibold tracking-widest whitespace-nowrap uppercase"
             style={{ color: style.color }}
           >
             {label}

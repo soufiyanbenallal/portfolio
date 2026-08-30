@@ -7,10 +7,7 @@ export type SetupGuideProgressPropsType = {
   totalCount: number;
 };
 
-export function SetupGuideProgress({
-  completedCount,
-  totalCount,
-}: SetupGuideProgressPropsType) {
+export function SetupGuideProgress({ completedCount, totalCount }: SetupGuideProgressPropsType) {
   const percentage = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   return (

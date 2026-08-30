@@ -20,10 +20,7 @@ export function ThemeEmbedStatusExample() {
       <s-stack direction="block" gap="base">
         <s-stack direction="inline" justifyContent="space-between" alignItems="center">
           <s-text tone="neutral">Toggle state dynamically via the button:</s-text>
-          <s-button
-            variant="secondary"
-            onClick={() => setIsActive(!isActive)}
-          >
+          <s-button variant="secondary" onClick={() => setIsActive(!isActive)}>
             Switch to {isActive ? "Disabled" : "Active"}
           </s-button>
         </s-stack>

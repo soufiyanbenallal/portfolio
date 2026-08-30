@@ -13,7 +13,6 @@ export type SectionCardPropsType = {
   hideDivider?: boolean;
 };
 
-
 export function SectionCard({
   title,
   icon,
@@ -42,9 +41,7 @@ export function SectionCard({
 
           <s-stack direction="inline" gap="small-200" alignItems="center">
             {actions}
-            {onDismiss && (
-              <s-button variant="secondary" onClick={onDismiss} icon="x" />
-            )}
+            {onDismiss && <s-button variant="secondary" onClick={onDismiss} icon="x" />}
           </s-stack>
         </s-stack>
 

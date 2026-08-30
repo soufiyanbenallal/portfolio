@@ -34,20 +34,15 @@ export function ClientTickerShared({
   className,
 }: ClientTickerSharedPropsType) {
   return (
-    <div
-      className={cn(
-        "w-full select-none overflow-hidden border-y bg-white",
-        className,
-      )}
-    >
+    <div className={cn("w-full overflow-hidden border-y bg-white select-none", className)}>
       <Container className="flex flex-col items-center gap-8 py-6 md:flex-row md:gap-12">
         {withHappyClientsCluster && (
-          <div className="flex w-full shrink-0 items-center justify-center gap-3.5 border-b border-gray-30 pb-4 md:w-auto md:justify-start md:border-b-0 md:border-r md:pb-0 md:pr-8">
+          <div className="border-gray-30 flex w-full shrink-0 items-center justify-center gap-3.5 border-b pb-4 md:w-auto md:justify-start md:border-r md:border-b-0 md:pr-8 md:pb-0">
             <div className="flex -space-x-2.5 overflow-hidden">
               {happyClientAvatars.map((src, i) => (
                 <div
                   key={i}
-                  className="relative inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-20 ring-2 ring-white"
+                  className="bg-gray-20 relative inline-block h-8 w-8 overflow-hidden rounded-full ring-2 ring-white"
                 >
                   <Image
                     src={src}
@@ -65,7 +60,7 @@ export function ClientTickerShared({
                   <Icons.Star key={i} className="h-3 w-3 text-black" />
                 ))}
               </div>
-              <span className="mt-0.5 whitespace-nowrap text-xs font-semibold tracking-tight text-black">
+              <span className="mt-0.5 text-xs font-semibold tracking-tight whitespace-nowrap text-black">
                 99+ Happy clients
               </span>
             </div>

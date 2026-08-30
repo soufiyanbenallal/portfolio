@@ -11,7 +11,6 @@ export type ContentPropsType = {
   id?: string;
 };
 
-
 export function Content({
   children,
   tooltip,
@@ -31,28 +30,23 @@ export function Content({
 
   return (
     <>
-       <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            borderBlockEnd: hasTooltip && underline ? "2px dotted #cccccc" : "none",
-          }}
-        >
-          {isHeading ? (
-            <s-heading>
-              <s-text interestFor={hasTooltip ? id : undefined}>
-                {content}
-              </s-text>
-            </s-heading>
-          ) : (
-            <s-text
-              tone={subdue ? "neutral" : undefined}
-              interestFor={hasTooltip ? id : undefined}
-            >
-              {content}
-            </s-text>
-          )}
-        </span>
+      <span
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          borderBlockEnd: hasTooltip && underline ? "2px dotted #cccccc" : "none",
+        }}
+      >
+        {isHeading ? (
+          <s-heading>
+            <s-text interestFor={hasTooltip ? id : undefined}>{content}</s-text>
+          </s-heading>
+        ) : (
+          <s-text tone={subdue ? "neutral" : undefined} interestFor={hasTooltip ? id : undefined}>
+            {content}
+          </s-text>
+        )}
+      </span>
       {tooltip && <s-tooltip id={id}>{tooltip}</s-tooltip>}
     </>
   );

@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState, type Dispatch } from 'react';
-import { Check, Loader2 } from 'lucide-react';
-import type { OnboardingActionType, OnboardingStateType } from '../../types';
-import { Card } from '../shared/ui';
-import { cn } from '../../utils';
-import styles from './Step1Initializing.module.css';
+import { useEffect, useRef, useState, type Dispatch } from "react";
+import { Check, Loader2 } from "lucide-react";
+import type { OnboardingActionType, OnboardingStateType } from "../../types";
+import { Card } from "../shared/ui";
+import { cn } from "../../utils";
+import styles from "./Step1Initializing.module.css";
 
 const TASK_INTERVAL_MS = 750;
 const HOLD_AFTER_COMPLETE_MS = 550;
@@ -14,10 +14,7 @@ export type Step1InitializingPropsType = {
   dispatch: Dispatch<OnboardingActionType>;
 };
 
-export function Step1Initializing({
-  state,
-  dispatch,
-}: Step1InitializingPropsType) {
+export function Step1Initializing({ state, dispatch }: Step1InitializingPropsType) {
   const [showFallback, setShowFallback] = useState(false);
   const hasAdvanced = useRef(false);
 
@@ -30,7 +27,10 @@ export function Step1Initializing({
   // Advance one checklist item at a time, at a pace that feels real but never drags.
   useEffect(() => {
     if (state.syncComplete) return;
-    const timer = window.setTimeout(() => dispatch({ type: 'ADVANCE_SYNC_TASK' }), TASK_INTERVAL_MS);
+    const timer = window.setTimeout(
+      () => dispatch({ type: "ADVANCE_SYNC_TASK" }),
+      TASK_INTERVAL_MS
+    );
     return () => window.clearTimeout(timer);
   }, [state.syncTasks, state.syncComplete, dispatch]);
 
@@ -38,12 +38,12 @@ export function Step1Initializing({
   useEffect(() => {
     if (!state.syncComplete || hasAdvanced.current) return;
     hasAdvanced.current = true;
-    const timer = window.setTimeout(() => dispatch({ type: 'GO_NEXT' }), HOLD_AFTER_COMPLETE_MS);
+    const timer = window.setTimeout(() => dispatch({ type: "GO_NEXT" }), HOLD_AFTER_COMPLETE_MS);
     return () => window.clearTimeout(timer);
   }, [state.syncComplete, dispatch]);
 
-  const doneCount = state.syncTasks.filter((task) => task.status === 'done').length;
-  const firstPendingIndex = state.syncTasks.findIndex((task) => task.status !== 'done');
+  const doneCount = state.syncTasks.filter((task) => task.status === "done").length;
+  const firstPendingIndex = state.syncTasks.findIndex((task) => task.status !== "done");
 
   return (
     <div className={styles.container}>
@@ -52,16 +52,14 @@ export function Step1Initializing({
           <Loader2 className={styles.spinner} />
         </div>
 
-        <h1 className={styles.title}>
-          Setting up Journeva
-        </h1>
+        <h1 className={styles.title}>Setting up Journeva</h1>
         <p className={styles.subtitle}>
           Sit tight — we&rsquo;re syncing your store and provisioning your revenue engine.
         </p>
 
         <ul className={styles.taskList}>
           {state.syncTasks.map((task, i) => {
-            const isDone = task.status === 'done';
+            const isDone = task.status === "done";
             const isActive = !isDone && i === firstPendingIndex;
             return (
               <li
@@ -77,7 +75,9 @@ export function Step1Initializing({
                     !isDone && !isActive && styles.statusIconPending
                   )}
                 >
-                  {isDone ? <Check style={{ height: '0.75rem', width: '0.75rem' }} strokeWidth={3} /> : null}
+                  {isDone ? (
+                    <Check style={{ height: "0.75rem", width: "0.75rem" }} strokeWidth={3} />
+                  ) : null}
                   {isActive ? <Loader2 className={styles.itemSpinner} /> : null}
                 </span>
                 <span
@@ -105,7 +105,7 @@ export function Step1Initializing({
         {showFallback && !state.syncComplete ? (
           <button
             type="button"
-            onClick={() => dispatch({ type: 'FORCE_SYNC_COMPLETE' })}
+            onClick={() => dispatch({ type: "FORCE_SYNC_COMPLETE" })}
             className={styles.fallbackButton}
           >
             Taking longer than usual? Continue anyway

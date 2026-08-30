@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { cn } from '../../utils';
-import styles from './StepTransition.module.css';
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { cn } from "../../utils";
+import styles from "./StepTransition.module.css";
 
 const EXIT_DURATION_MS = 180;
 
@@ -10,7 +10,7 @@ export type StepTransitionPropsType = {
 };
 
 export function StepTransition({ stepKey, children }: StepTransitionPropsType) {
-  const [phase, setPhase] = useState<'enter' | 'exit'>('enter');
+  const [phase, setPhase] = useState<"enter" | "exit">("enter");
   const [renderedKey, setRenderedKey] = useState(stepKey);
   const activeKey = useRef(stepKey);
   const lastChildren = useRef(children);
@@ -25,13 +25,13 @@ export function StepTransition({ stepKey, children }: StepTransitionPropsType) {
 
   useEffect(() => {
     if (activeKey.current === stepKey) return;
-    setPhase('exit');
+    setPhase("exit");
     const timeout = window.setTimeout(() => {
       activeKey.current = stepKey;
       setRenderedKey(stepKey);
-      setPhase('enter');
-      if (typeof window !== 'undefined') {
-        window.scrollTo({ top: 0, behavior: 'instant' });
+      setPhase("enter");
+      if (typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "instant" });
       }
     }, EXIT_DURATION_MS);
     return () => window.clearTimeout(timeout);
@@ -42,7 +42,7 @@ export function StepTransition({ stepKey, children }: StepTransitionPropsType) {
   return (
     <div
       key={renderedKey}
-      className={cn(phase === 'enter' ? styles.stepPanelEnter : styles.stepPanelExit)}
+      className={cn(phase === "enter" ? styles.stepPanelEnter : styles.stepPanelExit)}
     >
       {showingCurrent ? children : lastChildren.current}
     </div>

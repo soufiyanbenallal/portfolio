@@ -46,25 +46,25 @@ export const Tabs = <T extends string | number>({
               <div
                 key={`tab-${tab.id}`}
 
-              style={{
-                borderRadius: '0.5rem',
-                backgroundColor: isSelected ? "#f0f0f0" : "transparent",
-              }}
+                style={{
+                  borderRadius: "0.5rem",
+                  backgroundColor: isSelected ? "#f0f0f0" : "transparent",
+                }}
               >
-                      <s-button
-                variant="tertiary"
-                onClick={() => onTabChange(tab.id as T)}
-              >
-                {showContent && (tab.content ?? tab.label)}
-                {showBadge && tab.badge !== undefined ? ` (${tab.badge})` : ""}
-              </s-button>
+                <s-button variant="tertiary" onClick={() => onTabChange(tab.id as T)}>
+                  {showContent && (tab.content ?? tab.label)}
+                  {showBadge && tab.badge !== undefined ? ` (${tab.badge})` : ""}
+                </s-button>
               </div>
-        
             );
           })}
       </s-stack>
 
-      {rightSide && <s-stack direction="inline" gap="small-200">{rightSide}</s-stack>}
+      {rightSide && (
+        <s-stack direction="inline" gap="small-200">
+          {rightSide}
+        </s-stack>
+      )}
     </s-stack>
   );
 };

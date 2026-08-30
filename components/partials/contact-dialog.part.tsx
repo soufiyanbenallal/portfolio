@@ -97,7 +97,7 @@ export function ContactDialogPart() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 select-none sm:p-6">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -118,15 +118,18 @@ export function ContactDialogPart() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="contact-title"
-            className="relative w-full max-w-[480px] bg-white rounded-[24px] border border-gray-30 shadow-2xl p-6 sm:p-8 z-10 overflow-hidden text-black max-h-[90vh] overflow-y-auto"
+            className="border-gray-30 relative z-10 max-h-[90vh] w-full max-w-[480px] overflow-hidden overflow-y-auto rounded-[24px] border bg-white p-6 text-black shadow-2xl sm:p-8"
           >
             {/* Header with Close button */}
-            <div className="flex items-start justify-between mb-6">
+            <div className="mb-6 flex items-start justify-between">
               <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-gray-50 block mb-1">
+                <span className="mb-1 block font-mono text-xs tracking-widest text-gray-50 uppercase">
                   Start a project
                 </span>
-                <h2 id="contact-title" className="text-2xl sm:text-3xl font-medium tracking-tight text-black">
+                <h2
+                  id="contact-title"
+                  className="text-2xl font-medium tracking-tight text-black sm:text-3xl"
+                >
                   Let&apos;s build something great.
                 </h2>
               </div>
@@ -134,9 +137,9 @@ export function ContactDialogPart() {
                 type="button"
                 onClick={closeContact}
                 aria-label="Close dialog"
-                className="p-2 rounded-full hover:bg-gray-20 text-gray-50 hover:text-black transition-colors cursor-pointer"
+                className="hover:bg-gray-20 cursor-pointer rounded-full p-2 text-gray-50 transition-colors hover:text-black"
               >
-                <Icons.Close className="w-5 h-5" />
+                <Icons.Close className="h-5 w-5" />
               </button>
             </div>
 
@@ -155,7 +158,7 @@ export function ContactDialogPart() {
                   placeholder="e.g. Alex Morgan"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-30 bg-gray-5 text-black placeholder:text-gray-40 text-sm focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black transition-all"
+                  className="border-gray-30 bg-gray-5 placeholder:text-gray-40 w-full rounded-xl border px-3.5 py-2.5 text-sm text-black transition-all focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none"
                 />
                 {errors.name && <span className="text-xs text-red-500">{errors.name}</span>}
               </div>
@@ -173,13 +176,13 @@ export function ContactDialogPart() {
                   placeholder="alex@company.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-30 bg-gray-5 text-black placeholder:text-gray-40 text-sm focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black transition-all"
+                  className="border-gray-30 bg-gray-5 placeholder:text-gray-40 w-full rounded-xl border px-3.5 py-2.5 text-sm text-black transition-all focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none"
                 />
                 {errors.email && <span className="text-xs text-red-500">{errors.email}</span>}
               </div>
 
               {/* Service selection */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="contact-service" className="text-xs font-semibold text-black">
                     Service Needed
@@ -189,7 +192,7 @@ export function ContactDialogPart() {
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-30 bg-gray-5 text-black text-sm focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black transition-all cursor-pointer"
+                    className="border-gray-30 bg-gray-5 w-full cursor-pointer rounded-xl border px-3.5 py-2.5 text-sm text-black transition-all focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none"
                   >
                     <option value="Framer Development">Framer Development</option>
                     <option value="Brand Design">Brand Design</option>
@@ -208,7 +211,7 @@ export function ContactDialogPart() {
                     name="budget"
                     value={formData.budget}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-30 bg-gray-5 text-black text-sm focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black transition-all cursor-pointer"
+                    className="border-gray-30 bg-gray-5 w-full cursor-pointer rounded-xl border px-3.5 py-2.5 text-sm text-black transition-all focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none"
                   >
                     <option value="< $5,000">&lt; $5,000</option>
                     <option value="$5,000 - $10,000">$5,000 - $10,000</option>
@@ -231,7 +234,7 @@ export function ContactDialogPart() {
                   placeholder="Tell me about what you're building, target timeline, and goals..."
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-30 bg-gray-5 text-black placeholder:text-gray-40 text-sm focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black transition-all resize-none"
+                  className="border-gray-30 bg-gray-5 placeholder:text-gray-40 w-full resize-none rounded-xl border px-3.5 py-2.5 text-sm text-black transition-all focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none"
                 />
                 {errors.message && <span className="text-xs text-red-500">{errors.message}</span>}
               </div>
@@ -241,7 +244,7 @@ export function ContactDialogPart() {
                 <ButtonUi
                   type="submit"
                   size="md"
-                  className="w-full h-11"
+                  className="h-11 w-full"
                   isLoading={status === "loading"}
                   isSuccess={status === "success"}
                   isError={status === "error"}
@@ -250,7 +253,7 @@ export function ContactDialogPart() {
                 </ButtonUi>
               </div>
 
-              <div className="text-center mt-1">
+              <div className="mt-1 text-center">
                 <span className="text-[11px] text-gray-50">
                   Avg response time: within 24 hours · No spam guaranteed
                 </span>

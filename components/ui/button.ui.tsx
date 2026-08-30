@@ -35,24 +35,23 @@ export const ButtonUi = forwardRef<HTMLButtonElement, ButtonPropsType>(
         ref={ref}
         disabled={disabled || isLoading}
         className={cn(
-          "inline-flex group items-center justify-center font-medium rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/50 select-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
+          "group inline-flex cursor-pointer items-center justify-center rounded-full font-medium transition-all duration-200 select-none focus-visible:ring-2 focus-visible:ring-black/50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
           // Variants
           variant === "primary" &&
-            "bg-black text-white border border-black shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_2px_4px_rgba(0,0,0,0.1)] hover:bg-[#1a1a1a] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_4px_10px_rgba(0,0,0,0.2)] active:scale-[0.98]",
+            "border border-black bg-black text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_2px_4px_rgba(0,0,0,0.1)] hover:bg-[#1a1a1a] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_4px_10px_rgba(0,0,0,0.2)] active:scale-[0.98]",
           variant === "secondary" &&
-            "bg-white text-black border border-gray-30 shadow-xs hover:bg-gray-10 active:scale-[0.98]",
+            "border-gray-30 hover:bg-gray-10 border bg-white text-black shadow-xs active:scale-[0.98]",
           variant === "outline" &&
-            "bg-transparent text-black border border-gray-30 hover:bg-gray-10 active:scale-[0.98]",
-          variant === "ghost" &&
-            "bg-transparent text-black hover:bg-gray-20 active:scale-[0.98]",
+            "border-gray-30 hover:bg-gray-10 border bg-transparent text-black active:scale-[0.98]",
+          variant === "ghost" && "hover:bg-gray-20 bg-transparent text-black active:scale-[0.98]",
           variant === "glass" &&
-            "bg-white/70 backdrop-blur-md text-black border border-gray-30 shadow-xs hover:bg-white/90 active:scale-[0.98]",
+            "border-gray-30 border bg-white/70 text-black shadow-xs backdrop-blur-md hover:bg-white/90 active:scale-[0.98]",
           // Sizes
-          size === "sm" && "text-xs px-3.5 py-1.5 h-8 gap-1.5",
-          size === "md" && "text-sm px-5 py-2.5 h-11 gap-2",
-          size === "lg" && "text-base px-6 py-3.5 h-13 gap-2.5",
-          size === "icon-sm" && "p-1.5 size-8 justify-center",
-          size === "icon" && " size-10 justify-center",
+          size === "sm" && "h-8 gap-1.5 px-3.5 py-1.5 text-xs",
+          size === "md" && "h-11 gap-2 px-5 py-2.5 text-sm",
+          size === "lg" && "h-13 gap-2.5 px-6 py-3.5 text-base",
+          size === "icon-sm" && "size-8 justify-center p-1.5",
+          size === "icon" && "size-10 justify-center",
           className
         )}
         {...props}
@@ -60,7 +59,7 @@ export const ButtonUi = forwardRef<HTMLButtonElement, ButtonPropsType>(
         {isLoading ? (
           <span className="flex items-center gap-2">
             <svg
-              className="animate-spin h-4 w-4 text-current"
+              className="h-4 w-4 animate-spin text-current"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -84,7 +83,7 @@ export const ButtonUi = forwardRef<HTMLButtonElement, ButtonPropsType>(
         ) : isSuccess ? (
           <span className="text-availability-green font-medium">Sent Successfully!</span>
         ) : isError ? (
-          <span className="text-red-500 font-medium">Error sending</span>
+          <span className="font-medium text-red-500">Error sending</span>
         ) : (
           <>
             {leftIcon && <span className="shrink-0">{leftIcon}</span>}

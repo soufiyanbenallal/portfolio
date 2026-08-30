@@ -18,7 +18,6 @@ export type ContactEmailPropsType = {
   onError?: (error: string) => void;
 };
 
-
 export const ContactEmail = ({
   currentEmail,
   value: controlledValue,
@@ -103,12 +102,12 @@ export const ContactEmail = ({
 
   return (
     <div
-      className={`p-4 rounded-xl border border-border bg-card relative ${minimalDesign ? "" : "p-6"}`}
+      className={`border-border bg-card relative rounded-xl border p-4 ${minimalDesign ? "" : "p-6"}`}
     >
       <div className="space-y-3">
         <div>
-          <h2 className="text-base font-bold text-foreground">{title}</h2>
-          <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
+          <h2 className="text-foreground text-base font-bold">{title}</h2>
+          <p className="text-muted-foreground mt-0.5 text-xs">{description}</p>
         </div>
 
         {success && <s-banner tone="success">{success}</s-banner>}
@@ -126,10 +125,10 @@ export const ContactEmail = ({
           />
 
           {isControlled ? (
-            <p className="text-[11px] text-muted-foreground">{privacyText}</p>
+            <p className="text-muted-foreground text-[11px]">{privacyText}</p>
           ) : (
             <div className="flex items-center justify-between gap-4 pt-1">
-              <p className="text-[11px] text-muted-foreground">{privacyText}</p>
+              <p className="text-muted-foreground text-[11px]">{privacyText}</p>
               <s-button
                 variant="primary"
                 onClick={handleSave}
@@ -147,7 +146,7 @@ export const ContactEmail = ({
         <button
           type="button"
           onClick={handleClose}
-          className="absolute top-3 right-3 text-muted-foreground hover:text-foreground text-xs p-1"
+          className="text-muted-foreground hover:text-foreground absolute top-3 right-3 p-1 text-xs"
         >
           ✕
         </button>

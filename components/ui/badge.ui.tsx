@@ -15,13 +15,13 @@ export function AvailabilityBadgeUi({
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-gray-30 shadow-xs text-xs font-mono text-black select-none",
+        "border-gray-30 inline-flex items-center gap-2 rounded-full border bg-white px-3 py-1.5 font-mono text-xs text-black shadow-xs select-none",
         className
       )}
     >
       <span className="relative flex h-2 w-2">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-availability-green opacity-75" />
-        <span className="relative inline-flex rounded-full h-2 w-2 bg-availability-green" />
+        <span className="bg-availability-green absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+        <span className="bg-availability-green relative inline-flex h-2 w-2 rounded-full" />
       </span>
       <span>{text}</span>
     </div>
@@ -34,18 +34,14 @@ type TagBadgePropsType = {
   className?: string;
 };
 
-export function TagBadgeUi({
-  children,
-  variant = "light",
-  className,
-}: TagBadgePropsType) {
+export function TagBadgeUi({ children, variant = "light", className }: TagBadgePropsType) {
   return (
     <span
       className={cn(
-        "inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium transition-colors",
-        variant === "light" && "bg-gray-10 text-gray-60 border border-gray-30",
+        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
+        variant === "light" && "bg-gray-10 text-gray-60 border-gray-30 border",
         variant === "dark" && "bg-black text-white",
-        variant === "outline" && "bg-transparent text-black border border-gray-30",
+        variant === "outline" && "border-gray-30 border bg-transparent text-black",
         className
       )}
     >

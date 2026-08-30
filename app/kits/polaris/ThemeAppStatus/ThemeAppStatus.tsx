@@ -36,7 +36,6 @@ export type ThemeAppStatusLabelsType = {
   status: Record<ThemeAppItemStatus, string>;
 };
 
-
 export const DEFAULT_THEME_APP_STATUS_LABELS: ThemeAppStatusLabelsType = {
   heading: "Theme app status",
   appActive: "Active",
@@ -98,7 +97,6 @@ export type ThemeAppStatusPropsType = {
   labels?: Partial<ThemeAppStatusLabelsType>;
 };
 
-
 function StatusRow({ item, labels }: { item: ThemeAppItem; labels: ThemeAppStatusLabelsType }) {
   const isActive = item.status === "active_on_published" || item.status === "active_on_any";
 
@@ -118,12 +116,12 @@ function StatusRow({ item, labels }: { item: ThemeAppItem; labels: ThemeAppStatu
   const tone = toneFor(item.status);
 
   return (
-    <div key={item.handle} className="p-3 bg-muted/40 rounded-lg border border-border space-y-2">
+    <div key={item.handle} className="bg-muted/40 border-border space-y-2 rounded-lg border p-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="text-xs font-semibold text-foreground">{item.name}</span>
+        <span className="text-foreground text-xs font-semibold">{item.name}</span>
         <div className="flex items-center gap-2">
           {isActive && item.themeCount > 1 && (
-            <span className="text-xs text-muted-foreground">
+            <span className="text-muted-foreground text-xs">
               {labels.themeCount(item.themeCount)}
             </span>
           )}
@@ -133,7 +131,7 @@ function StatusRow({ item, labels }: { item: ThemeAppItem; labels: ThemeAppStatu
               href={item.enableUrl}
               target={isExternal(item.enableUrl) ? "_blank" : undefined}
               rel="noreferrer"
-              className="text-xs font-semibold text-primary underline"
+              className="text-primary text-xs font-semibold underline"
             >
               {item.isEmbed ? labels.enableEmbed : labels.addBlock}
             </a>
@@ -142,14 +140,14 @@ function StatusRow({ item, labels }: { item: ThemeAppItem; labels: ThemeAppStatu
       </div>
 
       {isActive && pages.length > 0 && (
-        <div className="space-y-1 pt-1 border-t border-border/40">
-          <span className="text-[10px] uppercase font-bold text-muted-foreground block">
+        <div className="border-border/40 space-y-1 border-t pt-1">
+          <span className="text-muted-foreground block text-[10px] font-bold uppercase">
             {labels.onPages}
           </span>
           {pages.map(({ placement: p, label, count }) => (
             <div
               key={`${label}::${p.status}`}
-              className="flex items-center justify-between text-xs gap-2"
+              className="flex items-center justify-between gap-2 text-xs"
             >
               <div className="flex items-center gap-1.5">
                 {p.editorUrl ? (
@@ -220,11 +218,11 @@ export function ThemeAppStatus({
 
   if (loading) {
     return (
-      <div className="p-5 rounded-xl border border-border bg-card space-y-3">
-        <h2 className="text-sm font-bold text-foreground">{labels.heading}</h2>
+      <div className="border-border bg-card space-y-3 rounded-xl border p-5">
+        <h2 className="text-foreground text-sm font-bold">{labels.heading}</h2>
         <div className="animate-pulse space-y-2">
-          <div className="h-4 bg-muted rounded w-3/4" />
-          <div className="h-4 bg-muted rounded w-1/2" />
+          <div className="bg-muted h-4 w-3/4 rounded" />
+          <div className="bg-muted h-4 w-1/2 rounded" />
         </div>
       </div>
     );
@@ -232,9 +230,9 @@ export function ThemeAppStatus({
 
   if (error || !data) {
     return (
-      <div className="p-5 rounded-xl border border-border bg-card space-y-3">
-        <h2 className="text-sm font-bold text-foreground">{labels.heading}</h2>
-        <p className="text-xs text-destructive">{labels.loadError}</p>
+      <div className="border-border bg-card space-y-3 rounded-xl border p-5">
+        <h2 className="text-foreground text-sm font-bold">{labels.heading}</h2>
+        <p className="text-destructive text-xs">{labels.loadError}</p>
         <s-button variant="secondary" onClick={refetch}>
           {labels.retry}
         </s-button>
@@ -245,11 +243,11 @@ export function ThemeAppStatus({
   const hasAny = data.embeds.length > 0 || data.blocks.length > 0;
 
   return (
-    <div className="p-5 rounded-xl border border-border bg-card shadow-xs space-y-4">
+    <div className="border-border bg-card space-y-4 rounded-xl border p-5 shadow-xs">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-border">
+      <div className="border-border flex flex-wrap items-center justify-between gap-3 border-b pb-2">
         <div className="flex items-center gap-2">
-          <h2 className="text-sm font-bold text-foreground">{labels.heading}</h2>
+          <h2 className="text-foreground text-sm font-bold">{labels.heading}</h2>
           {hasAny && (
             <s-badge tone={data.overall === "active" ? "success" : "warning"}>
               {data.overall === "active" ? labels.appActive : labels.appInactive}
@@ -261,18 +259,18 @@ export function ThemeAppStatus({
             href={themeEditorUrl}
             target={isExternal(themeEditorUrl) ? "_blank" : undefined}
             rel="noreferrer"
-            className="text-xs font-semibold text-primary underline"
+            className="text-primary text-xs font-semibold underline"
           >
             {labels.openTheme} →
           </a>
         )}
       </div>
 
-      {!hasAny && <p className="text-xs text-muted-foreground">{labels.empty}</p>}
+      {!hasAny && <p className="text-muted-foreground text-xs">{labels.empty}</p>}
 
       {/* Summary info */}
       {hasAny && (
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
+        <div className="text-muted-foreground flex items-center justify-between text-xs">
           <span>
             {data.activeBlockCount > 0
               ? labels.summaryBlocks(data.activeBlockCount)
@@ -282,7 +280,7 @@ export function ThemeAppStatus({
             <button
               type="button"
               onClick={toggle}
-              className="text-xs text-primary font-semibold hover:underline"
+              className="text-primary text-xs font-semibold hover:underline"
             >
               {open ? labels.hideDetails : labels.showDetails}
             </button>
@@ -295,7 +293,7 @@ export function ThemeAppStatus({
         <div className="space-y-4 pt-2">
           {data.embeds.length > 0 && (
             <div className="space-y-2">
-              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+              <h3 className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
                 {labels.embedLabel}
               </h3>
               {data.embeds.map((item) => (
@@ -306,7 +304,7 @@ export function ThemeAppStatus({
 
           {data.blocks.length > 0 && (
             <div className="space-y-2">
-              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+              <h3 className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
                 {labels.blocksLabel}
               </h3>
               {data.blocks.map((item) => (

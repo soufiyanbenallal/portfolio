@@ -28,16 +28,16 @@ const TESTIMONIALS = testimonialsData.slice(0, 6);
 
 function TestimonialCard({ testimonial }: { testimonial: TestimonialItemType }) {
   return (
-    <figure className="flex h-full min-h-[280px] w-full flex-col justify-between rounded-2xl border border-gray-30 bg-white p-6 card-shadow">
-      <blockquote className="flex-1 text-sm leading-[1.65] text-black-90">
-        <span className="mr-1 text-2xl leading-none text-gray-40">&ldquo;</span>
+    <figure className="border-gray-30 card-shadow flex h-full min-h-[280px] w-full flex-col justify-between rounded-2xl border bg-white p-6">
+      <blockquote className="text-black-90 flex-1 text-sm leading-[1.65]">
+        <span className="text-gray-40 mr-1 text-2xl leading-none">&ldquo;</span>
         {testimonial.quote}
-        <span className="ml-0.5 text-2xl leading-none text-gray-40">&rdquo;</span>
+        <span className="text-gray-40 ml-0.5 text-2xl leading-none">&rdquo;</span>
       </blockquote>
 
-      <figcaption className="mt-6 flex items-center gap-3 border-t border-gray-20 pt-5">
+      <figcaption className="border-gray-20 mt-6 flex items-center gap-3 border-t pt-5">
         {testimonial.avatar && (
-          <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-gray-30">
+          <span className="border-gray-30 relative h-9 w-9 shrink-0 overflow-hidden rounded-full border">
             <Image
               src={testimonial.avatar}
               alt={testimonial.author}
@@ -48,9 +48,7 @@ function TestimonialCard({ testimonial }: { testimonial: TestimonialItemType }) 
           </span>
         )}
         <span className="flex flex-col">
-          <span className="text-xs font-semibold text-black">
-            {testimonial.author}
-          </span>
+          <span className="text-xs font-semibold text-black">{testimonial.author}</span>
           <span className="text-xs text-gray-50">
             {testimonial.role} at {testimonial.company}
           </span>
@@ -81,9 +79,7 @@ function TestimonialCoverflow() {
   const [active, setActive] = useState(Math.floor(TESTIMONIALS.length / 2));
 
   const move = useCallback((delta: number) => {
-    setActive((current) =>
-      Math.min(TESTIMONIALS.length - 1, Math.max(0, current + delta)),
-    );
+    setActive((current) => Math.min(TESTIMONIALS.length - 1, Math.max(0, current + delta)));
   }, []);
 
   const handleKeyDown = useCallback(
@@ -97,7 +93,7 @@ function TestimonialCoverflow() {
         move(-1);
       }
     },
-    [move],
+    [move]
   );
 
   return (
@@ -129,7 +125,7 @@ function TestimonialCoverflow() {
             return (
               <motion.div
                 key={testimonial.id}
-                className="absolute left-1/2 top-1/2 w-[300px] sm:w-[360px]"
+                className="absolute top-1/2 left-1/2 w-[300px] sm:w-[360px]"
                 initial={false}
                 animate={{
                   x: `calc(-50% + ${distance * 62}%)`,
@@ -161,7 +157,7 @@ function TestimonialCoverflow() {
             onClick={() => setActive(index)}
             aria-label={`Show testimonial from ${testimonial.author}`}
             aria-current={index === active}
-            className="relative h-1.5 w-8 cursor-pointer rounded-full bg-gray-30"
+            className="bg-gray-30 relative h-1.5 w-8 cursor-pointer rounded-full"
           >
             {index === active && (
               <motion.span
@@ -194,7 +190,7 @@ export function TestimonialsPart() {
             as="h2"
             by="word"
             text="Hear from what my clients have to say."
-            className="max-w-[460px] text-h2-sm text-black"
+            className="text-h2-sm max-w-[460px] text-black"
           />
 
           <Reveal preset="fade" delay={0.2}>
@@ -203,7 +199,7 @@ export function TestimonialsPart() {
                 {happyClientAvatars.map((src, i) => (
                   <span
                     key={i}
-                    className="relative h-8 w-8 overflow-hidden rounded-full bg-gray-20 ring-2 ring-white"
+                    className="bg-gray-20 relative h-8 w-8 overflow-hidden rounded-full ring-2 ring-white"
                   >
                     <Image src={src} alt="" fill sizes="32px" className="object-cover" />
                   </span>
@@ -215,7 +211,7 @@ export function TestimonialsPart() {
                     <Icons.Star key={i} className="h-3 w-3 text-black" />
                   ))}
                 </div>
-                <span className="mt-0.5 whitespace-nowrap text-[11px] font-semibold text-black">
+                <span className="mt-0.5 text-[11px] font-semibold whitespace-nowrap text-black">
                   99+ Happy clients
                 </span>
               </div>

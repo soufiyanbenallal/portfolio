@@ -1,8 +1,10 @@
 /* Switzer (Fontshare CDN) */
 @font-face {
   font-family: "Switzer";
-  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/OYB4CXKJQXKTNSLJMTDQOIVUL2V5EL7S/WYO2P7DQVV5RNXGMCUO2HL4RJP4VFUAS/6XPIMU23OJVRY676OG5YVJMWEHWICATX.woff2") format("woff2"),
-       url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap");
+  src:
+    url("https://framerusercontent.com/third-party-assets/fontshare/wf/OYB4CXKJQXKTNSLJMTDQOIVUL2V5EL7S/WYO2P7DQVV5RNXGMCUO2HL4RJP4VFUAS/6XPIMU23OJVRY676OG5YVJMWEHWICATX.woff2")
+      format("woff2"),
+    url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap");
   font-weight: 400 500;
   font-style: normal;
   font-display: swap;
@@ -10,7 +12,8 @@
 
 @font-face {
   font-family: "Switzer";
-  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/5SZVFDB7V52TI6ULVC6J3WQZQCIZVDV5/ODYPSTCUDMKSTYIPTV4CLQ7URIK7XYBJ/YS3VPNVO4B3TOJMEXDGFZQ4TLZGGSRZC.woff2") format("woff2");
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/5SZVFDB7V52TI6ULVC6J3WQZQCIZVDV5/ODYPSTCUDMKSTYIPTV4CLQ7URIK7XYBJ/YS3VPNVO4B3TOJMEXDGFZQ4TLZGGSRZC.woff2")
+    format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -18,7 +21,8 @@
 
 @font-face {
   font-family: "Switzer";
-  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/HBNTRIISA5MEXGL5WPYI7CV2HIWTDV3Q/YDPDINVT673XLXNSTMLG4JNCZZMVVNPN/Y7SCNZJOT2MW5ADSGOFLDGH4TNL4JCQY.woff2") format("woff2");
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/HBNTRIISA5MEXGL5WPYI7CV2HIWTDV3Q/YDPDINVT673XLXNSTMLG4JNCZZMVVNPN/Y7SCNZJOT2MW5ADSGOFLDGH4TNL4JCQY.woff2")
+    format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

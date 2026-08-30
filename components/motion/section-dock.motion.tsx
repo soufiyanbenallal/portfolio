@@ -107,29 +107,15 @@ type DetailCardPropsType = {
  * holds while active, then lifts away — so the column reads as pages being
  * turned against the docked panel rather than a list scrolling past.
  */
-function DetailCard({
-  index,
-  total,
-  progress,
-  isActive,
-  children,
-}: DetailCardPropsType) {
+function DetailCard({ index, total, progress, isActive, children }: DetailCardPropsType) {
   const span = (1 - DOCK.dockPhase) / total;
   const start = DOCK.dockPhase + index * span;
   const enter = start + span * 0.28;
   const exit = start + span * 0.78;
   const end = start + span;
 
-  const opacity = useTransform(
-    progress,
-    [start, enter, exit, end],
-    [0, 1, 1, 0],
-  );
-  const y = useTransform(
-    progress,
-    [start, enter, exit, end],
-    ["42%", "0%", "0%", "-26%"],
-  );
+  const opacity = useTransform(progress, [start, enter, exit, end], [0, 1, 1, 0]);
+  const y = useTransform(progress, [start, enter, exit, end], ["42%", "0%", "0%", "-26%"]);
   const rotateY = useTransform(progress, [start, enter, exit, end], [-26, 0, 0, 16]);
   const rotateX = useTransform(progress, [start, enter, exit, end], [10, 0, 0, -8]);
   const scale = useTransform(progress, [start, enter, exit, end], [0.92, 1, 1, 0.94]);
@@ -189,11 +175,7 @@ export function SectionDock<T>({
 
   /** 0 → 1 across the docking phase only. Drives chrome that appears on dock. */
   const dockProgress = useTransform(progress, dockRange, [0, 1]);
-  const detailOpacity = useTransform(
-    progress,
-    [DOCK.dockPhase * 0.6, DOCK.dockPhase],
-    [0, 1],
-  );
+  const detailOpacity = useTransform(progress, [DOCK.dockPhase * 0.6, DOCK.dockPhase], [0, 1]);
 
   useMotionValueEvent(progress, "change", (value) => {
     if (value < DOCK.dockPhase) {
@@ -201,10 +183,7 @@ export function SectionDock<T>({
       return;
     }
     const span = (1 - DOCK.dockPhase) / items.length;
-    const next = Math.min(
-      items.length - 1,
-      Math.floor((value - DOCK.dockPhase) / span),
-    );
+    const next = Math.min(items.length - 1, Math.floor((value - DOCK.dockPhase) / span));
     setActiveIndex((current) => (current === next ? current : next));
   });
 
@@ -215,14 +194,12 @@ export function SectionDock<T>({
         {header}
         {/* The panel is a full composition, not a thumbnail — it needs real
             height here or its type scale collapses. */}
-        <div className="relative min-h-[62vh] w-full overflow-hidden rounded-2xl border border-gray-30">
+        <div className="border-gray-30 relative min-h-[62vh] w-full overflow-hidden rounded-2xl border">
           {panel}
         </div>
         <div className="mt-8 flex flex-col gap-4">
           {items.map((item, index) => (
-            <div key={index}>
-              {renderItem(item, { index, isActive: true, progress })}
-            </div>
+            <div key={index}>{renderItem(item, { index, isActive: true, progress })}</div>
           ))}
         </div>
       </section>
@@ -238,10 +215,7 @@ export function SectionDock<T>({
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* The section, scaling down into its card */}
-        <motion.div
-          className="absolute inset-0 z-10 will-change-[clip-path]"
-          style={{ clipPath }}
-        >
+        <motion.div className="absolute inset-0 z-10 will-change-[clip-path]" style={{ clipPath }}>
           <motion.div
             className="h-full w-full"
             style={{

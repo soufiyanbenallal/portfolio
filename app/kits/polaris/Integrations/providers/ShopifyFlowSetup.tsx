@@ -4,13 +4,13 @@ export const ShopifyFlowSetup = (): JSX.Element => {
   const ct = useCommonsT();
   return (
     <div className="space-y-3">
-      <p className="text-sm text-foreground">{ct("commons.integ_provider.flow_intro")}</p>
+      <p className="text-foreground text-sm">{ct("commons.integ_provider.flow_intro")}</p>
 
-      <div className="bg-muted/50 p-4 rounded-xl border border-border space-y-2">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+      <div className="bg-muted/50 border-border space-y-2 rounded-xl border p-4">
+        <h4 className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
           {ct("commons.integ_provider.flow_how_it_works")}
         </h4>
-        <ol className="list-decimal list-inside text-sm space-y-1 text-foreground">
+        <ol className="text-foreground list-inside list-decimal space-y-1 text-sm">
           <li>{ct("commons.integ_provider.flow_step1")}</li>
           <li>{ct("commons.integ_provider.flow_step2")}</li>
           <li>{ct("commons.integ_provider.flow_step3")}</li>
@@ -18,7 +18,7 @@ export const ShopifyFlowSetup = (): JSX.Element => {
         </ol>
       </div>
 
-      <p className="text-xs text-muted-foreground">{ct("commons.integ_provider.flow_note")}</p>
+      <p className="text-muted-foreground text-xs">{ct("commons.integ_provider.flow_note")}</p>
     </div>
   );
 };

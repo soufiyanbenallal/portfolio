@@ -111,8 +111,7 @@ export function PolarisBlockPreviewPart({
     }));
   };
 
-  const installCommand =
-    defaultInstallCommand || `npx shadcn@latest add ${componentSlug}`;
+  const installCommand = defaultInstallCommand || `npx shadcn@latest add ${componentSlug}`;
 
   const handleCopyCode = () => {
     if (!activeFile) return;
@@ -135,13 +134,13 @@ export function PolarisBlockPreviewPart({
       <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
         {/* Left: Preview / Code Segmented Toggle & Title */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="inline-flex rounded-lg bg-gray-100 p-1 text-xs font-medium text-gray-600 border border-gray-200/80">
+          <div className="inline-flex rounded-lg border border-gray-200/80 bg-gray-100 p-1 text-xs font-medium text-gray-600">
             <button
               type="button"
               onClick={() => setViewMode("preview")}
-              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 transition-all cursor-pointer ${
+              className={`flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1.5 transition-all ${
                 viewMode === "preview"
-                  ? "bg-white text-gray-900 shadow-xs font-semibold"
+                  ? "bg-white font-semibold text-gray-900 shadow-xs"
                   : "hover:text-gray-900"
               }`}
             >
@@ -150,9 +149,9 @@ export function PolarisBlockPreviewPart({
             <button
               type="button"
               onClick={() => setViewMode("code")}
-              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 transition-all cursor-pointer ${
+              className={`flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1.5 transition-all ${
                 viewMode === "code"
-                  ? "bg-white text-gray-900 shadow-xs font-semibold"
+                  ? "bg-white font-semibold text-gray-900 shadow-xs"
                   : "hover:text-gray-900"
               }`}
             >
@@ -162,7 +161,7 @@ export function PolarisBlockPreviewPart({
 
           <span className="hidden h-4 w-px bg-gray-300 sm:inline-block" />
 
-          <span className="text-sm font-medium text-gray-700 truncate max-w-md">
+          <span className="max-w-md truncate text-sm font-medium text-gray-700">
             {example.title}
           </span>
         </div>
@@ -178,9 +177,9 @@ export function PolarisBlockPreviewPart({
                 setViewport("desktop");
               }}
               title="Desktop view"
-              className={`rounded-md p-1.5 transition-colors cursor-pointer ${
+              className={`cursor-pointer rounded-md p-1.5 transition-colors ${
                 viewport === "desktop" && viewMode === "preview"
-                  ? "bg-gray-100 text-gray-900 font-semibold"
+                  ? "bg-gray-100 font-semibold text-gray-900"
                   : "hover:text-gray-900"
               }`}
             >
@@ -193,9 +192,9 @@ export function PolarisBlockPreviewPart({
                 setViewport("tablet");
               }}
               title="Tablet view"
-              className={`rounded-md p-1.5 transition-colors cursor-pointer ${
+              className={`cursor-pointer rounded-md p-1.5 transition-colors ${
                 viewport === "tablet" && viewMode === "preview"
-                  ? "bg-gray-100 text-gray-900 font-semibold"
+                  ? "bg-gray-100 font-semibold text-gray-900"
                   : "hover:text-gray-900"
               }`}
             >
@@ -208,9 +207,9 @@ export function PolarisBlockPreviewPart({
                 setViewport("mobile");
               }}
               title="Mobile view"
-              className={`rounded-md p-1.5 transition-colors cursor-pointer ${
+              className={`cursor-pointer rounded-md p-1.5 transition-colors ${
                 viewport === "mobile" && viewMode === "preview"
-                  ? "bg-gray-100 text-gray-900 font-semibold"
+                  ? "bg-gray-100 font-semibold text-gray-900"
                   : "hover:text-gray-900"
               }`}
             >
@@ -220,7 +219,7 @@ export function PolarisBlockPreviewPart({
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
               title="Refresh preview"
-              className="rounded-md p-1.5 hover:text-gray-900 transition-colors cursor-pointer"
+              className="cursor-pointer rounded-md p-1.5 transition-colors hover:text-gray-900"
             >
               <RotateCw className="size-3.5" />
             </button>
@@ -230,17 +229,15 @@ export function PolarisBlockPreviewPart({
           <button
             type="button"
             onClick={handleCopyInstall}
-            className="group flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 font-mono text-xs text-gray-800 shadow-xs hover:border-gray-300 hover:bg-gray-50 active:translate-y-px transition-all cursor-pointer"
+            className="group flex cursor-pointer items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 font-mono text-xs text-gray-800 shadow-xs transition-all hover:border-gray-300 hover:bg-gray-50 active:translate-y-px"
             title="Copy install command"
           >
             <Terminal className="size-3.5 text-gray-500 group-hover:text-gray-800" />
-            <span className="truncate max-w-[200px] sm:max-w-[280px]">
-              {installCommand}
-            </span>
+            <span className="max-w-[200px] truncate sm:max-w-[280px]">{installCommand}</span>
             {copiedInstall ? (
-              <Check className="size-3.5 text-emerald-600 ml-1" />
+              <Check className="ml-1 size-3.5 text-emerald-600" />
             ) : (
-              <Copy className="size-3.5 text-gray-400 group-hover:text-gray-700 ml-1" />
+              <Copy className="ml-1 size-3.5 text-gray-400 group-hover:text-gray-700" />
             )}
           </button>
         </div>
@@ -249,34 +246,32 @@ export function PolarisBlockPreviewPart({
       {/* ── Main Container matching the Image ── */}
       {viewMode === "preview" ? (
         /* Preview Canvas (Default) */
-          <div
-            key={refreshKey}
-            className={`transition-all duration-300 min-h-120 flex items-start justify-center rounded-xl border border-gray-200 bg-gray-100/50 p-3 bg-[radial-gradient(#ccc,transparent_1px)] bg-size-[14px_14px] ${
-              viewport === "desktop"
-                ? "w-full"
-                : viewport === "tablet"
-                  ? "w-3xl overflow-hidden"
-                  : "w-97 overflow-hidden"
-            }`}
+        <div
+          key={refreshKey}
+          className={`flex min-h-120 items-start justify-center rounded-xl border border-gray-200 bg-gray-100/50 bg-[radial-gradient(#ccc,transparent_1px)] bg-size-[14px_14px] p-3 transition-all duration-300 ${
+            viewport === "desktop"
+              ? "w-full"
+              : viewport === "tablet"
+                ? "w-3xl overflow-hidden"
+                : "w-97 overflow-hidden"
+          }`}
+        >
+          <AutoFitIframePreview
+            key={`${refreshKey}-${viewport}-${example.renderKey}`}
+            interactive={true}
+            autoScale={false}
+            title={example.title}
+            padding={16}
           >
-            <AutoFitIframePreview
-              key={`${refreshKey}-${viewport}-${example.renderKey}`}
-              interactive={true}
-              autoScale={false}
-              title={example.title}
-              padding={16}
-            >
-              <PolarisPreviewRenderer renderKey={example.renderKey} />
-            </AutoFitIframePreview>
-          </div>
+            <PolarisPreviewRenderer renderKey={example.renderKey} />
+          </AutoFitIframePreview>
+        </div>
       ) : (
         /* Code Mode: Multi-folder File Explorer & Syntax Colored Code Viewer */
-        <div className="grid grid-cols-1 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xs md:grid-cols-12 min-h-[380px]">
+        <div className="grid min-h-[380px] grid-cols-1 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xs md:grid-cols-12">
           {/* Left Column: Multi-folder Files Tree (e.g. example/ and ui/) */}
-          <div className="border-b border-gray-200 bg-white p-3 md:col-span-3 md:border-b-0 md:border-r ">
-            <div className="pb-2 text-xs font-semibold text-gray-400 px-2 select-none">
-              Files
-            </div>
+          <div className="border-b border-gray-200 bg-white p-3 md:col-span-3 md:border-r md:border-b-0">
+            <div className="px-2 pb-2 text-xs font-semibold text-gray-400 select-none">Files</div>
             <div className="space-y-1.5 font-mono text-xs">
               {folderGroups.map((group) => {
                 const isOpen = openFolders[group.folder] ?? true;
@@ -285,21 +280,19 @@ export function PolarisBlockPreviewPart({
                     <button
                       type="button"
                       onClick={() => toggleFolder(group.folder)}
-                      className="flex w-full items-center gap-1.5 rounded-md px-2 py-1 text-left text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer select-none"
+                      className="flex w-full cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 text-left text-gray-700 transition-colors select-none hover:bg-gray-100"
                     >
                       {isOpen ? (
-                        <ChevronDown className="size-3 text-gray-400 shrink-0" />
+                        <ChevronDown className="size-3 shrink-0 text-gray-400" />
                       ) : (
-                        <ChevronRight className="size-3 text-gray-400 shrink-0" />
+                        <ChevronRight className="size-3 shrink-0 text-gray-400" />
                       )}
-                      <FolderOpen className="size-3.5 text-blue-500 shrink-0" />
-                      <span className="truncate font-semibold text-gray-800">
-                        {group.folder}
-                      </span>
+                      <FolderOpen className="size-3.5 shrink-0 text-blue-500" />
+                      <span className="truncate font-semibold text-gray-800">{group.folder}</span>
                     </button>
 
                     {isOpen && (
-                      <div className="flex flex-col space-y-0.5 pl-5 pt-0.5">
+                      <div className="flex flex-col space-y-0.5 pt-0.5 pl-5">
                         {group.files.map((file) => {
                           const isSelected = activeFile?.path === file.path;
                           return (
@@ -307,13 +300,13 @@ export function PolarisBlockPreviewPart({
                               key={file.path}
                               type="button"
                               onClick={() => setSelectedFilePath(file.path)}
-                              className={`flex w-full items-center gap-1.5 rounded-md px-2 py-1 text-left transition-colors cursor-pointer select-none ${
+                              className={`flex w-full cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 text-left transition-colors select-none ${
                                 isSelected
-                                  ? "bg-gray-100 text-gray-900 font-semibold shadow-2xs"
+                                  ? "bg-gray-100 font-semibold text-gray-900 shadow-2xs"
                                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                               }`}
                             >
-                              <FileCode2 className="size-3.5 text-gray-400 shrink-0" />
+                              <FileCode2 className="size-3.5 shrink-0 text-gray-400" />
                               <span className="truncate">{file.name}</span>
                             </button>
                           );
@@ -327,30 +320,26 @@ export function PolarisBlockPreviewPart({
           </div>
 
           {/* Right Column: Code Viewer with File Header & Syntax Highlighting */}
-          <div className="flex flex-col md:col-span-9 bg-white">
+          <div className="flex flex-col bg-white md:col-span-9">
             {/* Top file path banner */}
             <div className="flex items-center justify-between border-b border-gray-200 bg-white px-4 py-2.5">
               <div className="flex items-center gap-2 font-mono text-xs text-gray-800">
                 <span className="rounded bg-gray-900 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-white">
                   {getFileBadge(activeFile?.path || "")}
                 </span>
-                <span className="font-medium text-gray-800 truncate">
-                  {activeFile?.path}
-                </span>
+                <span className="truncate font-medium text-gray-800">{activeFile?.path}</span>
               </div>
 
               <button
                 type="button"
                 onClick={handleCopyCode}
-                className="flex items-center gap-1.5 rounded-md border border-gray-200 bg-white px-2 py-1 text-xs text-gray-600 hover:border-gray-300 hover:bg-gray-50 active:translate-y-px transition-all cursor-pointer"
+                className="flex cursor-pointer items-center gap-1.5 rounded-md border border-gray-200 bg-white px-2 py-1 text-xs text-gray-600 transition-all hover:border-gray-300 hover:bg-gray-50 active:translate-y-px"
                 title="Copy file content"
               >
                 {copiedCode ? (
                   <>
                     <Check className="size-3.5 text-emerald-600" />
-                    <span className="text-[11px] text-emerald-600 font-medium">
-                      Copied
-                    </span>
+                    <span className="text-[11px] font-medium text-emerald-600">Copied</span>
                   </>
                 ) : (
                   <Copy className="size-3.5 text-gray-500" />
@@ -359,7 +348,7 @@ export function PolarisBlockPreviewPart({
             </div>
 
             {/* Syntax Highlighted Code content with line numbers */}
-            <div className="flex flex-1 overflow-x-auto py-2 px-4 bg-white overflow-y-auto max-h-[calc(70vh)]">
+            <div className="flex max-h-[calc(70vh)] flex-1 overflow-x-auto overflow-y-auto bg-white px-4 py-2">
               <Highlight
                 theme={{
                   ...themes.github,
@@ -381,7 +370,7 @@ export function PolarisBlockPreviewPart({
                   >
                     {tokens.map((line, i) => (
                       <div key={i} {...getLineProps({ line })} className="table-row">
-                        <span className="table-cell select-none pr-4 text-right text-gray-400 font-normal">
+                        <span className="table-cell pr-4 text-right font-normal text-gray-400 select-none">
                           {i + 1}
                         </span>
                         <span className="table-cell text-gray-900">
