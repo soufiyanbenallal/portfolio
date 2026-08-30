@@ -1,0 +1,20 @@
+.star-rating {
+  display: flex;
+  margin-bottom: 10px;
+}
+.star {
+  cursor: pointer;
+  transition: transform 0.2s;
+  width: 30px;
+  height: 30px;
+}
+.star:hover {
+  transform: scale(1.2);
+}
+.emoji-display {
+  font-size: 1.5rem;
+}
+
+.Polaris-ChoiceList__Choice {
+  --pc-block-stack-gap-xs: 0;
+}

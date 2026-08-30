@@ -1,22 +1,63 @@
-import { AdvancedShell } from "./components/advanced-shell";
-import { CapabilitiesSection } from "./components/sections/capabilities-section";
-import { ContactSection } from "./components/sections/contact-section";
-import { ExperienceSection } from "./components/sections/experience-section";
-import { HeroSection } from "./components/sections/hero-section";
-import { LabSection } from "./components/sections/lab-section";
-import { ProcessSection } from "./components/sections/process-section";
-import { WorkSection } from "./components/sections/work-section";
+import { HeroProjectsUnifiedPart } from "@/components/partials/hero-projects-unified.part";
+import { BigQuotePart } from "@/components/partials/big-quote.part";
+import { ServicesPart } from "@/components/partials/services.part";
+import { AboutHistoryPart } from "@/components/partials/about-history.part";
+import { ClientTickerShared } from "@/components/shared/client-ticker.shared";
+import { TestimonialsPart } from "@/components/partials/testimonials.part";
+import { FaqPart } from "@/components/partials/faq.part";
+import { BlogInsightsPart } from "@/components/partials/blog-insights.part";
+import { SectionShell } from "@/components/motion/section-shell.motion";
+import { PageTransition } from "@/components/motion/page-transition.motion";
 
-export default function Home() {
+/**
+ * Homepage.
+ *
+ * The section order is the narrative; `SectionShell` is what binds it. Each
+ * shell unwraps its section from a rounded card into full bleed on arrival
+ * and dims it as the next one slides over, so twelve distinct animation ideas
+ * read as one continuous scroll rather than a reel of effects.
+ *
+ * Sections that pin their own content — the project deck, the docking
+ * services rig, and the FAQ's sticky booking card — opt out of the shell's
+ * transform. A transformed ancestor becomes the containing block for
+ * `position: sticky` descendants and silently breaks the pin.
+ */
+export default function HomePage() {
   return (
-    <AdvancedShell>
-      <HeroSection />
-      <WorkSection />
-      <ProcessSection />
-      <ExperienceSection />
-      <CapabilitiesSection />
-      <LabSection />
-      <ContactSection />
-    </AdvancedShell>
+    <PageTransition>
+      <main className="relative flex w-full flex-col items-center">
+        {/* Unified Hero 3D Deck to 30%/70% Projects Showcase Rig */}
+        <HeroProjectsUnifiedPart />
+
+        {/* <SectionShell tone="canvas"> */}
+        {/* </SectionShell> */}
+
+        {/* Scales the whole section down into a docked card, then runs the
+            service details past it */}
+        <div className="w-full">
+          <BigQuotePart />
+
+          <ServicesPart />
+        </div>
+
+        <SectionShell id="about" tone="canvas">
+          <AboutHistoryPart />
+        </SectionShell>
+
+        <ClientTickerShared withHappyClientsCluster={false} />
+
+        <SectionShell tone="canvas">
+          <TestimonialsPart />
+        </SectionShell>
+
+        <SectionShell id="faq" tone="canvas" pinned>
+          <FaqPart />
+        </SectionShell>
+
+        <SectionShell id="blog" tone="canvas">
+          <BlogInsightsPart />
+        </SectionShell>
+      </main>
+    </PageTransition>
   );
 }

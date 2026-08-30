@@ -19,8 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
-    }
+      "@/*": ["./*"],
+      "~/components/*": ["./app/kits/polaris/*"],
+      "~/components/ui/*": ["./app/kits/polaris/ui/*"]
+    },
+    "types": ["@shopify/polaris-types"]
   },
   "include": [
     "next-env.d.ts",
@@ -30,5 +33,22 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "app/kits/polaris/Billing",
+    "app/kits/polaris/conditions",
+    "app/kits/polaris/ContactEmail",
+    "app/kits/polaris/EmailReports",
+    "app/kits/polaris/Integrations",
+    "app/kits/polaris/LibraryIcons",
+    "app/kits/polaris/MerchantApi",
+    "app/kits/polaris/ReviewRequest",
+    "app/kits/polaris/support",
+    "app/kits/polaris/ThemeAppStatus",
+    "app/kits/polaris/ui/actions/FloatingButton.tsx",
+    "app/kits/polaris/ui/feedbacks/SomethingWentWrong.tsx",
+    "app/kits/polaris/ui/forms/Autocomplete.tsx",
+    "app/kits/polaris/ui/forms/Table",
+    "app/kits/polaris/ui/layouts/SortableList.tsx"
+  ]
 }
