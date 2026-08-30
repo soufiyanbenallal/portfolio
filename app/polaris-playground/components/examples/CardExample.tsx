@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useState, type ReactNode } from "react";
-import { SectionCard } from "~/components/ui/layouts/SectionCard";
+import { Card } from "~/components/ui/layouts/Card";
 
-export function SectionCardExample(): ReactNode {
+export function CardExample(): ReactNode {
   const [active, setActive] = useState(true);
 
   return (
     <s-page>
-      <SectionCard
+      <Card
         title="Checkout Customizations"
         description="Configure rules applied to customer checkout orders."
-        actions={
+        rightActions={
           <s-button variant="secondary" onClick={() => setActive(!active)}>
             {active ? "Disable" : "Enable"}
           </s-button>
@@ -31,9 +31,9 @@ export function SectionCardExample(): ReactNode {
             </s-stack>
           </s-stack>
         </s-box>
-      </SectionCard>
+      </Card>
     </s-page>
   );
 }
 
-export default SectionCardExample;
+export default CardExample;

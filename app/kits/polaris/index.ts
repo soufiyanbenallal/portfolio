@@ -21,7 +21,6 @@ export * from "./ui/stats/StatsCard";
 export * from "./ui/stats/StatsSection";
 export * from "./ui/feedbacks/DismissableBanner";
 export * from "./ui/layouts/Card";
-export * from "./ui/layouts/SectionCard";
 export * from "./ui/layouts/Tabs";
 export * from "./ui/layouts/Table";
 export * from "./ui/layouts/Filters";

@@ -13,7 +13,7 @@ import { AiRecommendationsExample } from "./examples/AiRecommendationsExample";
 // ── UI Kit Examples ──
 import { StatsSectionExample } from "./examples/StatsSectionExample";
 import { DismissableBannerExample } from "./examples/DismissableBannerExample";
-import { SectionCardExample } from "./examples/SectionCardExample";
+import { CardExample } from "./examples/CardExample";
 import { TabsExample } from "./examples/TabsExample";
 import { CheckBoxExample } from "./examples/CheckBoxExample";
 import { SelectExample } from "./examples/SelectExample";
@@ -93,7 +93,7 @@ export function PolarisPreviewRenderer({ renderKey }: PolarisPreviewRendererProp
     // ── Layouts ──
     case "section-card-example":
     case "section-card":
-      return <SectionCardExample />;
+      return <CardExample />;
 
     case "tabs-example":
     case "tabs":

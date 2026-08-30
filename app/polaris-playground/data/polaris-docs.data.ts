@@ -411,9 +411,15 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             language: "tsx",
           },
           {
-            name: "RecommendationItem.part.tsx",
-            path: "components/AiRecommendations/partials/RecommendationItem.part.tsx",
-            sourcePath: "app/kits/polaris/AiRecommendations/partials/RecommendationItem.part.tsx",
+            name: "RecommendationItem.tsx",
+            path: "components/AiRecommendations/partials/RecommendationItem.tsx",
+            sourcePath: "app/kits/polaris/AiRecommendations/partials/RecommendationItem.tsx",
+            language: "tsx",
+          },
+          {
+            name: "AiRecommendationIllustration.tsx",
+            path: "components/AiRecommendations/partials/AiRecommendationIllustration.tsx",
+            sourcePath: "app/kits/polaris/AiRecommendations/partials/AiRecommendationIllustration.tsx",
             language: "tsx",
           },
           {
@@ -567,15 +573,15 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
         installCommand: "npx shadcn@latest add section-card",
         fileSources: [
           {
-            name: "SectionCardExample.tsx",
-            path: "example/SectionCardExample.tsx",
-            sourcePath: "app/polaris-playground/components/examples/SectionCardExample.tsx",
+            name: "CardExample.tsx",
+            path: "example/CardExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/CardExample.tsx",
             language: "tsx",
           },
           {
-            name: "SectionCard.tsx",
-            path: "ui/SectionCard.tsx",
-            sourcePath: "app/kits/polaris/ui/layouts/SectionCard.tsx",
+            name: "Card.tsx",
+            path: "ui/Card.tsx",
+            sourcePath: "app/kits/polaris/ui/layouts/Card.tsx",
             language: "tsx",
           },
         ],

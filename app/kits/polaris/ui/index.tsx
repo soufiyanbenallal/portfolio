@@ -1,1 +1,1 @@
-export * from "./layouts/SectionCard";
+export * from "./layouts/Card";

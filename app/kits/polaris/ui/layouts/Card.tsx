@@ -9,7 +9,7 @@ export type CardBackgroundType = "base" | "subdued" | "transparent";
 
 export type CardPropsType = {
   title?: ReactNode;
-  tooltipContent?: ReactNode;
+  tooltip?: ReactNode;
   description?: ReactNode;
   icon?: IconType | string;
   rightActions?: ReactNode;
@@ -21,14 +21,14 @@ export type CardPropsType = {
 
 export function Card({
   title,
-  tooltipContent,
+  tooltip,
   description,
   icon,
   rightActions,
   children,
   padding = "base",
   id,
-  hideDivider = false,
+  hideDivider = true,
 }: CardPropsType): ReactNode {
   const hasHeader = title || description || icon || rightActions;
 
@@ -41,7 +41,7 @@ export function Card({
               {title && (
                 <s-stack direction="inline" gap="small-200" alignItems="center">
                   {icon && <s-icon type={icon as IconType} tone="neutral" />}
-                  <Content tooltip={tooltipContent} variant="headingMd">
+                  <Content tooltip={tooltip} variant="headingMd">
                     {title}
                   </Content>
                 </s-stack>
