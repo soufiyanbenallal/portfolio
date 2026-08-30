@@ -1,6 +1,5 @@
 import React from "react";
 import type { OnboardingStepIdType, StepConfigItemType } from "../../types";
-import styles from "./ProgressHeader.module.css";
 
 export type ProgressHeaderPropsType = {
   stepIndex: number;
@@ -19,12 +18,19 @@ export function ProgressHeader({ stepIndex, steps, onGoToStep }: ProgressHeaderP
           <React.Fragment key={item.id}>
             {idx > 0 && (
               <span
-                className={isCompleted ? styles.lineCompleted : styles.line}
+                style={{
+                  flex: 1,
+                  height: 2,
+                  maxWidth: "2rem",
+                  backgroundColor: isCompleted ? "#059669" : "#e5e7eb",
+                  borderRadius: "9999px",
+                  transition: "background-color 250ms ease",
+                }}
                 aria-hidden="true"
               />
             )}
             {isCompleted ? (
-              <span className={styles.clickableWrapper}>
+              <span>
                 <s-clickable
                   onClick={() => onGoToStep?.(item.id)}
                   accessibilityLabel={`Go back to ${item.label}`}

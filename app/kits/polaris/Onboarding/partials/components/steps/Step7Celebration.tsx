@@ -2,7 +2,6 @@ import { useEffect, type Dispatch } from "react";
 import { Check, Clock } from "lucide-react";
 import type { OnboardingActionType, OnboardingStateType } from "../../types";
 import { Button, Card } from "../shared/ui";
-import { Confetti } from "../shared/Confetti";
 import { cn } from "../../utils";
 import styles from "./Step7Celebration.module.css";
 
@@ -44,7 +43,6 @@ export function Step7Celebration({
 
   return (
     <div className={styles.container}>
-      <Confetti />
       <Card className={styles.card}>
         <div className={styles.popBadge}>
           <Check style={{ height: "1.5rem", width: "1.5rem" }} strokeWidth={2.5} />

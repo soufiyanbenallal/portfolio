@@ -1,9 +1,9 @@
-import { useId, type Dispatch } from "react";
-import { Truck } from "lucide-react";
+import type { Dispatch } from "react";
 import type { OnboardingActionType, OnboardingStateType } from "../../types";
 import { CURRENCIES, SAMPLE_CART_TOTAL } from "../../constants";
-import { Button, Card } from "../shared/ui";
 import { formatCurrency } from "../../utils";
+import Content from "@/app/kits/polaris/ui/typography/Content";
+import { IconTile } from "@/components/ui/IconTile";
 import styles from "./Step3DefaultConfiguration.module.css";
 
 export type Step3DefaultConfigurationPropsType = {
@@ -12,9 +12,6 @@ export type Step3DefaultConfigurationPropsType = {
 };
 
 export function Step3DefaultConfiguration({ state, dispatch }: Step3DefaultConfigurationPropsType) {
-  const amountId = useId();
-  const currencyId = useId();
-
   const threshold = state.freeShippingThreshold;
   const remaining = Math.max(0, threshold - SAMPLE_CART_TOTAL);
   const qualifies = SAMPLE_CART_TOTAL >= threshold && threshold > 0;
@@ -26,86 +23,106 @@ export function Step3DefaultConfiguration({ state, dispatch }: Step3DefaultConfi
   };
 
   return (
-    <div className={styles.container}>
-      <Card className={styles.card}>
-        <div className={styles.iconBadge}>
-          <Truck style={{ height: "1.25rem", width: "1.25rem" }} />
-        </div>
-        <h1 className={styles.title}>One quick detail</h1>
-        <p className={styles.subtitle}>
-          Set your free shipping threshold — we&rsquo;ll handle the rest.
-        </p>
+    <s-box paddingBlock="large">
+      <s-stack direction="block" gap="large" alignItems="center">
+        <s-box
+          padding="large-200"
+          border="base"
+          borderRadius="large"
+          background="base"
+          inlineSize="100%"
+          maxInlineSize="460px"
+        >
+          <s-stack direction="block" gap="large-100" alignItems="center">
+            <s-stack direction="block" gap="small-100" alignItems="center">
+              <IconTile borderRadius="base" size="lg">
+                <s-icon type="delivery" tone="success" size="base" />
+              </IconTile>
+              <Content
+                variant="headingMd"
+                tooltip="Customers will see a dynamic progress bar in the Cart Drawer encouraging them to add more items to earn free shipping."
+              >
+                One quick detail
+              </Content>
+              <s-paragraph color="subdued">
+                Set your free shipping threshold — we&rsquo;ll handle the rest.
+              </s-paragraph>
+            </s-stack>
 
-        <div className={styles.inputRow}>
-          <div className={styles.currencySelectWrapper}>
-            <label htmlFor={currencyId} className={styles.srOnly}>
-              Currency
-            </label>
-            <select
-              id={currencyId}
-              value={state.storeCurrency}
-              onChange={(e) => dispatch({ type: "SET_CURRENCY", currency: e.target.value })}
-              className={styles.currencySelect}
+            <s-box inlineSize="100%">
+              <s-stack direction="inline" gap="small-200" alignItems="start">
+                <s-box inlineSize="110px">
+                  <s-select
+                    label="Currency"
+                    value={state.storeCurrency}
+                    onChange={(e: any) =>
+                      dispatch({
+                        type: "SET_CURRENCY",
+                        currency: (e.target as HTMLSelectElement).value,
+                      })
+                    }
+                  >
+                    {CURRENCIES.map((currency) => (
+                      <s-option key={currency} value={currency}>
+                        {currency}
+                      </s-option>
+                    ))}
+                  </s-select>
+                </s-box>
+                <s-box inlineSize="100%">
+                  <s-number-field
+                    label="Free shipping threshold"
+                    value={String(threshold)}
+                    onInput={(e: any) => handleAmountChange((e.target as HTMLInputElement).value)}
+                  />
+                </s-box>
+              </s-stack>
+            </s-box>
+
+            <s-box
+              padding="base"
+              border="base"
+              borderRadius="base"
+              background="subdued"
+              inlineSize="100%"
             >
-              {CURRENCIES.map((currency) => (
-                <option key={currency} value={currency}>
-                  {currency}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.amountInputWrapper}>
-            <label htmlFor={amountId} className={styles.srOnly}>
-              Free shipping threshold amount
-            </label>
-            <input
-              id={amountId}
-              type="text"
-              inputMode="decimal"
-              value={threshold}
-              onChange={(e) => handleAmountChange(e.target.value)}
-              className={styles.amountInput}
-            />
-          </div>
-        </div>
+              <s-stack direction="block" gap="small-100">
+                <s-stack direction="inline" justifyContent="space-between" alignItems="center">
+                  <s-text color="subdued">SAMPLE CART TOTAL</s-text>
+                  <s-text type="strong">
+                    {formatCurrency(SAMPLE_CART_TOTAL, state.storeCurrency)}
+                  </s-text>
+                </s-stack>
 
-        <div className={styles.previewBox}>
-          <p className={styles.previewHeader}>Cart preview</p>
-          <div className={styles.previewRow}>
-            <span className={styles.previewLabel}>Sample cart total</span>
-            <span className={styles.previewValue}>
-              {formatCurrency(SAMPLE_CART_TOTAL, state.storeCurrency)}
-            </span>
-          </div>
-          <div className={styles.previewTrack}>
-            <div className={styles.previewBar} style={{ width: `${percent}%` }} />
-          </div>
-          <p className={styles.previewMessage}>
-            {qualifies
-              ? "This cart qualifies for free shipping."
-              : `Add ${formatCurrency(remaining, state.storeCurrency)} more for free shipping.`}
-          </p>
-        </div>
+                <div className={styles.previewTrack}>
+                  <div className={styles.previewBar} style={{ width: `${percent}%` }} />
+                </div>
 
-        <div className={styles.actionGroup}>
-          <Button
-            className={styles.fullWidthButton}
-            onClick={() => {
-              dispatch({ type: "CONFIRM_THRESHOLD" });
-              dispatch({ type: "GO_NEXT" });
-            }}
-          >
-            Save &amp; continue
-          </Button>
-          <button
-            type="button"
-            onClick={() => dispatch({ type: "GO_NEXT" })}
-            className={styles.skipButton}
-          >
-            Skip for now — I&rsquo;ll set this later
-          </button>
-        </div>
-      </Card>
-    </div>
+                <s-text tone="success" type="strong">
+                  {qualifies
+                    ? "This cart qualifies for free shipping."
+                    : `Add ${formatCurrency(remaining, state.storeCurrency)} more for free shipping.`}
+                </s-text>
+              </s-stack>
+            </s-box>
+
+            <s-stack direction="block" gap="small-100" inlineSize="100%" alignItems="center">
+              <s-button
+                variant="primary"
+                onClick={() => {
+                  dispatch({ type: "CONFIRM_THRESHOLD" });
+                  dispatch({ type: "GO_NEXT" });
+                }}
+              >
+                Save &amp; continue
+              </s-button>
+              <s-button variant="tertiary" onClick={() => dispatch({ type: "GO_NEXT" })}>
+                Skip for now — I&rsquo;ll set this later
+              </s-button>
+            </s-stack>
+          </s-stack>
+        </s-box>
+      </s-stack>
+    </s-box>
   );
 }

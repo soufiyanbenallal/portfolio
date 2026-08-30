@@ -225,19 +225,6 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             language: "css",
           },
           {
-            name: "Confetti.tsx",
-            path: "Onboarding/partials/components/shared/Confetti.tsx",
-            sourcePath: "app/kits/polaris/Onboarding/partials/components/shared/Confetti.tsx",
-            language: "tsx",
-          },
-          {
-            name: "Confetti.module.css",
-            path: "Onboarding/partials/components/shared/Confetti.module.css",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/shared/Confetti.module.css",
-            language: "css",
-          },
-          {
             name: "ui.tsx",
             path: "Onboarding/partials/components/shared/ui.tsx",
             sourcePath: "app/kits/polaris/Onboarding/partials/components/shared/ui.tsx",

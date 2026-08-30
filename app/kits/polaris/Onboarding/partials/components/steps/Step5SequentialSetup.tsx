@@ -57,7 +57,9 @@ export function Step5SequentialSetup({ state, dispatch }: Step5SequentialSetupPr
         </div>
 
         <div className={styles.toolHeader}>
-          <IconTile icon={<Icon style={{ height: "1.25rem", width: "1.25rem" }} />} />
+          <IconTile>
+            <Icon style={{ height: "1.25rem", width: "1.25rem" }} />
+          </IconTile>
           <div>
             <p className={styles.toolHeaderBadge}>
               Tool {state.queueIndex + 1} of {queue.length}

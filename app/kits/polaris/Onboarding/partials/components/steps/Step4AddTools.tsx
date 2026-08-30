@@ -1,15 +1,14 @@
 import type { Dispatch } from "react";
-import { Boxes, Gift, Rocket, Zap } from "lucide-react";
 import type { OnboardingActionType, OnboardingStateType, OptionalToolIdType } from "../../types";
-import { Badge, Button, Card, IconTile, ToggleSwitch } from "../shared/ui";
-import { cn } from "../../utils";
+import { IconTile } from "@/components/ui/IconTile";
+import Content from "@/app/kits/polaris/ui/typography/Content";
 import styles from "./Step4AddTools.module.css";
 
-const OPTIONAL_ICONS: Record<OptionalToolIdType, typeof Boxes> = {
-  "volume-discounts": Boxes,
-  "post-purchase-upsell": Rocket,
-  "product-addons": Gift,
-  "checkout-bumps": Zap,
+const OPTIONAL_ICONS: Record<OptionalToolIdType, "discount" | "rocket" | "gift-card" | "bolt"> = {
+  "volume-discounts": "discount",
+  "post-purchase-upsell": "rocket",
+  "product-addons": "gift-card",
+  "checkout-bumps": "bolt",
 };
 
 export type Step4AddToolsPropsType = {
@@ -21,62 +20,101 @@ export function Step4AddTools({ state, dispatch }: Step4AddToolsPropsType) {
   const selectedCount = state.optionalTools.filter((tool) => tool.selected).length;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Add more revenue tools</h1>
-        <p className={styles.subtitle}>
-          Optional, high-impact modules. Nothing here is required to launch.
-        </p>
-      </div>
+    <s-box paddingBlock="large">
+      <s-stack direction="block" gap="large" alignItems="center">
+        <s-box inlineSize="100%" maxInlineSize="640px">
+          <s-stack direction="block" gap="large-100" alignItems="center">
+            <s-stack direction="block" gap="small-100" alignItems="center">
+              <Content
+                variant="headingLg"
+                tooltip="Enable optional revenue drivers like Volume Discounts, Post-Purchase Upsells, and Checkout Bumps with one click."
+              >
+                Add more revenue tools
+              </Content>
+              <s-paragraph color="subdued">
+                Optional, high-impact modules. Nothing here is required to launch.
+              </s-paragraph>
+            </s-stack>
 
-      <div className={styles.toolGrid}>
-        {state.optionalTools.map((tool, i) => {
-          const Icon = OPTIONAL_ICONS[tool.id];
-          return (
-            <Card
-              key={tool.id}
-              className={cn(styles.toolCard, tool.selected && styles.toolCardSelected)}
-              style={{ animationDelay: `${i * 60}ms` }}
-            >
-              <div className={styles.cardHeader}>
-                <IconTile
-                  icon={<Icon style={{ height: "1.25rem", width: "1.25rem" }} />}
-                  tone={tool.selected ? "green" : "gray"}
-                />
-                <ToggleSwitch
-                  checked={tool.selected}
-                  onChange={() => dispatch({ type: "TOGGLE_OPTIONAL_TOOL", id: tool.id })}
-                  label={`Enable ${tool.name}`}
-                />
-              </div>
-              <p className={styles.toolName}>{tool.name}</p>
-              <p className={styles.toolDescription}>{tool.description}</p>
-              <div className={styles.badgeWrapper}>
-                <Badge tone="gray">{tool.impact}</Badge>
-              </div>
-            </Card>
-          );
-        })}
-      </div>
+            <s-grid gridTemplateColumns="repeat(2, minmax(260px, 1fr))" gap="base">
+              {state.optionalTools.map((tool, i) => (
+                <div
+                  key={tool.id}
+                  className={styles.toolCard}
+                  style={{ animationDelay: `${i * 60}ms` }}
+                >
+                  <s-box
+                    padding="base"
+                    border="base"
+                    borderRadius="large"
+                    background="base"
+                    inlineSize="100%"
+                  >
+                    <s-stack direction="block" gap="small-100">
+                      <s-stack
+                        direction="inline"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <IconTile tone={tool.selected ? "success" : "subdued"}>
+                          <s-icon type={OPTIONAL_ICONS[tool.id]} tone="success" size="base" />
+                        </IconTile>
+                        <s-switch
+                          checked={tool.selected}
+                          onChange={() => dispatch({ type: "TOGGLE_OPTIONAL_TOOL", id: tool.id })}
+                        />
+                      </s-stack>
+                      <s-heading>{tool.name}</s-heading>
+                      <s-paragraph color="subdued">{tool.description}</s-paragraph>
+                      <s-stack
+                        justifyContent="space-between"
+                        direction="inline"
+                        alignItems="center"
+                        gap="base"
+                        inlineSize="100%"
+                      >
+                        <s-badge tone="neutral">{tool.impact}</s-badge>
+                        <s-button disabled={!tool.selected} commandFor={tool.id}>
+                          Configure with presets
+                        </s-button>
+                      </s-stack>
+                    </s-stack>
+                  </s-box>
+                </div>
+              ))}
+            </s-grid>
 
-      <p className={styles.footnote}>
-        *Illustrative benchmarks — your own Analytics will show real lift once live.
-      </p>
+            <s-box paddingBlockStart="small" inlineSize="100%">
+              <s-stack
+                justifyContent="space-between"
+                direction="inline"
+                alignItems="center"
+                gap="base"
+                inlineSize="100%"
+              >
+                <s-paragraph color="subdued">
+                  {selectedCount === 0
+                    ? "No tools selected yet"
+                    : `${selectedCount} tool${selectedCount > 1 ? "s" : ""} selected`}
+                </s-paragraph>
 
-      <div className={styles.bottomBar}>
-        <div className={styles.bottomBarInner}>
-          <p className={styles.bottomBarText}>
-            {selectedCount === 0
-              ? "No tools selected yet"
-              : `${selectedCount} tool${selectedCount > 1 ? "s" : ""} selected`}
-          </p>
-          <Button onClick={() => dispatch({ type: "GO_NEXT" })}>
-            {selectedCount === 0
-              ? "Skip for now"
-              : `Set up ${selectedCount} tool${selectedCount > 1 ? "s" : ""}`}
-          </Button>
-        </div>
-      </div>
-    </div>
+                <s-stack direction="inline" gap="small-200" alignItems="center">
+                  <s-button onClick={() => dispatch({ type: "GO_BACK" })}>Back</s-button>
+                  <s-button variant="primary" onClick={() => dispatch({ type: "GO_NEXT" })}>
+                    {selectedCount === 0
+                      ? "Skip for now"
+                      : `Set up ${selectedCount} tool${selectedCount > 1 ? "s" : ""}`}
+                  </s-button>
+                </s-stack>
+              </s-stack>
+            </s-box>
+
+            <s-paragraph color="subdued">
+              *Illustrative benchmarks — your own Analytics will show real lift once live.
+            </s-paragraph>
+          </s-stack>
+        </s-box>
+      </s-stack>
+    </s-box>
   );
 }

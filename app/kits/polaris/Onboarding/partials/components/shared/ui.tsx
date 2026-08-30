@@ -49,23 +49,14 @@ export function Badge({ tone = "green", children }: { tone?: BadgeToneType; chil
   return <span className={cn(styles.badge, toneClassMap[tone])}>{children}</span>;
 }
 
-export type IconTileToneType = "green" | "gray";
-
-export function IconTile({
-  icon,
-  tone = "green",
-  className,
-}: {
-  icon: ReactNode;
-  tone?: IconTileToneType;
-  className?: string;
-}) {
-  const toneClassMap: Record<IconTileToneType, string> = {
-    green: styles.iconTileGreen,
-    gray: styles.iconTileGray,
-  };
-  return <div className={cn(styles.iconTile, toneClassMap[tone], className)}>{icon}</div>;
-}
+export {
+  IconTile,
+  IconTitle,
+  type IconTilePropsType,
+  type IconTileToneType,
+  type IconTileBorderRadiusType,
+  type IconTileSizeType,
+} from "@/components/ui/IconTile";
 
 export function ToggleSwitch({
   checked,

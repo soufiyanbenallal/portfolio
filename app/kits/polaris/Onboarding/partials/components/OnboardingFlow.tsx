@@ -58,6 +58,7 @@ export function OnboardingFlow({ onGoToDashboard, onExit, onRestart }: Onboardin
         steps={ONBOARDING_STEPS_CONFIG}
         onGoToStep={(targetStep) => dispatch({ type: "GO_TO_STEP", step: targetStep })}
       />
+      <br />
       <StepTransition stepKey={`${state.currentStep}-${state.queueIndex}`}>
         {renderStep()}
       </StepTransition>
