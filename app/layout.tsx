@@ -8,32 +8,36 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Joseph Alexander — Lead Full-Stack Designer",
-    template: "%s — Joseph Alexander",
+    default: "Soufiyan Benallal — Lead Full-Stack & Shopify Developer",
+    template: "%s — Soufiyan Benallal",
   },
   description:
-    "Strategic design that drives growth, not just looks good. Creating everything your brand needs to attract customers and turn them into sales.",
+    "Senior Developer specializing in React 19, TypeScript, Node.js, Laravel, Shopify Apps & Themes, and AI integrations. Architecting scalable platforms and high-converting storefronts.",
   keywords: [
-    "Joseph Alexander",
-    "Full-Stack Designer",
-    "Product Design",
-    "Framer Development",
+    "Soufiyan Benallal",
+    "Lead Full Stack Developer",
+    "Shopify Apps Developer",
+    "Shopify Themes Architect",
     "React Engineer",
-    "Brand Architecture",
+    "Next.js Developer",
+    "Laravel & PHP",
+    "AI Integrations",
+    "TypeScript",
   ],
-  authors: [{ name: "Joseph Alexander" }],
-  creator: "Joseph Alexander",
+  authors: [{ name: "Soufiyan Benallal" }],
+  creator: "Soufiyan Benallal",
   openGraph: {
-    title: "Joseph Alexander — Design that delivers results",
+    title: "Soufiyan Benallal — Lead Full-Stack & Shopify Developer",
     description:
-      "Strategic design that drives growth, not just looks good. Built with Next.js and Motion.",
+      "Senior Developer specializing in React, TypeScript, Node.js, Laravel, Shopify Apps & Themes, and AI integrations.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Joseph Alexander — Design that delivers results",
-    description: "Strategic design that drives growth, not just looks good.",
+    title: "Soufiyan Benallal — Lead Full-Stack & Shopify Developer",
+    description:
+      "Senior Developer specializing in React, TypeScript, Node.js, Laravel, Shopify Apps & Themes, and AI integrations.",
   },
 };
 

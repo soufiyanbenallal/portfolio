@@ -79,15 +79,15 @@ export function BookingDialogShared() {
               <div className="flex items-center gap-3">
                 <div className="border-gray-30 relative h-11 w-11 shrink-0 overflow-hidden rounded-full border">
                   <Image
-                    src="https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg"
-                    alt="Joseph Alexander"
+                    src="/images/profile.jpeg"
+                    alt="Soufiyan Benallal"
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div>
                   <h3 className="text-lg leading-tight font-medium text-black">
-                    Discovery Call with Joseph
+                    Discovery Call with Soufiyan
                   </h3>
                   <span className="mt-0.5 flex items-center gap-1.5 text-xs text-gray-50">
                     <Icons.Calendar className="h-3.5 w-3.5" /> 30 min · Google Meet

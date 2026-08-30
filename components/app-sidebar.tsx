@@ -32,8 +32,7 @@ import {
 } from "lucide-react";
 import { polarisNavSectionsData } from "@/app/polaris-playground/data/polaris-docs.data";
 
-const AVATAR =
-  "https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg?width=64&height=64";
+const AVATAR = "/images/profile.jpeg";
 
 function getCategoryIcon(id: string) {
   switch (id) {

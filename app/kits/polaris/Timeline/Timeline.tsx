@@ -5,7 +5,8 @@ import { TimelineItemPart } from "./partials/TimelineItem.part";
 import { TimelineDateHeaderPart, formatDayDate } from "./partials/TimelineDateHeader.part";
 import { TimelineFilterBarPart } from "./partials/TimelineFilterBar.part";
 
-export type IconType = JSX.IntrinsicElements["s-icon"]["type"];
+export type TimelineIconType = JSX.IntrinsicElements["s-icon"]["type"];
+export type IconType = TimelineIconType;
 
 export type TimelineEventToneType =
   "auto" | "success" | "info" | "neutral" | "warning" | "critical";
@@ -25,7 +26,7 @@ export type TimelineItemType = {
   description?: ReactNode;
   actor?: string;
   actorAvatar?: string;
-  icon?: IconType | string;
+  icon?: TimelineIconType | string;
   tone?: TimelineEventToneType | string;
   tag?: string;
   url?: string;

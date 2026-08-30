@@ -13,15 +13,15 @@ import { Counter } from "@/components/motion/counter.motion";
 import { SPRINGS, floatingMirrorTransition } from "@/lib/motion.config";
 
 const BIO_PARAGRAPHS = [
-  "I love turning ideas into something real through design. What started as a hobby turned into a career when I discovered how design can make things both look great and work better.",
-  "I focus on creating user interfaces that serve a real purpose – making sure they're not just pretty, but actually solve problems. Whether I'm working on a mobile app or a website, my goal is to make something that feels natural and easy to use.",
-  "I'm a bit of a perfectionist when it comes to the small stuff, but I think that's what makes good design great. This attention to detail helps me build strong relationships with clients, as they know I'll put the same care into their project that they would.",
+  "I architect and build scalable full-stack web applications, custom Shopify ecosystems, and intelligent AI integrations. What began with a deep curiosity for computing evolved into leading engineering teams, designing resilient software architectures, and shipping platforms that deliver measurable business impact.",
+  "My focus centers on end-to-end engineering excellence — from robust Laravel and Node.js backend services, database design, and Shopify GraphQL APIs to fluid, accessible React 19 and Next.js interfaces powered by Tailwind CSS v4 and silky micro-interactions.",
+  "As a Lead Full Stack Developer, I bridge high-level technical strategy with precise execution. Whether mentoring engineering talent, orchestrating CI/CD deployment pipelines, or integrating autonomous AI workflows, I ensure every codebase is secure, scalable, and built to last.",
 ];
 
 const FACTS = [
-  { value: 8, suffix: "+", label: "Years designing" },
-  { value: 120, suffix: "+", label: "Projects shipped" },
-  { value: 99, suffix: "%", label: "Client retention" },
+  { value: 8, suffix: "+", label: "Years engineering" },
+  { value: 40, suffix: "+", label: "Solutions shipped" },
+  { value: 99, suffix: "%", label: "Client satisfaction" },
 ];
 
 /**
@@ -42,7 +42,7 @@ export function AboutHistoryPart() {
         <TextReveal
           as="h2"
           by="line"
-          text={["Designing experiences", "that solve real problems."]}
+          text={["Engineering software", "that scales and solves real problems."]}
           className="text-[clamp(28px,3.5vw,40px)] leading-[1.05] font-medium tracking-[-0.03em] text-black"
           fragmentClassName={(index) => (index === 0 ? "text-gray-40" : "text-black")}
         />
@@ -54,8 +54,8 @@ export function AboutHistoryPart() {
               <Tilt3D intensity={7} lift={14} glare className="w-full">
                 <div className="border-gray-30 bg-gray-10 relative aspect-4/3 w-full overflow-hidden rounded-[20px] border">
                   <Image
-                    src="https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg"
-                    alt="Joseph Alexander"
+                    src="/images/profile.jpeg"
+                    alt="Soufiyan Benallal"
                     fill
                     sizes="(max-width: 1024px) 100vw, 420px"
                     className="object-cover"
@@ -70,7 +70,7 @@ export function AboutHistoryPart() {
                     className="border-gray-30 pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 rounded-xl border bg-white/90 px-3.5 py-2 text-xs font-medium text-black shadow-md backdrop-blur-md"
                   >
                     <span className="bg-availability-green h-2 w-2 animate-pulse rounded-full" />
-                    <span>Full-stack Designer</span>
+                    <span>Lead Full Stack Developer</span>
                   </motion.div>
                 </div>
               </Tilt3D>
@@ -163,10 +163,10 @@ export function AboutHistoryPart() {
                   className="text-2xl font-bold tracking-tight text-black italic"
                   style={{ fontFamily: "Georgia, serif" }}
                 >
-                  Joseph Alexander
+                  Soufiyan Benallal
                 </span>
               </div>
-              <span className="font-mono text-xs text-gray-50">London, United Kingdom</span>
+              <span className="font-mono text-xs text-gray-50">Meknes, Morocco · Remote</span>
             </div>
           </div>
         </div>

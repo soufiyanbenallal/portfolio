@@ -3,7 +3,7 @@
 import React, { type ReactNode, type JSX } from "react";
 import { Content } from "../typography/Content";
 
-export type IconType = JSX.IntrinsicElements["s-icon"]["type"];
+export type CardIconType = JSX.IntrinsicElements["s-icon"]["type"];
 export type CardPaddingType = "none" | "small-300" | "small-200" | "base" | "large-100";
 export type CardBackgroundType = "base" | "subdued" | "transparent";
 
@@ -11,7 +11,7 @@ export type CardPropsType = {
   title?: ReactNode;
   tooltip?: ReactNode;
   description?: ReactNode;
-  icon?: IconType | string;
+  icon?: CardIconType | string;
   rightActions?: ReactNode;
   children?: ReactNode;
   padding?: "none" | "base";
@@ -40,7 +40,7 @@ export function Card({
             <s-stack direction="block" gap="none">
               {title && (
                 <s-stack direction="inline" gap="small-200" alignItems="center">
-                  {icon && <s-icon type={icon as IconType} tone="neutral" />}
+                  {icon && <s-icon type={icon as CardIconType} tone="neutral" />}
                   <Content tooltip={tooltip} variant="headingMd">
                     {title}
                   </Content>

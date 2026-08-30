@@ -10,7 +10,7 @@ import { Container } from "@/components/shared/container.shared";
 import { CAL_LINK } from "@/components/shared/cal-embed.shared";
 import { PERSPECTIVE, SPRINGS, SCROLL_OFFSETS } from "@/lib/motion.config";
 
-const EMAIL = "joseph@launchnow.design";
+const EMAIL = "benallalsoufiane1@gmail.com";
 const WORDMARK = "SOUFIYAN";
 
 /* -------------------------------------------------------------------- *
@@ -91,10 +91,10 @@ export function FooterShared() {
     const updateTime = () => {
       setCurrentTime(
         `${new Date().toLocaleTimeString("en-GB", {
-          timeZone: "Europe/London",
+          timeZone: "Africa/Casablanca",
           hour: "2-digit",
           minute: "2-digit",
-        })} GMT`
+        })} GMT+1`
       );
     };
     updateTime();
@@ -198,9 +198,9 @@ export function FooterShared() {
                   Privacy policy
                 </Link>
                 <div className="mt-4 border-t border-white/10 pt-3">
-                  <span className="block text-xs text-white/50">Based in London / Remote</span>
+                  <span className="block text-xs text-white/50">Based in Meknes, Morocco · Remote Worldwide</span>
                   <span className="mt-0.5 block font-mono text-xs text-white/70">
-                    {currentTime || "—— GMT"}
+                    {currentTime || "—— GMT+1"}
                   </span>
                 </div>
               </div>
@@ -244,11 +244,11 @@ export function FooterShared() {
                       />
                     ))}
               </p>
-              <span className="sr-only">Joseph Alexander</span>
+              <span className="sr-only">Soufiyan Benallal</span>
             </div>
 
             <div className="mt-8 flex w-full flex-col items-center justify-between pt-6 font-mono text-xs text-white/50 sm:flex-row">
-              <span>© {new Date().getFullYear()} Joseph Alexander. All rights reserved.</span>
+              <span>© {new Date().getFullYear()} Soufiyan Benallal. All rights reserved.</span>
               <span className="mt-2 sm:mt-0">Designed &amp; engineered with craft.</span>
             </div>
           </div>

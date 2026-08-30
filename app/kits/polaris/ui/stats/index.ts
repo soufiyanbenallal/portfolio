@@ -3,7 +3,7 @@ export type {
   StatsCardPropsType,
   StatsCardBadgeType,
   SparklinePropsType,
-  IconType,
+  StatsIconType,
   StatsToneType,
 } from "./StatsCard";
 

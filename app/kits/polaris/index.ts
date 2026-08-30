@@ -3,8 +3,6 @@
  * Exported reusable domain blocks, workflows, and UI components.
  */
 
-export * from "./types";
-
 // ── Domain Blocks ─────────────────────────────────────────────────────────────
 export * from "./SetupGuide/SetupGuide";
 export * from "./PlanPricingMatrix/PlanPricingMatrix";

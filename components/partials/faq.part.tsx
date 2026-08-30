@@ -134,8 +134,8 @@ export function FaqPart() {
                     style={{ transform: "translateZ(30px)" }}
                   >
                     <Image
-                      src="https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg"
-                      alt="Joseph Alexander"
+                      src="/images/profile.jpeg"
+                      alt="Soufiyan Benallal"
                       fill
                       sizes="48px"
                       className="object-cover"

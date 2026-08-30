@@ -34,18 +34,18 @@ export default function TermsPage() {
 
           <div className="text-gray-60 flex flex-col gap-6 text-sm leading-relaxed">
             <p>
-              Welcome to the design services of Joseph Alexander (&quot;Studio&quot;,
-              &quot;we&quot;, &quot;our&quot;). By engaging our design, development, or consulting
-              services, or subscribing to our monthly plans, you agree to comply with and be bound
-              by the following terms and conditions.
+              Welcome to the engineering &amp; design services of Soufiyan Benallal (&quot;we&quot;,
+              &quot;our&quot;). By engaging our software development, Shopify engineering, AI
+              integration, or consulting services, or subscribing to our retainer plans, you agree
+              to comply with and be bound by the following terms and conditions.
             </p>
 
             <h2 className="mt-4 text-lg font-semibold text-black">1. Scope of Services</h2>
             <p>
-              Services encompass digital product design, UX/UI consultation, brand architecture,
-              Framer visual development, and custom React front-end development. Work is conducted
-              either on a fixed-scope project contract or through our monthly unlimited subscription
-              retainer.
+              Services encompass full-stack web application development, custom Shopify apps &amp;
+              themes, AI workflow automation, backend API architecture, UI engineering, and
+              technical consulting. Work is conducted either on a fixed-scope project contract or
+              through an engineering retainer.
             </p>
 
             <h2 className="mt-4 text-lg font-semibold text-black">

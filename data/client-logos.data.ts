@@ -20,30 +20,35 @@ export const navLinksData: NavLinkItemType[] = [
 ];
 
 export const socialLinksData: SocialLinkItemType[] = [
-  { platform: "X / Twitter", url: "https://x.com", handle: "@josephalexander", iconName: "x" },
   {
     platform: "LinkedIn",
-    url: "https://linkedin.com",
-    handle: "Joseph Alexander",
+    url: "https://www.linkedin.com/in/soufiyan-benallal",
+    handle: "Soufiyan Benallal",
     iconName: "linkedin",
   },
   {
-    platform: "Dribbble",
-    url: "https://dribbble.com",
-    handle: "josephalexander",
-    iconName: "dribbble",
+    platform: "GitHub",
+    url: "https://github.com/soufiyanbenallal",
+    handle: "soufiyanbenallal",
+    iconName: "github",
   },
   {
-    platform: "Behance",
-    url: "https://behance.net",
-    handle: "josephalexander",
-    iconName: "behance",
+    platform: "NPM",
+    url: "https://www.npmjs.com/~beyonder.sb",
+    handle: "beyonder.sb",
+    iconName: "npm",
   },
   {
-    platform: "Instagram",
-    url: "https://instagram.com",
-    handle: "@josephalexander",
-    iconName: "instagram",
+    platform: "X / Twitter",
+    url: "https://x.com",
+    handle: "@soufiyanbenallal",
+    iconName: "x",
   },
-  { platform: "GitHub", url: "https://github.com", handle: "josephalexander", iconName: "github" },
+  {
+    platform: "Email",
+    url: "mailto:benallalsoufiane1@gmail.com",
+    handle: "benallalsoufiane1@gmail.com",
+    iconName: "mail",
+  },
 ];
+

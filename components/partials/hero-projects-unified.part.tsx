@@ -1208,10 +1208,9 @@ export function HeroProjectsUnifiedPart() {
                   className="text-gray-60 text-[16px] leading-[1.4] tracking-[-0.02em] sm:text-[18px]"
                 >
                   <strong className="font-semibold text-black">
-                    Strategic design that drives growth, not just looks good.
+                    Senior Full Stack &amp; Shopify Developer.
                   </strong>{" "}
-                  I create everything your brand needs to attract customers and turn them into
-                  sales.
+                  Architecting high-performance React 19, TypeScript, Node.js, Laravel platforms &amp; AI integrations that scale businesses.
                 </motion.p>
 
                 <motion.div
@@ -1238,8 +1237,8 @@ export function HeroProjectsUnifiedPart() {
                     >
                       <span className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-white/20">
                         <Image
-                          src="https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg"
-                          alt="Joseph Alexander"
+                          src="/images/profile.jpeg"
+                          alt="Soufiyan Benallal"
                           fill
                           sizes="28px"
                           className="relative z-1 object-cover"

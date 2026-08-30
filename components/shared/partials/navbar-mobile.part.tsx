@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils";
 import { NavbarActionsPart } from "./navbar-actions.part";
 import type { NavbarMobilePropsType } from "@/types";
 
-const AVATAR =
-  "https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg?width=64&height=64";
+const AVATAR = "/images/profile.jpeg";
 
 export function NavbarMobilePart({
   isPastHero,
@@ -52,7 +51,7 @@ export function NavbarMobilePart({
             >
               <Image
                 src={AVATAR}
-                alt="Joseph Alexander"
+                alt="Soufiyan Benallal"
                 fill
                 sizes="28px"
                 className="object-cover"
@@ -68,7 +67,7 @@ export function NavbarMobilePart({
                   : "max-w-[160px] translate-x-0 pr-1 opacity-100"
               )}
             >
-              Joseph Alexander
+              Soufiyan Benallal
             </span>
           </button>
 

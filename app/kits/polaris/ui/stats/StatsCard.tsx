@@ -1,7 +1,7 @@
 import { type ReactNode, type JSX } from "react";
 
 // ─── Tone and Icon types ───────────────────────────────────────────────────────
-export type IconType = JSX.IntrinsicElements["s-icon"]["type"];
+export type StatsIconType = JSX.IntrinsicElements["s-icon"]["type"];
 export type StatsToneType = "auto" | "success" | "info" | "neutral" | "warning" | "critical";
 
 // ─── Prop types ────────────────────────────────────────────────────────────────
@@ -24,7 +24,7 @@ export type StatsCardPropsType = {
   title: string;
   value: ReactNode;
   description?: ReactNode;
-  icon?: IconType;
+  icon?: StatsIconType;
   iconTone?: StatsToneType;
   badge?: StatsCardBadgeType;
   /** Time-series — one number per day/interval, oldest first. */

@@ -3,11 +3,12 @@ import type { TestimonialItemType } from "@/types";
 export const bigQuoteTestimonial: TestimonialItemType = {
   id: "big-quote",
   quote:
-    "Working with Joseph felt like having a seasoned design partner who truly understood our vision for KYMA and brought it to life in ways we hadn't even imagined.",
+    "Working with Soufiyan felt like having a seasoned engineering partner who truly understood our vision for KYMA and brought it to life with exceptional architecture and execution.",
   author: "Thomas Weber",
   role: "Co-founder",
   company: "KYMA",
-  avatar: "https://framerusercontent.com/images/pKKKvDTDIMbGXt4SKNGc5PEgrkU.jpg",
+  avatar:
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80",
   rating: 5,
   highlight: true,
 };
@@ -16,9 +17,9 @@ export const testimonialsData: TestimonialItemType[] = [
   {
     id: "test-1",
     quote:
-      "The new UI design cut our customer support tickets in half. It's been a game-changer for our team.",
+      "The new platform architecture and UI cut our support tickets in half while boosting app responsiveness. It's been a game-changer for our team.",
     author: "Martina Martinez",
-    role: "Customer Manager",
+    role: "Engineering Manager",
     company: "SupportEase",
     avatar:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80",
@@ -27,7 +28,7 @@ export const testimonialsData: TestimonialItemType[] = [
   {
     id: "test-2",
     quote:
-      "Working with Joseph felt like having a seasoned design partner who truly understood our vision for KYMA and brought it to life in ways we hadn't even imagined.",
+      "Working with Soufiyan felt like having a seasoned engineering partner who truly understood our vision for KYMA and brought it to life with exceptional architecture and execution.",
     author: "Thomas Weber",
     role: "Co-founder",
     company: "KYMA",
@@ -39,7 +40,7 @@ export const testimonialsData: TestimonialItemType[] = [
   {
     id: "test-3",
     quote:
-      "Our website conversion rate improved significantly thanks to Joseph's deep expertise in commerce UX.",
+      "Our website conversion rate and checkout performance improved significantly thanks to Soufiyan's deep expertise in Shopify and commerce engineering.",
     author: "Ben Harper",
     role: "CTO",
     company: "Nexus",
@@ -50,7 +51,7 @@ export const testimonialsData: TestimonialItemType[] = [
   {
     id: "test-4",
     quote:
-      "Joseph's design approach brought clarity to our complex data visualizations. Our enterprise users are thrilled!",
+      "Soufiyan's architectural approach brought clarity and speed to our complex data visualizations and backend APIs. Our enterprise users are thrilled!",
     author: "Michael Wong",
     role: "Data Scientist",
     company: "DataSphere",

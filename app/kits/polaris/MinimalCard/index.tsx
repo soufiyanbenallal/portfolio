@@ -10,7 +10,7 @@ export const MinimalCard = ({
   children,
   padding = "base",
   className = "",
-}: MinimalCardPropsType): JSX.Element => {
+}: MinimalCardPropsType): React.JSX.Element => {
   const paddingClass =
     padding === "none" ? "" : padding === "tight" ? "p-3" : padding === "loose" ? "p-6" : "p-4";
 

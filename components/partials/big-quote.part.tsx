@@ -46,7 +46,7 @@ export function BigQuotePart() {
             <blockquote className="max-w-205">
               <ScrollDimmedText
                 as="span"
-                text="“Working with Joseph felt like having a seasoned design partner who truly understood our vision for KYMA and brought it to life in ways we hadn't even imagined.”"
+                text="“Working with Soufiyan felt like having a seasoned engineering partner who truly understood our vision for KYMA and brought it to life with exceptional architecture and execution.”"
                 className="justify-center text-[clamp(18px,2.2vw,28px)] leading-[1.4] font-medium tracking-[-0.02em] text-black"
                 dimClassName="text-black"
               />

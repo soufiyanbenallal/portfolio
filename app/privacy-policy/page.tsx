@@ -34,7 +34,7 @@ export default function PrivacyPolicyPage() {
 
           <div className="text-gray-60 flex flex-col gap-6 text-sm leading-relaxed">
             <p>
-              Your privacy is fundamental to how we work. This policy describes how Joseph Alexander
+              Your privacy is fundamental to how we work. This policy describes how Soufiyan Benallal
               collects, uses, and protects personal information submitted through this website.
             </p>
 
@@ -53,16 +53,16 @@ export default function PrivacyPolicyPage() {
 
             <h2 className="mt-4 text-lg font-semibold text-black">3. Security & Payments</h2>
             <p>
-              All subscription payments are securely processed through Stripe. We do not store or
-              process raw credit card numbers on our servers.
+              All payments are securely processed through Stripe. We do not store or process raw
+              credit card numbers on our servers.
             </p>
 
             <h2 className="mt-4 text-lg font-semibold text-black">4. Contact Inquiries</h2>
             <p>
               If you have any questions regarding your data or wish to request deletion of your
               contact records, please email{" "}
-              <a href="mailto:joseph@launchnow.design" className="text-black underline">
-                joseph@launchnow.design
+              <a href="mailto:benallalsoufiane1@gmail.com" className="text-black underline">
+                benallalsoufiane1@gmail.com
               </a>
               .
             </p>

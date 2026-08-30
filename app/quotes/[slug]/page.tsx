@@ -154,8 +154,8 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ sl
             <div className="border-gray-30 flex flex-col items-center justify-between gap-4 border-t pt-4 sm:flex-row">
               <span className="text-xs text-gray-50">
                 Questions? Reply directly to{" "}
-                <a href={`mailto:${quote.clientEmail}`} className="text-black underline">
-                  joseph@launchnow.design
+                <a href="mailto:benallalsoufiane1@gmail.com" className="text-black underline">
+                  benallalsoufiane1@gmail.com
                 </a>
               </span>
               <ButtonUi variant="primary" size="lg" className="h-12 w-full px-8 sm:w-auto">
