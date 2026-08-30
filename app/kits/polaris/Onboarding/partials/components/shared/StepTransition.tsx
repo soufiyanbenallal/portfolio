@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { cn } from '../../utils';
+import styles from './StepTransition.module.css';
 
 const EXIT_DURATION_MS = 180;
 
-export function StepTransition({ stepKey, children }: { stepKey: string; children: ReactNode }) {
+export type StepTransitionPropsType = {
+  stepKey: string;
+  children: ReactNode;
+};
+
+export function StepTransition({ stepKey, children }: StepTransitionPropsType) {
   const [phase, setPhase] = useState<'enter' | 'exit'>('enter');
   const [renderedKey, setRenderedKey] = useState(stepKey);
   const activeKey = useRef(stepKey);
@@ -24,6 +30,9 @@ export function StepTransition({ stepKey, children }: { stepKey: string; childre
       activeKey.current = stepKey;
       setRenderedKey(stepKey);
       setPhase('enter');
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
     }, EXIT_DURATION_MS);
     return () => window.clearTimeout(timeout);
     // Re-run only when the step identity changes, not on every content re-render.
@@ -31,7 +40,10 @@ export function StepTransition({ stepKey, children }: { stepKey: string; childre
   }, [stepKey]);
 
   return (
-    <div key={renderedKey} className={cn(phase === 'enter' ? 'step-panel-enter' : 'step-panel-exit')}>
+    <div
+      key={renderedKey}
+      className={cn(phase === 'enter' ? styles.stepPanelEnter : styles.stepPanelExit)}
+    >
       {showingCurrent ? children : lastChildren.current}
     </div>
   );

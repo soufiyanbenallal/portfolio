@@ -8,19 +8,22 @@ import { Step4AddTools } from './steps/Step4AddTools';
 import { Step5SequentialSetup } from './steps/Step5SequentialSetup';
 import { Step6ShopifyValidation } from './steps/Step6ShopifyValidation';
 import { Step7Celebration } from './steps/Step7Celebration';
+import styles from './OnboardingFlow.module.css';
 
-export function OnboardingFlow({
-  onGoToDashboard,
-  onExit,
-  onRestart,
-}: {
+export type OnboardingFlowPropsType = {
   /** Called when the merchant taps the final CTA. Wire this to your router. */
   onGoToDashboard?: () => void;
   /** Called from the "Exit setup" link in the header, if provided. */
   onExit?: () => void;
   /** Optional — lets a host app offer to replay the flow (demo/QA convenience). */
   onRestart?: () => void;
-}) {
+};
+
+export function OnboardingFlow({
+  onGoToDashboard,
+  onExit,
+  onRestart,
+}: OnboardingFlowPropsType) {
   const { state, dispatch, stepIndex, totalSteps } = useOnboarding();
 
   const renderStep = () => {
@@ -52,7 +55,7 @@ export function OnboardingFlow({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <s-page>
       <ProgressHeader
         step={state.currentStep}
         stepIndex={stepIndex}
@@ -63,6 +66,6 @@ export function OnboardingFlow({
       <StepTransition stepKey={`${state.currentStep}-${state.queueIndex}`}>
         {renderStep()}
       </StepTransition>
-    </div>
+    </s-page>
   );
 }

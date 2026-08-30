@@ -1,21 +1,24 @@
 import { useEffect, type Dispatch } from 'react';
 import { Check, Clock } from 'lucide-react';
-import type { OnboardingAction, OnboardingState } from '../../types';
+import type { OnboardingActionType, OnboardingStateType } from '../../types';
 import { Button, Card } from '../shared/ui';
 import { Confetti } from '../shared/Confetti';
 import { cn } from '../../utils';
+import styles from './Step7Celebration.module.css';
+
+export type Step7CelebrationPropsType = {
+  state: OnboardingStateType;
+  dispatch: Dispatch<OnboardingActionType>;
+  onGoToDashboard?: () => void;
+  onRestart?: () => void;
+};
 
 export function Step7Celebration({
   state,
   dispatch,
   onGoToDashboard,
   onRestart,
-}: {
-  state: OnboardingState;
-  dispatch: Dispatch<OnboardingAction>;
-  onGoToDashboard?: () => void;
-  onRestart?: () => void;
-}) {
+}: Step7CelebrationPropsType) {
   useEffect(() => {
     if (state.onboardingCompleted) return;
     // Mirrors the real integration point: persist onboarding_completed=true
@@ -36,40 +39,45 @@ export function Step7Celebration({
   ];
 
   return (
-    <div className="relative flex min-h-[70vh] items-center justify-center overflow-hidden px-4 py-10">
+    <div className={styles.container}>
       <Confetti />
-      <Card className="animate-scale-in relative w-full max-w-md p-8">
-        <div className="animate-pop mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-          <Check className="h-6 w-6" strokeWidth={2.5} />
+      <Card className={styles.card}>
+        <div className={styles.popBadge}>
+          <Check style={{ height: '1.5rem', width: '1.5rem' }} strokeWidth={2.5} />
         </div>
-        <h1 className="text-center text-xl font-semibold tracking-tight text-gray-900">
+        <h1 className={styles.title}>
           You&rsquo;re all set 🎉
         </h1>
-        <p className="mx-auto mt-1 max-w-xs text-center text-sm text-gray-500">
+        <p className={styles.subtitle}>
           Journeva is live on your store and already working in the background.
         </p>
 
-        <div className="mt-6 space-y-2.5">
+        <div className={styles.summaryList}>
           {rows.map((row) => (
-            <div key={row.label} className="flex items-center gap-2.5 text-sm">
+            <div key={row.label} className={styles.summaryItem}>
               <span
                 className={cn(
-                  'flex h-5 w-5 shrink-0 items-center justify-center rounded-full',
-                  row.done ? 'bg-emerald-600 text-white' : 'bg-amber-50 text-amber-600'
+                  row.done ? styles.itemIconDone : styles.itemIconPending
                 )}
               >
-                {row.done ? <Check className="h-3 w-3" strokeWidth={3} /> : <Clock className="h-3 w-3" />}
+                {row.done ? (
+                  <Check style={{ height: '0.75rem', width: '0.75rem' }} strokeWidth={3} />
+                ) : (
+                  <Clock style={{ height: '0.75rem', width: '0.75rem' }} />
+                )}
               </span>
-              <span className={row.done ? 'text-gray-700' : 'text-gray-500'}>{row.label}</span>
+              <span className={row.done ? styles.itemLabelDone : styles.itemLabelPending}>
+                {row.label}
+              </span>
             </div>
           ))}
         </div>
 
-        <div className="mt-8">
-          <Button className="w-full" onClick={onGoToDashboard}>
+        <div className={styles.actionSection}>
+          <Button className={styles.fullWidthButton} onClick={onGoToDashboard}>
             Go to Revenue Dashboard
           </Button>
-          <p className="mt-3 text-center text-xs text-gray-400">
+          <p className={styles.footnote}>
             Need to change anything? Everything&rsquo;s editable anytime from the Hub.
           </p>
         </div>
@@ -78,7 +86,7 @@ export function Step7Celebration({
           <button
             type="button"
             onClick={onRestart}
-            className="mt-4 w-full text-center text-[11px] font-medium text-gray-300 hover:text-gray-500"
+            className={styles.replayButton}
           >
             Replay demo
           </button>

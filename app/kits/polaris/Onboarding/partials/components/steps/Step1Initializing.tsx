@@ -1,20 +1,23 @@
 import { useEffect, useRef, useState, type Dispatch } from 'react';
 import { Check, Loader2 } from 'lucide-react';
-import type { OnboardingAction, OnboardingState } from '../../types';
+import type { OnboardingActionType, OnboardingStateType } from '../../types';
 import { Card } from '../shared/ui';
 import { cn } from '../../utils';
+import styles from './Step1Initializing.module.css';
 
 const TASK_INTERVAL_MS = 750;
 const HOLD_AFTER_COMPLETE_MS = 550;
 const FALLBACK_VISIBLE_AFTER_MS = 6500;
 
+export type Step1InitializingPropsType = {
+  state: OnboardingStateType;
+  dispatch: Dispatch<OnboardingActionType>;
+};
+
 export function Step1Initializing({
   state,
   dispatch,
-}: {
-  state: OnboardingState;
-  dispatch: Dispatch<OnboardingAction>;
-}) {
+}: Step1InitializingPropsType) {
   const [showFallback, setShowFallback] = useState(false);
   const hasAdvanced = useRef(false);
 
@@ -43,46 +46,46 @@ export function Step1Initializing({
   const firstPendingIndex = state.syncTasks.findIndex((task) => task.status !== 'done');
 
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-4 py-10">
-      <Card className="w-full max-w-md p-8">
-        <div className="ping-dot mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-500">
-          <Loader2 className="h-5 w-5 animate-spin text-emerald-600" />
+    <div className={styles.container}>
+      <Card className={styles.card}>
+        <div className={styles.pingDot}>
+          <Loader2 className={styles.spinner} />
         </div>
 
-        <h1 className="text-center text-lg font-semibold tracking-tight text-gray-900">
+        <h1 className={styles.title}>
           Setting up Journeva
         </h1>
-        <p className="mx-auto mt-1 max-w-xs text-center text-sm text-gray-500">
+        <p className={styles.subtitle}>
           Sit tight — we&rsquo;re syncing your store and provisioning your revenue engine.
         </p>
 
-        <ul className="mt-6 space-y-3">
+        <ul className={styles.taskList}>
           {state.syncTasks.map((task, i) => {
             const isDone = task.status === 'done';
             const isActive = !isDone && i === firstPendingIndex;
             return (
               <li
                 key={task.id}
-                className="animate-fade-in-up flex items-center gap-3"
+                className={styles.taskItem}
                 style={{ animationDelay: `${i * 70}ms` }}
               >
                 <span
                   className={cn(
-                    'flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors duration-300',
-                    isDone && 'animate-pop border-emerald-600 bg-emerald-600 text-white',
-                    isActive && 'border-emerald-300 bg-white',
-                    !isDone && !isActive && 'border-gray-200 bg-white'
+                    styles.statusIcon,
+                    isDone && styles.statusIconDone,
+                    isActive && styles.statusIconActive,
+                    !isDone && !isActive && styles.statusIconPending
                   )}
                 >
-                  {isDone ? <Check className="h-3 w-3" strokeWidth={3} /> : null}
-                  {isActive ? <Loader2 className="h-3 w-3 animate-spin text-emerald-500" /> : null}
+                  {isDone ? <Check style={{ height: '0.75rem', width: '0.75rem' }} strokeWidth={3} /> : null}
+                  {isActive ? <Loader2 className={styles.itemSpinner} /> : null}
                 </span>
                 <span
                   className={cn(
-                    'text-sm transition-colors duration-300',
-                    isDone && 'text-gray-400',
-                    isActive && 'font-medium text-gray-900',
-                    !isDone && !isActive && 'text-gray-400'
+                    styles.taskLabel,
+                    isDone && styles.taskLabelDone,
+                    isActive && styles.taskLabelActive,
+                    !isDone && !isActive && styles.taskLabelPending
                   )}
                 >
                   {task.label}
@@ -92,9 +95,9 @@ export function Step1Initializing({
           })}
         </ul>
 
-        <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+        <div className={styles.progressTrack}>
           <div
-            className="h-full rounded-full bg-emerald-600 transition-all duration-500 ease-out"
+            className={styles.progressBar}
             style={{ width: `${(doneCount / state.syncTasks.length) * 100}%` }}
           />
         </div>
@@ -103,7 +106,7 @@ export function Step1Initializing({
           <button
             type="button"
             onClick={() => dispatch({ type: 'FORCE_SYNC_COMPLETE' })}
-            className="mt-5 w-full text-center text-xs font-medium text-gray-400 hover:text-gray-600 hover:underline"
+            className={styles.fallbackButton}
           >
             Taking longer than usual? Continue anyway
           </button>

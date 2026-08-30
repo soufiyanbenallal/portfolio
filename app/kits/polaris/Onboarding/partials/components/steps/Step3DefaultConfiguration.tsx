@@ -1,17 +1,20 @@
 import { useId, type Dispatch } from 'react';
 import { Truck } from 'lucide-react';
-import type { OnboardingAction, OnboardingState } from '../../types';
+import type { OnboardingActionType, OnboardingStateType } from '../../types';
 import { CURRENCIES, SAMPLE_CART_TOTAL } from '../../constants';
 import { Button, Card } from '../shared/ui';
 import { formatCurrency } from '../../utils';
+import styles from './Step3DefaultConfiguration.module.css';
+
+export type Step3DefaultConfigurationPropsType = {
+  state: OnboardingStateType;
+  dispatch: Dispatch<OnboardingActionType>;
+};
 
 export function Step3DefaultConfiguration({
   state,
   dispatch,
-}: {
-  state: OnboardingState;
-  dispatch: Dispatch<OnboardingAction>;
-}) {
+}: Step3DefaultConfigurationPropsType) {
   const amountId = useId();
   const currencyId = useId();
 
@@ -26,28 +29,28 @@ export function Step3DefaultConfiguration({
   };
 
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-4 py-10">
-      <Card className="w-full max-w-md p-8">
-        <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-          <Truck className="h-5 w-5" />
+    <div className={styles.container}>
+      <Card className={styles.card}>
+        <div className={styles.iconBadge}>
+          <Truck style={{ height: '1.25rem', width: '1.25rem' }} />
         </div>
-        <h1 className="text-center text-lg font-semibold tracking-tight text-gray-900">
+        <h1 className={styles.title}>
           One quick detail
         </h1>
-        <p className="mx-auto mt-1 max-w-xs text-center text-sm text-gray-500">
+        <p className={styles.subtitle}>
           Set your free shipping threshold — we&rsquo;ll handle the rest.
         </p>
 
-        <div className="mt-6 flex gap-2">
-          <div className="w-24">
-            <label htmlFor={currencyId} className="sr-only">
+        <div className={styles.inputRow}>
+          <div className={styles.currencySelectWrapper}>
+            <label htmlFor={currencyId} className={styles.srOnly}>
               Currency
             </label>
             <select
               id={currencyId}
               value={state.storeCurrency}
               onChange={(e) => dispatch({ type: 'SET_CURRENCY', currency: e.target.value })}
-              className="h-11 w-full rounded-lg border border-gray-300 bg-white px-2 text-sm text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              className={styles.currencySelect}
             >
               {CURRENCIES.map((currency) => (
                 <option key={currency} value={currency}>
@@ -56,8 +59,8 @@ export function Step3DefaultConfiguration({
               ))}
             </select>
           </div>
-          <div className="flex-1">
-            <label htmlFor={amountId} className="sr-only">
+          <div className={styles.amountInputWrapper}>
+            <label htmlFor={amountId} className={styles.srOnly}>
               Free shipping threshold amount
             </label>
             <input
@@ -66,37 +69,37 @@ export function Step3DefaultConfiguration({
               inputMode="decimal"
               value={threshold}
               onChange={(e) => handleAmountChange(e.target.value)}
-              className="h-11 w-full rounded-lg border border-gray-300 px-3 text-sm text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              className={styles.amountInput}
             />
           </div>
         </div>
 
-        <div className="mt-5 rounded-xl border border-gray-100 bg-gray-50 p-4">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-gray-400">
+        <div className={styles.previewBox}>
+          <p className={styles.previewHeader}>
             Cart preview
           </p>
-          <div className="mt-2 flex items-center justify-between text-sm">
-            <span className="text-gray-500">Sample cart total</span>
-            <span className="font-medium text-gray-900">
+          <div className={styles.previewRow}>
+            <span className={styles.previewLabel}>Sample cart total</span>
+            <span className={styles.previewValue}>
               {formatCurrency(SAMPLE_CART_TOTAL, state.storeCurrency)}
             </span>
           </div>
-          <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-gray-200">
+          <div className={styles.previewTrack}>
             <div
-              className="h-full rounded-full bg-emerald-600 transition-all duration-500 ease-out"
+              className={styles.previewBar}
               style={{ width: `${percent}%` }}
             />
           </div>
-          <p className="mt-2 text-sm font-medium text-emerald-700">
+          <p className={styles.previewMessage}>
             {qualifies
               ? 'This cart qualifies for free shipping.'
               : `Add ${formatCurrency(remaining, state.storeCurrency)} more for free shipping.`}
           </p>
         </div>
 
-        <div className="mt-7 flex flex-col items-center gap-2">
+        <div className={styles.actionGroup}>
           <Button
-            className="w-full"
+            className={styles.fullWidthButton}
             onClick={() => {
               dispatch({ type: 'CONFIRM_THRESHOLD' });
               dispatch({ type: 'GO_NEXT' });
@@ -107,7 +110,7 @@ export function Step3DefaultConfiguration({
           <button
             type="button"
             onClick={() => dispatch({ type: 'GO_NEXT' })}
-            className="text-xs font-medium text-gray-400 hover:text-gray-600 hover:underline"
+            className={styles.skipButton}
           >
             Skip for now — I&rsquo;ll set this later
           </button>

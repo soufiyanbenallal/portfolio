@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { OnboardingFlow } from './partials/components/OnboardingFlow';
-import './index.css';
 
 export default function Onboarding() {
   const [resetKey, setResetKey] = useState(0);

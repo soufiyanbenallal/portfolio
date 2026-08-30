@@ -82,6 +82,87 @@ export function AutoFitIframePreview({
   const [containerHeight, setContainerHeight] = useState(192);
   const [contentHeight, setContentHeight] = useState(480);
 
+function isModuleSelector(selector: string): boolean {
+  if (!selector) return false;
+  // Reject global resets and tag-only rules
+  if (
+    selector.startsWith("*") ||
+    selector.startsWith("html") ||
+    selector.startsWith("body") ||
+    selector.startsWith(":root") ||
+    selector.startsWith(":host") ||
+    selector.includes("@layer")
+  ) {
+    return false;
+  }
+
+  // Reject generic bare element tags
+  if (/^[a-z0-9-]+(\s*,\s*[a-z0-9-]+)*$/i.test(selector)) {
+    return false;
+  }
+
+  // Next.js CSS Modules generate class names with format: [file]_[class]__[hash] or _[class]_[hash]
+  // Must contain class with underscore separator
+  const classMatches = selector.match(/\.([a-zA-Z0-9_-]+)/g);
+  if (!classMatches) return false;
+
+  return classMatches.some((cls) => cls.includes("_"));
+}
+
+function syncModuleStylesOnlyToIframe(iframe: HTMLIFrameElement | null) {
+  if (!iframe) return;
+  try {
+    const doc = iframe.contentDocument || iframe.contentWindow?.document;
+    if (!doc || !doc.head) return;
+
+    // Extract ONLY CSS Module rules and their animations (NO global Tailwind / resets)
+    let combinedModuleCss = "";
+    const sheets = Array.from(document.styleSheets);
+
+    for (const sheet of sheets) {
+      try {
+        // Skip global stylesheet links (e.g. Tailwind / globals.css)
+        if (sheet.href && (sheet.href.includes("globals") || sheet.href.includes("tailwind"))) {
+          continue;
+        }
+
+        const rules = Array.from(sheet.cssRules || []);
+        for (const rule of rules) {
+          if (rule instanceof CSSKeyframesRule) {
+            // Keep module keyframes (fadeInDown, pop, scaleIn, pingRing, confettiFall, spin)
+            combinedModuleCss += rule.cssText + "\n";
+          } else if (rule instanceof CSSMediaRule) {
+            const innerRules = Array.from(rule.cssRules || []);
+            const validInner = innerRules
+              .filter((r) => r instanceof CSSStyleRule && isModuleSelector(r.selectorText))
+              .map((r) => r.cssText)
+              .join("\n");
+            if (validInner) {
+              combinedModuleCss += `@media ${rule.conditionText} {\n${validInner}\n}\n`;
+            }
+          } else if (rule instanceof CSSStyleRule && isModuleSelector(rule.selectorText)) {
+            combinedModuleCss += rule.cssText + "\n";
+          }
+        }
+      } catch {
+        // Cross-origin sheet access restriction, safe to ignore
+      }
+    }
+
+    let customStyleTag = doc.getElementById("__injected_css_modules__") as HTMLStyleElement | null;
+    if (!customStyleTag) {
+      customStyleTag = doc.createElement("style");
+      customStyleTag.id = "__injected_css_modules__";
+      doc.head.appendChild(customStyleTag);
+    }
+    if (customStyleTag.textContent !== combinedModuleCss) {
+      customStyleTag.textContent = combinedModuleCss;
+    }
+  } catch {
+    // ignore
+  }
+}
+
   const updateMountNode = useCallback(() => {
     const iframe = iframeRef.current;
     if (!iframe) return;
@@ -114,6 +195,7 @@ export function AutoFitIframePreview({
         mount.style.display = "block";
       }
 
+      syncModuleStylesOnlyToIframe(iframe);
       setMountNode(mount);
     } catch {
       // ignore
@@ -137,6 +219,26 @@ export function AutoFitIframePreview({
   useEffect(() => {
     updateMountNode();
   }, [updateMountNode]);
+
+  // Continuously sync module styles to iframe head while blocking all global parent styles
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    syncModuleStylesOnlyToIframe(iframe);
+
+    const observer = new MutationObserver(() => {
+      syncModuleStylesOnlyToIframe(iframeRef.current);
+    });
+
+    observer.observe(document.head, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    return () => observer.disconnect();
+  }, [mountNode]);
 
   useEffect(() => {
     if (!autoScale) return;

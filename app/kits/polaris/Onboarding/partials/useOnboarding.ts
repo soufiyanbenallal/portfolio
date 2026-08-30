@@ -1,5 +1,5 @@
 import { useMemo, useReducer } from 'react';
-import type { OnboardingAction, OnboardingState, OnboardingStepId } from './types';
+import type { OnboardingActionType, OnboardingStateType, OnboardingStepIdType } from './types';
 import {
   CORE_TOOLS,
   DEFAULT_FREE_SHIPPING_THRESHOLD,
@@ -8,7 +8,7 @@ import {
   STEP_ORDER,
 } from './constants';
 
-const initialState: OnboardingState = {
+const initialState: OnboardingStateType = {
   currentStep: 'initializing',
   direction: 1,
   storeName: '',
@@ -24,12 +24,12 @@ const initialState: OnboardingState = {
   onboardingCompleted: false,
 };
 
-function selectedTools(state: OnboardingState) {
+function selectedTools(state: OnboardingStateType) {
   return state.optionalTools.filter((tool) => tool.selected);
 }
 
 /** Resolves the next real step, skipping the queue when nothing was selected in Step 4. */
-function stepAfter(step: OnboardingStepId, state: OnboardingState): OnboardingStepId {
+function stepAfter(step: OnboardingStepIdType, state: OnboardingStateType): OnboardingStepIdType {
   const idx = STEP_ORDER.indexOf(step);
   const target = STEP_ORDER[Math.min(idx + 1, STEP_ORDER.length - 1)];
   if (target === 'sequential-setup' && selectedTools(state).length === 0) {
@@ -38,7 +38,7 @@ function stepAfter(step: OnboardingStepId, state: OnboardingState): OnboardingSt
   return target;
 }
 
-function stepBefore(step: OnboardingStepId, state: OnboardingState): OnboardingStepId {
+function stepBefore(step: OnboardingStepIdType, state: OnboardingStateType): OnboardingStepIdType {
   const idx = STEP_ORDER.indexOf(step);
   const target = STEP_ORDER[Math.max(idx - 1, 0)];
   if (target === 'sequential-setup' && selectedTools(state).length === 0) {
@@ -47,7 +47,7 @@ function stepBefore(step: OnboardingStepId, state: OnboardingState): OnboardingS
   return target;
 }
 
-function reducer(state: OnboardingState, action: OnboardingAction): OnboardingState {
+function reducer(state: OnboardingStateType, action: OnboardingActionType): OnboardingStateType {
   switch (action.type) {
     case 'ADVANCE_SYNC_TASK': {
       const idx = state.syncTasks.findIndex((task) => task.status !== 'done');

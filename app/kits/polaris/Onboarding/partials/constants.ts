@@ -1,6 +1,6 @@
-import type { OnboardingStepId, SyncTask, CoreTool, OptionalTool } from './types';
+import type { OnboardingStepIdType, SyncTaskItemType, CoreToolType, OptionalToolType } from './types';
 
-export const STEP_ORDER: OnboardingStepId[] = [
+export const STEP_ORDER: OnboardingStepIdType[] = [
   'initializing',
   'revenue-foundation',
   'default-configuration',
@@ -10,7 +10,7 @@ export const STEP_ORDER: OnboardingStepId[] = [
   'celebration',
 ];
 
-export const STEP_LABELS: Record<OnboardingStepId, string> = {
+export const STEP_LABELS: Record<OnboardingStepIdType, string> = {
   initializing: 'Setting up',
   'revenue-foundation': 'Revenue foundation',
   'default-configuration': 'Default configuration',
@@ -20,7 +20,7 @@ export const STEP_LABELS: Record<OnboardingStepId, string> = {
   celebration: "You're live",
 };
 
-export const INITIAL_SYNC_TASKS: SyncTask[] = [
+export const INITIAL_SYNC_TASKS: SyncTaskItemType[] = [
   { id: 'connect', label: 'Connecting to your store', status: 'pending' },
   { id: 'catalog', label: 'Syncing product catalog', status: 'pending' },
   { id: 'currency', label: 'Detecting store currency', status: 'pending' },
@@ -28,7 +28,7 @@ export const INITIAL_SYNC_TASKS: SyncTask[] = [
   { id: 'finalize', label: 'Finalizing your setup', status: 'pending' },
 ];
 
-export const CORE_TOOLS: CoreTool[] = [
+export const CORE_TOOLS: CoreToolType[] = [
   {
     id: 'cart-drawer',
     name: 'Slide-Out Cart Drawer',
@@ -46,7 +46,7 @@ export const CORE_TOOLS: CoreTool[] = [
   },
 ];
 
-export const INITIAL_OPTIONAL_TOOLS: OptionalTool[] = [
+export const INITIAL_OPTIONAL_TOOLS: OptionalToolType[] = [
   {
     id: 'volume-discounts',
     name: 'Volume Discounts',

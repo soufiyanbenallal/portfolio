@@ -1,4 +1,4 @@
-export type OnboardingStepId =
+export type OnboardingStepIdType =
   | 'initializing'
   | 'revenue-foundation'
   | 'default-configuration'
@@ -7,36 +7,44 @@ export type OnboardingStepId =
   | 'shopify-validation'
   | 'celebration';
 
-export type SyncTaskId = 'connect' | 'catalog' | 'currency' | 'provision' | 'finalize';
+export type OnboardingStepId = OnboardingStepIdType;
 
-export interface SyncTask {
-  id: SyncTaskId;
+export type SyncTaskIdType = 'connect' | 'catalog' | 'currency' | 'provision' | 'finalize';
+export type SyncTaskId = SyncTaskIdType;
+
+export type SyncTaskItemType = {
+  id: SyncTaskIdType;
   label: string;
   status: 'pending' | 'done';
-}
+};
+export type SyncTask = SyncTaskItemType;
 
-export type CoreToolId = 'cart-drawer' | 'fbt' | 'analytics';
+export type CoreToolIdType = 'cart-drawer' | 'fbt' | 'analytics';
+export type CoreToolId = CoreToolIdType;
 
-export interface CoreTool {
-  id: CoreToolId;
+export type CoreToolType = {
+  id: CoreToolIdType;
   name: string;
   description: string;
-}
+};
+export type CoreTool = CoreToolType;
 
-export type OptionalToolId =
+export type OptionalToolIdType =
   | 'volume-discounts'
   | 'post-purchase-upsell'
   | 'product-addons'
   | 'checkout-bumps';
+export type OptionalToolId = OptionalToolIdType;
 
-export interface ToolPreset {
+export type ToolPresetType = {
   id: string;
   label: string;
   description: string;
-}
+};
+export type ToolPreset = ToolPresetType;
 
-export interface OptionalTool {
-  id: OptionalToolId;
+export type OptionalToolType = {
+  id: OptionalToolIdType;
   name: string;
   description: string;
   /** Illustrative benchmark copy shown with a footnote — not a live metric. */
@@ -44,41 +52,45 @@ export interface OptionalTool {
   selected: boolean;
   configured: boolean;
   deferred: boolean;
-  presets: ToolPreset[];
+  presets: ToolPresetType[];
   selectedPresetId: string | null;
-}
+};
+export type OptionalTool = OptionalToolType;
 
-export type EmbedStatus = 'idle' | 'checking' | 'active';
+export type EmbedStatusType = 'idle' | 'checking' | 'active';
+export type EmbedStatus = EmbedStatusType;
 
-export interface OnboardingState {
-  currentStep: OnboardingStepId;
+export type OnboardingStateType = {
+  currentStep: OnboardingStepIdType;
   direction: 1 | -1;
   storeName: string;
   storeCurrency: string;
-  syncTasks: SyncTask[];
+  syncTasks: SyncTaskItemType[];
   syncComplete: boolean;
-  coreTools: CoreTool[];
+  coreTools: CoreToolType[];
   freeShippingThreshold: number;
   thresholdSaved: boolean;
-  optionalTools: OptionalTool[];
+  optionalTools: OptionalToolType[];
   queueIndex: number;
-  embedStatus: EmbedStatus;
+  embedStatus: EmbedStatusType;
   onboardingCompleted: boolean;
-}
+};
+export type OnboardingState = OnboardingStateType;
 
-export type OnboardingAction =
+export type OnboardingActionType =
   | { type: 'ADVANCE_SYNC_TASK' }
   | { type: 'FORCE_SYNC_COMPLETE' }
   | { type: 'GO_NEXT' }
   | { type: 'GO_BACK' }
-  | { type: 'GO_TO_STEP'; step: OnboardingStepId }
+  | { type: 'GO_TO_STEP'; step: OnboardingStepIdType }
   | { type: 'SET_THRESHOLD'; amount: number }
   | { type: 'SET_CURRENCY'; currency: string }
   | { type: 'CONFIRM_THRESHOLD' }
-  | { type: 'TOGGLE_OPTIONAL_TOOL'; id: OptionalToolId }
-  | { type: 'SELECT_PRESET'; id: OptionalToolId; presetId: string }
-  | { type: 'CONFIRM_TOOL_CONFIG'; id: OptionalToolId }
-  | { type: 'DEFER_TOOL_CONFIG'; id: OptionalToolId }
+  | { type: 'TOGGLE_OPTIONAL_TOOL'; id: OptionalToolIdType }
+  | { type: 'SELECT_PRESET'; id: OptionalToolIdType; presetId: string }
+  | { type: 'CONFIRM_TOOL_CONFIG'; id: OptionalToolIdType }
+  | { type: 'DEFER_TOOL_CONFIG'; id: OptionalToolIdType }
   | { type: 'NEXT_IN_QUEUE' }
-  | { type: 'SET_EMBED_STATUS'; status: EmbedStatus }
+  | { type: 'SET_EMBED_STATUS'; status: EmbedStatusType }
   | { type: 'COMPLETE_ONBOARDING' };
+export type OnboardingAction = OnboardingActionType;

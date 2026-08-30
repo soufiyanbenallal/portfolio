@@ -1,19 +1,20 @@
 import { useMemo } from 'react';
+import styles from './Confetti.module.css';
 
 const COLORS = ['#059669', '#10b981', '#34d399', '#f59e0b', '#111827'];
 const PIECE_COUNT = 60;
 
-interface Piece {
+export type ConfettiPieceType = {
   left: number;
   delay: number;
   duration: number;
   size: number;
   color: string;
   rotate: number;
-}
+};
 
 export function Confetti() {
-  const pieces = useMemo<Piece[]>(
+  const pieces = useMemo<ConfettiPieceType[]>(
     () =>
       Array.from({ length: PIECE_COUNT }, () => ({
         left: Math.random() * 100,
@@ -27,11 +28,11 @@ export function Confetti() {
   );
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div className={styles.confettiContainer} aria-hidden="true">
       {pieces.map((piece, i) => (
         <span
           key={i}
-          className="animate-confetti-fall absolute top-0 block rounded-sm"
+          className={styles.confettiPiece}
           style={{
             left: `${piece.left}%`,
             width: piece.size,
