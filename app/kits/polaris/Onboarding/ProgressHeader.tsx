@@ -1,5 +1,5 @@
 import React from "react";
-import type { OnboardingStepIdType, StepConfigItemType } from "../../types";
+import type { OnboardingStepIdType, StepConfigItemType } from "./types";
 
 export type ProgressHeaderPropsType = {
   stepIndex: number;

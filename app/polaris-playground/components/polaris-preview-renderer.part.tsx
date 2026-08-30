@@ -4,7 +4,7 @@ import React from "react";
 // ── Domain Block Examples ──
 import { SetupGuideExample } from "./examples/SetupGuideExample";
 import { ThemeEmbedStatusExample } from "./examples/ThemeEmbedStatusExample";
-import { OnboardingExample } from "./examples/OnboardingExample";
+import Onboarding from "~/components/Onboarding/Onboarding";
 import { PlanPricingMatrixExample } from "./examples/PlanPricingMatrixExample";
 import { UsageLimitBannerExample } from "./examples/UsageLimitBannerExample";
 import { DestructiveActionModalExample } from "./examples/DestructiveActionModalExample";
@@ -37,7 +37,7 @@ export function PolarisPreviewRenderer({ renderKey }: PolarisPreviewRendererProp
     // ── Onboarding Blocks ──
     case "onboarding-example":
     case "onboarding":
-      return <OnboardingExample />;
+      return <Onboarding />;
 
     case "setup-guide-example":
     case "setup-guide":

@@ -1,7 +1,7 @@
 import { useEffect, type Dispatch } from "react";
-import type { OnboardingActionType, OnboardingStateType } from "../../types";
-import { IconTile } from "@/components/ui/IconTile";
-import Content from "@/app/kits/polaris/ui/typography/Content";
+import type { OnboardingActionType, OnboardingStateType } from "../types";
+import { IconTile } from "~/components/ui/IconTile";
+import Content from "~/components/ui/typography/Content";
 
 export type Step6CelebrationPropsType = {
   state: OnboardingStateType;

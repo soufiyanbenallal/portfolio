@@ -1,11 +1,20 @@
 import type { Dispatch } from "react";
-import type { OnboardingActionType, OnboardingStateType } from "../../types";
-import { CURRENCIES, SAMPLE_CART_TOTAL } from "../../constants";
-import { formatCurrency } from "../../utils";
-import Content from "@/app/kits/polaris/ui/typography/Content";
-import { IconTile } from "@/components/ui/IconTile";
-import { ProgressTracker } from "@/components/ui/ProgressTracker";
-
+import type { OnboardingActionType, OnboardingStateType } from "../types";
+import { CURRENCIES, SAMPLE_CART_TOTAL } from "../constants";
+import Content from "~/components/ui/typography/Content";
+import { IconTile } from "~/components/ui/IconTile";
+import { ProgressTracker } from "~/components/ui/ProgressTracker";
+function formatCurrency(amount: number, currency: string): string {
+  try {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  } catch {
+    return `${currency} ${amount}`;
+  }
+}
 export type Step3DefaultConfigurationPropsType = {
   state: OnboardingStateType;
   dispatch: Dispatch<OnboardingActionType>;

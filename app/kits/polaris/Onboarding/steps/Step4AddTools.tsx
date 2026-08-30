@@ -1,8 +1,8 @@
 import type { Dispatch } from "react";
-import type { OnboardingActionType, OnboardingStateType, OptionalToolIdType } from "../../types";
-import { IconTile } from "@/components/ui/IconTile";
-import Content from "@/app/kits/polaris/ui/typography/Content";
-import styles from "../../onboarding.module.css";
+import type { OnboardingActionType, OnboardingStateType, OptionalToolIdType } from "../types";
+import { IconTile } from "~/components/ui/IconTile";
+import Content from "~/components/ui/typography/Content";
+import styles from "../onboarding.module.css";
 
 const OPTIONAL_ICONS: Record<OptionalToolIdType, "discount" | "rocket" | "gift-card" | "bolt"> = {
   "volume-discounts": "discount",

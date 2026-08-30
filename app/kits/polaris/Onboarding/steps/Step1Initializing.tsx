@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, type Dispatch } from "react";
-import type { OnboardingActionType, OnboardingStateType } from "../../types";
-import { ProgressTracker } from "@/components/ui/ProgressTracker";
-import Content from "@/app/kits/polaris/ui/typography/Content";
-import styles from "../../onboarding.module.css";
+import type { OnboardingActionType, OnboardingStateType } from "../types";
+import { ProgressTracker } from "~/components/ui/ProgressTracker";
+import { IconTile } from "~/components/ui/IconTile";
+import Content from "~/components/ui/typography/Content";
+import styles from "../onboarding.module.css";
 
-const TASK_INTERVAL_MS = 750;
+const TASK_INTERVAL_MS = 1750;
 const HOLD_AFTER_COMPLETE_MS = 550;
 const FALLBACK_VISIBLE_AFTER_MS = 6500;
 
@@ -15,7 +16,8 @@ export type Step1InitializingPropsType = {
 
 export function Step1Initializing({ state, dispatch }: Step1InitializingPropsType) {
   const [showFallback, setShowFallback] = useState(false);
-  const hasAdvanced = useRef(false);
+  const wasAlreadyComplete = useRef(state.syncComplete);
+  const hasAutoAdvanced = useRef(false);
 
   // Safety net: never trap a merchant behind a spinner indefinitely.
   useEffect(() => {
@@ -33,10 +35,10 @@ export function Step1Initializing({ state, dispatch }: Step1InitializingPropsTyp
     return () => window.clearTimeout(timer);
   }, [state.syncTasks, state.syncComplete, dispatch]);
 
-  // Once everything is provisioned, hold for a beat so the final check registers, then move on.
+  // On initial sync completion (first run), advance automatically after a beat.
   useEffect(() => {
-    if (!state.syncComplete || hasAdvanced.current) return;
-    hasAdvanced.current = true;
+    if (!state.syncComplete || wasAlreadyComplete.current || hasAutoAdvanced.current) return;
+    hasAutoAdvanced.current = true;
     const timer = window.setTimeout(() => dispatch({ type: "GO_NEXT" }), HOLD_AFTER_COMPLETE_MS);
     return () => window.clearTimeout(timer);
   }, [state.syncComplete, dispatch]);
@@ -56,17 +58,25 @@ export function Step1Initializing({ state, dispatch }: Step1InitializingPropsTyp
           maxInlineSize="440px"
         >
           <s-stack direction="block" gap="base" alignItems="center">
-            <s-spinner accessibilityLabel="Syncing store" size="large" />
+            {state.syncComplete ? (
+              <IconTile tone="success" size="lg" borderRadius="full">
+                <s-icon type="check" tone="success" size="base" />
+              </IconTile>
+            ) : (
+              <s-spinner accessibilityLabel="Syncing store" size="large" />
+            )}
 
             <Content
               variant="headingMd"
               tooltip="We are automatically syncing your product catalog, multi-currency settings, and initializing your store's revenue engine."
             >
-              Setting up Journeva
+              {state.syncComplete ? "Store setup complete" : "Setting up Journeva"}
             </Content>
 
             <Content subdue>
-              Sit tight — we&rsquo;re syncing your store and provisioning your revenue engine.
+              {state.syncComplete
+                ? "Your store data and revenue engine have been synchronized successfully."
+                : "Sit tight — we’re syncing your store and provisioning your revenue engine."}
             </Content>
 
             <s-box paddingBlock="small-100" inlineSize="100%">
@@ -106,17 +116,18 @@ export function Step1Initializing({ state, dispatch }: Step1InitializingPropsTyp
               tone="success"
               style={{ marginTop: "1rem" }}
             />
-
-            {showFallback && !state.syncComplete ? (
-              <s-button
-                variant="tertiary"
-                onClick={() => dispatch({ type: "FORCE_SYNC_COMPLETE" })}
-              >
-                Taking longer than usual? Continue anyway
-              </s-button>
-            ) : null}
           </s-stack>
         </s-box>
+
+        {state.syncComplete ? (
+          <s-button variant="primary" onClick={() => dispatch({ type: "GO_NEXT" })}>
+            Continue
+          </s-button>
+        ) : showFallback ? (
+          <s-button variant="tertiary" onClick={() => dispatch({ type: "FORCE_SYNC_COMPLETE" })}>
+            Taking longer than usual? Continue anyway
+          </s-button>
+        ) : null}
       </s-stack>
     </s-box>
   );

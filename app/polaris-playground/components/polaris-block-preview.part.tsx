@@ -49,10 +49,7 @@ export function PolarisBlockPreviewPart({
   const [copiedCode, setCopiedCode] = useState(false);
   const [copiedInstall, setCopiedInstall] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
-  const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({
-    example: true,
-    ui: true,
-  });
+  const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
 
   // Normalize component filename (e.g. "Button" -> "Button.tsx", "Clickable chip" -> "ClickableChip.tsx")
   const primaryFileName = useMemo(() => {
@@ -85,13 +82,14 @@ export function PolarisBlockPreviewPart({
     return files.find((f) => f.path === selectedFilePath) || files[0];
   }, [files, selectedFilePath]);
 
-  // Group files dynamically by top-level folder (e.g. "example" and "ui")
+  // Group files dynamically by folder path (e.g. "components/Onboarding", "components/ui", "example")
   const folderGroups = useMemo(() => {
     const map = new Map<string, BlockFileItemType[]>();
 
     files.forEach((file) => {
       const parts = file.path.split("/");
-      const folderName = parts.length > 1 ? parts[0] : "ui";
+      const folderName =
+        parts.length > 2 ? parts.slice(0, 2).join("/") : parts.length > 1 ? parts[0] : "ui";
       if (!map.has(folderName)) {
         map.set(folderName, []);
       }

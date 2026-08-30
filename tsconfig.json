@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "~/components/*": ["./app/kits/polaris/*"],
+      "~/components/ui/*": ["./app/kits/polaris/ui/*"]
     },
     "types": ["@shopify/polaris-types"]
   },

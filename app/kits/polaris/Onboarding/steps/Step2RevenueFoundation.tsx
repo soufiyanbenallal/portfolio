@@ -1,8 +1,8 @@
 import type { Dispatch } from "react";
-import type { CoreToolIdType, OnboardingActionType, OnboardingStateType } from "../../types";
-import Content from "@/app/kits/polaris/ui/typography/Content";
-import { IconTile } from "@/components/ui/IconTile";
-import styles from "../../onboarding.module.css";
+import type { CoreToolIdType, OnboardingActionType, OnboardingStateType } from "../types";
+import Content from "~/components/ui/typography/Content";
+import { IconTile } from "~/components/ui/IconTile";
+import styles from "../onboarding.module.css";
 
 const CORE_ICONS: Record<CoreToolIdType, "cart" | "collection" | "chart-vertical"> = {
   "cart-drawer": "cart",

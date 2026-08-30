@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { Card } from "@/app/kits/polaris/ui/layouts/Card";
 import {
   Table,
   type TableColumnType,

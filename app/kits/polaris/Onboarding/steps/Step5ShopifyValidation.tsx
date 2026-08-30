@@ -1,10 +1,20 @@
 import { useEffect, useRef, type Dispatch } from "react";
-import type { OnboardingActionType, OnboardingStateType } from "../../types";
-import Content from "@/app/kits/polaris/ui/typography/Content";
-import { getThemeEditorDeepLink } from "../../utils";
+import type { OnboardingActionType, OnboardingStateType } from "../types";
+import Content from "~/components/ui/typography/Content";
 
 const CHECK_DURATION_MS = 2600;
 
+function getThemeEditorDeepLink(
+  shopDomain: string,
+  themeId: string,
+  appEmbedBlockHandle: string
+): string {
+  const params = new URLSearchParams({
+    context: "apps",
+    activateAppId: `${appEmbedBlockHandle}/journeva-embed`,
+  });
+  return `https://${shopDomain}/admin/themes/${themeId}/editor?${params.toString()}`;
+}
 export type Step5ShopifyValidationPropsType = {
   state: OnboardingStateType;
   dispatch: Dispatch<OnboardingActionType>;
