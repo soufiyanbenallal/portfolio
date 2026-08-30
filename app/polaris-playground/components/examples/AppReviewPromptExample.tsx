@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { AppReviewPrompt } from "@/app/kits/polaris/blocks/feedback/AppReviewPrompt/AppReviewPrompt";
+import { AppReviewPrompt } from "~/components/AppReviewPrompt/AppReviewPrompt";
 
 export function AppReviewPromptExample() {
   return (

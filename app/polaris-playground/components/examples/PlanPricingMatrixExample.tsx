@@ -5,7 +5,7 @@ import {
   PlanPricingMatrix,
   type PlanTierItemType,
   type BillingIntervalType,
-} from "@/app/kits/polaris/blocks/billing/PlanPricingMatrix/PlanPricingMatrix";
+} from "~/components/PlanPricingMatrix/PlanPricingMatrix";
 
 export function PlanPricingMatrixExample() {
   const [currentPlanId, setCurrentPlanId] = useState("basic");

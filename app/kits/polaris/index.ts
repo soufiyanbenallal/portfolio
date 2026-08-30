@@ -6,9 +6,10 @@
 export * from "./types";
 
 // ── Domain Blocks ─────────────────────────────────────────────────────────────
-export * from "./blocks/onboarding/SetupGuide/SetupGuide";
-export * from "./blocks/billing/PlanPricingMatrix/PlanPricingMatrix";
-export * from "./blocks/feedback/AppReviewPrompt/AppReviewPrompt";
+export * from "./SetupGuide/SetupGuide";
+export * from "./PlanPricingMatrix/PlanPricingMatrix";
+export * from "./AppReviewPrompt/AppReviewPrompt";
+export * from "./Onboarding/Onboarding";
 
 // ── Standalone App Components ────────────────────────────────────────────────
 export * from "./Timeline";

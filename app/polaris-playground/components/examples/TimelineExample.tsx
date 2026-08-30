@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Timeline, type TimelineItemType } from "@/app/kits/polaris/blocks/activity/Timeline";
+import { Timeline, type TimelineItemType } from "~/components/Timeline/Timeline";
 
 const INITIAL_EVENTS: TimelineItemType[] = [
   {

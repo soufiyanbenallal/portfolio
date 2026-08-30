@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  SetupGuide,
-  type SetupGuideStepItemType,
-} from "@/app/kits/polaris/blocks/onboarding/SetupGuide/SetupGuide";
+import { SetupGuide, type SetupGuideStepItemType } from "~/components/SetupGuide/SetupGuide";
 
 export function SetupGuideExample() {
   const [steps, setSteps] = useState<SetupGuideStepItemType[]>([
