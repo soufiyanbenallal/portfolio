@@ -8,6 +8,7 @@ import { PlanPricingMatrixExample } from "./examples/PlanPricingMatrixExample";
 import { AppReviewPromptExample } from "./examples/AppReviewPromptExample";
 import { TimelineExample } from "./examples/TimelineExample";
 import { DataTableExample } from "./examples/DataTableExample";
+import { AiRecommendationsExample } from "./examples/AiRecommendationsExample";
 
 // ── UI Kit Examples ──
 import { StatsSectionExample } from "./examples/StatsSectionExample";
@@ -19,7 +20,7 @@ import { SelectExample } from "./examples/SelectExample";
 import { ToggleExample } from "./examples/ToggleExample";
 import { RangeExample } from "./examples/RangeExample";
 import { InputExample } from "./examples/InputExample";
-import { StatsCard } from "@/app/kits/polaris/ui/stats/StatsCard";
+import { StatsCard } from "~/components/ui/stats/StatsCard";
 
 export type PolarisPreviewRendererPropsType = {
   renderKey: string;
@@ -55,6 +56,11 @@ export function PolarisPreviewRenderer({ renderKey }: PolarisPreviewRendererProp
     case "data-table-example":
     case "data-table":
       return <DataTableExample />;
+
+    // ── Recommendations ──
+    case "ai-recommendations-example":
+    case "ai-recommendations":
+      return <AiRecommendationsExample />;
 
     // ── Stats ──
     case "stats-section-example":

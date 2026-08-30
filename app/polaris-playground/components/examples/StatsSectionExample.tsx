@@ -1,8 +1,8 @@
 "use client";
 
 import React, { type ReactNode } from "react";
-import { StatsSection } from "@/app/kits/polaris/ui/stats/StatsSection";
-import type { StatsCardPropsType } from "@/app/kits/polaris/ui/stats/StatsCard";
+import { StatsSection } from "~/components/ui/stats/StatsSection";
+import type { StatsCardPropsType } from "~/components/ui/stats/StatsCard";
 
 const SAMPLE_STATS: StatsCardPropsType[] = [
   {

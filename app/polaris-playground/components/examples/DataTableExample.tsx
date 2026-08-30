@@ -1,17 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Table,
-  type TableColumnType,
-  type TableRowType,
-} from "@/app/kits/polaris/ui/layouts/Table";
+import { Table, type TableColumnType, type TableRowType } from "~/components/ui/layouts/Table";
 import {
   Filters,
   type FilterTabItemType,
   type ActiveFilterItemType,
   type FilterCategoryType,
-} from "@/app/kits/polaris/ui/layouts/Filters";
+} from "~/components/ui/layouts/Filters";
 
 type BundleDealRowType = {
   dealName: string;

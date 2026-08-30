@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, type ReactNode } from "react";
-import { DismissableBanner } from "@/app/kits/polaris/ui/feedbacks/DismissableBanner";
+import { DismissableBanner } from "~/components/ui/feedbacks/DismissableBanner";
 
 export function DismissableBannerExample(): ReactNode {
   const [resetKey, setResetKey] = useState(0);

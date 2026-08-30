@@ -65,7 +65,10 @@ export const polarisNavSectionsData: PolarisNavCategoryType[] = [
     id: "actions",
     label: "Actions & Workflows",
     description: "Enterprise tables and operational action workflows.",
-    items: [{ slug: "data-table", label: "Data table" }],
+    items: [
+      { slug: "data-table", label: "Data table" },
+      { slug: "ai-recommendations", label: "AI recommendations" },
+    ],
   },
   {
     id: "stats",
@@ -371,6 +374,53 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             path: "ui/Content.tsx",
             sourcePath: "app/kits/polaris/ui/typography/Content.tsx",
             language: "tsx",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "ai-recommendations",
+    name: "AI recommendations",
+    category: "actions",
+    categoryLabel: "Actions & Workflows",
+    description:
+      "Contextual AI strategy recommendation cards with visual thumbnails, metric lift badges, and 1-click execution actions.",
+    summary: "Order basket mining and upsell recommendation cards powered by AI strategy analysis.",
+    docsUrl: "https://shopify.dev/docs/api/app-home/web-components",
+    previewType: "ai-recommendations",
+    examples: [
+      {
+        id: "ai-recommendations-block",
+        title: "AI strategy and revenue recommendation card",
+        description:
+          "Card with basket mining recommendations, lift percentage badges, and 1-click CTA buttons.",
+        renderKey: "ai-recommendations-example",
+        installCommand: "npx soufiyan@latest add ai-recommendations",
+        fileSources: [
+          {
+            name: "AiRecommendationsExample.tsx",
+            path: "example/AiRecommendationsExample.tsx",
+            sourcePath: "app/polaris-playground/components/examples/AiRecommendationsExample.tsx",
+            language: "tsx",
+          },
+          {
+            name: "AiRecommendations.tsx",
+            path: "components/AiRecommendations/AiRecommendations.tsx",
+            sourcePath: "app/kits/polaris/AiRecommendations/AiRecommendations.tsx",
+            language: "tsx",
+          },
+          {
+            name: "RecommendationItem.part.tsx",
+            path: "components/AiRecommendations/partials/RecommendationItem.part.tsx",
+            sourcePath: "app/kits/polaris/AiRecommendations/partials/RecommendationItem.part.tsx",
+            language: "tsx",
+          },
+          {
+            name: "types.ts",
+            path: "components/AiRecommendations/types.ts",
+            sourcePath: "app/kits/polaris/AiRecommendations/types.ts",
+            language: "ts",
           },
         ],
       },

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, type ReactNode } from "react";
-import { CheckBox } from "@/app/kits/polaris/ui/forms/CheckBox";
+import { CheckBox } from "~/components/ui/forms/CheckBox";
 
 export function CheckBoxExample(): ReactNode {
   const [trackInventory, setTrackInventory] = useState(true);

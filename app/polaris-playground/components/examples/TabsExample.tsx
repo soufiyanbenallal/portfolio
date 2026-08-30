@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, type ReactNode } from "react";
-import { Tabs } from "@/app/kits/polaris/ui/layouts/Tabs";
+import { Tabs } from "~/components/ui/layouts/Tabs";
 
 export function TabsExample(): ReactNode {
   const [selectedTab, setSelectedTab] = useState<string | number>("all");

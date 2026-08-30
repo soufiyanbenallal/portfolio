@@ -4,4 +4,3 @@
  */
 /// <reference types="@shopify/polaris-types" />
 
-export {};

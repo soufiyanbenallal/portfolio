@@ -10,6 +10,7 @@ export * from "./SetupGuide/SetupGuide";
 export * from "./PlanPricingMatrix/PlanPricingMatrix";
 export * from "./AppReviewPrompt/AppReviewPrompt";
 export * from "./Onboarding/Onboarding";
+export * from "./AiRecommendations/AiRecommendations";
 
 // ── Standalone App Components ────────────────────────────────────────────────
 export * from "./Timeline";

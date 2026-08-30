@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, type ReactNode } from "react";
-import { SectionCard } from "@/app/kits/polaris/ui/layouts/SectionCard";
+import { SectionCard } from "~/components/ui/layouts/SectionCard";
 
 export function SectionCardExample(): ReactNode {
   const [active, setActive] = useState(true);

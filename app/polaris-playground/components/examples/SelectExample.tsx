@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, type ReactNode } from "react";
-import { Select } from "@/app/kits/polaris/ui/forms/Select";
+import { Select } from "~/components/ui/forms/Select";
 
 const CURRENCY_OPTIONS = [
   { label: "USD ($) — United States Dollar", value: "USD" },

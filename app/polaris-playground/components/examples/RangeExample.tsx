@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, type ReactNode } from "react";
-import { Range } from "@/app/kits/polaris/ui/forms/Range";
+import { Range } from "~/components/ui/forms/Range";
 
 export function RangeExample(): ReactNode {
   const [discountPercent, setDiscountPercent] = useState(25);

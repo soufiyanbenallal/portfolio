@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, type ReactNode } from "react";
-import { Toggle } from "@/app/kits/polaris/ui/forms/Toggle";
+import { Toggle } from "~/components/ui/forms/Toggle";
 
 export function ToggleExample(): ReactNode {
   const [autoFulfill, setAutoFulfill] = useState(true);

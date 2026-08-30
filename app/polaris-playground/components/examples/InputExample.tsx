@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, type ReactNode } from "react";
-import { Input } from "@/app/kits/polaris/ui/forms/Input";
+import { Input } from "~/components/ui/forms/Input";
 
 export function InputExample(): ReactNode {
   const [storeName, setStoreName] = useState("Snowdevil Snowboards");
