@@ -4,7 +4,7 @@ import { CURRENCIES, SAMPLE_CART_TOTAL } from "../../constants";
 import { formatCurrency } from "../../utils";
 import Content from "@/app/kits/polaris/ui/typography/Content";
 import { IconTile } from "@/components/ui/IconTile";
-import styles from "./Step3DefaultConfiguration.module.css";
+import { ProgressTracker } from "@/components/ui/ProgressTracker";
 
 export type Step3DefaultConfigurationPropsType = {
   state: OnboardingStateType;
@@ -94,9 +94,7 @@ export function Step3DefaultConfiguration({ state, dispatch }: Step3DefaultConfi
                   </s-text>
                 </s-stack>
 
-                <div className={styles.previewTrack}>
-                  <div className={styles.previewBar} style={{ width: `${percent}%` }} />
-                </div>
+                <ProgressTracker progress={percent} size="lg" tone="success" trackColor="#e5e7eb" />
 
                 <s-text tone="success" type="strong">
                   {qualifies

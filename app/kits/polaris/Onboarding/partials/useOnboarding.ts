@@ -19,7 +19,6 @@ const initialState: OnboardingStateType = {
   freeShippingThreshold: DEFAULT_FREE_SHIPPING_THRESHOLD,
   thresholdSaved: false,
   optionalTools: INITIAL_OPTIONAL_TOOLS,
-  queueIndex: 0,
   embedStatus: "idle",
   onboardingCompleted: false,
 };
@@ -28,23 +27,14 @@ function selectedTools(state: OnboardingStateType) {
   return state.optionalTools.filter((tool) => tool.selected);
 }
 
-/** Resolves the next real step, skipping the queue when nothing was selected in Step 4. */
-function stepAfter(step: OnboardingStepIdType, state: OnboardingStateType): OnboardingStepIdType {
+function stepAfter(step: OnboardingStepIdType): OnboardingStepIdType {
   const idx = STEP_ORDER.indexOf(step);
-  const target = STEP_ORDER[Math.min(idx + 1, STEP_ORDER.length - 1)];
-  if (target === "sequential-setup" && selectedTools(state).length === 0) {
-    return STEP_ORDER[Math.min(idx + 2, STEP_ORDER.length - 1)];
-  }
-  return target;
+  return STEP_ORDER[Math.min(idx + 1, STEP_ORDER.length - 1)];
 }
 
-function stepBefore(step: OnboardingStepIdType, state: OnboardingStateType): OnboardingStepIdType {
+function stepBefore(step: OnboardingStepIdType): OnboardingStepIdType {
   const idx = STEP_ORDER.indexOf(step);
-  const target = STEP_ORDER[Math.max(idx - 1, 0)];
-  if (target === "sequential-setup" && selectedTools(state).length === 0) {
-    return STEP_ORDER[Math.max(idx - 2, 0)];
-  }
-  return target;
+  return STEP_ORDER[Math.max(idx - 1, 0)];
 }
 
 function reducer(state: OnboardingStateType, action: OnboardingActionType): OnboardingStateType {
@@ -66,20 +56,16 @@ function reducer(state: OnboardingStateType, action: OnboardingActionType): Onbo
       };
 
     case "GO_NEXT": {
-      const next = stepAfter(state.currentStep, state);
+      const next = stepAfter(state.currentStep);
       return {
         ...state,
         direction: 1,
         currentStep: next,
-        queueIndex: next === "sequential-setup" ? 0 : state.queueIndex,
       };
     }
 
     case "GO_BACK": {
-      if (state.currentStep === "sequential-setup" && state.queueIndex > 0) {
-        return { ...state, direction: -1, queueIndex: state.queueIndex - 1 };
-      }
-      return { ...state, direction: -1, currentStep: stepBefore(state.currentStep, state) };
+      return { ...state, direction: -1, currentStep: stepBefore(state.currentStep) };
     }
 
     case "GO_TO_STEP":
@@ -88,7 +74,6 @@ function reducer(state: OnboardingStateType, action: OnboardingActionType): Onbo
         direction:
           STEP_ORDER.indexOf(action.step) >= STEP_ORDER.indexOf(state.currentStep) ? 1 : -1,
         currentStep: action.step,
-        queueIndex: action.step === "sequential-setup" ? 0 : state.queueIndex,
       };
 
     case "SET_THRESHOLD":
@@ -131,9 +116,6 @@ function reducer(state: OnboardingStateType, action: OnboardingActionType): Onbo
           tool.id === action.id ? { ...tool, deferred: true } : tool
         ),
       };
-
-    case "NEXT_IN_QUEUE":
-      return { ...state, direction: 1, queueIndex: state.queueIndex + 1 };
 
     case "SET_EMBED_STATUS":
       return { ...state, embedStatus: action.status };

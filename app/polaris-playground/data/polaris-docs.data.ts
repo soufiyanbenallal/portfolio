@@ -163,18 +163,6 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             language: "tsx",
           },
           {
-            name: "OnboardingFlow.tsx",
-            path: "Onboarding/partials/components/OnboardingFlow.tsx",
-            sourcePath: "app/kits/polaris/Onboarding/partials/components/OnboardingFlow.tsx",
-            language: "tsx",
-          },
-          {
-            name: "OnboardingFlow.module.css",
-            path: "Onboarding/partials/components/OnboardingFlow.module.css",
-            sourcePath: "app/kits/polaris/Onboarding/partials/components/OnboardingFlow.module.css",
-            language: "css",
-          },
-          {
             name: "useOnboarding.ts",
             path: "Onboarding/partials/useOnboarding.ts",
             sourcePath: "app/kits/polaris/Onboarding/partials/useOnboarding.ts",
@@ -225,16 +213,16 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             language: "css",
           },
           {
-            name: "ui.tsx",
-            path: "Onboarding/partials/components/shared/ui.tsx",
-            sourcePath: "app/kits/polaris/Onboarding/partials/components/shared/ui.tsx",
+            name: "ProgressTracker.tsx",
+            path: "components/ui/ProgressTracker.tsx",
+            sourcePath: "components/ui/ProgressTracker.tsx",
             language: "tsx",
           },
           {
-            name: "ui.module.css",
-            path: "Onboarding/partials/components/shared/ui.module.css",
-            sourcePath: "app/kits/polaris/Onboarding/partials/components/shared/ui.module.css",
-            language: "css",
+            name: "IconTile.tsx",
+            path: "components/ui/IconTile.tsx",
+            sourcePath: "components/ui/IconTile.tsx",
+            language: "tsx",
           },
           {
             name: "Step1Initializing.tsx",
@@ -272,13 +260,6 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             language: "tsx",
           },
           {
-            name: "Step3DefaultConfiguration.module.css",
-            path: "Onboarding/partials/components/steps/Step3DefaultConfiguration.module.css",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/steps/Step3DefaultConfiguration.module.css",
-            language: "css",
-          },
-          {
             name: "Step4AddTools.tsx",
             path: "Onboarding/partials/components/steps/Step4AddTools.tsx",
             sourcePath: "app/kits/polaris/Onboarding/partials/components/steps/Step4AddTools.tsx",
@@ -292,46 +273,18 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             language: "css",
           },
           {
-            name: "Step5SequentialSetup.tsx",
-            path: "Onboarding/partials/components/steps/Step5SequentialSetup.tsx",
+            name: "Step5ShopifyValidation.tsx",
+            path: "Onboarding/partials/components/steps/Step5ShopifyValidation.tsx",
             sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/steps/Step5SequentialSetup.tsx",
+              "app/kits/polaris/Onboarding/partials/components/steps/Step5ShopifyValidation.tsx",
             language: "tsx",
           },
           {
-            name: "Step5SequentialSetup.module.css",
-            path: "Onboarding/partials/components/steps/Step5SequentialSetup.module.css",
+            name: "Step6Celebration.tsx",
+            path: "Onboarding/partials/components/steps/Step6Celebration.tsx",
             sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/steps/Step5SequentialSetup.module.css",
-            language: "css",
-          },
-          {
-            name: "Step6ShopifyValidation.tsx",
-            path: "Onboarding/partials/components/steps/Step6ShopifyValidation.tsx",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/steps/Step6ShopifyValidation.tsx",
+              "app/kits/polaris/Onboarding/partials/components/steps/Step6Celebration.tsx",
             language: "tsx",
-          },
-          {
-            name: "Step6ShopifyValidation.module.css",
-            path: "Onboarding/partials/components/steps/Step6ShopifyValidation.module.css",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/steps/Step6ShopifyValidation.module.css",
-            language: "css",
-          },
-          {
-            name: "Step7Celebration.tsx",
-            path: "Onboarding/partials/components/steps/Step7Celebration.tsx",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/steps/Step7Celebration.tsx",
-            language: "tsx",
-          },
-          {
-            name: "Step7Celebration.module.css",
-            path: "Onboarding/partials/components/steps/Step7Celebration.module.css",
-            sourcePath:
-              "app/kits/polaris/Onboarding/partials/components/steps/Step7Celebration.module.css",
-            language: "css",
           },
         ],
       },

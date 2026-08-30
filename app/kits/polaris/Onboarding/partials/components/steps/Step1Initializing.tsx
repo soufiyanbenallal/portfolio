@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type Dispatch } from "react";
 import type { OnboardingActionType, OnboardingStateType } from "../../types";
-import styles from "./Step1Initializing.module.css";
+import { ProgressTracker } from "@/components/ui/ProgressTracker";
 import Content from "@/app/kits/polaris/ui/typography/Content";
+import styles from "./Step1Initializing.module.css";
 
 const TASK_INTERVAL_MS = 750;
 const HOLD_AFTER_COMPLETE_MS = 550;
@@ -100,12 +101,11 @@ export function Step1Initializing({ state, dispatch }: Step1InitializingPropsTyp
               </s-stack>
             </s-box>
 
-            <div className={styles.progressTrack}>
-              <div
-                className={styles.progressBar}
-                style={{ width: `${(doneCount / state.syncTasks.length) * 100}%` }}
-              />
-            </div>
+            <ProgressTracker
+              progress={(doneCount / state.syncTasks.length) * 100}
+              tone="success"
+              style={{ marginTop: "1rem" }}
+            />
 
             {showFallback && !state.syncComplete ? (
               <s-button
