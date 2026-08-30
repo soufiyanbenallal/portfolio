@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LaunchFolio — Editorial Designer Portfolio
 
-## Getting Started
+A production-grade editorial portfolio application for a full-stack designer, cloned and rebuilt from the [LaunchFolio](https://launchfolio.framer.website) Framer template with Next.js 16 (App Router), React 19, Tailwind CSS v4, and Framer Motion.
 
-First, run the development server:
+---
+
+## 🎨 Design System & Visual Architecture
+
+- **Canvas & Rails**: Pale neutral canvas (`#fafafa` / `#ffffff`), thin 1px `gray-30` (`#dedede`) structural borders, and a centered 1080px desktop rail with vertical guide borders.
+- **Color Tokens**:
+  - `white`: `#ffffff`
+  - `gray-5`: `#fafafa`
+  - `gray-10`: `#f7f7f7`
+  - `gray-20`: `#f0f0f0`
+  - `gray-30`: `#dedede`
+  - `gray-40`: `#b8b8b8`
+  - `gray-50`: `#828282`
+  - `gray-60`: `#545454`
+  - `black-90`: `#2b2b2b`
+  - `black`: `#000000`
+  - `availability-green`: `#21b30b`
+- **Typography Scale**: Switzer for headings (`font-weight: 500`, `tracking: -0.03em`) and body text; Inter Display (`font-weight: 600`) for numeric price typography; Fragment Mono for badges and dates.
+
+---
+
+## ⚡ Motion System & Interactions
+
+1. **Signature Scroll Choreography**: Layered project card sequence in the Latest Projects section using `useScroll` and `useTransform` with high-damped physics springs (`stiffness: 1000, damping: 130`).
+2. **Text Reveal Presets**: Word-level blurred fades on section headings with `[0.4, 0, 0.2, 1]` ease.
+3. **Hero Sequencing**: Staggered entrance of availability badge, headline, connected avatar indicator, and logo marquee.
+4. **Floating Glass Pill Navbar**: Fixed 24px from viewport top, animating smoothly into a compact pill on scroll down, with full mobile expandable menu.
+5. **Desktop Custom Cursor**: Physics-smoothed cursor supporting `Default`, `View Project`, `View Article`, and `Grow` modes (disabled on touch devices).
+6. **Focus-Trapped Modals**: Accessible Contact Form dialog with validation and Google Meet Discovery Call scheduler.
+7. **Prefers-Reduced-Motion**: Automatically disables continuous marquees, transforms, and transitions for accessibility.
+
+---
+
+## 📁 Routes
+
+- `/` — Homepage with all 11 sections in exact sequence
+- `/projects` — Project archive with category filters
+- `/projects/[slug]` — Interactive project case study detail pages
+- `/blog` — Design insights blog index
+- `/blog/[slug]` — Editorial reading post detail
+- `/quotes/[slug]` — Client proposal and line-item estimate view
+- `/terms` — Terms of Service
+- `/privacy-policy` — Privacy Policy
+- `/not-found` — Branded 404 page
+
+---
+
+## 🛠️ Data Customization
+
+All website content is managed through typed data files in `data/`:
+
+- `data/projects.data.ts` — Case studies, metrics, screenshots, and live links
+- `data/articles.data.ts` — Blog posts, reading times, categories, and sections
+- `data/testimonials.data.ts` — Client quotes, ratings, and avatars
+- `data/services.data.ts` — Services and deliverables
+- `data/tech-stack.data.ts` — Tool logos and tooltips
+- `data/work-history.data.ts` — Expandable career timeline
+- `data/pricing.data.ts` — Retainer and project pricing plans
+- `data/faqs.data.ts` — Accordion Q&A items
+- `data/quotes.data.ts` — Proposals and client estimates
+
+---
+
+## 🚀 Getting Started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Install dependencies
+pnpm install
+
+# Start development server
 pnpm dev
-# or
-bun dev
+
+# Run production build
+pnpm build
+
+# Start production server
+pnpm start
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

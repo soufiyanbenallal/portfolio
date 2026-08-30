@@ -1,0 +1,174 @@
+import { useState, useCallback } from "react";
+import { useCommonsT } from "~/commons/providers";
+
+export type ApiDocumentationPropsType = {
+  apiBaseUrl: string;
+  resources: string[];
+};
+
+function CodeBlock({ children, copyable = true }: { children: string; copyable?: boolean }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = useCallback(async () => {
+    await navigator.clipboard.writeText(children);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }, [children]);
+
+  return (
+    <div className="bg-muted/60 border-border relative rounded-lg border p-3.5">
+      <pre className="text-foreground overflow-x-auto font-mono text-xs leading-relaxed break-all whitespace-pre-wrap">
+        {children}
+      </pre>
+      {copyable && (
+        <div className="absolute top-2 right-2">
+          <s-button variant="tertiary" onClick={handleCopy}>
+            {copied ? "Copied" : "Copy"}
+          </s-button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Section({
+  title,
+  children,
+  defaultOpen = false,
+  badge,
+}: {
+  title: string;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+  badge?: string;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return (
+    <div className="border-border bg-card space-y-3 rounded-xl border p-4 shadow-xs">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex w-full cursor-pointer items-center justify-between gap-2 text-left"
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-foreground text-sm font-semibold">{title}</span>
+          {badge && <s-badge tone="info">{badge}</s-badge>}
+        </div>
+        <span className="text-muted-foreground text-xs font-medium">{open ? "Hide" : "Show"}</span>
+      </button>
+
+      {open && <div className="border-border space-y-3 border-t pt-2">{children}</div>}
+    </div>
+  );
+}
+
+export const ApiDocumentation = ({
+  apiBaseUrl,
+  resources,
+}: ApiDocumentationPropsType): JSX.Element => {
+  const ct = useCommonsT();
+  const baseUrl = apiBaseUrl.replace(/\/$/, "");
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <h3 className="text-foreground text-base font-bold">{ct("commons.api_docs.title")}</h3>
+          <p className="text-muted-foreground text-xs">{ct("commons.api_docs.subtitle")}</p>
+        </div>
+        <a
+          href={`${baseUrl}/docs`}
+          target="_blank"
+          rel="noreferrer"
+          className="text-primary text-xs font-semibold underline"
+        >
+          {ct("commons.api_docs.view_full_docs")} →
+        </a>
+      </div>
+
+      <Section title={ct("commons.api_docs.authentication")} defaultOpen>
+        <p className="text-muted-foreground text-xs">{ct("commons.api_docs.auth_desc")}</p>
+        <CodeBlock>{`Authorization: Bearer mak_your_token_here`}</CodeBlock>
+      </Section>
+
+      <Section
+        title={ct("commons.api_docs.endpoints")}
+        defaultOpen
+        badge={`${resources.length} ${ct("commons.api_docs.available")}`}
+      >
+        <div className="space-y-3">
+          {resources.map((resource) => (
+            <div key={resource} className="space-y-1.5">
+              <div className="flex items-center gap-2">
+                <s-badge tone="success">GET</s-badge>
+                <span className="text-foreground font-mono text-xs font-semibold">
+                  {`/v1/${resource}`}
+                </span>
+              </div>
+              <CodeBlock>
+                {`curl -H "Authorization: Bearer mak_your_token" \\\n  "${baseUrl}/v1/${resource}?page=1&page_size=25"`}
+              </CodeBlock>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title={ct("commons.api_docs.pagination")}>
+        <p className="text-muted-foreground text-xs">{ct("commons.api_docs.pagination_desc")}</p>
+        <CodeBlock>
+          {`# Pagination
+?page=1&page_size=25
+
+# Filtering
+?status=COMPLETED
+?archived=false`}
+        </CodeBlock>
+      </Section>
+
+      <Section title={ct("commons.api_docs.response_format")}>
+        <p className="text-muted-foreground text-xs">
+          {ct("commons.api_docs.response_format_desc")}
+        </p>
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <s-badge tone="success">{ct("commons.api_docs.success")}</s-badge>
+          </div>
+          <CodeBlock>
+            {`{
+  "data": [...],
+  "meta": {
+    "page": 1,
+    "pageSize": 25,
+    "total": 47
+  }
+}`}
+          </CodeBlock>
+          <div className="flex items-center gap-2 pt-2">
+            <s-badge tone="critical">{ct("commons.api_docs.error")}</s-badge>
+          </div>
+          <CodeBlock>
+            {`{
+  "error": {
+    "code": "INVALID_TOKEN",
+    "message": "Invalid or expired API token",
+    "status": 401
+  }
+}`}
+          </CodeBlock>
+        </div>
+      </Section>
+
+      <Section title={ct("commons.api_docs.rate_limits")}>
+        <p className="text-muted-foreground text-xs">{ct("commons.api_docs.rate_limits_desc")}</p>
+        <CodeBlock copyable={false}>
+          {`X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 58
+X-RateLimit-Reset: 1708451520`}
+        </CodeBlock>
+      </Section>
+    </div>
+  );
+};
+
+export default ApiDocumentation;
