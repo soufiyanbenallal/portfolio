@@ -1072,13 +1072,16 @@ export function HeroProjectsUnifiedPart() {
         <section id="hero" className="w-full pt-28 pb-12">
           <Container className="flex flex-col gap-8">
             <div className="flex flex-col gap-6">
-              <AvailabilityBadgeUi text="Available for August'25" />
+              <AvailabilityBadgeUi text="Available for new projects" />
               <h1 className="text-4xl font-medium tracking-tight text-black">
-                Design that delivers results.
+                Engineering that delivers results.
               </h1>
               <p className="text-gray-60 text-base">
-                Strategic design that drives growth, not just looks good. I create everything your
-                brand needs to attract customers and turn them into sales.
+                <strong className="font-semibold text-black">
+                  Senior Full Stack &amp; Shopify Developer.
+                </strong>{" "}
+                Architecting high-performance React 19, TypeScript, Node.js, Laravel platforms &amp;
+                AI integrations that scale businesses.
               </p>
               <div>
                 <button
@@ -1165,7 +1168,7 @@ export function HeroProjectsUnifiedPart() {
                     ease: EASINGS.entrance,
                   }}
                 >
-                  <AvailabilityBadgeUi text="Available for August'25" />
+                  <AvailabilityBadgeUi text="Available for new projects" />
                 </motion.div>
 
                 <h1
@@ -1175,7 +1178,7 @@ export function HeroProjectsUnifiedPart() {
                   <TextReveal
                     as="span"
                     by="word"
-                    text="Design that"
+                    text="Engineering that"
                     trigger="mount"
                     delay={0.18}
                     className="block text-gray-50"
@@ -1190,7 +1193,7 @@ export function HeroProjectsUnifiedPart() {
                       className="inline-block pr-[0.25em]"
                     />
                     <AnimatedTextCycle
-                      words={["results.", "growth.", "impact.", "sales."]}
+                      words={["results.", "scale.", "growth.", "impact."]}
                       interval={3200}
                       className="font-medium text-black"
                     />

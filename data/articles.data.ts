@@ -3,159 +3,157 @@ import type { ArticleDetailType } from "@/types";
 export const articlesData: ArticleDetailType[] = [
   {
     id: "art-1",
-    slug: "how-designers-and-developers-can-actually-collaborate",
-    title: "How designers and developers can actually collaborate.",
+    slug: "bridging-design-and-engineering-with-component-systems",
+    title: "Bridging Design & Engineering with Living Component Systems",
     subtitle:
-      "Discover proven strategies to bridge the designer-developer gap and ship better products faster.",
-    publishedAt: "Mar 6, 2025",
-    author: {
-      name: "Soufiyan Benallal",
-      role: "Lead Full Stack & Shopify Architect",
-      avatar: "/images/profile.jpeg",
-    },
-    readTime: "5 min read",
-    category: "Architecture",
-    coverImage:
-      "https://framerusercontent.com/images/tBF8hMQFxONWA4CXtHf3R4.jpg?scale-down-to=1024",
-    featured: true,
-    excerpt:
-      "Discover proven strategies to bridge the designer-developer gap. Learn how top teams eliminate handoff friction and ship better products faster through true collaboration.",
-    intro:
-      "For decades, the standard product development cycle relied on a flawed premise: design finishes a prototype, throws it over an imaginary wall to engineering, and hopes the final shipped product resembles the original vision. This 'handoff from hell' wastes billions annually in lost velocity, redesign cycles, and fractured team morale.",
-    sections: [
-      {
-        heading: "The Two Cultures Problem",
-        paragraphs: [
-          "Designers think in flows, spatial relationships, visual hierarchy, and emotional resonance. Developers think in state machines, edge cases, bundle constraints, and API contracts. When these two worldviews only communicate via static Figma frames or Jira tickets, nuance is lost.",
-          "The solution isn't making every designer a senior backend engineer, nor turning every engineer into a typographer. It's establishing a shared vocabulary built around functional tokens and living code components.",
-        ],
-        quote:
-          "Design and engineering are not sequential steps in a waterfall—they are two hands shaping the same clay simultaneously.",
-      },
-      {
-        heading: "Tools That Actually Bridge The Gap",
-        paragraphs: [
-          "With modern component-driven architectures (like React 19, Tailwind CSS v4, and modern CSS primitives), the boundary between visual design and implementation has compressed dramatically. Design tokens defined in code reflect directly in Figma variables.",
-          "Teams that adopt synchronous pairing—where engineers review interaction prototypes before final polish, and designers participate in PR reviews—ship features with 60% fewer visual regression bugs.",
-        ],
-      },
-      {
-        heading: "Building Bridges, Not Walls",
-        paragraphs: [
-          "Start small: invite an engineer to your next wireframe review. Ask them about the database schema before you design the search filters. Build a lightweight living styleguide together. True collaboration is a daily habit of shared curiosity.",
-        ],
-      },
-    ],
-    conclusion:
-      "When designers and developers respect each other's constraints and co-create from day one, magical software ceases to be an accident and becomes an inevitable outcome.",
-    relatedArticleSlugs: ["why-faster-isn-t-always-better", "designing-for-human-connection"],
-  },
-  {
-    id: "art-2",
-    slug: "why-faster-isn-t-always-better",
-    title: "Why faster isn't always better.",
-    subtitle:
-      "When Google's golden child sprinted to failure, and the rise of intentional slow design.",
-    publishedAt: "Apr 22, 2025",
-    author: {
-      name: "Soufiyan Benallal",
-      role: "Lead Full Stack & Shopify Architect",
-      avatar: "/images/profile.jpeg",
-    },
-    readTime: "7 min read",
-    category: "Strategy",
-    coverImage:
-      "https://framerusercontent.com/images/AZe7hFsRlGAWp9spF25RMEwS0gA.jpg?scale-down-to=1024",
-    featured: false,
-    excerpt:
-      "Speed is the tech industry's favorite metric. But when velocity replaces reflection, products lose their soul. Here is how balanced design velocity outperforms manic sprints.",
-    intro:
-      "The tech industry has spent the last decade fetishizing speed. 'Move fast and break things', 5-day design sprints, and two-week agile release cycles have trained us to measure engineering productivity strictly by tickets closed rather than value created.",
-    sections: [
-      {
-        heading: "The Seductive Promise of Velocity",
-        paragraphs: [
-          "Moving fast feels exhilarating. It creates the illusion of relentless progress. Yet when teams compress problem-definition to a single afternoon brainstorm, they inevitably build high-fidelity solutions to the wrong problems.",
-          "Rushing through foundational architecture produces crippling design debt that takes quarters to remediate.",
-        ],
-      },
-      {
-        heading: "The Slow Design Counter-Movement",
-        paragraphs: [
-          "Slow design is not laziness—it is extreme intentionality. It is the discipline to sit with user feedback, examine analogous systems, and prototype alternative architectures before writing a single line of production code.",
-        ],
-      },
-    ],
-    relatedArticleSlugs: [
-      "how-designers-and-developers-can-actually-collaborate",
-      "the-psychology-of-white-space",
-    ],
-  },
-  {
-    id: "art-3",
-    slug: "designing-for-human-connection",
-    title: "Designing for human connection.",
-    subtitle:
-      "How thoughtful micro-interactions transform cold screens into memorable emotional moments.",
-    publishedAt: "Apr 1, 2025",
-    author: {
-      name: "Soufiyan Benallal",
-      role: "Lead Full Stack & Shopify Architect",
-      avatar: "/images/profile.jpeg",
-    },
-    readTime: "4 min read",
-    category: "Frontend",
-    coverImage:
-      "https://framerusercontent.com/images/q3ruKmoVYmFXP9EeyZlQPnTDuVw.jpg?scale-down-to=1024",
-    featured: false,
-    excerpt:
-      "Micro-interactions are the heartbeat of modern UI. Explore how physics-based animation, haptic feedback, and emotional design systems foster deep user trust.",
-    intro:
-      "Software often feels sterile—a matrix of gray rectangles and blue buttons. Yet the products we fall in love with always have an undeniable spark of humanity.",
-    sections: [
-      {
-        heading: "The Science of Digital Emotion",
-        paragraphs: [
-          "When a button gently squashes on press, or an accordion expands with a high-damped spring, our brains perceive the digital element as tangible and trustworthy.",
-          "Motion is not visual noise; it is spatial continuity that guides attention and rewards user curiosity.",
-        ],
-      },
-    ],
-    relatedArticleSlugs: [
-      "how-designers-and-developers-can-actually-collaborate",
-      "the-psychology-of-white-space",
-    ],
-  },
-  {
-    id: "art-4",
-    slug: "the-psychology-of-white-space",
-    title: "The psychology of white space.",
-    subtitle: "Why generous spacing improves comprehension by 32% and drives luxury perception.",
-    publishedAt: "Feb 12, 2025",
+      "Eliminating the handoff friction by uniting Tailwind CSS v4 design tokens and React 19 primitives.",
+    publishedAt: "Mar 12, 2025",
     author: {
       name: "Soufiyan Benallal",
       role: "Lead Full Stack & Shopify Architect",
       avatar: "/images/profile.jpeg",
     },
     readTime: "6 min read",
-    category: "UI Engineering",
+    category: "Architecture",
+    coverImage:
+      "https://framerusercontent.com/images/tBF8hMQFxONWA4CXtHf3R4.jpg?scale-down-to=1024",
+    featured: true,
+    excerpt:
+      "Discover proven patterns to bridge the designer-developer gap. Learn how living design token pipelines eliminate regression bugs and accelerate feature delivery across engineering teams.",
+    intro:
+      "For years, standard software teams treated design and engineering as sequential waterfall silos: design finishes mockups, throws static frames over the wall, and hopes the shipped production app looks roughly familiar. This gap generates expensive redesign cycles and UI regressions.",
+    sections: [
+      {
+        heading: "Tokens as the Single Source of Truth",
+        paragraphs: [
+          "With Tailwind CSS v4 and modern CSS cascade layers, design tokens defined in Figma map directly to typed CSS variables in code. When color palettes, elevation shadows, and corner radii share identical naming in both tooling worlds, visual drift disappears.",
+          "Engineers and designers no longer debate whether a margin is 12px or 16px; instead, they discuss functional token contracts and interaction states.",
+        ],
+        quote:
+          "Design and engineering are not sequential steps in a waterfall—they are two hands shaping the same living digital clay.",
+      },
+      {
+        heading: "Synchronous Pairing Over Static Handoffs",
+        paragraphs: [
+          "Teams that adopt synchronous pairing—where engineers review component interaction states before full implementation, and designers test living code branches—reduce visual bugs by over 60%.",
+          "Building a living component library with Storybook or isolated playgrounds ensures that edge cases (like multi-line truncation or locale translations) are addressed before production launch.",
+        ],
+      },
+    ],
+    conclusion:
+      "When developers and designers share a unified vocabulary in code, building delight into software ceases to be accidental and becomes an inevitable engineering outcome.",
+    relatedArticleSlugs: ["architecting-shopify-polaris-web-components", "scaling-ai-workflows-in-production-saas"],
+  },
+  {
+    id: "art-2",
+    slug: "architecting-shopify-polaris-web-components",
+    title: "Architecting Embedded Shopify Apps with Polaris Web Components",
+    subtitle:
+      "Building high-concurrency merchant tools with App Bridge, GraphQL, and modern web components.",
+    publishedAt: "Feb 28, 2025",
+    author: {
+      name: "Soufiyan Benallal",
+      role: "Lead Full Stack & Shopify Architect",
+      avatar: "/images/profile.jpeg",
+    },
+    readTime: "8 min read",
+    category: "Shopify Ecosystem",
+    coverImage:
+      "https://framerusercontent.com/images/AZe7hFsRlGAWp9spF25RMEwS0gA.jpg?scale-down-to=1024",
+    featured: false,
+    excerpt:
+      "A deep technical breakdown of building embedded Shopify Admin applications using Shopify Polaris Web Components, App Bridge, and GraphQL caching strategies.",
+    intro:
+      "Shopify's transition to Polaris Web Components marked a major paradigm shift for merchant app development. By running web components directly in the Admin frame, apps achieve native performance and complete visual coherence.",
+    sections: [
+      {
+        heading: "Decoupling State from Embedded Frames",
+        paragraphs: [
+          "Embedded Shopify applications require reliable bi-directional communication between the top-level Admin frame and your app backend. Using App Bridge utilities with state stores prevents unnecessary page reloads and authentication token invalidations.",
+          "Leveraging GraphQL Storefront and Admin queries with bulk operations ensures low-latency responses even when handling tens of thousands of SKU updates.",
+        ],
+      },
+      {
+        heading: "Shopify Functions & Checkout Customizations",
+        paragraphs: [
+          "With Shopify Functions replacing legacy scripts, merchant business logic (discounts, cart validations, and delivery rules) runs securely on Shopify's global edge infrastructure with sub-5ms execution times.",
+        ],
+      },
+    ],
+    relatedArticleSlugs: [
+      "bridging-design-and-engineering-with-component-systems",
+      "the-art-of-high-performance-web-apps",
+    ],
+  },
+  {
+    id: "art-3",
+    slug: "scaling-ai-workflows-in-production-saas",
+    title: "Integrating Autonomous AI Workflows into Production SaaS",
+    subtitle:
+      "From simple prompt wrappers to robust tool-calling pipelines and asynchronous background agents.",
+    publishedAt: "Feb 14, 2025",
+    author: {
+      name: "Soufiyan Benallal",
+      role: "Lead Full Stack & Shopify Architect",
+      avatar: "/images/profile.jpeg",
+    },
+    readTime: "7 min read",
+    category: "AI Engineering",
+    coverImage:
+      "https://framerusercontent.com/images/q3ruKmoVYmFXP9EeyZlQPnTDuVw.jpg?scale-down-to=1024",
+    featured: false,
+    excerpt:
+      "How to move beyond generic chatbot widgets and architect production-grade AI agent pipelines with deterministic schemas, tool calling, and background task queues.",
+    intro:
+      "The next generation of software value is created when AI moves from open-ended chat conversations to deterministic, action-oriented workflow automation integrated deep into business databases.",
+    sections: [
+      {
+        heading: "Deterministic Output with Schema Validation",
+        paragraphs: [
+          "Large language models excel at unstructured reasoning, but production APIs require strict data contracts. Using structured JSON schema outputs and Zod validation guarantees that agent actions can be safely written to SQL databases.",
+          "Decoupling LLM generation from synchronous HTTP requests using Redis queues and background workers ensures that your frontend never hangs while an AI agent analyzes complex datasets.",
+        ],
+      },
+    ],
+    relatedArticleSlugs: [
+      "architecting-shopify-polaris-web-components",
+      "bridging-design-and-engineering-with-component-systems",
+    ],
+  },
+  {
+    id: "art-4",
+    slug: "the-art-of-high-performance-web-apps",
+    title: "The Science of Sub-Second Web Performance",
+    subtitle:
+      "Optimizing Core Web Vitals, server components, and physics-driven micro-interactions at scale.",
+    publishedAt: "Jan 25, 2025",
+    author: {
+      name: "Soufiyan Benallal",
+      role: "Lead Full Stack & Shopify Architect",
+      avatar: "/images/profile.jpeg",
+    },
+    readTime: "5 min read",
+    category: "Performance",
     coverImage:
       "https://framerusercontent.com/images/3IIKOQ9VkCZyf0KlL2N5yBg1cQ.jpg?scale-down-to=1024",
     featured: false,
     excerpt:
-      "White space isn't empty—it's your most powerful design tool. Learn why generous spacing improves comprehension 32% and drives premium perception.",
+      "Speed is the ultimate product feature. Learn how modern React 19 architectures, streaming SSR, and optimized asset pipelines deliver lightning-fast digital storefronts.",
     intro:
-      "In 2013, New York's JFK Airport spent $300 million on new signage. The old signs were cramped, overwhelming, and universally hated. The new ones had 40% fewer words and 200% more white space. Passenger complaints dropped 60%.",
+      "Every 100 milliseconds of latency in an e-commerce checkout flow directly reduces conversion rates. High-performance software engineering is not an afterthought—it must be architected from day one.",
     sections: [
       {
-        heading: "Why Our Brains Crave Breathing Room",
+        heading: "Eliminating Main-Thread Bottlenecks",
         paragraphs: [
-          "Cognitive scientists have found that our brains process visual information in chunks. When elements are crammed together, our neural pathways work overtime trying to separate and categorize each piece.",
-          "White space acts like punctuation for the eyes. It tells our brains where one thought ends and another begins.",
+          "By delegating static rendering to Server Components and optimizing bundle sizes, the client browser only parses minimal JavaScript required for interactivity.",
+          "Smooth, 60fps animations powered by hardware-accelerated transforms create a perceived speed that makes applications feel instantaneous to users.",
         ],
       },
     ],
-    relatedArticleSlugs: ["why-faster-isn-t-always-better", "designing-for-human-connection"],
+    relatedArticleSlugs: [
+      "bridging-design-and-engineering-with-component-systems",
+      "architecting-shopify-polaris-web-components",
+    ],
   },
 ];
 

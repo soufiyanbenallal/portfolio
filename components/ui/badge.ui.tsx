@@ -9,7 +9,7 @@ type AvailabilityBadgePropsType = {
 };
 
 export function AvailabilityBadgeUi({
-  text = "Available for August'25",
+  text = "Available for new projects",
   className,
 }: AvailabilityBadgePropsType) {
   return (

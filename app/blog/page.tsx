@@ -10,9 +10,9 @@ import { Tilt3D } from "@/components/motion/tilt-3d.motion";
 import { PageTransition, SharedElement } from "@/components/motion/page-transition.motion";
 
 export const metadata = {
-  title: "Design insights",
+  title: "Engineering Insights — Soufiyan Benallal",
   description:
-    "Reflections on product engineering, interface psychology, and building durable software at scale.",
+    "Reflections on scalable systems, Shopify architecture, React 19, and autonomous AI integrations.",
 };
 
 /**
@@ -28,18 +28,18 @@ export default function BlogIndexPage() {
       <div className="w-full">
         <Container className="flex flex-col gap-12 pt-32 pb-24">
           <div className="border-gray-30 flex flex-col gap-4 border-b pb-8">
-            <span className="text-label block text-gray-50">Design insights &amp; resources</span>
+            <span className="text-label block text-gray-50">Engineering &amp; Architecture Insights</span>
             <TextReveal
               as="h1"
               by="word"
               trigger="mount"
-              text="My design insights & creative resources."
+              text="Engineering insights & technical notes."
               className="text-4xl font-medium tracking-tight text-black sm:text-5xl md:text-6xl"
             />
             <Reveal preset="fadeUp" delay={0.3}>
               <p className="text-gray-60 max-w-xl text-base">
-                Reflections on product engineering, interface psychology, and building durable
-                software at scale.
+                Deep dives into full-stack software engineering, Shopify apps &amp; Polaris,
+                deterministic AI pipelines, and sub-second web performance.
               </p>
             </Reveal>
           </div>
