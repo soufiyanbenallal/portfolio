@@ -6,7 +6,6 @@ import {
   type BlockFileItemType,
 } from "../components/polaris-block-preview.part";
 import { getSourceCode } from "../utils/source-loader.util";
-import { FeedbackCard } from "@/app/kits/polaris/ui/feedbacks/FeedbackCard";
 
 export function generateStaticParams() {
   return polarisDocComponentsData.map((comp) => ({
@@ -65,11 +64,6 @@ export default async function PolarisComponentDetailPage({
           />
         );
       })}
-
-      {/* Merchant / Developer Feedback Box */}
-      <div className="mx-auto max-w-xl pt-4">
-        <FeedbackCard />
-      </div>
     </div>
   );
 }

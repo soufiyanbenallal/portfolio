@@ -3,16 +3,10 @@
 import React from "react";
 // ── Domain Block Examples ──
 import { SetupGuideExample } from "./examples/SetupGuideExample";
-import { ThemeEmbedStatusExample } from "./examples/ThemeEmbedStatusExample";
 import Onboarding from "~/components/Onboarding/Onboarding";
 import { PlanPricingMatrixExample } from "./examples/PlanPricingMatrixExample";
-import { UsageLimitBannerExample } from "./examples/UsageLimitBannerExample";
-import { DestructiveActionModalExample } from "./examples/DestructiveActionModalExample";
-import { ResourceFilterToolbarExample } from "./examples/ResourceFilterToolbarExample";
 import { AppReviewPromptExample } from "./examples/AppReviewPromptExample";
-import { FeedbackCardExample } from "./examples/FeedbackCardExample";
 import { TimelineExample } from "./examples/TimelineExample";
-import { TutorialButtonExample } from "./examples/TutorialButtonExample";
 import { DataTableExample } from "./examples/DataTableExample";
 
 // ── UI Kit Examples ──
@@ -20,7 +14,6 @@ import { StatsSectionExample } from "./examples/StatsSectionExample";
 import { DismissableBannerExample } from "./examples/DismissableBannerExample";
 import { SectionCardExample } from "./examples/SectionCardExample";
 import { TabsExample } from "./examples/TabsExample";
-import { InfoTooltipExample } from "./examples/InfoTooltipExample";
 import { CheckBoxExample } from "./examples/CheckBoxExample";
 import { SelectExample } from "./examples/SelectExample";
 import { ToggleExample } from "./examples/ToggleExample";
@@ -43,45 +36,20 @@ export function PolarisPreviewRenderer({ renderKey }: PolarisPreviewRendererProp
     case "setup-guide":
       return <SetupGuideExample />;
 
-    case "theme-embed-status-example":
-    case "theme-embed-status":
-      return <ThemeEmbedStatusExample />;
-
     // ── Billing Blocks ──
     case "plan-pricing-matrix-example":
     case "plan-pricing-matrix":
       return <PlanPricingMatrixExample />;
-
-    case "usage-limit-banner-example":
-    case "usage-limit-banner":
-      return <UsageLimitBannerExample />;
-
-    // ── Actions & Workflow Blocks ──
-    case "destructive-action-modal-example":
-    case "destructive-action-modal":
-      return <DestructiveActionModalExample />;
-
-    case "resource-filter-toolbar-example":
-    case "resource-filter-toolbar":
-      return <ResourceFilterToolbarExample />;
 
     // ── Feedback & Engagement Blocks ──
     case "app-review-prompt-example":
     case "app-review-prompt":
       return <AppReviewPromptExample />;
 
-    case "feedback-card-example":
-    case "feedback-card":
-      return <FeedbackCardExample />;
-
     // ── Standalone App Components ──
     case "timeline-example":
     case "timeline":
       return <TimelineExample />;
-
-    case "tutorial-button-example":
-    case "tutorial-button":
-      return <TutorialButtonExample />;
 
     // ── Table Blocks ──
     case "data-table-example":
@@ -145,11 +113,6 @@ export function PolarisPreviewRenderer({ renderKey }: PolarisPreviewRendererProp
     case "range-example":
     case "range":
       return <RangeExample />;
-
-    // ── Typography ──
-    case "info-tooltip-example":
-    case "info-tooltip":
-      return <InfoTooltipExample />;
 
     default:
       return (

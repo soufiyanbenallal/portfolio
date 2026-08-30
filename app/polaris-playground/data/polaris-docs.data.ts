@@ -49,33 +49,23 @@ export const polarisNavSectionsData: PolarisNavCategoryType[] = [
   {
     id: "onboarding",
     label: "Onboarding & Setup",
-    description:
-      "Step-by-step setup guides, progress trackers, and Theme App Extension embed verification guards.",
+    description: "Step-by-step setup guides and full onboarding wizards.",
     items: [
       { slug: "onboarding", label: "Onboarding flow" },
       { slug: "setup-guide", label: "Setup guide" },
-      { slug: "theme-embed-status", label: "Theme embed status" },
     ],
   },
   {
     id: "billing",
     label: "Billing & Monetization",
-    description:
-      "Tiered pricing matrices, annual/monthly switches, and usage quota limit warning banners.",
-    items: [
-      { slug: "plan-pricing-matrix", label: "Plan pricing matrix" },
-      { slug: "usage-limit-banner", label: "Usage limit banner" },
-    ],
+    description: "Tiered pricing matrices and subscription switches.",
+    items: [{ slug: "plan-pricing-matrix", label: "Plan pricing matrix" }],
   },
   {
     id: "actions",
     label: "Actions & Workflows",
-    description: "Double-check destructive confirmation dialogs and table search/filter toolbars.",
-    items: [
-      { slug: "data-table", label: "Data table" },
-      { slug: "destructive-action-modal", label: "Destructive action modal" },
-      { slug: "resource-filter-toolbar", label: "Resource filter toolbar" },
-    ],
+    description: "Enterprise tables and operational action workflows.",
+    items: [{ slug: "data-table", label: "Data table" }],
   },
   {
     id: "stats",
@@ -87,11 +77,9 @@ export const polarisNavSectionsData: PolarisNavCategoryType[] = [
   {
     id: "feedbacks",
     label: "Feedback & Status",
-    description:
-      "Dismissable banners, milestone review prompts, and customer feedback rating cards.",
+    description: "Dismissable banners and milestone review prompts.",
     items: [
       { slug: "dismissable-banner", label: "Dismissable banner" },
-      { slug: "feedback-card", label: "Feedback card" },
       { slug: "app-review-prompt", label: "App review prompt" },
     ],
   },
@@ -103,15 +91,6 @@ export const polarisNavSectionsData: PolarisNavCategoryType[] = [
       { slug: "section-card", label: "Section card" },
       { slug: "tabs", label: "Tabs" },
       { slug: "timeline", label: "Timeline audit trail" },
-    ],
-  },
-  {
-    id: "typography",
-    label: "Typography & Utilities",
-    description: "Contextual helper tooltips, video tutorial launchers, and inline badges.",
-    items: [
-      { slug: "tutorial-button", label: "Tutorial video button" },
-      { slug: "info-tooltip", label: "Info tooltip" },
     ],
   },
   {
@@ -294,47 +273,6 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       },
     ],
   },
-  {
-    slug: "theme-embed-status",
-    name: "Theme embed status",
-    category: "onboarding",
-    categoryLabel: "Onboarding & Setup",
-    description:
-      "Live status card checking if the app's Theme App Extension is activated, with direct deep-linking to the Shopify Theme Editor.",
-    summary:
-      "Embed verification banner providing 1-click navigation to admin.shopify.com theme editor with live re-check.",
-    docsUrl: "https://shopify.dev/docs/apps/online-store/theme-app-extensions",
-    previewType: "theme-embed-status",
-    examples: [
-      {
-        id: "theme-embed-status-block",
-        title: "Theme App Extension verification card",
-        description: "Status card with re-check button and 1-click theme customizer deep link.",
-        renderKey: "theme-embed-status-example",
-        installCommand: "npx shadcn@latest add theme-embed-status",
-        fileSources: [
-          {
-            name: "ThemeEmbedStatusExample.tsx",
-            path: "example/ThemeEmbedStatusExample.tsx",
-            sourcePath: "app/polaris-playground/components/examples/ThemeEmbedStatusExample.tsx",
-            language: "tsx",
-          },
-          {
-            name: "ThemeEmbedStatus.tsx",
-            path: "blocks/onboarding/ThemeEmbedStatus/ThemeEmbedStatus.tsx",
-            sourcePath: "app/kits/polaris/blocks/onboarding/ThemeEmbedStatus/ThemeEmbedStatus.tsx",
-            language: "tsx",
-          },
-          {
-            name: "types.ts",
-            path: "blocks/onboarding/ThemeEmbedStatus/types.ts",
-            sourcePath: "app/kits/polaris/blocks/onboarding/ThemeEmbedStatus/types.ts",
-            language: "ts",
-          },
-        ],
-      },
-    ],
-  },
 
   // ── Billing & Monetization ──
   {
@@ -379,46 +317,6 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             name: "types.ts",
             path: "blocks/billing/PlanPricingMatrix/types.ts",
             sourcePath: "app/kits/polaris/blocks/billing/PlanPricingMatrix/types.ts",
-            language: "ts",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "usage-limit-banner",
-    name: "Usage limit banner",
-    category: "billing",
-    categoryLabel: "Billing & Monetization",
-    description:
-      "Contextual usage quota warning banner with visual meter bar and instant plan upgrade CTA.",
-    summary: "Dynamic meter alert for API quotas, order limits, and tracked volume thresholds.",
-    docsUrl: "https://shopify.dev/docs/apps/billing/usage-billing",
-    previewType: "usage-limit-banner",
-    examples: [
-      {
-        id: "usage-limit-banner-block",
-        title: "Quota usage warning banner",
-        description: "Adaptive warning and critical meter bar with upgrade CTA button.",
-        renderKey: "usage-limit-banner-example",
-        installCommand: "npx shadcn@latest add usage-limit-banner",
-        fileSources: [
-          {
-            name: "UsageLimitBannerExample.tsx",
-            path: "example/UsageLimitBannerExample.tsx",
-            sourcePath: "app/polaris-playground/components/examples/UsageLimitBannerExample.tsx",
-            language: "tsx",
-          },
-          {
-            name: "UsageLimitBanner.tsx",
-            path: "blocks/billing/UsageLimitBanner/UsageLimitBanner.tsx",
-            sourcePath: "app/kits/polaris/blocks/billing/UsageLimitBanner/UsageLimitBanner.tsx",
-            language: "tsx",
-          },
-          {
-            name: "types.ts",
-            path: "blocks/billing/UsageLimitBanner/types.ts",
-            sourcePath: "app/kits/polaris/blocks/billing/UsageLimitBanner/types.ts",
             language: "ts",
           },
         ],
@@ -481,100 +379,6 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
       },
     ],
   },
-  {
-    slug: "destructive-action-modal",
-    name: "Destructive action modal",
-    category: "actions",
-    categoryLabel: "Actions & Workflows",
-    description:
-      "Safety confirmation dialog extending Polaris Modal that requires typing a keyword (e.g. 'DELETE') to unlock the destructive button.",
-    summary:
-      "High-security confirmation guard preventing accidental deletions of feeds, rules, or merchant data.",
-    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/actions/modal",
-    previewType: "destructive-action-modal",
-    examples: [
-      {
-        id: "destructive-action-modal-block",
-        title: "Safety keyword verification modal",
-        description: "Modal dialog with input keyword verification guard.",
-        renderKey: "destructive-action-modal-example",
-        installCommand: "npx shadcn@latest add destructive-action-modal",
-        fileSources: [
-          {
-            name: "DestructiveActionModalExample.tsx",
-            path: "example/DestructiveActionModalExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/DestructiveActionModalExample.tsx",
-            language: "tsx",
-          },
-          {
-            name: "DestructiveActionModal.tsx",
-            path: "blocks/actions/DestructiveActionModal/DestructiveActionModal.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/actions/DestructiveActionModal/DestructiveActionModal.tsx",
-            language: "tsx",
-          },
-          {
-            name: "types.ts",
-            path: "blocks/actions/DestructiveActionModal/types.ts",
-            sourcePath: "app/kits/polaris/blocks/actions/DestructiveActionModal/types.ts",
-            language: "ts",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "resource-filter-toolbar",
-    name: "Resource filter toolbar",
-    category: "actions",
-    categoryLabel: "Actions & Workflows",
-    description:
-      "Search, filter popover, active filter chips, and primary action toolbar for Polaris index tables and resource lists.",
-    summary:
-      "Compound table header with debounced search, filter popover menu, removable tags, and primary CTA.",
-    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/layout/box",
-    previewType: "resource-filter-toolbar",
-    examples: [
-      {
-        id: "resource-filter-toolbar-block",
-        title: "Table search and filter chip toolbar",
-        description: "Search bar with categorized dropdown filter options and active chip tags.",
-        renderKey: "resource-filter-toolbar-example",
-        installCommand: "npx shadcn@latest add resource-filter-toolbar",
-        fileSources: [
-          {
-            name: "ResourceFilterToolbarExample.tsx",
-            path: "example/ResourceFilterToolbarExample.tsx",
-            sourcePath:
-              "app/polaris-playground/components/examples/ResourceFilterToolbarExample.tsx",
-            language: "tsx",
-          },
-          {
-            name: "ResourceFilterToolbar.tsx",
-            path: "blocks/actions/ResourceFilterToolbar/ResourceFilterToolbar.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/actions/ResourceFilterToolbar/ResourceFilterToolbar.tsx",
-            language: "tsx",
-          },
-          {
-            name: "FilterChip.part.tsx",
-            path: "blocks/actions/ResourceFilterToolbar/partials/FilterChip.part.tsx",
-            sourcePath:
-              "app/kits/polaris/blocks/actions/ResourceFilterToolbar/partials/FilterChip.part.tsx",
-            language: "tsx",
-          },
-          {
-            name: "types.ts",
-            path: "blocks/actions/ResourceFilterToolbar/types.ts",
-            sourcePath: "app/kits/polaris/blocks/actions/ResourceFilterToolbar/types.ts",
-            language: "ts",
-          },
-        ],
-      },
-    ],
-  },
-
   // ── Stats & Analytics ──
   {
     slug: "stats-section",
@@ -648,41 +452,6 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             name: "DismissableBanner.tsx",
             path: "ui/DismissableBanner.tsx",
             sourcePath: "app/kits/polaris/ui/feedbacks/DismissableBanner.tsx",
-            language: "tsx",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "feedback-card",
-    name: "Feedback card",
-    category: "feedback",
-    categoryLabel: "Feedback & Status",
-    description:
-      "Lightweight merchant sentiment card with thumbs up/down rating and persistent feedback state.",
-    summary:
-      "Simple, friendly merchant feedback card with thumbs rating and thank-you confirmation.",
-    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/feedback/banner",
-    previewType: "feedback-card",
-    examples: [
-      {
-        id: "feedback-card-block",
-        title: "Merchant sentiment card",
-        description: "Quick thumbs up / down feedback widget.",
-        renderKey: "feedback-card-example",
-        installCommand: "npx shadcn@latest add feedback-card",
-        fileSources: [
-          {
-            name: "FeedbackCardExample.tsx",
-            path: "example/FeedbackCardExample.tsx",
-            sourcePath: "app/polaris-playground/components/examples/FeedbackCardExample.tsx",
-            language: "tsx",
-          },
-          {
-            name: "FeedbackCard.tsx",
-            path: "ui/FeedbackCard.tsx",
-            sourcePath: "app/kits/polaris/ui/feedbacks/FeedbackCard.tsx",
             language: "tsx",
           },
         ],
@@ -858,77 +627,6 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
             path: "blocks/activity/Timeline/types.ts",
             sourcePath: "app/kits/polaris/blocks/activity/Timeline/types.ts",
             language: "typescript",
-          },
-        ],
-      },
-    ],
-  },
-
-  // ── Typography & Utilities ──
-  {
-    slug: "tutorial-button",
-    name: "Tutorial video button",
-    category: "typography",
-    categoryLabel: "Typography & Utilities",
-    description:
-      "Floating or embedded video helper button that launches an onboarding tutorial modal.",
-    summary:
-      "Context-aware video tutorial launcher with collapsible floating pill and embedded player.",
-    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/actions/button",
-    previewType: "tutorial-button",
-    examples: [
-      {
-        id: "tutorial-button-block",
-        title: "Video tutorial launcher",
-        description: "Floating video guide launcher with modal walkthrough.",
-        renderKey: "tutorial-button-example",
-        installCommand: "npx shadcn@latest add tutorial-button",
-        fileSources: [
-          {
-            name: "TutorialButtonExample.tsx",
-            path: "example/TutorialButtonExample.tsx",
-            sourcePath: "app/polaris-playground/components/examples/TutorialButtonExample.tsx",
-            language: "tsx",
-          },
-          {
-            name: "TutorialButton.tsx",
-            path: "TutorialButton.tsx",
-            sourcePath: "app/kits/polaris/TutorialButton.tsx",
-            language: "tsx",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "info-tooltip",
-    name: "Info tooltip",
-    category: "typography",
-    categoryLabel: "Typography & Content",
-    description:
-      "Inline contextual help icon that displays explanatory popovers on hover or focus.",
-    summary: "Helper tooltip for clarifying complex settings, tax rules, and Shopify API limits.",
-    docsUrl: "https://shopify.dev/docs/api/app-home/web-components/overlay/tooltip",
-    previewType: "info-tooltip",
-    examples: [
-      {
-        id: "info-tooltip-block",
-        title: "Contextual info tooltip",
-        description: "Inline info trigger with customizable tooltip content.",
-        renderKey: "info-tooltip-example",
-        installCommand: "npx shadcn@latest add info-tooltip",
-        fileSources: [
-          {
-            name: "InfoTooltipExample.tsx",
-            path: "example/InfoTooltipExample.tsx",
-            sourcePath: "app/polaris-playground/components/examples/InfoTooltipExample.tsx",
-            language: "tsx",
-          },
-          {
-            name: "InfoTooltip.tsx",
-            path: "ui/InfoTooltip.tsx",
-            sourcePath: "app/kits/polaris/ui/typography/InfoTooltip.tsx",
-            language: "tsx",
           },
         ],
       },
