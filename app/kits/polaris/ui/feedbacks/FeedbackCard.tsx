@@ -30,20 +30,20 @@ export function FeedbackCard({
     }
   }, [appUrl]);
 
-  if (typeof window === "undefined") {
-    return null;
-  }
-
   const goodFeedback = () => {
-    window.open(`${appUrl}#modal-show=WriteReviewModal`, "_blank");
-    setSubmitted(true);
-    window.localStorage.setItem(`alreadyFeedback-${appUrl}`, "true");
+    if (typeof window !== "undefined") {
+      window.open(`${appUrl}#modal-show=WriteReviewModal`, "_blank");
+      setSubmitted(true);
+      window.localStorage.setItem(`alreadyFeedback-${appUrl}`, "true");
+    }
   };
 
   const badFeedback = () => {
-    window.open(feedbackFormUrl, "_blank");
-    setSubmitted(true);
-    window.localStorage.setItem(`alreadyFeedback-${appUrl}`, "true");
+    if (typeof window !== "undefined") {
+      window.open(feedbackFormUrl, "_blank");
+      setSubmitted(true);
+      window.localStorage.setItem(`alreadyFeedback-${appUrl}`, "true");
+    }
   };
 
   return (

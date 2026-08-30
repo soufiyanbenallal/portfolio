@@ -285,9 +285,7 @@ export function DataTableExample() {
 
   return (
     <s-page>
-      <Card
-        title="Bundle deals"
-        tooltipContent="Manage active bundle discounts, volume tiers, and A/B test experiments across your store catalog."
+      <s-section
         padding="none"
       >
         <Table
@@ -327,7 +325,7 @@ export function DataTableExample() {
           columns={BUNDLE_COLUMNS}
           rows={BUNDLE_ROWS}
         />
-      </Card>
+      </s-section>
     </s-page>
   );
 }

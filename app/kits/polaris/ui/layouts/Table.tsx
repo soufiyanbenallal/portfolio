@@ -302,7 +302,7 @@ export function Table<T = any>({
             >
               <Content
                 tooltip={col.tooltip}
-                underline={Boolean(col.tooltip)}
+                underline={false}
               >
                 {col.title}
               </Content>

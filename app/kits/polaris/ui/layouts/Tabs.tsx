@@ -3,12 +3,12 @@ import { ReactNode, useEffect } from "react";
 export type TabItemType = {
   id: string | number;
   content?: string;
+  label?: string;
   description?: string;
   badge?: string | number;
   icon?: ReactNode;
   disabled?: boolean;
 };
-
 
 export type TabsPropsType<T = string | number> = {
   tabs: TabItemType[];
@@ -20,7 +20,6 @@ export type TabsPropsType<T = string | number> = {
   rightSide?: ReactNode;
   className?: string;
 };
-
 
 export const Tabs = <T extends string | number>({
   tabs,
@@ -38,20 +37,29 @@ export const Tabs = <T extends string | number>({
 
   return (
     <s-stack direction="inline" justifyContent="space-between" alignItems="center">
-      <s-stack direction="inline" gap="small-200" alignItems="center">
+      <s-stack direction="inline" gap="small-500" alignItems="center">
         {tabs
           .filter((tab) => !tab.disabled)
           .map((tab) => {
             const isSelected = selectedTab === tab.id;
             return (
-              <s-button
+              <div
                 key={`tab-${tab.id}`}
-                variant={isSelected ? "primary" : "secondary"}
+
+              style={{
+                borderRadius: '0.5rem',
+                backgroundColor: isSelected ? "#f0f0f0" : "transparent",
+              }}
+              >
+                      <s-button
+                variant="tertiary"
                 onClick={() => onTabChange(tab.id as T)}
               >
-                {showContent && tab.content}
+                {showContent && (tab.content ?? tab.label)}
                 {showBadge && tab.badge !== undefined ? ` (${tab.badge})` : ""}
               </s-button>
+              </div>
+        
             );
           })}
       </s-stack>
