@@ -2,7 +2,7 @@ import type { Dispatch } from "react";
 import type { OnboardingActionType, OnboardingStateType, OptionalToolIdType } from "../../types";
 import { IconTile } from "@/components/ui/IconTile";
 import Content from "@/app/kits/polaris/ui/typography/Content";
-import styles from "./Step4AddTools.module.css";
+import styles from "../../onboarding.module.css";
 
 const OPTIONAL_ICONS: Record<OptionalToolIdType, "discount" | "rocket" | "gift-card" | "bolt"> = {
   "volume-discounts": "discount",
@@ -31,10 +31,10 @@ export function Step4AddTools({ state, dispatch }: Step4AddToolsPropsType) {
               >
                 Add more revenue tools
               </Content>
-              <s-paragraph color="subdued">
+              <Content subdue>
                 Optional, high-impact modules with pre-tuned presets. Nothing here is required to
                 launch.
-              </s-paragraph>
+              </Content>
             </s-stack>
 
             <s-grid gridTemplateColumns="repeat(2, minmax(260px, 1fr))" gap="base">
@@ -43,7 +43,7 @@ export function Step4AddTools({ state, dispatch }: Step4AddToolsPropsType) {
                 return (
                   <div
                     key={tool.id}
-                    className={styles.toolCard}
+                    className={styles.staggerItem}
                     style={{ animationDelay: `${i * 60}ms` }}
                   >
                     <s-box
@@ -168,9 +168,9 @@ export function Step4AddTools({ state, dispatch }: Step4AddToolsPropsType) {
               </s-stack>
             </s-box>
 
-            <s-paragraph color="subdued">
+            <Content subdue>
               *Illustrative benchmarks — your own Analytics will show real lift once live.
-            </s-paragraph>
+            </Content>
           </s-stack>
         </s-box>
       </s-stack>

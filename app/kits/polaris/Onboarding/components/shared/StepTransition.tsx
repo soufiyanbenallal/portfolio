@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { cn } from "../../utils";
-import styles from "./StepTransition.module.css";
-
-const EXIT_DURATION_MS = 180;
+import styles from "../../onboarding.module.css";
 
 export type StepTransitionPropsType = {
   stepKey: string;
@@ -33,7 +30,7 @@ export function StepTransition({ stepKey, children }: StepTransitionPropsType) {
       if (typeof window !== "undefined") {
         window.scrollTo({ top: 0, behavior: "instant" });
       }
-    }, EXIT_DURATION_MS);
+    }, 180);
     return () => window.clearTimeout(timeout);
     // Re-run only when the step identity changes, not on every content re-render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,7 +39,7 @@ export function StepTransition({ stepKey, children }: StepTransitionPropsType) {
   return (
     <div
       key={renderedKey}
-      className={cn(phase === "enter" ? styles.stepPanelEnter : styles.stepPanelExit)}
+      className={phase === "enter" ? styles.stepPanelEnter : styles.stepPanelExit}
     >
       {showingCurrent ? children : lastChildren.current}
     </div>

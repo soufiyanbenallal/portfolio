@@ -49,9 +49,9 @@ export function Step5ShopifyValidation({ state, dispatch }: Step5ShopifyValidati
               >
                 Activate your theme embed
               </Content>
-              <s-paragraph color="subdued">
+              <Content subdue>
                 One click enables Journeva&rsquo;s cart drawer and upsells on your storefront.
-              </s-paragraph>
+              </Content>
             </s-stack>
 
             <s-stack direction="block" gap="base" inlineSize="100%">
@@ -109,9 +109,12 @@ export function Step5ShopifyValidation({ state, dispatch }: Step5ShopifyValidati
           </s-stack>
         </s-box>
 
-        <s-button variant="primary" onClick={() => dispatch({ type: "GO_NEXT" })}>
-          Continue
-        </s-button>
+        <s-stack direction="inline" gap="small-200" alignItems="center">
+          <s-button onClick={() => dispatch({ type: "GO_BACK" })}>Back</s-button>
+          <s-button variant="primary" onClick={() => dispatch({ type: "GO_NEXT" })}>
+            Continue
+          </s-button>
+        </s-stack>
       </s-stack>
     </s-box>
   );

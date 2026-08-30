@@ -1,13 +1,14 @@
-import { ONBOARDING_STEPS_CONFIG } from "./partials/constants";
-import { useOnboarding } from "./partials/useOnboarding";
-import { ProgressHeader } from "./partials/components/shared/ProgressHeader";
-import { StepTransition } from "./partials/components/shared/StepTransition";
-import { Step1Initializing } from "./partials/components/steps/Step1Initializing";
-import { Step2RevenueFoundation } from "./partials/components/steps/Step2RevenueFoundation";
-import { Step3DefaultConfiguration } from "./partials/components/steps/Step3DefaultConfiguration";
-import { Step4AddTools } from "./partials/components/steps/Step4AddTools";
-import { Step5ShopifyValidation } from "./partials/components/steps/Step5ShopifyValidation";
-import { Step6Celebration } from "./partials/components/steps/Step6Celebration";
+import { ONBOARDING_STEPS_CONFIG } from "./constants";
+import { useOnboarding } from "./useOnboarding";
+import { ProgressHeader } from "./components/shared/ProgressHeader";
+import { StepTransition } from "./components/shared/StepTransition";
+import { Step1Initializing } from "./components/steps/Step1Initializing";
+import { Step2RevenueFoundation } from "./components/steps/Step2RevenueFoundation";
+import { Step3DefaultConfiguration } from "./components/steps/Step3DefaultConfiguration";
+import { Step4AddTools } from "./components/steps/Step4AddTools";
+import { Step5ShopifyValidation } from "./components/steps/Step5ShopifyValidation";
+import { Step6Celebration } from "./components/steps/Step6Celebration";
+import type { OnboardingStepIdType } from "./types";
 
 export type OnboardingPropsType = {
   /** Called when the merchant taps the final CTA. Wire this to your router. */
@@ -19,7 +20,7 @@ export type OnboardingPropsType = {
 };
 
 export function Onboarding({ onGoToDashboard, onExit, onRestart }: OnboardingPropsType) {
-  const { state, dispatch, stepIndex, totalSteps } = useOnboarding();
+  const { state, dispatch, stepIndex } = useOnboarding();
 
   const renderStep = () => {
     switch (state.currentStep) {
@@ -52,7 +53,9 @@ export function Onboarding({ onGoToDashboard, onExit, onRestart }: OnboardingPro
       <ProgressHeader
         stepIndex={stepIndex}
         steps={ONBOARDING_STEPS_CONFIG}
-        onGoToStep={(targetStep) => dispatch({ type: "GO_TO_STEP", step: targetStep })}
+        onGoToStep={(targetStep: OnboardingStepIdType) =>
+          dispatch({ type: "GO_TO_STEP", step: targetStep })
+        }
       />
       <br />
       <StepTransition stepKey={state.currentStep}>{renderStep()}</StepTransition>

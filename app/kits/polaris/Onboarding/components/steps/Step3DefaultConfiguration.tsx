@@ -44,9 +44,9 @@ export function Step3DefaultConfiguration({ state, dispatch }: Step3DefaultConfi
               >
                 One quick detail
               </Content>
-              <s-paragraph color="subdued">
+              <Content subdue>
                 Set your free shipping threshold — we&rsquo;ll handle the rest.
-              </s-paragraph>
+              </Content>
             </s-stack>
 
             <s-box inlineSize="100%">
@@ -103,23 +103,25 @@ export function Step3DefaultConfiguration({ state, dispatch }: Step3DefaultConfi
                 </s-text>
               </s-stack>
             </s-box>
-
-            <s-stack direction="block" gap="small-100" inlineSize="100%" alignItems="center">
-              <s-button
-                variant="primary"
-                onClick={() => {
-                  dispatch({ type: "CONFIRM_THRESHOLD" });
-                  dispatch({ type: "GO_NEXT" });
-                }}
-              >
-                Save &amp; continue
-              </s-button>
-              <s-button variant="tertiary" onClick={() => dispatch({ type: "GO_NEXT" })}>
-                Skip for now — I&rsquo;ll set this later
-              </s-button>
-            </s-stack>
           </s-stack>
         </s-box>
+        <s-stack direction="block" gap="small-200" inlineSize="100%" alignItems="center">
+          <s-stack direction="inline" gap="small-200" alignItems="center">
+            <s-button onClick={() => dispatch({ type: "GO_BACK" })}>Back</s-button>
+            <s-button
+              variant="primary"
+              onClick={() => {
+                dispatch({ type: "CONFIRM_THRESHOLD" });
+                dispatch({ type: "GO_NEXT" });
+              }}
+            >
+              Save &amp; continue
+            </s-button>
+          </s-stack>
+          <s-button variant="tertiary" onClick={() => dispatch({ type: "GO_NEXT" })}>
+            Skip for now — I&rsquo;ll set this later
+          </s-button>
+        </s-stack>
       </s-stack>
     </s-box>
   );

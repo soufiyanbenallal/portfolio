@@ -21,9 +21,14 @@
     transform 0.18s ease-in;
 }
 
+.staggerItem {
+  animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .stepPanelEnter,
-  .stepPanelExit {
+  .stepPanelExit,
+  .staggerItem {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }

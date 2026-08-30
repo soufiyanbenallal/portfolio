@@ -2,7 +2,7 @@ import type { Dispatch } from "react";
 import type { CoreToolIdType, OnboardingActionType, OnboardingStateType } from "../../types";
 import Content from "@/app/kits/polaris/ui/typography/Content";
 import { IconTile } from "@/components/ui/IconTile";
-import styles from "./Step2RevenueFoundation.module.css";
+import styles from "../../onboarding.module.css";
 
 const CORE_ICONS: Record<CoreToolIdType, "cart" | "collection" | "chart-vertical"> = {
   "cart-drawer": "cart",
@@ -39,16 +39,16 @@ export function Step2RevenueFoundation({ state, dispatch }: Step2RevenueFoundati
               >
                 Your revenue foundation is ready
               </Content>
-              <s-paragraph color="subdued">
+              <Content subdue>
                 We&rsquo;ve already configured the essentials nothing to set up, nothing to break.
-              </s-paragraph>
+              </Content>
             </s-stack>
 
             <s-stack direction="block" gap="small" inlineSize="100%">
               {state.coreTools.map((tool, i) => (
                 <div
                   key={tool.id}
-                  className={styles.toolCard}
+                  className={styles.staggerItem}
                   style={{ animationDelay: `${i * 80}ms` }}
                 >
                   <s-box
@@ -80,11 +80,14 @@ export function Step2RevenueFoundation({ state, dispatch }: Step2RevenueFoundati
               ))}
             </s-stack>
 
-            <s-stack direction="block" gap="small-100" alignItems="center">
-              <s-button variant="primary" onClick={() => dispatch({ type: "GO_NEXT" })}>
-                Continue Next step
-              </s-button>
-              <s-paragraph color="subdued">Fully customizable anytime from the Hub.</s-paragraph>
+            <s-stack direction="block" gap="small-200" alignItems="center">
+              <s-stack direction="inline" gap="small-200" alignItems="center">
+                <s-button onClick={() => dispatch({ type: "GO_BACK" })}>Back</s-button>
+                <s-button variant="primary" onClick={() => dispatch({ type: "GO_NEXT" })}>
+                  Continue
+                </s-button>
+              </s-stack>
+              <Content subdue>Fully customizable anytime from the Hub.</Content>
             </s-stack>
           </s-stack>
         </s-box>

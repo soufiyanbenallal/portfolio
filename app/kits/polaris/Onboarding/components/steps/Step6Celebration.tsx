@@ -59,9 +59,9 @@ export function Step6Celebration({
               >
                 You&rsquo;re all set 🎉
               </Content>
-              <s-paragraph color="subdued">
+              <Content subdue>
                 Journeva is live on your store and already working in the background.
-              </s-paragraph>
+              </Content>
             </s-stack>
 
             <s-stack direction="block" gap="small-200" inlineSize="100%">
@@ -84,12 +84,15 @@ export function Step6Celebration({
           </s-stack>
         </s-box>
         <s-stack direction="block" gap="small-200" alignItems="center" inlineSize="100%">
-          <s-button variant="primary" onClick={onGoToDashboard}>
-            Go to Revenue Dashboard
-          </s-button>
-          <s-paragraph color="subdued">
+          <s-stack direction="inline" gap="small-200" alignItems="center">
+            <s-button onClick={() => dispatch({ type: "GO_BACK" })}>Back</s-button>
+            <s-button variant="primary" onClick={onGoToDashboard}>
+              Go to Revenue Dashboard
+            </s-button>
+          </s-stack>
+          <Content subdue>
             Need to change anything? Everything&rsquo;s editable anytime from the Hub.
-          </s-paragraph>
+          </Content>
           {onRestart ? (
             <s-button variant="tertiary" onClick={onRestart}>
               Replay demo

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type Dispatch } from "react";
 import type { OnboardingActionType, OnboardingStateType } from "../../types";
 import { ProgressTracker } from "@/components/ui/ProgressTracker";
 import Content from "@/app/kits/polaris/ui/typography/Content";
-import styles from "./Step1Initializing.module.css";
+import styles from "../../onboarding.module.css";
 
 const TASK_INTERVAL_MS = 750;
 const HOLD_AFTER_COMPLETE_MS = 550;
@@ -65,9 +65,9 @@ export function Step1Initializing({ state, dispatch }: Step1InitializingPropsTyp
               Setting up Journeva
             </Content>
 
-            <s-paragraph color="subdued">
+            <Content subdue>
               Sit tight — we&rsquo;re syncing your store and provisioning your revenue engine.
-            </s-paragraph>
+            </Content>
 
             <s-box paddingBlock="small-100" inlineSize="100%">
               <s-stack direction="block" gap="small-200">
@@ -78,8 +78,8 @@ export function Step1Initializing({ state, dispatch }: Step1InitializingPropsTyp
                   return (
                     <div
                       key={task.id}
-                      className={styles.taskItem}
-                      style={{ animationDelay: `${i * 70}ms` }}
+                      className={styles.staggerItem}
+                      style={{ animationDelay: `${i * 160}ms` }}
                     >
                       <s-stack direction="inline" gap="small-200" alignItems="center">
                         {isDone ? (
