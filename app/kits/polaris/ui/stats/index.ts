@@ -1,8 +1,7 @@
-export { StatsCard, Sparkline, buildSparkPath } from "./StatsCard";
+export { StatsCard, Sparkline } from "./StatsCard";
 export type {
   StatsCardPropsType,
   StatsCardBadgeType,
-  SparklinePropsType,
   StatsIconType,
   StatsToneType,
 } from "./StatsCard";

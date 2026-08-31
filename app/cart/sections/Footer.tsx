@@ -1,4 +1,4 @@
-import styles from './Footer.module.css';
+import styles from "./Footer.module.css";
 
 export interface FooterProps {
   subtotal: number;
@@ -13,7 +13,7 @@ export interface FooterProps {
 }
 
 function formatMoney(amount: number, currency: string) {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount);
+  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(amount);
 }
 
 export function Footer({
@@ -36,7 +36,12 @@ export function Footer({
         </div>
       )}
       {subtotalNote && <p className={styles.note}>{subtotalNote}</p>}
-      <button type="button" className={styles.checkoutButton} disabled={disabled} onClick={onCheckout}>
+      <button
+        type="button"
+        className={styles.checkoutButton}
+        disabled={disabled}
+        onClick={onCheckout}
+      >
         {checkoutLabel}
       </button>
       {continueShoppingLabel && onContinueShopping && (

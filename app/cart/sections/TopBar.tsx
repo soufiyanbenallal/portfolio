@@ -1,4 +1,4 @@
-import styles from './TopBar.module.css';
+import styles from "./TopBar.module.css";
 
 export interface TopBarProps {
   title: string;
@@ -15,7 +15,7 @@ export function TopBar({ title, itemCount, showItemCount, onClose, closeAriaLabe
         <h2 className={styles.title}>{title}</h2>
         {showItemCount && (
           <span className={styles.count}>
-            ({itemCount} {itemCount === 1 ? 'item' : 'items'})
+            ({itemCount} {itemCount === 1 ? "item" : "items"})
           </span>
         )}
       </div>
@@ -23,7 +23,7 @@ export function TopBar({ title, itemCount, showItemCount, onClose, closeAriaLabe
         type="button"
         className={styles.closeButton}
         onClick={onClose}
-        aria-label={closeAriaLabel ?? 'Close cart'}
+        aria-label={closeAriaLabel ?? "Close cart"}
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path

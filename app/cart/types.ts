@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 /**
  * ---------------------------------------------------------------------------
@@ -10,14 +10,14 @@ import type { ReactNode } from 'react';
  * reorder/show/hide itself automatically.
  */
 export type SectionId =
-  | 'topBar'
-  | 'timer'
-  | 'promoProgress'
-  | 'cartItems'
-  | 'productUpsell'
-  | 'trustBadges'
-  | 'sideUpsell'
-  | 'footer';
+  | "topBar"
+  | "timer"
+  | "promoProgress"
+  | "cartItems"
+  | "productUpsell"
+  | "trustBadges"
+  | "sideUpsell"
+  | "footer";
 
 export interface SectionConfig {
   id: SectionId;
@@ -76,7 +76,7 @@ export interface CartDrawerTheme {
     card: string;
   };
   drawer: {
-    position: 'left' | 'right';
+    position: "left" | "right";
     width: string;
     maxWidth: string;
     animationDuration: string;
@@ -111,7 +111,7 @@ export interface CartDrawerSettings {
 
   productUpsell?: {
     heading: string;
-    layout: 'carousel' | 'grid';
+    layout: "carousel" | "grid";
   };
 
   sideUpsell?: {

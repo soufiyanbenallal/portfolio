@@ -1,4 +1,4 @@
-import styles from './PromoProgressBar.module.css';
+import styles from "./PromoProgressBar.module.css";
 
 export interface PromoTier {
   threshold: number;
@@ -13,7 +13,7 @@ export interface PromoProgressBarProps {
 }
 
 function formatMoney(amount: number, currency: string) {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount);
+  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(amount);
 }
 
 export function PromoProgressBar({ subtotal, currency, tiers }: PromoProgressBarProps) {
@@ -26,7 +26,10 @@ export function PromoProgressBar({ subtotal, currency, tiers }: PromoProgressBar
   const nextTier = sorted.find((t) => subtotal < t.threshold);
   const message = nextTier ? (
     <>
-      Spend <span className={styles.messageAccent}>{formatMoney(nextTier.threshold - subtotal, currency)}</span>{' '}
+      Spend{" "}
+      <span className={styles.messageAccent}>
+        {formatMoney(nextTier.threshold - subtotal, currency)}
+      </span>{" "}
       more to unlock <span className={styles.messageAccent}>{nextTier.label}</span>
     </>
   ) : (
@@ -36,7 +39,13 @@ export function PromoProgressBar({ subtotal, currency, tiers }: PromoProgressBar
   return (
     <div className={styles.wrapper}>
       <p className={styles.message}>{message}</p>
-      <div className={styles.track} role="progressbar" aria-valuenow={Math.round(progressPct)} aria-valuemin={0} aria-valuemax={100}>
+      <div
+        className={styles.track}
+        role="progressbar"
+        aria-valuenow={Math.round(progressPct)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
         <div className={styles.fill} style={{ width: `${progressPct}%` }} />
         {sorted.map((tier) => {
           const reached = subtotal >= tier.threshold;
@@ -44,7 +53,7 @@ export function PromoProgressBar({ subtotal, currency, tiers }: PromoProgressBar
           return (
             <span
               key={tier.threshold}
-              className={`${styles.markerDot} ${reached ? styles.markerDotReached : ''}`}
+              className={`${styles.markerDot} ${reached ? styles.markerDotReached : ""}`}
               style={{ left: `${leftPct}%` }}
             />
           );
@@ -54,7 +63,7 @@ export function PromoProgressBar({ subtotal, currency, tiers }: PromoProgressBar
         {sorted.map((tier) => (
           <span
             key={tier.threshold}
-            className={`${styles.marker} ${subtotal >= tier.threshold ? styles.markerReached : ''}`}
+            className={`${styles.marker} ${subtotal >= tier.threshold ? styles.markerReached : ""}`}
           >
             {tier.label}
           </span>

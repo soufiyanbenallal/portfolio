@@ -89,7 +89,9 @@
   font-size: 0.78em;
   font-weight: var(--cart-font-weight-heading);
   cursor: pointer;
-  transition: background 150ms ease, color 150ms ease;
+  transition:
+    background 150ms ease,
+    color 150ms ease;
 }
 
 .addButton:hover {

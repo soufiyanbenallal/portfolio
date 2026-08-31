@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import styles from './Timer.module.css';
+import { useEffect, useState } from "react";
+import styles from "./Timer.module.css";
 
 export interface TimerProps {
   minutes: number;
@@ -13,7 +13,7 @@ export interface TimerProps {
 function formatTime(totalSeconds: number): string {
   const m = Math.floor(totalSeconds / 60);
   const s = totalSeconds % 60;
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
 export function Timer({ minutes, message, expiredMessage, persist, isOpen }: TimerProps) {
@@ -42,7 +42,12 @@ export function Timer({ minutes, message, expiredMessage, persist, isOpen }: Tim
       <span className={styles.icon} aria-hidden="true">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
           <circle cx="8" cy="8.5" r="6" stroke="currentColor" strokeWidth="1.4" />
-          <path d="M8 5.5V8.5L10 10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          <path
+            d="M8 5.5V8.5L10 10"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            strokeLinecap="round"
+          />
           <path d="M6 1.5H10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
         </svg>
       </span>

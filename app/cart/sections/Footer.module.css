@@ -43,7 +43,9 @@
   font-weight: var(--cart-font-weight-heading);
   font-size: 0.95em;
   cursor: pointer;
-  transition: opacity 150ms ease, transform 150ms ease;
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
 }
 
 .checkoutButton:hover:not(:disabled) {

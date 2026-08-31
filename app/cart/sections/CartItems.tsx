@@ -1,5 +1,5 @@
-import type { CartItem } from '../types';
-import styles from './CartItems.module.css';
+import type { CartItem } from "../types";
+import styles from "./CartItems.module.css";
 
 export interface CartItemsProps {
   items: CartItem[];
@@ -9,7 +9,7 @@ export interface CartItemsProps {
 }
 
 function formatMoney(amount: number, currency: string) {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount);
+  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(amount);
 }
 
 export function CartItems({ items, currency, onUpdateQuantity, onRemoveItem }: CartItemsProps) {
@@ -33,7 +33,7 @@ export function CartItems({ items, currency, onUpdateQuantity, onRemoveItem }: C
   }
 
   return (
-    <ul className={styles.list} style={{ listStyle: 'none', margin: 0 }}>
+    <ul className={styles.list} style={{ listStyle: "none", margin: 0 }}>
       {items.map((item) => (
         <li className={styles.item} key={item.id}>
           <div className={styles.imageWrap}>
@@ -45,7 +45,9 @@ export function CartItems({ items, currency, onUpdateQuantity, onRemoveItem }: C
             <div className={styles.priceRow}>
               <span className={styles.price}>{formatMoney(item.price, currency)}</span>
               {item.compareAtPrice && item.compareAtPrice > item.price && (
-                <span className={styles.comparePrice}>{formatMoney(item.compareAtPrice, currency)}</span>
+                <span className={styles.comparePrice}>
+                  {formatMoney(item.compareAtPrice, currency)}
+                </span>
               )}
             </div>
             <div className={styles.stepper}>
@@ -82,7 +84,11 @@ export function CartItems({ items, currency, onUpdateQuantity, onRemoveItem }: C
                   stroke="currentColor"
                   strokeWidth="1.3"
                 />
-                <path d="M6.5 4V2.5C6.5 2.22 6.72 2 7 2H9C9.28 2 9.5 2.22 9.5 2.5V4" stroke="currentColor" strokeWidth="1.3" />
+                <path
+                  d="M6.5 4V2.5C6.5 2.22 6.72 2 7 2H9C9.28 2 9.5 2.22 9.5 2.5V4"
+                  stroke="currentColor"
+                  strokeWidth="1.3"
+                />
               </svg>
             </button>
           </div>
