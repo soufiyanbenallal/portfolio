@@ -34,7 +34,8 @@ export function AiRecommendationsExample() {
     {
       id: "rec-2",
       title: "Add shipping protection add-on ($1.99)",
-      tooltip: "High-margin digital upsell with 95%+ profit margin and instant checkout integration.",
+      tooltip:
+        "High-margin digital upsell with 95%+ profit margin and instant checkout integration.",
       description:
         "A zero-inventory micro-upsell with 95%+ profit margin. Over 34% of shoppers opt in for package guarantee.",
       liftBadge: {

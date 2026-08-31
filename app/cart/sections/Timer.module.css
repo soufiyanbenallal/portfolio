@@ -1,0 +1,26 @@
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cart-space-xs);
+  padding: var(--cart-space-sm) var(--cart-space-md);
+  background: var(--cart-color-surface-muted);
+  color: var(--cart-color-text);
+  font-size: 0.85em;
+  flex-shrink: 0;
+}
+
+.icon {
+  flex-shrink: 0;
+  color: var(--cart-color-accent);
+}
+
+.clock {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--cart-font-weight-heading);
+  color: var(--cart-color-accent);
+}
+
+.expired {
+  color: var(--cart-color-danger);
+}

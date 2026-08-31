@@ -13,6 +13,7 @@ export * from "./AiRecommendations/AiRecommendations";
 // ── Standalone App Components ────────────────────────────────────────────────
 export * from "./Timeline";
 export * from "./CoreXWidget";
+export * from "./Tools";
 
 // ── Base UI Components ───────────────────────────────────────────────────────
 export * from "./ui/stats/StatsCard";

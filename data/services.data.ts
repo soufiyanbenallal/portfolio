@@ -100,4 +100,3 @@ export const servicesData: ServiceItemType[] = [
     order: 7,
   },
 ];
-

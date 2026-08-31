@@ -37,23 +37,11 @@ export function AiRecommendationIllustration(
         </linearGradient>
 
         <filter id="ai-rec-shadow" x="-30%" y="-30%" width="160%" height="180%">
-          <feDropShadow
-            dx="0"
-            dy="16"
-            stdDeviation="14"
-            floodColor="#64748B"
-            floodOpacity=".18"
-          />
+          <feDropShadow dx="0" dy="16" stdDeviation="14" floodColor="#64748B" floodOpacity=".18" />
         </filter>
 
         <filter id="ai-rec-softShadow" x="-40%" y="-40%" width="180%" height="180%">
-          <feDropShadow
-            dx="0"
-            dy="8"
-            stdDeviation="8"
-            floodColor="#64748B"
-            floodOpacity=".14"
-          />
+          <feDropShadow dx="0" dy="8" stdDeviation="8" floodColor="#64748B" floodOpacity=".14" />
         </filter>
       </defs>
 
@@ -67,12 +55,7 @@ export function AiRecommendationIllustration(
 
         {/* Header icon */}
         <rect x="148" y="99" width="30" height="30" rx="10" fill="url(#ai-rec-purple)" />
-        <path
-          d="M157 108H169M163 102V114"
-          stroke="white"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
+        <path d="M157 108H169M163 102V114" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
 
         {/* Header text */}
         <rect x="192" y="102" width="125" height="10" rx="5" fill="#1E293B" />
@@ -173,10 +156,7 @@ export function AiRecommendationIllustration(
 
       {/* Floating sparkle */}
       <g transform="translate(675 395)">
-        <path
-          d="M18 0L22 14L36 18L22 22L18 36L14 22L0 18L14 14L18 0Z"
-          fill="#FBBF24"
-        />
+        <path d="M18 0L22 14L36 18L22 22L18 36L14 22L0 18L14 14L18 0Z" fill="#FBBF24" />
         <circle cx="48" cy="8" r="6" fill="#A78BFA" />
         <circle cx="4" cy="48" r="5" fill="#FB7185" />
       </g>

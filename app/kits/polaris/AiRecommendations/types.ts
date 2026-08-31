@@ -42,4 +42,3 @@ export type AiRecommendationsPropsType = {
   onDismiss?: () => void;
   onItemDismiss?: (item: AiRecommendationItemType) => void;
 };
-

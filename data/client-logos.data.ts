@@ -51,4 +51,3 @@ export const socialLinksData: SocialLinkItemType[] = [
     iconName: "mail",
   },
 ];
-

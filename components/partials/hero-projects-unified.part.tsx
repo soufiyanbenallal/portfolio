@@ -1213,7 +1213,8 @@ export function HeroProjectsUnifiedPart() {
                   <strong className="font-semibold text-black">
                     Senior Full Stack &amp; Shopify Developer.
                   </strong>{" "}
-                  Architecting high-performance React 19, TypeScript, Node.js, Laravel platforms &amp; AI integrations that scale businesses.
+                  Architecting high-performance React 19, TypeScript, Node.js, Laravel platforms
+                  &amp; AI integrations that scale businesses.
                 </motion.p>
 
                 <motion.div

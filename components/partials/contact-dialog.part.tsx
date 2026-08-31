@@ -195,9 +195,13 @@ export function ContactDialogPart() {
                     className="border-gray-30 bg-gray-5 w-full cursor-pointer rounded-xl border px-3.5 py-2.5 text-sm text-black transition-all focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none"
                   >
                     <option value="Shopify Apps & Themes">Shopify Apps & Themes</option>
-                    <option value="Full-Stack Web Apps">Full-Stack Web Apps (React / Next.js)</option>
+                    <option value="Full-Stack Web Apps">
+                      Full-Stack Web Apps (React / Next.js)
+                    </option>
                     <option value="AI Integrations">AI Integrations & Automations</option>
-                    <option value="High-Performance Storefront">High-Performance Storefront / UI</option>
+                    <option value="High-Performance Storefront">
+                      High-Performance Storefront / UI
+                    </option>
                     <option value="Monthly Retainer">Monthly Engineering Retainer</option>
                   </select>
                 </div>

@@ -42,7 +42,10 @@ export const articlesData: ArticleDetailType[] = [
     ],
     conclusion:
       "When developers and designers share a unified vocabulary in code, building delight into software ceases to be accidental and becomes an inevitable engineering outcome.",
-    relatedArticleSlugs: ["architecting-shopify-polaris-web-components", "scaling-ai-workflows-in-production-saas"],
+    relatedArticleSlugs: [
+      "architecting-shopify-polaris-web-components",
+      "scaling-ai-workflows-in-production-saas",
+    ],
   },
   {
     id: "art-2",
