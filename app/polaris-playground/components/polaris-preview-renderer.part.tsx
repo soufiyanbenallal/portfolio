@@ -21,6 +21,7 @@ import { ToggleExample } from "./examples/ToggleExample";
 import { RangeExample } from "./examples/RangeExample";
 import { InputExample } from "./examples/InputExample";
 import { StatsCard } from "~/components/ui/stats/StatsCard";
+import { Tools } from "@/app/kits/polaris";
 
 export type PolarisPreviewRendererPropsType = {
   renderKey: string;
@@ -32,6 +33,10 @@ export function PolarisPreviewRenderer({ renderKey }: PolarisPreviewRendererProp
     case "onboarding-example":
     case "onboarding":
       return <Onboarding />;
+
+    case "tools-example":
+    case "tools":
+      return <Tools />;
 
     case "setup-guide-example":
     case "setup-guide":

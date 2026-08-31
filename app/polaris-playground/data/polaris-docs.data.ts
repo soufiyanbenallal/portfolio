@@ -221,6 +221,48 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
     ],
   },
   {
+    slug: "tools",
+    name: "Tools page",
+    category: "onboarding",
+    categoryLabel: "Onboarding & Setup",
+    description:
+      "A step-by-step onboarding checklist that guides merchants through app installation, configuration, and go-live.",
+    summary:
+      "Complete collapsible setup guide with progress completion tracking, action CTAs, and status indicators.",
+    docsUrl: "https://shopify.dev/docs/apps/design-guidelines/onboarding",
+    previewType: "tools",
+    examples: [
+      {
+        // Tools
+        id: "tools-example-block",
+        title: "Merchant onboarding checklist",
+        description: "Example of a setup guide for merchants.",
+        renderKey: "tools-example",
+        installCommand: "npx shadcn@latest add tools",
+        fileSources: [
+          {
+            name: "Tools.tsx",
+            path: "components/Tools/Tools.tsx",
+            sourcePath: "app/kits/polaris/Tools/Tools.tsx",
+            language: "tsx",
+          },
+          {
+            name: "Tools.part.tsx",
+            path: "components/Tools/partials/Tools.part.tsx",
+            sourcePath: "app/kits/polaris/Tools/partials/Tools.part.tsx",
+            language: "tsx",
+          },
+          {
+            name: "Tools.part.tsx",
+            path: "components/Tools/partials/Tools.part.tsx",
+            sourcePath: "app/kits/polaris/Tools/partials/Tools.part.tsx",
+            language: "tsx",
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "setup-guide",
     name: "Setup guide",
     category: "onboarding",
