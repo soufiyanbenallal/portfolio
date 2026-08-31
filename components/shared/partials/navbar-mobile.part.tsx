@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -14,7 +13,6 @@ export function NavbarMobilePart({
   isOpen,
   navLinks,
   onToggle,
-  onClose,
   onAnchorClick,
   onOpenContact,
   onOpenBooking,

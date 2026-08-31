@@ -96,7 +96,7 @@ export function StepTransition({ stepKey, children }: StepTransitionPropsType) {
     }, 180);
     return () => window.clearTimeout(timeout);
     // Re-run only when the step identity changes, not on every content re-render.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [stepKey]);
 
   return (
