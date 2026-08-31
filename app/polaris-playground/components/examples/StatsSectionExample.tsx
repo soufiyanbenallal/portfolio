@@ -35,7 +35,7 @@ const SAMPLE_STATS: StatsCardPropsType[] = [
     icon: "credit-card",
     iconTone: "critical",
     badge: { value: "1.4%", tone: "critical", dir: "down" },
-    sparklineData: [95, 92, 0, 0, 0, 0, 0, 0, 190, 0, 44, 0, 0, 0, 88, 0, 49, 60, 18, 89, 90],
+    sparklineData: [195, 152, 10, 100, 0, 0, 0, 0, 140, 0, 44, 0, 0, 0, 88, 0, 49, 60, 18, 39, 0],
     sparklineStroke: "#f59e0b",
   },
   {
