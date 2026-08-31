@@ -1,0 +1,100 @@
+.wrapper {
+  padding: var(--cart-space-md) 0 var(--cart-space-sm);
+}
+
+.heading {
+  font-family: var(--cart-font-display);
+  font-weight: var(--cart-font-weight-heading);
+  font-size: 1em;
+  margin: 0 var(--cart-space-md) var(--cart-space-sm);
+  color: var(--cart-color-text);
+}
+
+.carousel {
+  display: flex;
+  gap: var(--cart-space-sm);
+  overflow-x: auto;
+  padding: 0 var(--cart-space-md) var(--cart-space-xs);
+  scroll-snap-type: x proximity;
+}
+
+.carousel::-webkit-scrollbar {
+  height: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--cart-space-sm);
+  padding: 0 var(--cart-space-md);
+}
+
+.card {
+  flex: 0 0 132px;
+  scroll-snap-align: start;
+  background: var(--cart-color-surface);
+  border: 1px solid var(--cart-color-border);
+  border-radius: var(--cart-radius-md);
+  overflow: hidden;
+  box-shadow: var(--cart-shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.cardImageWrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--cart-color-surface-muted);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cardBody {
+  padding: var(--cart-space-xs) var(--cart-space-sm) var(--cart-space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: 0.82em;
+  color: var(--cart-color-text);
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 2.4em;
+}
+
+.cardPrice {
+  font-size: 0.82em;
+  font-weight: var(--cart-font-weight-heading);
+  color: var(--cart-color-text);
+}
+
+.addButton {
+  margin-top: auto;
+  border: 1px solid var(--cart-color-text);
+  background: transparent;
+  color: var(--cart-color-text);
+  border-radius: var(--cart-radius-pill);
+  padding: 6px 0;
+  font-size: 0.78em;
+  font-weight: var(--cart-font-weight-heading);
+  cursor: pointer;
+  transition:
+    background 150ms ease,
+    color 150ms ease;
+}
+
+.addButton:hover {
+  background: var(--cart-color-primary);
+  color: var(--cart-color-primary-text);
+}

@@ -34,8 +34,9 @@ export default function PrivacyPolicyPage() {
 
           <div className="text-gray-60 flex flex-col gap-6 text-sm leading-relaxed">
             <p>
-              Your privacy is fundamental to how we work. This policy describes how Soufiyan Benallal
-              collects, uses, and protects personal information submitted through this website.
+              Your privacy is fundamental to how we work. This policy describes how Soufiyan
+              Benallal collects, uses, and protects personal information submitted through this
+              website.
             </p>
 
             <h2 className="mt-4 text-lg font-semibold text-black">1. Information We Collect</h2>

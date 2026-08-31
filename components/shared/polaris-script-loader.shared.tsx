@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Script from "next/script";
 
 export type PolarisScriptLoaderPropsType = {
@@ -12,7 +12,6 @@ export type PolarisScriptLoaderPropsType = {
  * Registers custom elements (<s-page>, <s-section>, <s-button>, <s-box>, etc.) in the DOM.
  */
 export function PolarisScriptLoader({ onLoaded }: PolarisScriptLoaderPropsType) {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   return (
@@ -21,7 +20,6 @@ export function PolarisScriptLoader({ onLoaded }: PolarisScriptLoaderPropsType) 
         src="https://cdn.shopify.com/shopifycloud/polaris.js"
         strategy="afterInteractive"
         onLoad={() => {
-          setIsLoaded(true);
           onLoaded?.();
         }}
         onError={() => {

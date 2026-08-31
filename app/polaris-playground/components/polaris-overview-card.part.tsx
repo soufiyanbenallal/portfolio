@@ -19,7 +19,7 @@ export function PolarisOverviewCardPart({ component }: PolarisOverviewCardPropsT
       className="group border-border bg-card hover:border-primary/40 flex flex-col overflow-hidden rounded-xl border shadow-xs transition-all duration-200 hover:shadow-md"
     >
       {/* ── Top Dotted Canvas: Auto-Fitted Iframe Live Component Preview ── */}
-      <div className="bg-background border-border/80 relative h-48 w-full overflow-hidden border-b [background-image:radial-gradient(var(--color-border)_1px,transparent_1px)] [background-size:12px_12px]">
+      <div className="border-border/80 relative h-48 w-full overflow-hidden border-b bg-gray-100 bg-[radial-gradient(var(--color-border)_1px,transparent_1px)] bg-size-[6px_6px]">
         <AutoFitIframePreview title={component.name} padding={14}>
           <PolarisPreviewRenderer renderKey={renderKey} />
         </AutoFitIframePreview>

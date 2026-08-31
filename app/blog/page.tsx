@@ -28,7 +28,9 @@ export default function BlogIndexPage() {
       <div className="w-full">
         <Container className="flex flex-col gap-12 pt-32 pb-24">
           <div className="border-gray-30 flex flex-col gap-4 border-b pb-8">
-            <span className="text-label block text-gray-50">Engineering &amp; Architecture Insights</span>
+            <span className="text-label block text-gray-50">
+              Engineering &amp; Architecture Insights
+            </span>
             <TextReveal
               as="h1"
               by="word"

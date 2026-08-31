@@ -11,14 +11,6 @@ export type StatsCardBadgeType = {
   dir?: "up" | "down";
 };
 
-export type SparklinePropsType = {
-  data: number[];
-  width?: number;
-  height?: number;
-  stroke?: string;
-  strokeWidth?: number;
-};
-
 export type StatsCardPropsType = {
   id: string;
   title: string;
@@ -35,37 +27,102 @@ export type StatsCardPropsType = {
   onClick?: () => void;
 };
 
-// ─── SVG path builder from normalised data points ─────────────────────────────
-const SPARK_W = 80;
-const SPARK_H = 16;
-const SPARK_PADDING = 2; // vertical padding so strokes don't clip at 0/max
-const SPARK_STROKE = "#7a7e82ff";
+const SPARK_W = 64;
+const SPARK_H = 24;
+const SPARK_PADDING_X = 1;
+const SPARK_PADDING_Y = 3;
 
-export function buildSparkPath(data: number[], width = SPARK_W, height = SPARK_H): string {
+const SPARK_STROKE = "#7a7e82";
+const SPARK_STROKE_WIDTH = 1.8;
+
+function buildSmoothPath(data: number[], width: number, height: number): string {
   if (data.length < 2) return "";
 
   const minV = Math.min(...data);
   const maxV = Math.max(...data);
-  const range = maxV - minV || 1; // prevent division by zero on flat data
+  const range = maxV - minV || 1;
 
-  const toX = (i: number) => (i / (data.length - 1)) * width;
-  const toY = (v: number) => SPARK_PADDING + ((maxV - v) / range) * (height - SPARK_PADDING * 2);
+  const innerWidth = width - SPARK_PADDING_X * 2;
+  const innerHeight = height - SPARK_PADDING_Y * 2;
 
-  return data
-    .map((v, i) => `${i === 0 ? "M" : "L"} ${toX(i).toFixed(2)},${toY(v).toFixed(2)}`)
-    .join(" ");
+  const points = data.map((value, index) => ({
+    x: SPARK_PADDING_X + (index / (data.length - 1)) * innerWidth,
+    y: SPARK_PADDING_Y + ((maxV - value) / range) * innerHeight,
+  }));
+
+  if (points.length === 2) {
+    return `M ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)}
+            L ${points[1].x.toFixed(2)} ${points[1].y.toFixed(2)}`;
+  }
+
+  let path = `M ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)}`;
+
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[i - 1] ?? points[i];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[i + 2] ?? p2;
+
+    const cp1x = p1.x + (p2.x - p0.x) / 6;
+    const cp1y = p1.y + (p2.y - p0.y) / 6;
+
+    const cp2x = p2.x - (p3.x - p1.x) / 6;
+    const cp2y = p2.y - (p3.y - p1.y) / 6;
+
+    path += `
+      C
+      ${cp1x.toFixed(2)} ${cp1y.toFixed(2)},
+      ${cp2x.toFixed(2)} ${cp2y.toFixed(2)},
+      ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}
+    `;
+  }
+
+  return path;
 }
 
-// ─── Sparkline Component ──────────────────────────────────────────────────────
+type SparklinePropsType = {
+  data: number[];
+  width?: number;
+  height?: number;
+  stroke?: string;
+  strokeWidth?: number;
+  showArea?: boolean;
+  showEndpoint?: boolean;
+};
+
+function buildAreaPath(linePath: string, width: number, height: number): string {
+  return `
+    ${linePath}
+    L ${width - SPARK_PADDING_X} ${height}
+    L ${SPARK_PADDING_X} ${height}
+    Z
+  `;
+}
+
 export function Sparkline({
   data,
   width = SPARK_W,
   height = SPARK_H,
   stroke = SPARK_STROKE,
-  strokeWidth = 1.75,
+  strokeWidth = SPARK_STROKE_WIDTH,
+  showArea = true,
+  showEndpoint = true,
 }: SparklinePropsType): JSX.Element | null {
-  const path = buildSparkPath(data, width, height);
-  if (!path) return null;
+  if (data.length < 2) return null;
+
+  const linePath = buildSmoothPath(data, width, height);
+
+  if (!linePath) return null;
+
+  const lastValue = data[data.length - 1];
+  const minV = Math.min(...data);
+  const maxV = Math.max(...data);
+  const range = maxV - minV || 1;
+
+  const endpointX = width - SPARK_PADDING_X;
+  const endpointY = SPARK_PADDING_Y + ((maxV - lastValue) / range) * (height - SPARK_PADDING_Y * 2);
+
+  const gradientId = `spark-gradient-${Math.random().toString(36).slice(2)}`;
 
   return (
     <svg
@@ -73,16 +130,41 @@ export function Sparkline({
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       aria-hidden="true"
-      style={{ display: "block", overflow: "visible", flexShrink: 0 }}
+      style={{
+        display: "block",
+        overflow: "visible",
+        flexShrink: 0,
+      }}
     >
+      {showArea && (
+        <>
+          <defs>
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={stroke} stopOpacity="0.16" />
+              <stop offset="100%" stopColor={stroke} stopOpacity="0" />
+            </linearGradient>
+          </defs>
+
+          <path d={buildAreaPath(linePath, width, height)} fill={`url(#${gradientId})`} />
+        </>
+      )}
+
       <path
-        d={path}
+        d={linePath}
         fill="none"
         stroke={stroke}
         strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
+      {showEndpoint && (
+        <>
+          <circle cx={endpointX} cy={endpointY} r="3" fill="white" />
+
+          <circle cx={endpointX} cy={endpointY} r="1.75" fill={stroke} />
+        </>
+      )}
     </svg>
   );
 }
@@ -118,10 +200,10 @@ export function StatsCard({
 
         {/* Value + sparkline */}
         <s-stack direction="inline" justifyContent="space-between" alignItems="end">
-          <s-stack direction="inline" gap="small-200" alignItems="safe end">
-            <strong style={{ fontVariantNumeric: "tabular-nums", fontSize: "1.1rem" }}>
-              {value}
-            </strong>
+          <s-stack direction="inline" gap="small-200" alignItems="end">
+            <s-text fontVariantNumeric="tabular-nums">
+              <strong>{value}</strong>
+            </s-text>
             {badge && (
               <s-badge
                 tone={badge?.tone ?? "neutral"}
