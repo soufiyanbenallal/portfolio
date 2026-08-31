@@ -419,7 +419,8 @@ export const polarisDocComponentsData: PolarisDocComponentType[] = [
           {
             name: "AiRecommendationIllustration.tsx",
             path: "components/AiRecommendations/partials/AiRecommendationIllustration.tsx",
-            sourcePath: "app/kits/polaris/AiRecommendations/partials/AiRecommendationIllustration.tsx",
+            sourcePath:
+              "app/kits/polaris/AiRecommendations/partials/AiRecommendationIllustration.tsx",
             language: "tsx",
           },
           {

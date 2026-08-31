@@ -1,7 +1,10 @@
 import type { MetadataRoute } from "next";
 import { projectsData } from "@/data/projects.data";
 import { articlesData } from "@/data/articles.data";
-import { polarisDocComponentsData, type PolarisDocComponentType } from "@/app/polaris-playground/data/polaris-docs.data";
+import {
+  polarisDocComponentsData,
+  type PolarisDocComponentType,
+} from "@/app/polaris-playground/data/polaris-docs.data";
 
 const SITE_URL = "https://soufiyanbenallal.dev";
 

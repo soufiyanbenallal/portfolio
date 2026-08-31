@@ -66,4 +66,3 @@ export const techStackData: TechStackItemType[] = [
     order: 8,
   },
 ];
-

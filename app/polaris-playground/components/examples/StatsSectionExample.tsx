@@ -8,11 +8,11 @@ const SAMPLE_STATS: StatsCardPropsType[] = [
   {
     id: "total-sales",
     title: "Total sales",
-    value: "$128,450.00",
+    value: "$128.30",
     description: "vs. previous 30 days",
     icon: "cart-sale",
     iconTone: "success",
-    badge: { value: "+14.6%", tone: "success", dir: "up" },
+    badge: { value: "4.6%", tone: "success", dir: "up" },
     sparklineData: [45, 52, 58, 65, 60, 72, 85, 94, 90, 110, 128],
     sparklineStroke: "#10b981",
   },
@@ -23,7 +23,7 @@ const SAMPLE_STATS: StatsCardPropsType[] = [
     description: "vs. previous 30 days",
     icon: "order",
     iconTone: "info",
-    badge: { value: "+8.2%", tone: "success", dir: "up" },
+    badge: { value: "8.2%", tone: "success", dir: "up" },
     sparklineData: [20, 24, 28, 25, 32, 38, 42, 45, 48, 52, 55],
     sparklineStroke: "#3b82f6",
   },
@@ -34,7 +34,7 @@ const SAMPLE_STATS: StatsCardPropsType[] = [
     description: "vs. previous 30 days",
     icon: "credit-card",
     iconTone: "warning",
-    badge: { value: "-1.4%", tone: "warning", dir: "down" },
+    badge: { value: "1.4%", tone: "critical", dir: "down" },
     sparklineData: [95, 92, 90, 94, 91, 88, 89, 90, 88, 89, 90],
     sparklineStroke: "#f59e0b",
   },
@@ -53,7 +53,7 @@ const SAMPLE_STATS: StatsCardPropsType[] = [
 
 export function StatsSectionExample(): ReactNode {
   return (
-    <s-page>
+    <s-page inlineSize="large">
       <StatsSection items={SAMPLE_STATS} columns={4} />
     </s-page>
   );

@@ -1,0 +1,71 @@
+.footer {
+  flex-shrink: 0;
+  border-top: 1px solid var(--cart-color-border);
+  background: var(--cart-color-bg);
+  padding: var(--cart-space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--cart-space-sm);
+}
+
+.subtotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.subtotalLabel {
+  font-size: 0.9em;
+  color: var(--cart-color-text);
+}
+
+.subtotalValue {
+  font-family: var(--cart-font-display);
+  font-size: 1.15em;
+  font-weight: var(--cart-font-weight-heading);
+  color: var(--cart-color-text);
+}
+
+.note {
+  font-size: 0.72em;
+  color: var(--cart-color-text-muted);
+  margin: -4px 0 0;
+}
+
+.checkoutButton {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: var(--cart-radius-md);
+  background: var(--cart-color-primary);
+  color: var(--cart-color-primary-text);
+  font-family: var(--cart-font-body);
+  font-weight: var(--cart-font-weight-heading);
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.checkoutButton:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.checkoutButton:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.checkoutButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.continueLink {
+  background: none;
+  border: none;
+  color: var(--cart-color-text-muted);
+  font-size: 0.82em;
+  text-decoration: underline;
+  cursor: pointer;
+  align-self: center;
+  padding: 2px;
+}

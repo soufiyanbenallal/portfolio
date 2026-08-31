@@ -1,0 +1,147 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--cart-space-md);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: var(--cart-space-sm);
+  padding: var(--cart-space-md) 0;
+}
+
+.item + .item {
+  border-top: 1px solid var(--cart-color-border);
+}
+
+.imageWrap {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--cart-radius-md);
+  overflow: hidden;
+  background: var(--cart-color-surface-muted);
+  flex-shrink: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.itemTitle {
+  font-family: var(--cart-font-display);
+  font-weight: var(--cart-font-weight-heading);
+  font-size: 0.95em;
+  color: var(--cart-color-text);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.variant {
+  font-size: 0.8em;
+  color: var(--cart-color-text-muted);
+  margin: 0;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--cart-space-xs);
+  margin-top: 4px;
+}
+
+.price {
+  font-size: 0.9em;
+  font-weight: var(--cart-font-weight-heading);
+  color: var(--cart-color-text);
+}
+
+.comparePrice {
+  font-size: 0.78em;
+  color: var(--cart-color-text-muted);
+  text-decoration: line-through;
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--cart-color-border);
+  border-radius: var(--cart-radius-pill);
+  width: fit-content;
+  margin-top: var(--cart-space-xs);
+}
+
+.stepperButton {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--cart-color-text);
+  cursor: pointer;
+  font-size: 0.95em;
+  line-height: 1;
+}
+
+.stepperButton:disabled {
+  color: var(--cart-color-text-muted);
+  cursor: not-allowed;
+}
+
+.stepperValue {
+  min-width: 20px;
+  text-align: center;
+  font-size: 0.85em;
+  font-variant-numeric: tabular-nums;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  color: var(--cart-color-text-muted);
+  cursor: pointer;
+  border-radius: var(--cart-radius-sm);
+}
+
+.removeButton:hover {
+  color: var(--cart-color-danger);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--cart-space-xs);
+  padding: var(--cart-space-xl) var(--cart-space-md);
+  color: var(--cart-color-text-muted);
+}
+
+.emptyTitle {
+  font-family: var(--cart-font-display);
+  font-size: 1.1em;
+  color: var(--cart-color-text);
+  margin: 0;
+}

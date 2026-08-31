@@ -5,7 +5,7 @@ import { IconTile } from "~/components/ui/IconTile";
 import Content from "~/components/ui/typography/Content";
 import styles from "../onboarding.module.css";
 
-const TASK_INTERVAL_MS = 1750;
+const TASK_INTERVAL_MS = 750;
 const HOLD_AFTER_COMPLETE_MS = 550;
 const FALLBACK_VISIBLE_AFTER_MS = 6500;
 

@@ -42,4 +42,3 @@ export const faqsData: FaqItemType[] = [
     defaultOpen: false,
   },
 ];
-

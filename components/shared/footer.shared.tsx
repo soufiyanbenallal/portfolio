@@ -198,7 +198,9 @@ export function FooterShared() {
                   Privacy policy
                 </Link>
                 <div className="mt-4 border-t border-white/10 pt-3">
-                  <span className="block text-xs text-white/50">Based in Meknes, Morocco · Remote Worldwide</span>
+                  <span className="block text-xs text-white/50">
+                    Based in Meknes, Morocco · Remote Worldwide
+                  </span>
                   <span className="mt-0.5 block font-mono text-xs text-white/70">
                     {currentTime || "—— GMT+1"}
                   </span>

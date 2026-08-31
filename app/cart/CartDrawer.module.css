@@ -1,0 +1,79 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--cart-overlay-color);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--cart-drawer-duration) ease;
+  z-index: 9998;
+}
+
+.overlayOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: var(--cart-drawer-width);
+  max-width: var(--cart-drawer-max-width);
+  background: var(--cart-color-bg);
+  color: var(--cart-color-text);
+  font-family: var(--cart-font-body);
+  font-size: var(--cart-font-size-base);
+  font-weight: var(--cart-font-weight-body);
+  box-shadow: var(--cart-shadow-drawer);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform var(--cart-drawer-duration) cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.right {
+  right: 0;
+  transform: translateX(100%);
+}
+
+.left {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.open {
+  transform: translateX(0);
+}
+
+.scrollArea {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollArea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollArea::-webkit-scrollbar-thumb {
+  background: var(--cart-color-border);
+  border-radius: var(--cart-radius-pill);
+}
+
+.sectionDivider {
+  height: 1px;
+  background: var(--cart-color-border);
+  margin: 0 var(--cart-space-md);
+  flex-shrink: 0;
+}
+
+/* Respect users who've asked for less motion */
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .overlay {
+    transition: none;
+  }
+}

@@ -76,4 +76,3 @@ export const workHistoryData: WorkHistoryItemType[] = [
     isCurrent: false,
   },
 ];
-
