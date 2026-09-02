@@ -23,7 +23,7 @@ const MODE_STYLE: Record<
   CursorModeType,
   { size: number; background: string; color: string; mix: string }
 > = {
-  default: { size: 10, background: "#000000", color: "#ffffff", mix: "normal" },
+  default: { size: 0, background: "#000000", color: "#ffffff", mix: "normal" },
   project: { size: 84, background: "#000000", color: "#ffffff", mix: "normal" },
   article: { size: 72, background: "#ffffff", color: "#000000", mix: "normal" },
   grow: { size: 44, background: "#000000", color: "#ffffff", mix: "difference" },

@@ -32,7 +32,7 @@ export function BigQuotePart() {
   const y = useTransform(progress, [0, 1], [40, -40]);
 
   return (
-    <div className="bg-gray-5 sticky! top-0 scroll-mt-40">
+    <div className="sticky! top-0 scroll-mt-40 bg-white">
       <Container className="flex min-h-dvh flex-col items-center justify-center py-20">
         <GridBackground />
 
@@ -46,7 +46,7 @@ export function BigQuotePart() {
             <blockquote className="max-w-205">
               <ScrollDimmedText
                 as="span"
-                text="“Working with Soufiyan felt like having a seasoned engineering partner who truly understood our vision for KYMA and brought it to life with exceptional architecture and execution.”"
+                text="“Success is often achieved by those who don’t know that failure is inevitable.”"
                 className="justify-center text-[clamp(18px,2.2vw,28px)] leading-[1.4] font-medium tracking-[-0.02em] text-black"
                 dimClassName="text-black"
               />
@@ -60,16 +60,16 @@ export function BigQuotePart() {
               <figcaption className="flex items-center gap-3">
                 <span className="border-gray-30 relative h-10 w-10 overflow-hidden rounded-full border">
                   <Image
-                    src="https://framerusercontent.com/images/M8GPTQEgwDo7tuEUdEAzTRzQ5w.jpg"
-                    alt="Thomas Weber"
+                    src="/images/profile.jpeg"
+                    alt="Soufiyan Benallal"
                     fill
                     sizes="40px"
                     className="object-cover"
                   />
                 </span>
                 <span className="flex flex-col text-left">
-                  <span className="text-sm font-semibold text-black">Thomas Weber</span>
-                  <span className="text-xs text-gray-50">Co-founder of KYMA</span>
+                  <span className="text-sm font-semibold text-black">Soufiyan Benallal</span>
+                  <span className="text-xs text-gray-50">Lead Full Stack Developer</span>
                 </span>
               </figcaption>
             </Reveal>
@@ -82,22 +82,22 @@ export function BigQuotePart() {
 
 function GridBackground() {
   return (
-    <div className="opacity-7">
+    <div className="pointer-events-none bg-white opacity-30">
       {/* ── Left Outer Margin: Minimalist Technical Diagonal Hatch Zone ── */}
       <div
-        className="absolute top-0 bottom-0 left-0 hidden w-full flex-col justify-between border-r border-slate-900 p-4 2xl:flex"
+        className="absolute top-0 bottom-0 left-0 hidden w-full flex-col justify-between border-r-[0.5] border-[#ccc] p-4 2xl:flex"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(-45deg, rgba(15,23,42,1), rgba(15,23,42,1) 0.5px, transparent 1px, transparent 10px)",
+            "repeating-linear-gradient(-45deg, #ccc, #ccc, transparent 1px, transparent 6px)",
         }}
       ></div>
 
       {/* ── Right Outer Margin: Minimalist Technical Diagonal Hatch Zone ── */}
       <div
-        className="absolute top-0 right-0 bottom-0 hidden w-full flex-col items-end justify-between border-l border-slate-900 p-4 2xl:flex"
+        className="absolute top-0 right-0 bottom-0 hidden w-full flex-col items-end justify-between border-l-[0.5] border-[#ccc] p-4 2xl:flex"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(45deg, rgba(15,23,42,1), rgba(15,23,42,1) 0.5px, transparent 1px, transparent 10px)",
+            "repeating-linear-gradient(45deg, #ccc, #ccc, transparent 1px, transparent 6px)",
         }}
       ></div>
     </div>

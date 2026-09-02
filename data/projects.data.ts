@@ -5,13 +5,13 @@ export const projectsData: ProjectDetailType[] = [
     id: "proj-1",
     slug: "kora",
     title: "Kora",
-    client: "Kora Ventures",
+    client: "Concept project",
     category: "Design",
     typeOfWork: "Consulting Site",
     year: "2025",
-    tagline: "High-conversion digital presence for a strategic fintech advisory.",
+    tagline: "Concept digital presence for a boutique fintech advisory.",
     description:
-      "Designed and built an end-to-end bespoke digital experience with Framer, driving 140% higher lead qualification.",
+      "Designed and built an end-to-end bespoke digital experience in Framer, exploring conversion-focused UX patterns and interactive financial calculators.",
     thumbnail:
       "https://framerusercontent.com/images/wn56GiYIGN9okbMTZQ8fV2UQ0.jpg?width=1600&height=1200",
     heroImage:
@@ -21,20 +21,20 @@ export const projectsData: ProjectDetailType[] = [
     featured: true,
     order: 1,
     overview:
-      "Kora approached us with a challenge: elevate their boutique fintech consulting presence to compete directly with tier-one legacy consultancies without sacrificing their modern, agile brand persona.",
+      "As a self-directed concept, I set out to explore how a boutique fintech consulting brand could compete visually with tier-one legacy consultancies without losing its modern, agile feel.",
     challenge:
-      "Their previous web experience was cluttered with generic stock graphics and fragmented case studies, failing to communicate their proprietary consulting framework and resulting in prolonged sales cycles.",
+      "The brief I set for myself: avoid generic stock graphics and fragmented case studies, and communicate a clear, proprietary consulting framework at a glance.",
     solution:
-      "We rebuilt the entire brand design system, visual identity, and responsive Framer platform with bespoke interactive financial model calculators, sleek editorial typography, and structured conversion touchpoints.",
+      "I built the brand design system, visual identity, and a responsive Framer platform with bespoke interactive financial model calculators, editorial typography, and structured conversion touchpoints.",
     results: [
-      "142% increase in discovery call bookings within 60 days of launch",
-      "Average time on page increased from 42s to 3m 18s",
-      "Reduced client onboarding friction by 50% with integrated inquiry routing",
+      "Fully responsive Framer build with custom interactive financial calculators",
+      "Sub-1.5s load time with a clean editorial typography system",
+      "Structured conversion-focused UX flow from landing to booking",
     ],
     stats: [
-      { label: "Conversion Lift", value: "+142%" },
-      { label: "Avg Time on Page", value: "3.2m" },
-      { label: "Pipeline Value", value: "$4.2M" },
+      { label: "Lighthouse Score", value: "98" },
+      { label: "Load Time", value: "1.4s" },
+      { label: "Components Built", value: "30+" },
     ],
     gallery: [
       {
@@ -57,14 +57,13 @@ export const projectsData: ProjectDetailType[] = [
     id: "proj-2",
     slug: "kyma",
     title: "KYMA",
-    client: "KYMA AI",
+    client: "Concept project",
     category: "Design",
     typeOfWork: "AI Agency",
     year: "2025",
-    tagline:
-      "Ultra-clean visual identity and interactive web experience for an applied AI collective.",
+    tagline: "Concept visual identity and web experience for an applied AI collective.",
     description:
-      "Architected a distinct modern identity, fluid 3D graphics, and responsive web presence that helped secure $3.2M seed financing.",
+      "Architected a distinct modern identity, fluid 3D graphics, and a responsive web presence for a concept applied-AI collective.",
     thumbnail:
       "https://framerusercontent.com/images/tBF8hMQFxONWA4CXtHf3R4.jpg?width=1600&height=1200",
     heroImage:
@@ -74,20 +73,20 @@ export const projectsData: ProjectDetailType[] = [
     featured: true,
     order: 2,
     overview:
-      "KYMA needed to launch from stealth with an arresting digital identity that separated them from hundreds of lookalike generative AI wrappers.",
+      "As a concept build, I imagined launching an applied-AI collective from stealth with an identity that stands apart from hundreds of lookalike generative-AI wrapper sites.",
     challenge:
-      "Communicating highly technical agent orchestration architecture to enterprise buyers while preserving an elevated, high-fashion tech aesthetic.",
+      "The self-imposed challenge: communicate technical agent-orchestration architecture to enterprise buyers while keeping an elevated, high-fashion tech aesthetic.",
     solution:
-      "We conceived an airy, high-contrast monochrome design language accented with soft luminescent greens, custom WebGL nodes, and clear product tiering.",
+      "I designed an airy, high-contrast monochrome language accented with soft luminescent greens, custom WebGL nodes, and clear product tiering.",
     results: [
-      "Secured $12M Series A funding with the new product showcase",
-      "Over 50,000 developer waitlist signups in the first 72 hours",
-      "Featured on Site of the Day and DesignSpells",
+      "Custom WebGL node system running at a steady 60fps",
+      "High-contrast monochrome design system with a full component library",
+      "Fully responsive across desktop, tablet, and mobile breakpoints",
     ],
     stats: [
-      { label: "Waitlist Signups", value: "50k+" },
-      { label: "Funding Secured", value: "$12M" },
-      { label: "Design Award", value: "SOTD" },
+      { label: "Animation", value: "60fps" },
+      { label: "Lighthouse", value: "96" },
+      { label: "Components", value: "25+" },
     ],
     gallery: [
       {
@@ -110,7 +109,7 @@ export const projectsData: ProjectDetailType[] = [
     id: "proj-3",
     slug: "mugen",
     title: "Mugen",
-    client: "Mugen Design Studio",
+    client: "Concept project",
     category: "Branding",
     typeOfWork: "Design Studio",
     year: "2024",
@@ -124,20 +123,20 @@ export const projectsData: ProjectDetailType[] = [
     featured: true,
     order: 3,
     overview:
-      "Mugen is a Tokyo and Berlin-based spatial design studio pushing the boundaries between physical architecture and digital interaction.",
+      "As a concept build, I imagined a Tokyo-and-Berlin spatial design studio pushing the boundary between physical architecture and digital interaction.",
     challenge:
-      "The client required an editorial canvas capable of presenting high-polygon 3D architectural renders without sacrificing silky 60fps scrolling and mobile responsiveness.",
+      "The self-imposed challenge: present high-polygon 3D architectural renders without sacrificing silky 60fps scrolling and mobile responsiveness.",
     solution:
-      "Delivered a lightweight WebGL viewport coupled with Framer Motion layout transitions, custom cursor interactions, and generous editorial white space.",
+      "I built a lightweight WebGL viewport paired with Motion layout transitions, a custom cursor, and generous editorial white space.",
     results: [
-      "99.8% performance score on Google Lighthouse",
-      "Won Awwwards Site of the Day and FWA of the Day",
-      "Tripled inbound commercial architecture inquiries",
+      "99/100 Lighthouse performance score",
+      "WebGL render viewer with a graceful low-end device fallback",
+      "Editorial grid layout with custom cursor interactions",
     ],
     stats: [
       { label: "Performance", value: "99/100" },
-      { label: "Inbound Leads", value: "3.4x" },
-      { label: "Awards", value: "FWA / SOTD" },
+      { label: "Renderer", value: "WebGL" },
+      { label: "Framework", value: "Three.js" },
     ],
     gallery: [
       {
@@ -160,11 +159,11 @@ export const projectsData: ProjectDetailType[] = [
     id: "proj-4",
     slug: "axiom",
     title: "Axiom",
-    client: "Axiom Menswear",
+    client: "Concept project",
     category: "Development",
     typeOfWork: "Ecommerce Site",
     year: "2024",
-    tagline: "Crafting a revolutionary e-commerce presence for architectural menswear.",
+    tagline: "Concept e-commerce build for architectural menswear.",
     description:
       "Built a high-performance headless Shopify commerce flagship with custom sizing algorithms and instant checkout.",
     thumbnail: "https://framerusercontent.com/images/q3ruKmoVYmFXP9EeyZlQPnTDuVw.jpg",
@@ -174,20 +173,20 @@ export const projectsData: ProjectDetailType[] = [
     featured: true,
     order: 4,
     overview:
-      "Axiom is a luxury technical menswear label blending Japanese tailoring with waterproof architectural materials.",
+      "As a concept build, I imagined a technical menswear label needing a headless commerce flagship built for fit confidence and speed.",
     challenge:
-      "High return rates due to fit hesitation on high-ticket garments ($800–$2,400) and slow Shopify theme load times impeding conversion.",
+      "The self-imposed challenge: reduce fit hesitation on high-ticket garments and eliminate the slow theme load times that typically hurt Shopify storefront conversion.",
     solution:
-      "Designed and developed a custom headless commerce platform using Next.js, Shopify Storefront API, and a real-time 3D draping simulator.",
+      "I built a custom headless commerce platform using Next.js, the Shopify Storefront API, and a real-time 3D draping simulator.",
     results: [
-      "Reduced fit-related product returns by 38%",
-      "Increased checkout conversion rate by 64%",
-      "Page load speed improved by 3.8x compared to previous store",
+      "Headless Shopify Storefront API integration with a real-time 3D draping simulator",
+      "Sub-1s page load powered by Next.js and edge caching",
+      "Custom sizing matrix component with a fit-confidence UI",
     ],
     stats: [
-      { label: "Checkout Lift", value: "+64%" },
-      { label: "Returns Reduced", value: "-38%" },
       { label: "Load Speed", value: "0.6s" },
+      { label: "Stack", value: "Next.js" },
+      { label: "Commerce", value: "Shopify API" },
     ],
     gallery: [
       {
@@ -210,11 +209,11 @@ export const projectsData: ProjectDetailType[] = [
     id: "proj-5",
     slug: "quantum",
     title: "Quantum",
-    client: "Quantum Cloud",
+    client: "Concept project",
     category: "Development",
     typeOfWork: "Server Architecture",
     year: "2024",
-    tagline: "Visualizing next-gen server architecture & distributed cloud infrastructure.",
+    tagline: "Concept visualization of next-gen server & distributed cloud infrastructure.",
     description:
       "Architected a real-time cluster monitoring dashboard and modern brand marketing website.",
     thumbnail:
@@ -226,20 +225,20 @@ export const projectsData: ProjectDetailType[] = [
     featured: false,
     order: 5,
     overview:
-      "Quantum Cloud provides bare-metal GPU clusters for generative AI training and enterprise inference workloads.",
+      "As a concept build, I imagined a GPU cloud provider needing to give DevOps engineers a way to inspect live cluster health without clumsy command-line tools.",
     challenge:
-      "DevOps engineers needed to inspect live cluster health, GPU thermals, and memory throughput without opening clumsy command-line tools.",
+      "The self-imposed challenge: surface live cluster health, GPU thermals, and memory throughput in a dense, readable real-time interface.",
     solution:
-      "Created a dense, high-frequency React analytics interface with customizable telemetry widgets and WebSocket streaming.",
+      "I built a dense, high-frequency React analytics interface with customizable telemetry widgets and WebSocket streaming.",
     results: [
-      "Over 400 enterprise engineering teams onboarded in 6 months",
-      "Sub-16ms telemetry render latency across 10,000 concurrent metrics",
-      "Zero downtime during peak launch traffic",
+      "Real-time WebSocket telemetry streaming with sub-16ms render latency",
+      "Customizable widget layout for cluster health, GPU thermals & memory",
+      "Handles 10,000+ concurrent simulated metrics without frame drops",
     ],
     stats: [
-      { label: "Active Nodes", value: "10,000+" },
       { label: "Telemetry Latency", value: "<16ms" },
-      { label: "Adoption", value: "400+ Teams" },
+      { label: "Metrics Rendered", value: "10,000+" },
+      { label: "Stack", value: "WebSockets" },
     ],
     gallery: [
       {
@@ -256,13 +255,13 @@ export const projectsData: ProjectDetailType[] = [
     id: "proj-6",
     slug: "essentia",
     title: "Essentia",
-    client: "Essentia Labs",
+    client: "Concept project",
     category: "Branding",
     typeOfWork: "Brand Identity",
     year: "2024",
-    tagline: "Building a better brand for clean energy longevity technology.",
+    tagline: "Concept brand for a clean energy longevity technology.",
     description:
-      "Complete visual identity, 3D packaging systems, and digital guidelines for a sustainable bio-tech brand.",
+      "Complete visual identity, 3D packaging systems, and digital guidelines for a concept sustainable bio-tech brand.",
     thumbnail:
       "https://framerusercontent.com/images/wn56GiYIGN9okbMTZQ8fV2UQ0.jpg?scale-down-to=1024",
     heroImage:
@@ -272,20 +271,20 @@ export const projectsData: ProjectDetailType[] = [
     featured: false,
     order: 6,
     overview:
-      "Essentia Labs develops biodegradable solid-state batteries that eliminate heavy metal toxicity in consumer devices.",
+      "As a concept build, I imagined a clean-energy brand needing to translate a complex chemical breakthrough into an accessible, eco-luxury consumer story.",
     challenge:
-      "Translating complex chemical breakthroughs into an inspiring, eco-luxury consumer brand story that captivates retail partners.",
+      "The self-imposed challenge: turn a technical battery-chemistry breakthrough into an inspiring brand story without losing scientific credibility.",
     solution:
-      "Formulated a clean, organic typography system, rendered tactile 3D packaging visualizations, and developed an interactive lifecycle narrative site.",
+      "I formulated a clean, organic typography system, rendered tactile 3D packaging visualizations, and built an interactive lifecycle-narrative site.",
     results: [
-      "Signed partnership agreements with 3 global electronics manufacturers",
-      "Featured in Fast Company World Changing Ideas",
-      "100% positive consumer review sentiment during pilot launch",
+      "Full brand identity system with organic typography and packaging renders",
+      "Interactive lifecycle-narrative site built with a Figma-to-React handoff",
+      "3D packaging visualizations rendered in Blender",
     ],
     stats: [
-      { label: "Retail Deals", value: "3 Global" },
-      { label: "CO2 Offset", value: "85 Tons" },
-      { label: "Sentiment", value: "100%" },
+      { label: "Deliverable", value: "Brand System" },
+      { label: "3D Renders", value: "12" },
+      { label: "Tools", value: "Blender / Figma" },
     ],
     gallery: [
       {

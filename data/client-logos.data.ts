@@ -1,18 +1,16 @@
 import type { ClientLogoItemType, NavLinkItemType, SocialLinkItemType } from "@/types";
 
 export const clientLogosData: ClientLogoItemType[] = [
-  { id: "logo-1", name: "Frequencii", svgIcon: "frequencii" },
-  { id: "logo-2", name: "Kintsugi", svgIcon: "kintsugi" },
-  { id: "logo-3", name: "CoreOS", svgIcon: "coreos" },
-  { id: "logo-4", name: "Luminary", svgIcon: "luminary" },
-  { id: "logo-5", name: "KYMA", svgIcon: "kyma" },
-  { id: "logo-6", name: "Kora", svgIcon: "kora" },
-  { id: "logo-7", name: "Mugen", svgIcon: "mugen" },
-  { id: "logo-8", name: "Axiom", svgIcon: "axiom" },
+  { id: "logo-1", name: "Ader Solutions", svgIcon: "ader-solutions" },
+  { id: "logo-2", name: "Le Ventures", svgIcon: "le-ventures" },
+  { id: "logo-3", name: "FORNET MAROC", svgIcon: "fornet-maroc" },
+  { id: "logo-4", name: "ARA Systèmes & Technologie", svgIcon: "ara-systemes" },
+  { id: "logo-5", name: "morrocow3", svgIcon: "morrocow3" },
 ];
 
 export const navLinksData: NavLinkItemType[] = [
   { label: "Work", href: "#projects", isAnchor: true },
+  { label: "GitHub", href: "#github", isAnchor: true },
   { label: "Services", href: "#services", isAnchor: true },
   { label: "Blog", href: "#blog", isAnchor: true },
   { label: "Polaris", href: "/polaris-playground", isAnchor: false },
@@ -37,12 +35,6 @@ export const socialLinksData: SocialLinkItemType[] = [
     url: "https://www.npmjs.com/~beyonder.sb",
     handle: "beyonder.sb",
     iconName: "npm",
-  },
-  {
-    platform: "X / Twitter",
-    url: "https://x.com",
-    handle: "@soufiyanbenallal",
-    iconName: "x",
   },
   {
     platform: "Email",

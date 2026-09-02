@@ -911,15 +911,15 @@ function Stage4Outro({ progress }: Stage4OutroPropsType) {
       <div className="border-gray-30 flex flex-col items-center gap-4 rounded-full border bg-white/95 px-6 py-3 shadow-xl backdrop-blur-md sm:flex-row">
         <div className="text-gray-60 flex items-center gap-4 font-mono text-xs">
           <span>
-            <strong className="font-semibold text-black">6+</strong> Featured Cases
+            <strong className="font-semibold text-black">8+</strong> Yrs Experience
           </span>
           <span className="text-gray-30">•</span>
           <span>
-            <strong className="font-semibold text-black">$40M+</strong> Value Created
+            <strong className="font-semibold text-black">40+</strong> Solutions Shipped
           </span>
           <span className="text-gray-30">•</span>
           <span>
-            <strong className="font-semibold text-black">99.8%</strong> Satisfaction
+            <strong className="font-semibold text-black">6</strong> Concept Builds
           </span>
         </div>
 
@@ -1121,7 +1121,7 @@ export function HeroProjectsUnifiedPart() {
             </div>
           </Container>
           <div className="mt-12">
-            <ClientTickerShared withHappyClientsCluster={true} />
+            <ClientTickerShared withHappyClientsCluster={false} />
           </div>
         </section>
       </div>
@@ -1323,7 +1323,7 @@ export function HeroProjectsUnifiedPart() {
               Explore All 4 Featured Case Studies
             </h3>
             <p className="font-mono text-xs text-gray-50">
-              Click any project card below to open the complete case study
+              Self-directed concept builds — click any card for the full case study
             </p>
           </Container>
         </motion.div>

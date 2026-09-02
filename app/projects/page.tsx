@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 import { projectsData } from "@/data/projects.data";
 import { Container } from "@/components/shared/container.shared";
@@ -46,6 +47,14 @@ export default function ProjectsIndexPage() {
                 trigger="mount"
                 className="text-4xl font-medium tracking-tight text-black sm:text-5xl md:text-6xl"
               />
+              <p className="mt-3 max-w-lg text-sm text-gray-50">
+                Self-directed concept builds exploring product, brand, and engineering problems —
+                not paid client engagements. For real shipping work, see the{" "}
+                <Link href="/#github" className="text-black underline underline-offset-4">
+                  GitHub projects
+                </Link>{" "}
+                section on the homepage.
+              </p>
             </div>
 
             <LayoutGroup id="project-filters">

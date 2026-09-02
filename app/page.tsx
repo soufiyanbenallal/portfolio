@@ -2,6 +2,7 @@ import { HeroProjectsUnifiedPart } from "@/components/partials/hero-projects-uni
 import { BigQuotePart } from "@/components/partials/big-quote.part";
 import { ServicesPart } from "@/components/partials/services.part";
 import { AboutHistoryPart } from "@/components/partials/about-history.part";
+import { GithubProjectsPart } from "@/components/partials/github-projects.part";
 import { ClientTickerShared } from "@/components/shared/client-ticker.shared";
 import { TestimonialsPart } from "@/components/partials/testimonials.part";
 import { FaqPart } from "@/components/partials/faq.part";
@@ -42,6 +43,10 @@ export default function HomePage() {
 
         <SectionShell id="about" tone="canvas">
           <AboutHistoryPart />
+        </SectionShell>
+
+        <SectionShell id="github" tone="canvas">
+          <GithubProjectsPart />
         </SectionShell>
 
         <ClientTickerShared withHappyClientsCluster={false} />

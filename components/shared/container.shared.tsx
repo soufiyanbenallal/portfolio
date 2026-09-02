@@ -8,7 +8,7 @@ type ContainerSharedPropsType = {
   as?: React.ElementType;
 };
 
-export function ContainerShared({
+export function Container({
   children,
   className,
   id,
@@ -23,5 +23,3 @@ export function ContainerShared({
     </Component>
   );
 }
-
-export { ContainerShared as Container };

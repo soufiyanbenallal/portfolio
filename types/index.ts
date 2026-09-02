@@ -7,4 +7,5 @@ export * from "./faq.type";
 export * from "./work-history.type";
 export * from "./quote.type";
 export * from "./navbar.type";
+export * from "./github.type";
 export * from "./polaris-playground.type";
