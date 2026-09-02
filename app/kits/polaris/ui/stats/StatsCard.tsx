@@ -1,4 +1,5 @@
 import { type ReactNode, type JSX } from "react";
+import Content from "../typography/Content";
 
 // ─── Tone and Icon types ───────────────────────────────────────────────────────
 export type StatsIconType = JSX.IntrinsicElements["s-icon"]["type"];
@@ -191,10 +192,7 @@ export function StatsCard({
         <s-stack direction="inline" justifyContent="space-between" alignItems="center">
           <s-stack direction="inline" gap="small-200" alignItems="center">
             {icon && <s-icon type={icon} tone={iconTone} />}
-            <s-text type="strong" interestFor={id}>
-              {title}
-            </s-text>
-            {description && <s-tooltip id={id}>{description}</s-tooltip>}
+            <Content tooltip={description}>{title}</Content>
           </s-stack>
         </s-stack>
 
