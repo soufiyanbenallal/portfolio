@@ -145,6 +145,7 @@ export function ServicesPart() {
         id="services"
         items={servicesData}
         scrollPerItem={0.85}
+
         panel={<ServicesPanel />}
         renderItem={(service: ServiceItemType, { index }: ServiceStackItemStateType) => (
           <ServiceDetailCard service={service} index={index} total={servicesData.length} />

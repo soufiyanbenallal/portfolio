@@ -61,7 +61,6 @@ const DOCK = {
   },
 } as const;
 
-
 export type ServiceStackItemStateType = {
   index: number;
   isActive: boolean;
@@ -132,10 +131,7 @@ export function ServiceStack<T>({
               return;
             }
             const span = (1 - DOCK.dockPhase) / total;
-            const next = Math.min(
-              total - 1,
-              Math.floor((self.progress - DOCK.dockPhase) / span)
-            );
+            const next = Math.min(total - 1, Math.floor((self.progress - DOCK.dockPhase) / span));
             setActiveIndex((current) => (current === next ? current : next));
           },
         },
@@ -179,7 +175,14 @@ export function ServiceStack<T>({
         // Every card starts fully hidden a beat behind the deck, so the
         // pre-arrive state never competes for legibility with whichever
         // card is currently active.
-        gsap.set(card, { z: -140, y: 40, scale: 0.88, opacity: 0, rotateX: 6, filter: "blur(5px)" });
+        gsap.set(card, {
+          z: -140,
+          y: 40,
+          scale: 0.88,
+          opacity: 0,
+          rotateX: 6,
+          filter: "blur(5px)",
+        });
 
         // Arrive: rises from behind the deck into the active slot.
         timeline.to(

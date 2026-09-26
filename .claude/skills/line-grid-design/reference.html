@@ -1,0 +1,588 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Keel Line Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.13"></script>
+
+<style>
+  /* Single light theme, chosen on purpose. */
+  :root {
+    color-scheme: light;
+    --bg: #FBFBFC;
+    --surface: #FFFFFF;
+    --raised: #F5F5F7;
+    --ink: #111113;
+    --ink-2: #3A3B41;
+    --muted: #64656E;
+    --faint: #8E909A;
+    --line: #EAEAEE;      /* cell + dash */
+    --line-2: #DEDEE4;    /* seam + spine */
+    --line-3: #CFD0D7;    /* rail + node */
+    --accent: #5157D6;
+    --accent-soft: #EEEFFD;
+    --green: #2F9E65;
+    --amber: #D48A12;
+    --red: #DC3E42;
+    --frame: 1200px;
+    --spine: 232px;
+  }
+  body { background: var(--bg); color: var(--ink); font-family: "Geist", ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { text-wrap: balance; }
+
+  /* ═══ LINE GRAMMAR ═══════════════════════════════════════════
+     RAIL   .frame        1px, left+right of the 1200px frame, runs the whole page
+     SEAM   .seam         1px, top of every section, full-bleed, fades once it leaves the frame
+     NODE   .seam>.frame  5px squares where a seam crosses a rail (or the spine)
+     SPINE  .spine        1px vertical at 232px, splits meta column from content
+     CELL   .cells        1px shared edges between cells (gap-px), never double borders
+     DASH   .dash-*       4/4 dashes: subdivision, measurement, thresholds
+     FADE   .fade-*       a line that continues but stops mattering
+  ═══════════════════════════════════════════════════════════════ */
+  .frame { position: relative; max-width: var(--frame); margin-inline: auto; border-inline: 1px solid var(--line-3); }
+
+  .seam { position: relative; }
+  .seam::before {
+    content: ""; position: absolute; top: 0; left: 50%; width: 100vw; height: 1px; transform: translateX(-50%);
+    background: linear-gradient(90deg,
+      transparent 0,
+      var(--line-2) max(0px, calc(50% - var(--frame) / 2 - 160px)),
+      var(--line-2) min(100%, calc(50% + var(--frame) / 2 + 160px)),
+      transparent 100%);
+    pointer-events: none; z-index: 1;
+  }
+  .seam > .frame::before, .seam > .frame::after, .node {
+    content: ""; position: absolute; top: -2px; width: 5px; height: 5px;
+    background: var(--bg); border: 1px solid var(--line-3); z-index: 2;
+  }
+  .seam > .frame::before { left: -3px; }
+  .seam > .frame::after  { right: -3px; }
+
+  .spine { border-color: var(--line-2); }
+  @media (min-width: 1024px) {
+    .spine-grid { display: grid; grid-template-columns: var(--spine) minmax(0, 1fr); }
+    .spine { border-right: 1px solid var(--line-2); }
+    .spine-node { left: calc(var(--spine) - 3px); }
+  }
+
+  .cells { display: grid; gap: 1px; background: var(--line); }
+  .cells > * { background: var(--surface); }
+
+  .dash-x { height: 1px; background: repeating-linear-gradient(90deg, var(--line-3) 0 4px, transparent 4px 8px); }
+  .dash-y { width: 1px;  background: repeating-linear-gradient(180deg, var(--line-3) 0 4px, transparent 4px 8px); }
+  .fade-y { width: 1px;  background: linear-gradient(180deg, transparent, var(--line-2) 30%, var(--line-2) 70%, transparent); }
+  .fade-x { height: 1px; background: linear-gradient(90deg, transparent, var(--line-2) 30%, var(--line-2) 70%, transparent); }
+
+  /* ═══ SURFACES ═══════════════════════════════════════════════
+     HATCH  .hatch        45° lines, 1px every 7px: space that is off-limits,
+                          reserved or out of bounds (gutters, empty cells, danger zones)
+     DOTS   .dots         1px dots on a 16px pitch: a canvas where something lives
+  ═══════════════════════════════════════════════════════════════ */
+  .hatch { background-image: repeating-linear-gradient(-45deg, var(--line-2) 0 1px, transparent 1px 7px); }
+  .hatch-red { background-image: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--red) 22%, transparent) 0 1px, transparent 1px 6px); }
+  .dots { background-image: radial-gradient(circle at 1px 1px, var(--line-3) 1px, transparent 1.2px); background-size: 16px 16px; }
+  .fade-edges { mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 40%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 40%, transparent 100%); }
+  .fade-down { mask-image: linear-gradient(#000, transparent); -webkit-mask-image: linear-gradient(#000, transparent); }
+  /* Hatched page margins: everything outside the frame is out of bounds */
+  .margins-hatched { position: relative; isolation: isolate; }
+  .margins-hatched::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background-image: repeating-linear-gradient(-45deg, var(--line-2) 0 1px, transparent 1px 7px); }
+  .band { height: 40px; }
+
+  /* Beam: the one moving thing. It travels the hero's bottom seam. */
+  .beam { position: absolute; top: -1px; left: 0; height: 1px; width: 180px; z-index: 3;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    animation: beam 6s cubic-bezier(.6,0,.4,1) infinite; }
+  @keyframes beam { 0% { transform: translateX(-200px); opacity: 0 } 10% { opacity: 1 } 60% { opacity: 1 } 70%, 100% { transform: translateX(min(100vw, 1200px)); opacity: 0 } }
+
+  .label { font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+  .num { font-variant-numeric: tabular-nums; }
+  .ring { --p: 0; width: 14px; height: 14px; border-radius: 50%; flex: none;
+    background: conic-gradient(var(--c, var(--accent)) calc(var(--p) * 1%), transparent 0); box-shadow: inset 0 0 0 1.5px var(--c, var(--accent)); padding: 2px; background-clip: content-box; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  @media (prefers-reduced-motion: reduce) { .beam { animation: none; opacity: 0; } }
+</style>
+
+<style type="text/tailwindcss">
+  @theme inline {
+    --color-bg: var(--bg);
+    --color-surface: var(--surface);
+    --color-raised: var(--raised);
+    --color-ink: var(--ink);
+    --color-ink-2: var(--ink-2);
+    --color-muted: var(--muted);
+    --color-faint: var(--faint);
+    --color-line: var(--line);
+    --color-line-2: var(--line-2);
+    --color-line-3: var(--line-3);
+    --color-accent: var(--accent);
+    --color-accent-soft: var(--accent-soft);
+    --color-green: var(--green);
+    --color-amber: var(--amber);
+    --color-red: var(--red);
+    --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+</style>
+
+</head><body style="margin:0">
+<div class="overflow-x-clip">
+
+<!-- ─── NAV ─────────────────────────────────────────── -->
+<header class="sticky top-[env(safe-area-inset-top,0px)] z-40 border-b border-line-2 bg-bg/80 backdrop-blur-md">
+  <div class="frame flex h-14 items-center justify-between px-4 sm:px-6">
+    <a href="#" class="flex items-center gap-2 text-[15px] font-semibold tracking-tight">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x=".5" y=".5" width="17" height="17" rx="4" fill="none" stroke="var(--ink)"/><path d="M4 11h10M9 4v7" stroke="var(--ink)" stroke-width="1.5"/></svg>
+      Keel
+    </a>
+    <nav class="hidden items-center gap-7 text-[13px] text-muted md:flex">
+      <a class="hover:text-ink" href="#ramp">Product</a>
+      <a class="hover:text-ink" href="#customers">Customers</a>
+      <a class="hover:text-ink" href="#grammar">System</a>
+      <a class="hover:text-ink" href="#cta">Pricing</a>
+    </nav>
+    <div class="flex items-center gap-4 text-[13px]">
+      <a href="#" class="hidden text-muted hover:text-ink sm:block">Log in</a>
+      <a href="#cta" class="rounded-md bg-ink px-3 py-1.5 font-medium text-white hover:bg-ink-2">Sign up</a>
+    </div>
+  </div>
+</header>
+
+<!-- ─── HERO ────────────────────────────────────────── -->
+<section>
+  <div class="frame">
+    <div class="grid gap-10 px-4 pb-14 pt-20 sm:px-10 sm:pt-28 lg:grid-cols-12 lg:items-end">
+      <div class="lg:col-span-8">
+        <a href="#guard" class="inline-flex items-center gap-2 text-[13px] text-muted hover:text-ink">
+          <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
+          Keel 4.2: rollbacks now watch p95 per cohort
+          <span aria-hidden="true">→</span>
+        </a>
+        <h1 class="mt-6 text-[44px] font-medium leading-[1.02] tracking-[-0.045em] sm:text-[72px]">
+          Keel is the release system<br class="hidden sm:block"> <span class="text-faint">for teams that ship daily.</span>
+        </h1>
+      </div>
+      <div class="lg:col-span-4 lg:pb-3">
+        <p class="max-w-sm text-[15px] leading-relaxed text-muted">Ramp every change behind a flag, gate each step on real metrics, and roll back before a customer notices.</p>
+        <div class="mt-6 flex items-center gap-3 text-[13px]">
+          <a href="#cta" class="rounded-md bg-ink px-3.5 py-2 font-medium text-white hover:bg-ink-2">Start building</a>
+          <a href="#ramp" class="rounded-md px-2 py-2 font-medium text-ink-2 hover:text-ink">See how it works →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The app window IS the frame: its left/right edges are the rails. -->
+  <div class="seam margins-hatched">
+    <div class="frame">
+      <div class="relative bg-surface">
+        <!-- title bar -->
+        <div class="flex h-10 items-center justify-between border-b border-line px-4 text-[12px]">
+          <div class="flex items-center gap-2 text-muted">
+            <span class="grid h-5 w-5 place-items-center rounded bg-ink text-[10px] font-semibold text-white">A</span>
+            <span class="text-ink">Acme</span><span class="text-line-3">/</span><span>Active rollouts</span>
+          </div>
+          <div class="hidden items-center gap-3 font-mono text-[11px] text-faint sm:flex"><span>⌘K</span><span class="h-3 w-px bg-line-2"></span><span>14:40 UTC</span></div>
+        </div>
+
+        <div class="grid md:grid-cols-[200px_minmax(0,1fr)] xl:grid-cols-[200px_minmax(0,1fr)_300px]">
+          <!-- sidebar -->
+          <aside class="hidden border-r border-line p-2 text-[13px] md:block">
+            <ul class="space-y-px text-ink-2">
+              <li class="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-raised"><span>Inbox</span><span class="num text-[11px] text-faint">3</span></li>
+              <li class="flex items-center justify-between rounded-md bg-raised px-2 py-1.5 font-medium text-ink"><span>Active rollouts</span><span class="num text-[11px] text-faint">6</span></li>
+              <li class="rounded-md px-2 py-1.5 hover:bg-raised">Flags</li>
+              <li class="rounded-md px-2 py-1.5 hover:bg-raised">Guardrails</li>
+            </ul>
+            <div class="dash-x mx-2 my-3"></div>
+            <div class="label px-2 pb-1.5">Environments</div>
+            <ul class="space-y-px text-ink-2">
+              <li class="flex items-center gap-2 rounded-md px-2 py-1.5"><span class="h-2 w-2 rounded-sm bg-green"></span>production</li>
+              <li class="flex items-center gap-2 rounded-md px-2 py-1.5"><span class="h-2 w-2 rounded-sm bg-amber"></span>staging</li>
+              <li class="flex items-center gap-2 rounded-md px-2 py-1.5"><span class="h-2 w-2 rounded-sm bg-line-3"></span>preview</li>
+            </ul>
+          </aside>
+
+          <!-- list -->
+          <div class="min-w-0">
+            <div class="flex items-center justify-between border-b border-line px-4 py-2 text-[12px] text-muted">
+              <div class="flex items-center gap-2"><span class="ring" style="--p:50"></span><span class="font-medium text-ink">Ramping</span><span class="num text-faint">4</span></div>
+              <span class="font-mono text-[11px] text-faint">sorted by next step</span>
+            </div>
+            <ul class="divide-y divide-line text-[13px]">
+              <li class="flex items-center gap-3 bg-accent-soft/50 px-4 py-2.5">
+                <span class="w-14 flex-none font-mono text-[11px] text-faint">REL-412</span>
+                <span class="ring" style="--p:25"></span>
+                <span class="min-w-0 flex-1 truncate font-medium">checkout-v2: one-page checkout</span>
+                <span class="hidden rounded border border-line-2 px-1.5 py-px font-mono text-[10px] text-muted sm:inline">production</span>
+                <span class="num w-10 text-right font-mono text-[12px]">25%</span>
+                <span class="grid h-5 w-5 flex-none place-items-center rounded-full bg-[#E6E7FB] text-[9px] font-semibold text-accent">MO</span>
+              </li>
+              <li class="flex items-center gap-3 px-4 py-2.5">
+                <span class="w-14 flex-none font-mono text-[11px] text-faint">REL-409</span>
+                <span class="ring" style="--p:50"></span>
+                <span class="min-w-0 flex-1 truncate">search-ranker: embeddings index</span>
+                <span class="hidden rounded border border-line-2 px-1.5 py-px font-mono text-[10px] text-muted sm:inline">production</span>
+                <span class="num w-10 text-right font-mono text-[12px]">50%</span>
+                <span class="grid h-5 w-5 flex-none place-items-center rounded-full bg-[#E3F4EA] text-[9px] font-semibold text-green">DK</span>
+              </li>
+              <li class="flex items-center gap-3 px-4 py-2.5">
+                <span class="w-14 flex-none font-mono text-[11px] text-faint">REL-406</span>
+                <span class="ring" style="--p:5;--c:var(--amber)"></span>
+                <span class="min-w-0 flex-1 truncate">billing-sync: Stripe webhooks retry</span>
+                <span class="hidden rounded border border-line-2 px-1.5 py-px font-mono text-[10px] text-muted sm:inline">staging</span>
+                <span class="num w-10 text-right font-mono text-[12px]">5%</span>
+                <span class="grid h-5 w-5 flex-none place-items-center rounded-full bg-[#FBEEDB] text-[9px] font-semibold text-amber">JL</span>
+              </li>
+              <li class="flex items-center gap-3 px-4 py-2.5">
+                <span class="w-14 flex-none font-mono text-[11px] text-faint">REL-401</span>
+                <span class="ring" style="--p:10"></span>
+                <span class="min-w-0 flex-1 truncate">avatar-cdn: move to edge cache</span>
+                <span class="hidden rounded border border-line-2 px-1.5 py-px font-mono text-[10px] text-muted sm:inline">production</span>
+                <span class="num w-10 text-right font-mono text-[12px]">10%</span>
+                <span class="grid h-5 w-5 flex-none place-items-center rounded-full bg-[#E6E7FB] text-[9px] font-semibold text-accent">MO</span>
+              </li>
+            </ul>
+            <div class="flex items-center gap-2 border-y border-line px-4 py-2 text-[12px] text-muted">
+              <span class="ring" style="--p:0;--c:var(--red)"></span><span class="font-medium text-ink">Halted</span><span class="num text-faint">1</span>
+            </div>
+            <ul class="text-[13px]">
+              <li class="hatch-red flex items-center gap-3 px-4 py-2.5 text-muted">
+                <span class="w-14 flex-none font-mono text-[11px] text-faint">REL-398</span>
+                <span class="ring" style="--p:0;--c:var(--red)"></span>
+                <span class="min-w-0 flex-1 truncate">image-resize: AVIF by default</span>
+                <span class="hidden font-mono text-[11px] text-red sm:inline">p95 262ms &gt; 250ms</span>
+                <span class="num w-10 text-right font-mono text-[12px]">0%</span>
+                <span class="grid h-5 w-5 flex-none place-items-center rounded-full bg-[#E3F4EA] text-[9px] font-semibold text-green">DK</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- detail -->
+          <div class="hidden border-l border-line xl:block">
+            <div class="border-b border-line p-4">
+              <div class="font-mono text-[11px] text-faint">REL-412</div>
+              <div class="mt-1 text-[14px] font-medium">checkout-v2: one-page checkout</div>
+            </div>
+            <dl class="divide-y divide-line text-[12px]">
+              <div class="flex justify-between px-4 py-2.5"><dt class="text-muted">Step</dt><dd class="num">3 of 5 · 25%</dd></div>
+              <div class="flex justify-between px-4 py-2.5"><dt class="text-muted">Next step</dt><dd class="num">in 12:40</dd></div>
+              <div class="flex justify-between px-4 py-2.5"><dt class="text-muted">Exposed</dt><dd class="num">48,210 sessions</dd></div>
+            </dl>
+            <div class="border-t border-line p-4">
+              <div class="label">Guardrails</div>
+              <ul class="mt-3 space-y-3 text-[12px]">
+                <li><div class="flex justify-between"><span>Error rate</span><span class="num font-mono text-green">0.12%</span></div><div class="relative mt-1.5 h-1 rounded-full bg-raised"><div class="h-1 w-[24%] rounded-full bg-green"></div><div class="absolute inset-y-[-3px] left-full w-px bg-line-3"></div></div></li>
+                <li><div class="flex justify-between"><span>p95 latency</span><span class="num font-mono text-amber">184ms</span></div><div class="relative mt-1.5 h-1 rounded-full bg-raised"><div class="h-1 w-[74%] rounded-full bg-amber"></div></div></li>
+                <li><div class="flex justify-between"><span>Checkout conversion</span><span class="num font-mono text-green">+0.4%</span></div><div class="relative mt-1.5 h-1 rounded-full bg-raised"><div class="h-1 w-[56%] rounded-full bg-green"></div></div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- window dissolves into the next seam -->
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-bg"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LOGOS: peers split by faded dividers ────────── -->
+<section class="seam">
+  <span class="beam" aria-hidden="true"></span>
+  <div class="frame">
+    <div class="grid grid-cols-3 lg:grid-cols-6">
+      <div class="relative flex h-24 items-center justify-center text-[17px] font-semibold tracking-tight text-faint">Halcyon<span class="fade-y absolute inset-y-0 right-0"></span></div>
+      <div class="relative flex h-24 items-center justify-center font-mono text-[15px] text-faint">orbit/labs<span class="fade-y absolute inset-y-0 right-0"></span></div>
+      <div class="relative flex h-24 items-center justify-center text-[17px] font-semibold italic tracking-tight text-faint">Fenwick<span class="fade-y absolute inset-y-0 right-0 hidden lg:block"></span></div>
+      <div class="relative flex h-24 items-center justify-center text-[15px] font-medium tracking-[0.25em] text-faint">NORDA<span class="fade-y absolute inset-y-0 right-0"></span></div>
+      <div class="relative flex h-24 items-center justify-center text-[17px] font-semibold tracking-tight text-faint">Pebble&amp;Co<span class="fade-y absolute inset-y-0 right-0"></span></div>
+      <div class="flex h-24 items-center justify-center font-mono text-[15px] text-faint">tidewater</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BAND: reserved space between chapters ─────── -->
+<div class="seam" aria-hidden="true"><div class="frame band hatch"></div></div>
+
+<!-- ─── CHAPTER 1.0 RAMP ────────────────────────────── -->
+<section id="ramp" class="seam">
+  <div class="frame spine-grid">
+    <span class="node spine-node hidden lg:block" aria-hidden="true"></span>
+    <div class="spine border-b border-line-2 px-4 py-6 sm:px-10 lg:border-b-0 lg:px-6 lg:py-12">
+      <div class="lg:sticky lg:top-24">
+        <div class="font-mono text-[12px] text-accent">1.0</div>
+        <div class="mt-1 text-[13px] font-medium">Ramp</div>
+        <p class="mt-3 hidden max-w-[180px] text-[12px] leading-relaxed text-faint lg:block">Move traffic in steps you choose.</p>
+      </div>
+    </div>
+    <div>
+      <div class="px-4 py-12 sm:px-10 lg:py-16">
+        <h2 class="max-w-2xl text-[32px] font-medium leading-[1.08] tracking-[-0.035em] sm:text-[44px]">Ship to one percent. <span class="text-faint">Then five, then everyone.</span></h2>
+        <p class="mt-4 max-w-lg text-[15px] leading-relaxed text-muted">Code deploys dark. Keel moves users onto it on a schedule, and holds each step until the numbers clear.</p>
+      </div>
+
+      <div class="cells border-t border-line md:grid-cols-5">
+        <!-- ramp chart -->
+        <figure class="p-6 md:col-span-3 sm:p-8">
+          <figcaption class="flex items-baseline justify-between">
+            <span class="label">Traffic on treatment</span>
+            <span class="font-mono text-[11px] text-faint">checkout-v2 · 38 min</span>
+          </figcaption>
+          <svg viewBox="0 0 560 210" class="mt-6 w-full" role="img" aria-label="Step chart: 1% at 0 min, 5% at 8 min, 25% at 18 min, 50% and 100% scheduled">
+            <defs>
+              <pattern id="hatch-future" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--line-2)" stroke-width="1"/></pattern>
+              <pattern id="hatch-danger-a" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--red)" stroke-opacity=".28" stroke-width="1"/></pattern>
+            </defs>
+            <!-- future: not yet happened -->
+            <rect x="300" y="20" width="260" height="160" fill="url(#hatch-future)"/>
+            <text x="548" y="172" text-anchor="end" font-family="Geist Mono, monospace" font-size="10" fill="var(--faint)">scheduled</text>
+            <!-- y ticks: y = 180 - pct*1.6 -->
+            <g font-family="Geist Mono, monospace" font-size="10" fill="var(--faint)">
+              <text x="0" y="23">100%</text><text x="0" y="103">50%</text><text x="0" y="143">25%</text><text x="0" y="183">0%</text>
+            </g>
+            <g stroke="var(--line)" stroke-width="1">
+              <line x1="40" y1="20" x2="560" y2="20"/><line x1="40" y1="100" x2="560" y2="100"/><line x1="40" y1="140" x2="560" y2="140"/>
+            </g>
+            <line x1="40" y1="180" x2="560" y2="180" stroke="var(--line-3)"/>
+            <!-- step boundaries: dash = measurement -->
+            <g stroke="var(--line-3)" stroke-dasharray="4 4"><line x1="120" y1="20" x2="120" y2="180"/><line x1="220" y1="20" x2="220" y2="180"/><line x1="340" y1="20" x2="340" y2="180"/><line x1="450" y1="20" x2="450" y2="180"/></g>
+            <!-- done -->
+            <path d="M40 178.4 H120 V172 H220 V140 H300" fill="none" stroke="var(--accent)" stroke-width="1.75"/>
+            <!-- scheduled -->
+            <path d="M300 140 H340 V100 H450 V20 H560" fill="none" stroke="var(--line-3)" stroke-width="1.5" stroke-dasharray="2 3"/>
+            <circle cx="300" cy="140" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+            <g font-family="Geist Mono, monospace" font-size="10" fill="var(--faint)">
+              <text x="40" y="200">0m</text><text x="112" y="200">8m</text><text x="208" y="200">18m</text><text x="286" y="200">now</text><text x="328" y="200">51m</text><text x="436" y="200">75m</text>
+            </g>
+          </svg>
+        </figure>
+        <!-- side cell split by dashes -->
+        <div class="flex flex-col md:col-span-2">
+          <div class="flex-1 p-6 sm:p-8">
+            <div class="label">Schedule</div>
+            <ol class="mt-4 text-[13px] num">
+              <li class="flex items-center justify-between py-2"><span class="flex items-center gap-2"><span class="ring" style="--p:100"></span>1%</span><span class="font-mono text-[11px] text-faint">8 min</span></li>
+              <li class="dash-x"></li>
+              <li class="flex items-center justify-between py-2"><span class="flex items-center gap-2"><span class="ring" style="--p:100"></span>5%</span><span class="font-mono text-[11px] text-faint">10 min</span></li>
+              <li class="dash-x"></li>
+              <li class="flex items-center justify-between py-2 font-medium"><span class="flex items-center gap-2"><span class="ring" style="--p:60"></span>25%</span><span class="font-mono text-[11px] text-accent">holding</span></li>
+              <li class="dash-x"></li>
+              <li class="flex items-center justify-between py-2 text-faint"><span class="flex items-center gap-2"><span class="ring" style="--p:0;--c:var(--line-3)"></span>50%</span><span class="font-mono text-[11px]">24 min</span></li>
+              <li class="dash-x"></li>
+              <li class="flex items-center justify-between py-2 text-faint"><span class="flex items-center gap-2"><span class="ring" style="--p:0;--c:var(--line-3)"></span>100%</span><span class="font-mono text-[11px]">—</span></li>
+            </ol>
+          </div>
+        </div>
+        <!-- three small cells -->
+        <div class="p-6 md:col-span-5 md:p-0">
+          <div class="grid gap-6 md:grid-cols-3 md:gap-0">
+            <div class="md:p-8"><div class="text-[14px] font-medium">Cohort targeting</div><p class="mt-1.5 text-[13px] leading-relaxed text-muted">Start with internal staff, then one region, then one plan.</p></div>
+            <div class="relative md:p-8"><span class="dash-y absolute inset-y-6 left-0 hidden md:block"></span><div class="text-[14px] font-medium">Sticky assignment</div><p class="mt-1.5 text-[13px] leading-relaxed text-muted">A user who sees the new path keeps seeing it at every step.</p></div>
+            <div class="relative md:p-8"><span class="dash-y absolute inset-y-6 left-0 hidden md:block"></span><div class="text-[14px] font-medium">Local evaluation</div><p class="mt-1.5 text-[13px] leading-relaxed text-muted">SDKs decide in 0.2ms with no network call on the hot path.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CHAPTER 2.0 GUARD ───────────────────────────── -->
+<section id="guard" class="seam">
+  <div class="frame spine-grid">
+    <span class="node spine-node hidden lg:block" aria-hidden="true"></span>
+    <div class="spine border-b border-line-2 px-4 py-6 sm:px-10 lg:border-b-0 lg:px-6 lg:py-12">
+      <div class="lg:sticky lg:top-24">
+        <div class="font-mono text-[12px] text-accent">2.0</div>
+        <div class="mt-1 text-[13px] font-medium">Guard</div>
+        <p class="mt-3 hidden max-w-[180px] text-[12px] leading-relaxed text-faint lg:block">Stop a bad step on its own.</p>
+      </div>
+    </div>
+    <div>
+      <div class="px-4 py-12 sm:px-10 lg:py-16">
+        <h2 class="max-w-2xl text-[32px] font-medium leading-[1.08] tracking-[-0.035em] sm:text-[44px]">A guardrail trips. <span class="text-faint">Traffic is back on control in 41 seconds.</span></h2>
+      </div>
+      <div class="cells border-t border-line md:grid-cols-3">
+        <figure class="relative p-6 md:col-span-2 sm:p-8">
+          <div class="dots fade-edges pointer-events-none absolute inset-0" aria-hidden="true"></div>
+          <figcaption class="relative flex items-baseline justify-between">
+            <span class="label">Error rate · image-resize</span>
+            <span class="flex items-center gap-3 font-mono text-[11px] text-faint"><span class="flex items-center gap-1.5"><span class="h-px w-3 bg-ink"></span>treatment</span><span class="flex items-center gap-1.5"><span class="dash-x w-3"></span>limit</span></span>
+          </figcaption>
+          <!-- y = 180 - v*200 ; 0.5% → 80 -->
+          <svg viewBox="0 0 560 210" class="relative mt-6 w-full" role="img" aria-label="Error rate hovers near 0.12% then spikes to 0.62%, crossing the 0.5% limit; rollout halts">
+            <g font-family="Geist Mono, monospace" font-size="10" fill="var(--faint)"><text x="0" y="23">0.8%</text><text x="0" y="83">0.5%</text><text x="0" y="183">0%</text></g>
+            <line x1="40" y1="20" x2="560" y2="20" stroke="var(--line)"/>
+            <line x1="40" y1="180" x2="560" y2="180" stroke="var(--line-3)"/>
+            <defs><pattern id="hatch-danger" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--red)" stroke-opacity=".28" stroke-width="1"/></pattern></defs>
+            <rect x="40" y="20" width="520" height="60" fill="url(#hatch-danger)"/>
+            <text x="48" y="36" font-family="Geist Mono, monospace" font-size="10" fill="var(--red)" opacity=".8">rollback zone</text>
+            <line x1="40" y1="80" x2="560" y2="80" stroke="var(--red)" stroke-dasharray="4 4" opacity=".7"/>
+            <path d="M40 156 L80 154 L120 157 L160 152 L200 155 L240 150 L280 153 L320 149 L350 140 L380 110 L400 56 L420 62" fill="none" stroke="var(--ink)" stroke-width="1.6"/>
+            <path d="M420 62 L440 120 L470 162 L510 170 L560 171" fill="none" stroke="var(--faint)" stroke-width="1.4" stroke-dasharray="2 3"/>
+            <line x1="420" y1="20" x2="420" y2="180" stroke="var(--ink)"/>
+            <rect x="424" y="24" width="96" height="20" rx="3" fill="var(--ink)"/>
+            <text x="432" y="38" font-family="Geist Mono, monospace" font-size="10" fill="#fff">halted 14:31:48</text>
+            <circle cx="400" cy="56" r="3.5" fill="var(--surface)" stroke="var(--red)" stroke-width="1.5"/>
+            <g font-family="Geist Mono, monospace" font-size="10" fill="var(--faint)"><text x="40" y="200">14:00</text><text x="236" y="200">14:15</text><text x="520" y="200">14:45</text></g>
+          </svg>
+        </figure>
+        <div class="p-6 sm:p-8">
+          <div class="label">Incident log</div>
+          <ol class="relative mt-5 space-y-5 text-[13px]">
+            <span class="dash-y absolute bottom-1 left-[3px] top-1" aria-hidden="true"></span>
+            <li class="relative pl-6"><span class="absolute left-0 top-1.5 h-[7px] w-[7px] rounded-sm border border-line-3 bg-surface"></span><div class="num font-mono text-[11px] text-faint">14:31:07</div>Error rate 0.62% crosses 0.5%</li>
+            <li class="relative pl-6"><span class="absolute left-0 top-1.5 h-[7px] w-[7px] rounded-sm bg-red"></span><div class="num font-mono text-[11px] text-faint">14:31:48</div>Rollout set to 0%</li>
+            <li class="relative pl-6"><span class="absolute left-0 top-1.5 h-[7px] w-[7px] rounded-sm border border-line-3 bg-surface"></span><div class="num font-mono text-[11px] text-faint">14:31:50</div>Paged @dev.k with commit <span class="font-mono text-[12px]">a41f9c2</span></li>
+            <li class="relative pl-6"><span class="absolute left-0 top-1.5 h-[7px] w-[7px] rounded-sm bg-green"></span><div class="num font-mono text-[11px] text-faint">14:38:12</div>Errors back to 0.11%</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CHAPTER 3.0 CLEAN UP ────────────────────────── -->
+<section class="seam">
+  <div class="frame spine-grid">
+    <span class="node spine-node hidden lg:block" aria-hidden="true"></span>
+    <div class="spine border-b border-line-2 px-4 py-6 sm:px-10 lg:border-b-0 lg:px-6 lg:py-12">
+      <div class="lg:sticky lg:top-24">
+        <div class="font-mono text-[12px] text-accent">3.0</div>
+        <div class="mt-1 text-[13px] font-medium">Clean up</div>
+        <p class="mt-3 hidden max-w-[180px] text-[12px] leading-relaxed text-faint lg:block">Delete the flag once it's done.</p>
+      </div>
+    </div>
+    <div class="cells md:grid-cols-2">
+      <div class="px-4 py-12 sm:px-10 lg:py-16">
+        <h2 class="text-[32px] font-medium leading-[1.08] tracking-[-0.035em] sm:text-[40px]">At 100%, Keel opens the PR that removes the flag.</h2>
+        <p class="mt-4 max-w-md text-[15px] leading-relaxed text-muted">Stale flags are the debt nobody schedules. Keel writes the diff, tags the owner and links the rollout it came from.</p>
+        <div class="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13px] text-muted">
+          <span>TypeScript</span><span>Go</span><span>Rust</span><span>Python</span><span>Swift</span>
+        </div>
+      </div>
+      <div class="relative min-w-0 bg-raised! p-4 sm:p-8">
+        <div class="dots pointer-events-none absolute inset-0" aria-hidden="true"></div>
+        <div class="relative overflow-hidden rounded-lg border border-line-2 bg-surface shadow-[0_1px_0_var(--line),0_8px_24px_-12px_rgb(17_17_19/0.12)]">
+          <div class="flex items-center justify-between border-b border-line px-4 py-2.5 text-[12px]">
+            <span class="font-medium">Remove flag checkout-v2</span><span class="font-mono text-[11px] text-green">+2 −9</span>
+          </div>
+          <div class="border-b border-dashed border-line-3 px-4 py-1.5 font-mono text-[11px] text-faint">src/checkout/Page.tsx</div>
+          <pre class="overflow-x-auto py-2 font-mono text-[12px] leading-[1.7]"><span class="block px-4 text-faint">  export function Page({ user }) {</span><span class="block bg-[#FDECEC] px-4 text-red">-   if (keel.on("checkout-v2", user)) {</span><span class="block bg-[#FDECEC] px-4 text-red">-     return &lt;OnePage /&gt;</span><span class="block bg-[#FDECEC] px-4 text-red">-   }</span><span class="block bg-[#FDECEC] px-4 text-red">-   return &lt;LegacySteps /&gt;</span><span class="block bg-[#E7F5EE] px-4 text-green">+   return &lt;OnePage /&gt;</span><span class="block px-4 text-faint">  }</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BAND: reserved space between chapters ─────── -->
+<div class="seam" aria-hidden="true"><div class="frame band hatch"></div></div>
+
+<!-- ─── NUMBERS: full cells, no spine ───────────────── -->
+<section class="seam">
+  <div class="frame">
+    <div class="cells grid-cols-2 lg:grid-cols-4 num [&>*]:bg-bg!">
+      <div class="p-6 sm:p-8"><div class="text-[36px] font-medium tracking-[-0.04em]">2.1B</div><div class="mt-1 text-[13px] text-muted">flag evaluations a day</div></div>
+      <div class="p-6 sm:p-8"><div class="text-[36px] font-medium tracking-[-0.04em]">41s</div><div class="mt-1 text-[13px] text-muted">median time to rollback</div></div>
+      <div class="p-6 sm:p-8"><div class="text-[36px] font-medium tracking-[-0.04em]">−68%</div><div class="mt-1 text-[13px] text-muted">Sev-2 incidents after 90 days</div></div>
+      <div class="p-6 sm:p-8"><div class="text-[36px] font-medium tracking-[-0.04em]">99.99%</div><div class="mt-1 text-[13px] text-muted">edge uptime, trailing 12 months</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CUSTOMER QUOTE ──────────────────────────────── -->
+<section id="customers" class="seam">
+  <div class="frame spine-grid">
+    <span class="node spine-node hidden lg:block" aria-hidden="true"></span>
+    <div class="spine relative border-b border-line-2 px-4 py-6 sm:px-10 lg:border-b-0 lg:px-6 lg:py-12">
+      <div class="hatch fade-down pointer-events-none absolute inset-x-0 bottom-0 top-24 hidden lg:block" aria-hidden="true"></div>
+      <div class="label">Customers</div>
+    </div>
+    <figure class="px-4 py-12 sm:px-10 lg:py-20">
+      <blockquote class="max-w-3xl text-[26px] font-medium leading-[1.25] tracking-[-0.025em] sm:text-[34px]">
+        “We went from a release train every Thursday to forty small ramps a day. <span class="text-faint">The on-call rotation got quieter, not louder.”</span>
+      </blockquote>
+      <figcaption class="mt-8 flex items-center gap-3 text-[13px]">
+        <span class="grid h-8 w-8 place-items-center rounded-full bg-raised text-[11px] font-semibold text-ink-2 ring-1 ring-line-2">RA</span>
+        <span><span class="font-medium">Rhea Adeyemi</span><span class="text-muted"> · Staff engineer, Halcyon</span></span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ─── LINE GRAMMAR: the system, on the page ───────── -->
+<section id="grammar" class="seam">
+  <div class="frame spine-grid">
+    <span class="node spine-node hidden lg:block" aria-hidden="true"></span>
+    <div class="spine relative border-b border-line-2 px-4 py-6 sm:px-10 lg:border-b-0 lg:px-6 lg:py-12">
+      <div class="hatch fade-down pointer-events-none absolute inset-x-0 bottom-0 top-24 hidden lg:block" aria-hidden="true"></div>
+      <div class="label">System</div>
+      <p class="mt-3 hidden max-w-[180px] text-[12px] leading-relaxed text-faint lg:block">Eight lines and two surfaces build every section on this page.</p>
+    </div>
+    <div>
+      <div class="px-4 py-10 sm:px-10">
+        <h2 class="text-[24px] font-medium tracking-[-0.03em]">Line grammar</h2>
+        <p class="mt-2 max-w-lg text-[14px] text-muted">Each line type has one job. Nothing gets a border for decoration.</p>
+      </div>
+      <div class="cells border-t border-line sm:grid-cols-2 xl:grid-cols-5 text-[13px]">
+        <div class="p-6"><div class="relative h-12"><span class="absolute inset-y-0 left-6 w-px bg-line-3"></span><span class="absolute inset-y-0 right-6 w-px bg-line-3"></span></div><div class="mt-4 font-medium">Rail</div><p class="mt-1 text-muted">Frame edges at 1200px. Run the full page and never break.</p></div>
+        <div class="p-6"><div class="relative h-12"><span class="fade-x absolute inset-x-0 top-6" style="background:linear-gradient(90deg,transparent,var(--line-2) 25%,var(--line-2) 75%,transparent)"></span><span class="absolute left-[25%] top-6 h-[5px] w-[5px] -translate-x-1/2 -translate-y-1/2 border border-line-3 bg-surface"></span><span class="absolute left-[75%] top-6 h-[5px] w-[5px] -translate-x-1/2 -translate-y-1/2 border border-line-3 bg-surface"></span></div><div class="mt-4 font-medium">Seam + node</div><p class="mt-1 text-muted">Top of every section. Full-bleed, fades past the rails, with a node at each crossing.</p></div>
+        <div class="p-6"><div class="relative h-12"><span class="absolute inset-y-0 left-1/3 w-px bg-line-2"></span><span class="absolute left-[calc(33.33%-40px)] top-3 font-mono text-[10px] text-accent">1.0</span></div><div class="mt-4 font-medium">Spine</div><p class="mt-1 text-muted">Splits the chapter label from content at 232px, same x in every chapter.</p></div>
+        <div class="p-6"><div class="grid h-12 grid-cols-3 gap-px bg-line-2"><span class="bg-surface"></span><span class="bg-surface"></span><span class="bg-surface"></span></div><div class="mt-4 font-medium">Cell</div><p class="mt-1 text-muted">Shared 1px edges from a gap. Cards are carved from the grid, never floated on it.</p></div>
+        <div class="p-6"><div class="relative h-12"><span class="dash-x absolute inset-x-0 top-6"></span></div><div class="mt-4 font-medium">Dash</div><p class="mt-1 text-muted">Subdivision inside a cell, step boundaries, thresholds.</p></div>
+        <div class="p-6"><div class="relative flex h-12 justify-around"><span class="fade-y h-full"></span><span class="fade-y h-full"></span><span class="fade-y h-full"></span></div><div class="mt-4 font-medium">Fade</div><p class="mt-1 text-muted">Soft split between peers, like the logo row, where a hard line would shout.</p></div>
+        <div class="p-6"><div class="relative h-12 overflow-hidden"><span class="absolute inset-x-0 top-6 h-px bg-line-2"></span><span class="absolute top-6 h-px w-16 bg-linear-to-r from-transparent via-accent to-transparent" style="left:30%"></span></div><div class="mt-4 font-medium">Beam</div><p class="mt-1 text-muted">One accent pulse on one seam. The only thing that moves.</p></div>
+        <div class="p-6"><div class="hatch h-12 rounded-sm"></div><div class="mt-4 font-medium">Hatch</div><p class="mt-1 text-muted">45° lines for space that is off-limits: page margins, bands between chapters, the future on a chart, a danger zone.</p></div>
+        <div class="p-6"><div class="dots fade-edges h-12"></div><div class="mt-4 font-medium">Dots</div><p class="mt-1 text-muted">A 16px dot field marks a canvas where a live object sits, like a chart or a diff.</p></div>
+        <div class="p-6"><div class="flex h-12 items-end gap-3 font-mono text-[11px] text-faint"><span>1px</span><span>5px</span><span>232</span><span>1200</span></div><div class="mt-4 font-medium">Measures</div><p class="mt-1 text-muted">Three greys: <span class="font-mono text-[12px]">#EAEAEE</span> cell, <span class="font-mono text-[12px]">#DEDEE4</span> seam, <span class="font-mono text-[12px]">#CFD0D7</span> rail.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BAND: reserved space between chapters ─────── -->
+<div class="seam" aria-hidden="true"><div class="frame band hatch"></div></div>
+
+<!-- ─── CTA ─────────────────────────────────────────── -->
+<section id="cta" class="seam">
+  <div class="frame">
+    <div class="grid lg:grid-cols-12">
+      <div class="px-4 py-16 sm:px-10 lg:col-span-7 lg:py-24">
+        <h2 class="text-[36px] font-medium leading-[1.05] tracking-[-0.04em] sm:text-[52px]">Your next release, <span class="text-faint">at one percent.</span></h2>
+      </div>
+      <div class="relative flex flex-col justify-end gap-4 px-4 pb-16 sm:px-10 lg:col-span-5 lg:py-24">
+        <div class="dots fade-edges pointer-events-none absolute inset-0" aria-hidden="true"></div>
+        <span class="fade-y absolute inset-y-0 left-0 hidden lg:block" aria-hidden="true"></span>
+        <p class="relative max-w-sm text-[15px] text-muted">Free for three seats. Connect a repo and ramp your first flag in about ten minutes.</p>
+        <div class="relative flex items-center gap-3 text-[13px]">
+          <a href="#" class="rounded-md bg-ink px-3.5 py-2 font-medium text-white hover:bg-ink-2">Start building</a>
+          <a href="#" class="rounded-md border border-line-2 bg-surface px-3.5 py-2 font-medium hover:bg-raised">Talk to an engineer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ──────────────────────────────────────── -->
+<footer class="seam">
+  <div class="frame">
+    <div class="cells grid-cols-2 md:grid-cols-5 text-[13px] [&>*]:bg-bg!">
+      <div class="col-span-2 p-6 sm:p-8">
+        <div class="flex items-center gap-2 font-semibold">
+          <svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true"><rect x=".5" y=".5" width="17" height="17" rx="4" fill="none" stroke="var(--ink)"/><path d="M4 11h10M9 4v7" stroke="var(--ink)" stroke-width="1.5"/></svg>Keel
+        </div>
+        <p class="mt-3 text-[12px] text-faint">Fictional product. Layout preview only.</p>
+      </div>
+      <div class="p-6 sm:p-8"><div class="mb-3 font-medium">Product</div><ul class="space-y-2 text-muted"><li>Ramps</li><li>Guardrails</li><li>Cleanup</li></ul></div>
+      <div class="p-6 sm:p-8"><div class="mb-3 font-medium">Company</div><ul class="space-y-2 text-muted"><li>About</li><li>Careers</li><li>Security</li></ul></div>
+      <div class="col-span-2 p-6 sm:p-8 md:col-span-1"><div class="mb-3 font-medium">Status</div><div class="flex items-center gap-2 text-muted"><span class="h-1.5 w-1.5 rounded-full bg-green"></span>All systems normal</div></div>
+    </div>
+  </div>
+  <!-- rails run out and fade -->
+  <div class="frame h-20 border-x-0" aria-hidden="true">
+    <span class="absolute inset-y-0 -left-px w-px bg-linear-to-b from-line-3 to-transparent"></span>
+    <span class="absolute inset-y-0 -right-px w-px bg-linear-to-b from-line-3 to-transparent"></span>
+  </div>
+</footer>
+
+</div>
+</body></html>
