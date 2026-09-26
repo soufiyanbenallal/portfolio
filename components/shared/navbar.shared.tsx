@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useScroll, useMotionValueEvent } from "motion/react";
 import { useLenis } from "lenis/react";
 import { cn } from "@/lib/utils";
+import { SCROLL } from "@/lib/motion.config";
 import { navLinksData } from "@/data/client-logos.data";
 import { usePortfolioStore } from "@/lib/portfolio.store";
 import { useActiveSection } from "@/hooks/use-active-section.hook";
@@ -98,7 +99,8 @@ export function NavbarShared({ className }: NavbarSharedPropsType) {
       const target = document.getElementById(href.slice(1));
       if (!target) return;
 
-      if (lenis) lenis.scrollTo(target, { offset: -96, duration: 0.7 });
+      if (lenis)
+        lenis.scrollTo(target, { offset: SCROLL.anchorOffset, duration: SCROLL.jumpDuration });
       else target.scrollIntoView({ block: "start" });
     },
     [isHomepage, lenis, openContact]
@@ -112,7 +114,7 @@ export function NavbarShared({ className }: NavbarSharedPropsType) {
   return (
     <header
       className={cn(
-        "fixed top-6 left-1/2 z-40 w-auto max-w-[calc(100vw-32px)] min-w-60 -translate-x-1/2 rounded-3xl border border-gray-500/10 bg-white/40 shadow-[0_0_15px_rgba(15,23,42,0.05)] backdrop-blur-sm",
+        "fixed top-6 left-1/2 z-40 w-auto max-w-[calc(100vw-32px)] min-w-60 -translate-x-1/2 rounded-3xl border border-gray-30/70 bg-white/60 shadow-[0_0_15px_rgba(0,0,0,0.05)] backdrop-blur-sm",
         className
       )}
       style={{ viewTransitionName: "site-header" }}

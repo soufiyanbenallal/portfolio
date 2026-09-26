@@ -1,10 +1,20 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { PortfolioChromeShared } from "@/components/shared/portfolio-chrome.shared";
-import { Geist } from "next/font/google";
+import { SmoothScroll } from "@/components/motion/smooth-scroll.motion";
+import { Inter, Fragment_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+// Self-hosted by next/font — replaces a render-blocking Google Fonts @import.
+// Switzer (fonts.css) is the display face; Inter is its metric-close fallback
+// and Fragment Mono carries every label, counter and meta line.
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const fragmentMono = Fragment_Mono({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-fragment-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -50,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     // No `scroll-smooth` here: Lenis owns the scroll position, and native
     // smooth scrolling fights it for the same frames.
-    <html lang="en" className={cn("font-sans", geist.variable)}>
+    <html lang="en" className={cn("font-sans", inter.variable, fragmentMono.variable)}>
       <body className="bg-gray-5 relative flex min-h-screen flex-col overflow-x-clip font-sans text-black antialiased">
         <a
           href="#main-content"
@@ -59,11 +69,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
 
-        <PortfolioChromeShared>
-          <div id="main-content" className="relative z-10 w-full flex-1">
-            {children}
-          </div>
-        </PortfolioChromeShared>
+        <SmoothScroll>
+          <PortfolioChromeShared>
+            <div id="main-content" className="relative z-10 w-full flex-1">
+              {children}
+            </div>
+          </PortfolioChromeShared>
+        </SmoothScroll>
       </body>
     </html>
   );

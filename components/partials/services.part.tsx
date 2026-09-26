@@ -1,34 +1,65 @@
 "use client";
 
 import React from "react";
-import { motion, useTransform, type MotionValue } from "motion/react";
+import { Layout, Rocket, Compass, Play, Box, Palette, type LucideIcon } from "lucide-react";
 import { servicesData } from "@/data/services.data";
 import { techStackData } from "@/data/tech-stack.data";
-import { SectionDock } from "@/components/motion/section-dock.motion";
+import {
+  ServiceStack,
+  type ServiceStackItemStateType,
+} from "@/components/motion/service-stack.motion";
 import { Icons } from "@/components/ui/social-icons.ui";
 import type { ServiceItemType } from "@/types";
 
 /* ==================================================================== *
  * SERVICES
  * --------------------------------------------------------------------
- * The section that folds itself away.
+ * The section that folds itself away, then deals its cards.
  *
- * It opens as a full-bleed black statement panel. As you scroll, that whole
- * panel scales down and wraps into a card docked on the left — so what you
- * are looking at is not a new element, it is the section you just read,
- * reduced to a thumbnail of itself. The service detail cards then run past
- * it one at a time, hinging in from the right.
+ * Act 1: it opens as a full-bleed black statement panel. As you scroll,
+ * that whole panel docks into a card on the left — the section you just
+ * read, reduced to a thumbnail of itself.
  *
- * The card keeps the heading legible at 46% because the panel is composed
- * of a few very large elements. Anything at body size would be unreadable
- * once docked, which is why the crisp chrome — border, label, counter —
- * is drawn separately at 1:1 by `panelOverlay`.
+ * Act 2: the service cards advance through a real 3D deck stacked behind
+ * the docked panel — each one rising into the active slot, holding, then
+ * peeling forward and away as the next rises to take its place, with a
+ * few upcoming cards visible receding in the queue. One GSAP timeline,
+ * scrubbed by scroll position, owns both acts so they never drift apart.
  * ==================================================================== */
+
+const SERVICE_ICONS: Record<string, LucideIcon | undefined> = {
+  layout: Layout,
+  rocket: Rocket,
+  compass: Compass,
+  play: Play,
+  box: Box,
+  palette: Palette,
+};
+
+function ServiceIcon({ iconName, className }: { iconName: string; className?: string }) {
+  const LucideMark = SERVICE_ICONS[iconName];
+  if (LucideMark) return <LucideMark className={className} strokeWidth={1.6} />;
+  if (iconName === "framer") return <Icons.Framer className={className} />;
+  return null;
+}
 
 function ServicesPanel() {
   return (
     <div className="relative flex h-full w-full flex-col justify-between overflow-hidden bg-black px-[6%] py-[8%] text-white">
-      <div className="flex items-center justify-between">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)",
+          backgroundSize: "26px 26px",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-1/3 -right-1/4 h-[120%] w-[60%] rounded-full bg-white/[0.06] blur-3xl"
+      />
+
+      <div className="relative flex items-center justify-between">
         <span className="text-label text-white/45">What I do</span>
         <span className="font-mono text-[clamp(11px,0.9vw,13px)] text-white/45">
           {String(servicesData.length).padStart(2, "0")} services
@@ -36,13 +67,13 @@ function ServicesPanel() {
       </div>
 
       <h2
-        className="max-w-[16ch] leading-[1.02] font-medium tracking-[-0.03em]"
+        className="relative max-w-[16ch] leading-[1.02] font-medium tracking-[-0.03em]"
         style={{ fontSize: "clamp(34px, 6.4vw, 92px)" }}
       >
         Services that <em className="text-white/35 not-italic">supercharge</em> your business.
       </h2>
 
-      <div className="flex flex-wrap items-center gap-[0.6vw]">
+      <div className="relative flex flex-wrap items-center gap-[0.6vw]">
         {techStackData.map((tool) => (
           <span
             key={tool.id}
@@ -68,17 +99,22 @@ type ServiceDetailCardPropsType = {
 
 function ServiceDetailCard({ service, index, total }: ServiceDetailCardPropsType) {
   return (
-    <article className="border-gray-30 card-shadow-3d w-full rounded-[24px] border bg-white p-8 lg:p-10">
+    <article className="border-gray-30 card-shadow-3d rounded-panel w-full border bg-white p-8 lg:p-10">
       <div className="border-gray-20 flex items-start justify-between gap-6 border-b pb-6">
-        <span className="text-gray-40 font-mono text-sm">
-          {String(index + 1).padStart(2, "0")}
-          <span className="text-gray-30">/{String(total).padStart(2, "0")}</span>
+        <span className="border-gray-20 bg-gray-5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-black">
+          <ServiceIcon iconName={service.iconName} className="h-4.5 w-4.5" />
         </span>
-        {service.isPrimary && (
-          <span className="rounded-full bg-black px-3 py-1 text-[10px] font-semibold tracking-widest text-white uppercase">
-            Core
+        <div className="flex flex-col items-end gap-2">
+          {service.isPrimary && (
+            <span className="rounded-full bg-black px-3 py-1 text-[10px] font-semibold tracking-widest text-white uppercase">
+              Core
+            </span>
+          )}
+          <span className="text-gray-40 font-mono text-sm">
+            {String(index + 1).padStart(2, "0")}
+            <span className="text-gray-30">/{String(total).padStart(2, "0")}</span>
           </span>
-        )}
+        </div>
       </div>
 
       <h3 className="text-h3-lg pt-6 text-black">{service.title}</h3>
@@ -105,13 +141,30 @@ function ServiceDetailCard({ service, index, total }: ServiceDetailCardPropsType
 export function ServicesPart() {
   return (
     <div className="relative z-10 w-full border-t bg-white px-3 md:px-0">
-      <SectionDock
+      <ServiceStack
         id="services"
         items={servicesData}
-        scrollPerItem={0.48}
+        scrollPerItem={0.85}
         panel={<ServicesPanel />}
-
-        renderItem={(service, { index }) => (
+        renderItem={(service: ServiceItemType, { index }: ServiceStackItemStateType) => (
+          <ServiceDetailCard service={service} index={index} total={servicesData.length} />
+        )}
+      />
+      <ServiceStack
+        id="services"
+        items={servicesData}
+        scrollPerItem={0.85}
+        panel={<ServicesPanel />}
+        renderItem={(service: ServiceItemType, { index }: ServiceStackItemStateType) => (
+          <ServiceDetailCard service={service} index={index} total={servicesData.length} />
+        )}
+      />
+      <ServiceStack
+        id="services"
+        items={servicesData}
+        scrollPerItem={0.85}
+        panel={<ServicesPanel />}
+        renderItem={(service: ServiceItemType, { index }: ServiceStackItemStateType) => (
           <ServiceDetailCard service={service} index={index} total={servicesData.length} />
         )}
       />

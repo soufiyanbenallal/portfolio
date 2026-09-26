@@ -38,7 +38,7 @@ export const ButtonUi = forwardRef<HTMLButtonElement, ButtonPropsType>(
           "group inline-flex cursor-pointer items-center justify-center rounded-full font-medium transition-all duration-200 select-none focus-visible:ring-2 focus-visible:ring-black/50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
           // Variants
           variant === "primary" &&
-            "border border-black bg-black text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_2px_4px_rgba(0,0,0,0.1)] hover:bg-[#1a1a1a] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_4px_10px_rgba(0,0,0,0.2)] active:scale-[0.98]",
+            "shadow-button hover:bg-black-90 hover:shadow-button-hover border border-black bg-black text-white active:scale-[0.98]",
           variant === "secondary" &&
             "border-gray-30 hover:bg-gray-10 border bg-white text-black shadow-xs active:scale-[0.98]",
           variant === "outline" &&

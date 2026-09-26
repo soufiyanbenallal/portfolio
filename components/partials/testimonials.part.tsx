@@ -6,8 +6,7 @@ import { motion } from "motion/react";
 import { testimonialsData } from "@/data/testimonials.data";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { Container } from "@/components/shared/container.shared";
-import { TextReveal } from "@/components/motion/text-reveal.motion";
-import { Reveal } from "@/components/motion/reveal.motion";
+import { SectionHeading } from "@/components/shared/section-heading.shared";
 import { useIsDesktop, useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { PERSPECTIVE, SPRINGS, DURATIONS, EASINGS } from "@/lib/motion.config";
 import type { TestimonialItemType } from "@/types";
@@ -28,7 +27,7 @@ const TESTIMONIALS = testimonialsData.slice(0, 6);
 
 function TestimonialCard({ testimonial }: { testimonial: TestimonialItemType }) {
   return (
-    <figure className="border-gray-30 card-shadow flex h-full min-h-[280px] w-full flex-col justify-between rounded-2xl border bg-white p-6">
+    <figure className="surface-card flex h-full min-h-70 w-full flex-col justify-between p-6">
       <blockquote className="text-black-90 flex-1 text-sm leading-[1.65]">
         <span className="text-gray-40 mr-1 text-2xl leading-none">&ldquo;</span>
         {testimonial.quote}
@@ -104,7 +103,7 @@ function TestimonialCoverflow() {
         aria-label="Client testimonials"
         tabIndex={0}
         onKeyDown={handleKeyDown}
-        className="relative h-[340px] w-full cursor-grab overflow-hidden rounded-2xl active:cursor-grabbing"
+        className="rounded-card relative h-85 w-full cursor-grab overflow-hidden active:cursor-grabbing"
         style={{ perspective: PERSPECTIVE.far }}
       >
         <motion.div
@@ -184,17 +183,13 @@ export function TestimonialsPart() {
 
   return (
     <div className="w-full">
-      <Container className="flex flex-col gap-12 py-16 md:gap-16 md:py-24 lg:py-32">
-        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <TextReveal
-            as="h2"
-            by="word"
-            text="Hear from what my clients have to say."
-            className="text-h2-sm max-w-[460px] text-black"
-          />
-
-          <Reveal preset="fade" delay={0.2}>
-            <div className="flex shrink-0 items-center gap-3">
+      <Container className="gap-stack py-section flex flex-col">
+        <SectionHeading
+          eyebrow="Testimonials"
+          title="Hear from what my clients have to say."
+          titleClassName="max-w-[18ch]"
+          action={
+            <div className="flex items-center gap-3">
               <div className="flex -space-x-2.5">
                 {happyClientAvatars.map((src, i) => (
                   <span
@@ -216,8 +211,8 @@ export function TestimonialsPart() {
                 </span>
               </div>
             </div>
-          </Reveal>
-        </div>
+          }
+        />
 
         {useCoverflow ? (
           <TestimonialCoverflow />

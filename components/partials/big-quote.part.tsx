@@ -40,7 +40,7 @@ export function BigQuotePart() {
           <motion.figure
             className="flex flex-col items-center gap-8 text-center will-change-transform"
             style={
-              !prefersReducedMotion ? undefined : { rotateX, scale, y, transformOrigin: "50% 50%" }
+              prefersReducedMotion ? undefined : { rotateX, scale, y, transformOrigin: "50% 50%" }
             }
           >
             <blockquote className="max-w-205">
@@ -52,10 +52,6 @@ export function BigQuotePart() {
               />
             </blockquote>
 
-            {/* gradient glow */}
-            <div className=""></div>
-
-            {/*  */}
             <Reveal preset="fadeUp" delay={0.15}>
               <figcaption className="flex items-center gap-3">
                 <span className="border-gray-30 relative h-10 w-10 overflow-hidden rounded-full border">
@@ -85,19 +81,19 @@ function GridBackground() {
     <div className="pointer-events-none bg-white opacity-30">
       {/* ── Left Outer Margin: Minimalist Technical Diagonal Hatch Zone ── */}
       <div
-        className="absolute top-0 bottom-0 left-0 hidden w-full flex-col justify-between border-r-[0.5] border-[#ccc] p-4 2xl:flex"
+        className="border-gray-40 absolute top-0 bottom-0 left-0 hidden w-full flex-col justify-between border-r-[0.5px] p-4 2xl:flex"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(-45deg, #ccc, #ccc, transparent 1px, transparent 6px)",
+            "repeating-linear-gradient(-45deg, var(--color-gray-40), var(--color-gray-40), transparent 1px, transparent 6px)",
         }}
       ></div>
 
       {/* ── Right Outer Margin: Minimalist Technical Diagonal Hatch Zone ── */}
       <div
-        className="absolute top-0 right-0 bottom-0 hidden w-full flex-col items-end justify-between border-l-[0.5] border-[#ccc] p-4 2xl:flex"
+        className="border-gray-40 absolute top-0 right-0 bottom-0 hidden w-full flex-col items-end justify-between border-l-[0.5px] p-4 2xl:flex"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(45deg, #ccc, #ccc, transparent 1px, transparent 6px)",
+            "repeating-linear-gradient(45deg, var(--color-gray-40), var(--color-gray-40), transparent 1px, transparent 6px)",
         }}
       ></div>
     </div>

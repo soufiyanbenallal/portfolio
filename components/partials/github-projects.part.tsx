@@ -1,7 +1,9 @@
 import React from "react";
 import { getGithubRepos } from "@/lib/github";
 import { Container } from "@/components/shared/container.shared";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal.motion";
+import { Stagger, StaggerItem } from "@/components/motion/reveal.motion";
+import { SectionHeading } from "@/components/shared/section-heading.shared";
+import { ArrowLink } from "@/components/ui/arrow-link.ui";
 import { Icons } from "@/components/ui/social-icons.ui";
 import type { RepoItemType } from "@/types";
 
@@ -46,7 +48,7 @@ function RepoCard({ repo }: { repo: RepoItemType }) {
       rel="noopener noreferrer"
       data-cursor="project"
       data-cursor-text="View repo"
-      className="border-gray-30 card-shadow hover:card-shadow-hover group flex h-full flex-col gap-4 rounded-[20px] border bg-white p-6 transition-shadow duration-300"
+      className="surface-card hover:card-shadow-hover group flex h-full flex-col gap-4 p-6 transition-[box-shadow,translate] duration-300 ease-entrance hover:-translate-y-0.5"
     >
       <div className="flex items-start justify-between gap-3">
         <span className="group-hover:text-gray-60 truncate font-mono text-[15px] font-medium tracking-tight text-black transition-colors">
@@ -66,7 +68,7 @@ function RepoCard({ repo }: { repo: RepoItemType }) {
           <span className="flex items-center gap-1.5">
             <span
               className="h-2.5 w-2.5 shrink-0 rounded-full"
-              style={{ backgroundColor: LANGUAGE_COLORS[repo.language] ?? "#8b8b8b" }}
+              style={{ backgroundColor: LANGUAGE_COLORS[repo.language] ?? "var(--color-gray-50)" }}
             />
             {repo.language}
           </span>
@@ -97,24 +99,16 @@ export async function GithubProjectsPart() {
 
   return (
     <div className="w-full">
-      <Container className="flex flex-col gap-10 py-16 md:gap-12 md:py-24">
-        <Reveal preset="fadeUp" className="flex flex-wrap items-end justify-between gap-4">
-          <div className="flex flex-col gap-2">
-            <span className="text-label text-gray-50">Open source</span>
-            <h2 className="text-[clamp(28px,3.5vw,40px)] leading-[1.05] font-medium tracking-[-0.03em] text-black">
-              Code I actually ship.
-            </h2>
-          </div>
-          <a
-            href={GITHUB_PROFILE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-gray-60 flex items-center gap-1.5 text-sm font-medium text-black underline underline-offset-4 transition-colors"
-          >
-            View GitHub profile
-            <Icons.ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
-        </Reveal>
+      <Container className="gap-stack py-section flex flex-col">
+        <SectionHeading
+          eyebrow="Open source"
+          title="Code I actually ship."
+          action={
+            <ArrowLink href={GITHUB_PROFILE_URL} external>
+              View GitHub profile
+            </ArrowLink>
+          }
+        />
 
         <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
           {repos.map((repo) => (

@@ -118,7 +118,8 @@ export function ContactDialogPart() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="contact-title"
-            className="border-gray-30 relative z-10 max-h-[90vh] w-full max-w-[480px] overflow-hidden overflow-y-auto rounded-[24px] border bg-white p-6 text-black shadow-2xl sm:p-8"
+            data-lenis-prevent
+            className="border-gray-30 relative z-10 max-h-[90vh] w-full max-w-[480px] overflow-hidden overflow-y-auto rounded-panel border bg-white p-6 text-black shadow-2xl sm:p-8"
           >
             {/* Header with Close button */}
             <div className="mb-6 flex items-start justify-between">

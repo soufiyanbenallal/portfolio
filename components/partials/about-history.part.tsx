@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { workHistoryData } from "@/data/work-history.data";
 import { socialLinksData } from "@/data/client-logos.data";
 import { Container } from "@/components/shared/container.shared";
-import { TextReveal, ScrollDimmedText } from "@/components/motion/text-reveal.motion";
+import { ScrollDimmedText } from "@/components/motion/text-reveal.motion";
+import { SectionHeading } from "@/components/shared/section-heading.shared";
 import { Tilt3D } from "@/components/motion/tilt-3d.motion";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal.motion";
 import { Counter } from "@/components/motion/counter.motion";
@@ -38,13 +39,11 @@ export function AboutHistoryPart() {
 
   return (
     <div className="w-full">
-      <Container className="flex flex-col gap-12 py-16 md:gap-16 md:py-24 lg:py-32">
-        <TextReveal
-          as="h2"
-          by="line"
-          text={["Engineering software", "that scales and solves real problems."]}
-          className="text-[clamp(28px,3.5vw,40px)] leading-[1.05] font-medium tracking-[-0.03em] text-black"
-          fragmentClassName={(index) => (index === 0 ? "text-gray-40" : "text-black")}
+      <Container className="gap-stack py-section flex flex-col">
+        <SectionHeading
+          eyebrow="About"
+          title={["Engineering software", "that scales and solves real problems."]}
+          mutedFirstLine
         />
 
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[5fr_7fr] lg:gap-16">
@@ -52,7 +51,7 @@ export function AboutHistoryPart() {
           <div className="flex flex-col gap-8">
             <Reveal preset="card3D">
               <Tilt3D intensity={7} lift={14} glare className="w-full">
-                <div className="border-gray-30 bg-gray-10 relative aspect-4/3 w-full overflow-hidden rounded-[20px] border">
+                <div className="border-gray-30 bg-gray-10 relative aspect-4/3 w-full overflow-hidden rounded-card border">
                   <Image
                     src="/images/profile.jpeg"
                     alt="Soufiyan Benallal"
@@ -67,7 +66,7 @@ export function AboutHistoryPart() {
                     animate={{ x: [0, 2, 0], y: [0, -5, 0], rotate: [0, -6, 0] }}
                     transition={floatingMirrorTransition}
                     style={{ transform: "translateZ(40px)" }}
-                    className="border-gray-30 pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 rounded-xl border bg-white/90 px-3.5 py-2 text-xs font-medium text-black shadow-md backdrop-blur-md"
+                    className="border-gray-30 pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 rounded-tile border bg-white/90 px-3.5 py-2 text-xs font-medium text-black card-shadow-hover backdrop-blur-md"
                   >
                     <span className="bg-availability-green h-2 w-2 animate-pulse rounded-full" />
                     <span>Lead Full Stack Developer</span>
@@ -139,7 +138,7 @@ export function AboutHistoryPart() {
                 <ScrollDimmedText
                   key={index}
                   text={paragraph}
-                  className="text-[17px] leading-[1.55] tracking-[-0.02em] sm:text-[18px]"
+                  className="text-body-l leading-[1.55]"
                   dimClassName={index === 0 ? "text-black" : "text-gray-60"}
                 />
               ))}

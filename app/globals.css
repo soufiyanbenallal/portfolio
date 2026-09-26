@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 @import "./fonts.css";
 @import "tw-animate-css";
@@ -6,12 +5,25 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ==================================================================== *
+ * DESIGN TOKENS — the single source of truth
+ * --------------------------------------------------------------------
+ * Every token below becomes a Tailwind utility (`bg-gray-5`,
+ * `rounded-card`, `py-section`, `ease-entrance`, `shadow-card` …). The
+ * shadcn variables further down are *aliases* of these, never a second
+ * palette — so a component from either world renders in the same system.
+ *
+ * Inter and Fragment Mono are self-hosted by `next/font` in
+ * app/layout.tsx, which exposes them as `--font-inter` / `--font-fragment-mono`.
+ * ==================================================================== */
+
 @theme {
   --font-sans:
-    "Switzer", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Switzer", "Inter", sans-serif;
-  --font-price: "Inter Display", "Inter", sans-serif;
-  --font-mono: "Fragment Mono", ui-monospace, SFMono-Regular, monospace;
+    "Switzer", var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  --font-display: "Switzer", var(--font-inter), sans-serif;
+  --font-price: "Inter Display", var(--font-inter), sans-serif;
+  --font-mono: var(--font-fragment-mono), ui-monospace, SFMono-Regular, monospace;
 
   --color-white: #ffffff;
   --color-gray-5: #fafafa;
@@ -45,47 +57,73 @@
   --color-input: var(--color-gray-30);
   --color-ring: var(--color-black);
 
+  /* Semantic radii. The numeric scale (`rounded-lg` …) belongs to shadcn and
+     is left alone; portfolio surfaces use these names so a card is a card
+     everywhere, whatever its size. */
   --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
+  --radius-tile: 12px; /* icon tiles, small nested chips */
+  --radius-media: 16px; /* images and surfaces nested inside a card */
+  --radius-card: 20px; /* standard white / black cards */
+  --radius-panel: 24px; /* large feature panels, dialogs, project deck */
   --radius-full: 9999px;
-}
 
-:root {
-  --font-sans: "Switzer", "Inter", -apple-system, sans-serif;
-  --font-price: "Inter Display", "Inter", sans-serif;
+  /* Elevation. One ramp, lowest to highest. */
+  --shadow-card:
+    0 1px 2px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.03), 0 12px 24px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover:
+    0 2px 4px rgba(0, 0, 0, 0.03), 0 8px 20px rgba(0, 0, 0, 0.06), 0 16px 32px rgba(0, 0, 0, 0.07);
+  /* Cards that sit on a 3D stage read as physically further forward. */
+  --shadow-card-3d:
+    0 2px 6px rgba(0, 0, 0, 0.04), 0 18px 40px rgba(0, 0, 0, 0.08), 0 40px 80px rgba(0, 0, 0, 0.08);
+  --shadow-dark-card:
+    0 2px 4px rgba(0, 0, 0, 0.06), 0 8px 20px rgba(0, 0, 0, 0.12), 0 20px 40px rgba(0, 0, 0, 0.1);
+  --shadow-button:
+    inset 0 1.5px 3px rgba(255, 255, 255, 0.35), 0 2px 6px rgba(0, 0, 0, 0.15),
+    0 10px 20px rgba(0, 0, 0, 0.1);
+  --shadow-button-hover:
+    inset 0 1.5px 3px rgba(255, 255, 255, 0.3), 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 4px 10px rgba(0, 0, 0, 0.08);
 
-  /* Motion tokens — mirrored from lib/motion.config.ts so CSS-driven
-     transitions (view transitions, hover states) share the same feel as the
-     JavaScript-driven ones. Change them in both places or not at all. */
+  /* Vertical rhythm. Fluid, so there is no breakpoint where sections jump:
+     48px on a phone → 128px on a wide desktop (GUIDE.MD §2). */
+  --spacing-section: clamp(3rem, 1rem + 8vw, 8rem);
+  /* Gap between a section heading and its content. */
+  --spacing-stack: clamp(2.5rem, 1.75rem + 2.5vw, 4rem);
+
+  /* Motion curves — mirrored from lib/motion.config.ts so CSS transitions
+     (hovers, view transitions) share the JS choreography's feel. Exposed as
+     `ease-entrance`, `ease-editorial` … utilities. */
   --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
   --ease-editorial: cubic-bezier(0.68, 0, 0.22, 0.83);
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --default-transition-timing-function: var(--ease-standard);
+}
+
+:root {
   --duration-exit: 180ms;
   --duration-enter: 260ms;
   --duration-move: 460ms;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+
+  /* shadcn aliases → portfolio tokens. */
+  --background: var(--color-gray-5);
+  --foreground: var(--color-black);
+  --card: var(--color-white);
+  --card-foreground: var(--color-black);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-black);
+  --primary: var(--color-black);
+  --primary-foreground: var(--color-white);
+  --secondary: var(--color-gray-20);
+  --secondary-foreground: var(--color-black);
+  --muted: var(--color-gray-10);
+  --muted-foreground: var(--color-gray-50);
+  --accent: var(--color-gray-10);
+  --accent-foreground: var(--color-black);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: var(--color-gray-30);
+  --input: var(--color-gray-30);
+  --ring: var(--color-gray-40);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -115,9 +153,11 @@ html {
   color-scheme: light;
 }
 
+/* No background here: an unlayered rule outranks every utility, so it would
+   silently override `bg-*` on <body>. The canvas colour comes from the
+   `@layer base` block at the bottom via `--background`. */
 body {
   margin: 0;
-  background-color: var(--background);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -125,12 +165,12 @@ body {
 }
 
 ::selection {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--color-black);
+  color: var(--color-white);
 }
 
 :focus-visible {
-  outline: 2px solid #000000;
+  outline: 2px solid var(--color-black);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -152,15 +192,24 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
-.lenis.lenis-smooth iframe {
+/* Lenis' stock rule targets `.lenis-smooth`, which is on for the whole
+   session — that would leave every iframe (the Cal.com scheduler) dead to
+   clicks. Only swallow pointer events while a scroll is actually in flight,
+   so a wheel over an iframe doesn't get captured mid-glide. */
+.lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
 
 /* ------------------------------------------------------------------ *
  * Typography — the scale from GUIDE.MD
+ * ------------------------------------------------------------------
+ * Declared with `@utility` rather than as plain classes so they live in
+ * Tailwind's utilities layer: they accept variants (`md:text-h2-lg`) and
+ * a sibling utility (`leading-tight`) can still override them. Plain
+ * classes sit outside every layer and silently beat all utilities.
  * ------------------------------------------------------------------ */
 
-.text-h1 {
+@utility text-h1 {
   font-family: var(--font-sans);
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -168,7 +217,7 @@ html.lenis body {
   font-size: clamp(42px, 6vw, 72px);
 }
 
-.text-h2-lg {
+@utility text-h2-lg {
   font-family: var(--font-sans);
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -176,15 +225,17 @@ html.lenis body {
   font-size: clamp(36px, 5.2vw, 64px);
 }
 
-.text-h2-sm {
+/* The section-title size. Every homepage section heading uses this. */
+@utility text-h2-sm {
   font-family: var(--font-sans);
   font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 1.15;
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: clamp(26px, 3vw, 36px);
+  text-wrap: balance;
 }
 
-.text-h3-lg {
+@utility text-h3-lg {
   font-family: var(--font-sans);
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -192,7 +243,7 @@ html.lenis body {
   font-size: clamp(26px, 2.8vw, 32px);
 }
 
-.text-h3-sm {
+@utility text-h3-sm {
   font-family: var(--font-sans);
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -200,33 +251,33 @@ html.lenis body {
   font-size: clamp(20px, 2.2vw, 24px);
 }
 
-.text-body-xl {
+@utility text-body-xl {
   font-family: var(--font-sans);
   font-size: clamp(18px, 1.8vw, 22px);
   line-height: 1.4;
   letter-spacing: -0.03em;
 }
 
-.text-body-l {
+@utility text-body-l {
   font-family: var(--font-sans);
   font-size: clamp(16px, 1.5vw, 18px);
   line-height: 1.4;
   letter-spacing: -0.02em;
 }
 
-.text-body-m {
+@utility text-body-m {
   font-family: var(--font-sans);
   font-size: clamp(14px, 1.3vw, 16px);
   line-height: 1.5;
 }
 
-.text-body-s {
+@utility text-body-s {
   font-family: var(--font-sans);
   font-size: 14px;
   line-height: 1.6;
 }
 
-.text-price-lg {
+@utility text-price-lg {
   font-family: var(--font-price);
   font-weight: 600;
   letter-spacing: -0.03em;
@@ -234,7 +285,8 @@ html.lenis body {
   line-height: 1.1;
 }
 
-.text-label {
+/* Eyebrow / meta label. Colour is left to the call site. */
+@utility text-label {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.18em;
@@ -245,66 +297,64 @@ html.lenis body {
  * Surfaces
  * ------------------------------------------------------------------ */
 
-.card-shadow {
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.02),
-    0 4px 12px rgba(0, 0, 0, 0.03),
-    0 12px 24px rgba(0, 0, 0, 0.04);
+/* The house card: white, hairline gray-30 border, soft elevation. Pair with
+   `hover:card-shadow-hover` for interactive cards. */
+@utility surface-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-30);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
 }
 
-.card-shadow-hover {
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.03),
-    0 8px 20px rgba(0, 0, 0, 0.06),
-    0 16px 32px rgba(0, 0, 0, 0.07);
+@utility card-shadow {
+  box-shadow: var(--shadow-card);
 }
 
-/* Depth for cards that sit on a 3D stage — heavier and lower than the flat
-   card shadow, because they are read as physically further forward. */
-.card-shadow-3d {
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.04),
-    0 18px 40px rgba(0, 0, 0, 0.08),
-    0 40px 80px rgba(0, 0, 0, 0.08);
+@utility card-shadow-hover {
+  box-shadow: var(--shadow-card-hover);
 }
 
-.dark-pill-button {
-  background-color: #000000;
-  color: #ffffff;
-  border-radius: 9999px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 2px 6px rgba(0, 0, 0, 0.12);
-  transition: all 0.2s var(--ease-standard);
+@utility card-shadow-3d {
+  box-shadow: var(--shadow-card-3d);
 }
 
-.dark-pill-button:hover {
-  background-color: #1a1a1a;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    0 4px 12px rgba(0, 0, 0, 0.2);
+/* Primary dark pill. GUIDE.MD: preserve shape and *reduce* the outer shadow
+   on hover rather than scaling. */
+@utility dark-pill-button {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-button);
+  transition:
+    background-color 0.2s var(--ease-standard),
+    box-shadow 0.2s var(--ease-standard);
+
+  &:hover {
+    background-color: var(--color-black-90);
+    box-shadow: var(--shadow-button-hover);
+  }
 }
 
-.glass-pill {
-  background-color: rgba(255, 255, 255, 0.7);
+@utility glass-pill {
+  background-color: rgb(255 255 255 / 0.7);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid #dedede;
+  border: 1px solid var(--color-gray-30);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
+@utility no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Establishes a shared 3D space so nested layers can use real translateZ
    instead of faking depth with shadows. */
-.stage-3d {
+@utility stage-3d {
   transform-style: preserve-3d;
 }
 
@@ -344,11 +394,11 @@ html.lenis body {
 }
 
 .animate-nav-fade-in {
-  animation: nav-fade-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: nav-fade-in 0.22s var(--ease-entrance) both;
 }
 
 .animate-nav-pop-in {
-  animation: nav-pop-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: nav-pop-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both; /* overshoot */
 }
 
 /* ------------------------------------------------------------------ *
@@ -471,9 +521,11 @@ html.lenis body {
   }
 }
 
+/* shadcn bridge. `--font-sans` is deliberately *not* re-declared here: the
+   old `--font-sans: var(--font-sans)` line was self-referential, which is
+   invalid CSS and dropped the whole font stack back to the UA default. */
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

@@ -280,6 +280,21 @@ export const floatingMirrorTransition: Transition = {
  * -------------------------------------------------------------------- */
 
 /**
+ * Global smooth-scroll feel (Lenis). This is the *only* layer that smooths
+ * the scroll position; scroll-linked rigs add at most a stiff spring
+ * (`SPRINGS.scroll` / `SPRINGS.scrollHeavy`) on top, never a second lerp.
+ */
+export const SCROLL = {
+  /** Per-frame catch-up. ~0.1 glides without feeling detached from the wheel. */
+  lerp: 0.1,
+  wheelMultiplier: 1,
+  /** Clears the floating navbar (top-6 + its height) on anchor jumps. */
+  anchorOffset: -96,
+  /** Seconds for programmatic `scrollTo` jumps (nav links, deck dots). */
+  jumpDuration: 1.1,
+} as const;
+
+/**
  * Named `useScroll` offsets. Naming them keeps the intent readable at the
  * call site — `SCROLL_OFFSETS.throughViewport` says far more than
  * `["start end", "end start"]`.

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { faqsData } from "@/data/faqs.data";
 import { Container } from "@/components/shared/container.shared";
-import { TextReveal } from "@/components/motion/text-reveal.motion";
+import { SectionHeading } from "@/components/shared/section-heading.shared";
 import { Reveal } from "@/components/motion/reveal.motion";
 import { Tilt3D } from "@/components/motion/tilt-3d.motion";
 import { Magnetic } from "@/components/motion/magnetic.motion";
@@ -28,17 +28,14 @@ export function FaqPart() {
 
   return (
     <div className="w-full">
-      <Container className="py-16 md:py-24 lg:py-32">
+      <Container className="gap-stack py-section flex flex-col">
+        <SectionHeading eyebrow="FAQ" title="Your questions answered." />
+
+        {/* Heading sits above the grid so the list and the sticky card share
+            a top edge by construction, not by a magic margin. */}
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1.5fr_1fr] lg:gap-12">
           {/* ── Questions ── */}
-          <div className="flex flex-col gap-10">
-            <TextReveal
-              as="h2"
-              by="word"
-              text="Your questions answered."
-              className="text-h2-sm text-black"
-            />
-
+          <div className="flex flex-col">
             <div className="flex flex-col gap-4">
               {faqsData.map((item, index) => {
                 const isOpen = openId === item.id;
@@ -55,7 +52,7 @@ export function FaqPart() {
                       delay: index * 0.06,
                       ease: EASINGS.entrance,
                     }}
-                    className="border-gray-20 card-shadow overflow-hidden rounded-2xl border bg-white"
+                    className="surface-card overflow-hidden"
                   >
                     <h3>
                       <button
@@ -63,7 +60,7 @@ export function FaqPart() {
                         onClick={() => setOpenId(isOpen ? "" : item.id)}
                         aria-expanded={isOpen}
                         aria-controls={panelId}
-                        className="group flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left"
+                        className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-card px-5 py-4 text-left"
                       >
                         <span className="flex items-center gap-3">
                           <span className="text-gray-40 shrink-0 font-mono text-xs">
@@ -119,16 +116,10 @@ export function FaqPart() {
           </div>
 
           {/* ── Sticky booking card ── */}
-          <div className="mt-8 lg:sticky lg:top-[88px] lg:mt-[72px]">
+          <div className="lg:sticky lg:top-24">
             <Reveal preset="card3D" delay={0.15}>
               <Tilt3D intensity={6} lift={12} perspective={900}>
-                <div
-                  className="flex flex-col gap-6 rounded-2xl bg-black p-8 text-white"
-                  style={{
-                    boxShadow:
-                      "0 2px 4px rgba(0,0,0,0.06), 0 8px 20px rgba(0,0,0,0.12), 0 20px 40px rgba(0,0,0,0.1)",
-                  }}
-                >
+                <div className="rounded-card shadow-dark-card flex flex-col gap-6 bg-black p-8 text-white">
                   <span
                     className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-white/20"
                     style={{ transform: "translateZ(30px)" }}
@@ -159,7 +150,7 @@ export function FaqPart() {
                       data-cal-link={CAL_LINK}
                       data-cal-config='{"layout":"month_view"}'
                       data-cursor="grow"
-                      className="hover:bg-gray-20 w-full cursor-pointer rounded-full bg-white py-3 text-sm font-medium tracking-tight text-black transition-colors duration-200"
+                      className="hover:bg-gray-20 h-11 w-full cursor-pointer rounded-full bg-white text-sm font-medium tracking-tight text-black transition-colors duration-200"
                     >
                       Schedule Now
                     </button>

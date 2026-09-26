@@ -24,7 +24,8 @@ import { Tilt3D } from "@/components/motion/tilt-3d.motion";
 import { SharedElement } from "@/components/motion/page-transition.motion";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { CAL_LINK } from "@/components/shared/cal-embed.shared";
-import { DURATIONS, EASINGS, SPRINGS, SCROLL_OFFSETS, PERSPECTIVE } from "@/lib/motion.config";
+import { useLenis } from "lenis/react";
+import { DURATIONS, EASINGS, SPRINGS, SCROLL, SCROLL_OFFSETS, PERSPECTIVE } from "@/lib/motion.config";
 import { useIsDesktop, useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { cn } from "@/lib/utils";
 import type { DeckCardConfigType, ProjectDetailType } from "@/types";
@@ -665,7 +666,7 @@ function UnifiedCard({ project, index, config, progress, activeIndex }: UnifiedC
           >
             {/* Specular 3D Glass Shell */}
             <div
-              className="relative overflow-hidden rounded-[26px] bg-white p-3.5 transition-all duration-300 hover:shadow-2xl sm:p-4"
+              className="rounded-panel relative overflow-hidden bg-white p-3.5 transition-shadow duration-300 hover:shadow-2xl sm:p-4"
               style={{
                 boxShadow:
                   "0 24px 48px -12px rgba(0, 0, 0, 0.12), 0 12px 24px -8px rgba(0, 0, 0, 0.08), inset 0 1px 1.5px rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(0, 0, 0, 0.06)",
@@ -673,7 +674,7 @@ function UnifiedCard({ project, index, config, progress, activeIndex }: UnifiedC
             >
               {/* Dynamic Cursor Glare Highlight */}
               <motion.div
-                className="pointer-events-none absolute -inset-px rounded-[26px] transition-opacity duration-300"
+                className="rounded-panel pointer-events-none absolute -inset-px transition-opacity duration-300"
                 style={{
                   background: useTransform(
                     [glareX, glareY],
@@ -686,20 +687,20 @@ function UnifiedCard({ project, index, config, progress, activeIndex }: UnifiedC
 
               {/* Media Preview Container */}
               <SharedElement name={`project-media-${project.slug}`}>
-                <div className="bg-gray-10 relative aspect-16/10 w-full overflow-hidden rounded-[20px] shadow-inner">
+                <div className="bg-gray-10 rounded-media relative aspect-16/10 w-full overflow-hidden shadow-inner">
                   <Image
                     src={project.thumbnail}
                     alt={project.title}
                     fill
                     sizes="(max-width: 1024px) 92vw, 720px"
                     priority={index === 0}
-                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    className="ease-editorial object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
                   />
 
                   {/* Glassmorphic Project Badge */}
                   <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-2">
                     <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/60 px-3 py-1 font-mono text-[11px] font-medium text-white shadow-md backdrop-blur-md">
-                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                      <span className="bg-availability-green h-1.5 w-1.5 animate-pulse rounded-full" />
                       <span>{project.category}</span>
                     </span>
                   </div>
@@ -835,7 +836,7 @@ function StickyAside({ activeIndex, progress, onSelectProject }: StickyAsideProp
               className="absolute inset-0 flex flex-col gap-3"
             >
               <div className="flex items-center gap-2.5">
-                <h3 className="text-2xl font-medium tracking-tight text-black lg:text-3xl">
+                <h3 className="text-h3-lg text-black">
                   {project.title}
                 </h3>
                 <span className="bg-gray-10 text-gray-60 border-gray-30 rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-medium">
@@ -895,7 +896,6 @@ type Stage4OutroPropsType = {
 function Stage4Outro({ progress }: Stage4OutroPropsType) {
   const outroOpacity = useTransform(progress, [0.88, 0.95], [0, 1]);
   const outroY = useTransform(progress, [0.88, 0.95], [20, 0]);
-  const outroBlur = useTransform(progress, [0.88, 0.95], ["blur(8px)", "blur(0px)"]);
   const outroPointerEvents = useTransform(progress, (p) => (p >= 0.9 ? "auto" : "none"));
 
   return (
@@ -904,7 +904,6 @@ function Stage4Outro({ progress }: Stage4OutroPropsType) {
       style={{
         opacity: outroOpacity,
         y: outroY,
-        filter: outroBlur,
         pointerEvents: outroPointerEvents as unknown as "auto" | "none",
       }}
     >
@@ -928,7 +927,7 @@ function Stage4Outro({ progress }: Stage4OutroPropsType) {
             <Link
               href="/projects"
               transitionTypes={["nav-forward"]}
-              className="inline-flex items-center gap-2 rounded-full bg-black px-5 py-2 text-xs font-semibold text-white shadow-md transition-colors hover:bg-neutral-800"
+              className="dark-pill-button inline-flex items-center gap-2 px-5 py-2 text-xs font-semibold"
             >
               <span>Explore all projects</span>
               <Icons.ArrowRight className="h-3.5 w-3.5" />
@@ -936,12 +935,17 @@ function Stage4Outro({ progress }: Stage4OutroPropsType) {
           </Magnetic>
 
           <Magnetic strength={0.4}>
-            <a
-              href={CAL_LINK}
-              className="border-gray-30 bg-gray-10 hover:bg-gray-20 inline-flex items-center rounded-full border px-4 py-2 text-xs font-semibold text-black transition-colors"
+            {/* Opens the Cal.com popup like every other booking control — a raw
+                `href={CAL_LINK}` resolved to a relative 404. */}
+            <button
+              type="button"
+              data-cal-link={CAL_LINK}
+              data-cal-config='{"layout":"month_view"}'
+              data-cursor="grow"
+              className="border-gray-30 bg-gray-10 hover:bg-gray-20 inline-flex cursor-pointer items-center rounded-full border px-4 py-2 text-xs font-semibold text-black transition-colors"
             >
               Start a project
-            </a>
+            </button>
           </Magnetic>
         </div>
       </div>
@@ -959,6 +963,7 @@ export function HeroProjectsUnifiedPart() {
   const prefersReducedMotion = useReducedMotionSafe();
   const isDesktop = useIsDesktop();
   const [activeIndex, setActiveIndex] = useState(0);
+  const lenis = useLenis();
 
   // Mouse 3D tilt tracking for Hero phase
   const pointerX = useMotionValue(0);
@@ -973,13 +978,10 @@ export function HeroProjectsUnifiedPart() {
     offset: SCROLL_OFFSETS.pinned,
   });
 
-  // Smooth spring damping for fluid scroll response
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 240,
-    damping: 32,
-    mass: 0.22,
-    restDelta: 0.0005,
-  });
+  // Lenis already glides the scroll position; this stiff spring only absorbs
+  // frame jitter across the rig's many transforms. A soft spring here would
+  // stack a second lag on top of Lenis and make the deck trail the wheel.
+  const smoothProgress = useSpring(scrollYProgress, SPRINGS.scrollHeavy);
 
   // All transforms declared unconditionally at top level
   const heroBlend = useTransform(smoothProgress, [0, 0.14], [1, 0]);
@@ -990,7 +992,6 @@ export function HeroProjectsUnifiedPart() {
   const heroCopyOpacity = useTransform(smoothProgress, [0, 0.14], [1, 0]);
   const heroCopyY = useTransform(smoothProgress, [0, 0.14], [0, -60]);
   const heroCopyScale = useTransform(smoothProgress, [0, 0.14], [1, 0.98]);
-  const heroCopyBlur = useTransform(smoothProgress, [0, 0.14], ["blur(0px)", "blur(8px)"]);
   const heroCopyPointerEvents = useTransform(smoothProgress, (p) => (p < 0.12 ? "auto" : "none"));
 
   // Showcase Header and 30% Aside Transforms
@@ -1002,7 +1003,6 @@ export function HeroProjectsUnifiedPart() {
     return 0;
   });
   const showcaseY = useTransform(smoothProgress, [0.16, 0.28], [40, 0]);
-  const showcaseBlur = useTransform(smoothProgress, [0.16, 0.28], ["blur(8px)", "blur(0px)"]);
   const showcasePointerEvents = useTransform(smoothProgress, (p) =>
     p >= 0.2 && p < 0.88 ? "auto" : "none"
   );
@@ -1061,8 +1061,11 @@ export function HeroProjectsUnifiedPart() {
     const height = containerRef.current.offsetHeight - window.innerHeight;
     const targets = [0.32, 0.48, 0.64, 0.78];
     const targetScroll = top + height * targets[index];
-    window.scrollTo({ top: targetScroll, behavior: "smooth" });
-  }, []);
+    // Through Lenis, so the jump shares the page's easing instead of the
+    // browser's native smooth-scroll (which Lenis would fight frame by frame).
+    if (lenis) lenis.scrollTo(targetScroll, { duration: SCROLL.jumpDuration });
+    else window.scrollTo({ top: targetScroll });
+  }, [lenis]);
 
   /* ── Responsive Fallback for Mobile / Reduced Motion ── */
   if (prefersReducedMotion || !isDesktop) {
@@ -1073,10 +1076,10 @@ export function HeroProjectsUnifiedPart() {
           <Container className="flex flex-col gap-8">
             <div className="flex flex-col gap-6">
               <AvailabilityBadgeUi text="Available for new projects" />
-              <h1 className="text-4xl font-medium tracking-tight text-black">
+              <h1 className="text-h1 text-black">
                 Engineering that delivers results.
               </h1>
-              <p className="text-gray-60 text-base">
+              <p className="text-body-l text-gray-60">
                 <strong className="font-semibold text-black">
                   Senior Full Stack &amp; Shopify Developer.
                 </strong>{" "}
@@ -1088,7 +1091,8 @@ export function HeroProjectsUnifiedPart() {
                   data-cal-link={CAL_LINK}
                   data-cal-config='{"layout":"month_view"}'
                   data-cursor="grow"
-                  className="inline-flex items-center rounded-full bg-black px-6 py-3 text-sm font-medium text-white shadow-lg"
+                  type="button"
+                  className="dark-pill-button inline-flex h-11 cursor-pointer items-center px-6 text-sm font-medium"
                 >
                   Book a call with me
                 </button>
@@ -1101,9 +1105,9 @@ export function HeroProjectsUnifiedPart() {
                 <Link
                   key={project.id}
                   href={`/projects/${project.slug}`}
-                  className="border-gray-30 card-shadow block rounded-2xl border bg-white p-3.5"
+                  className="surface-card block p-3.5"
                 >
-                  <div className="bg-gray-10 relative aspect-16/10 w-full overflow-hidden rounded-xl">
+                  <div className="bg-gray-10 rounded-media relative aspect-16/10 w-full overflow-hidden">
                     <Image
                       src={project.thumbnail}
                       alt={project.title}
@@ -1152,13 +1156,12 @@ export function HeroProjectsUnifiedPart() {
             opacity: heroCopyOpacity,
             y: heroCopyY,
             scale: heroCopyScale,
-            filter: heroCopyBlur,
             pointerEvents: heroCopyPointerEvents as unknown as "auto" | "none",
           }}
         >
           <Container className="w-full">
             <div className="grid grid-cols-2 items-center gap-8">
-              <div className="flex max-w-[500px] flex-col gap-6">
+              <div className="flex max-w-140 flex-col gap-6">
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -1171,10 +1174,9 @@ export function HeroProjectsUnifiedPart() {
                   <AvailabilityBadgeUi text="Available for new projects" />
                 </motion.div>
 
-                <h1
-                  className="leading-[0.95] font-medium tracking-[-0.03em]"
-                  style={{ fontSize: "clamp(42px, 5.5vw, 72px)" }}
-                >
+                {/* `text-h1`, capped at 5.5vw so the two-line lockup fits the
+                    left half-column next to the deck. */}
+                <h1 className="text-h1" style={{ fontSize: "clamp(42px, 5.5vw, 72px)" }}>
                   <TextReveal
                     as="span"
                     by="word"
@@ -1208,7 +1210,7 @@ export function HeroProjectsUnifiedPart() {
                     delay: 0.55,
                     ease: EASINGS.entrance,
                   }}
-                  className="text-gray-60 text-[16px] leading-[1.4] tracking-[-0.02em] sm:text-[18px]"
+                  className="text-body-l text-gray-60"
                 >
                   <strong className="font-semibold text-black">
                     Senior Full Stack &amp; Shopify Developer.
@@ -1233,11 +1235,7 @@ export function HeroProjectsUnifiedPart() {
                       data-cal-link={CAL_LINK}
                       data-cal-config='{"layout":"month_view"}'
                       data-cursor="grow"
-                      className="group inline-flex cursor-pointer items-center rounded-full bg-black py-2 pr-5 pl-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-[#1a1a1a]"
-                      style={{
-                        boxShadow:
-                          "inset 0 1.5px 3px rgba(255,255,255,0.35), 0 2px 6px rgba(0,0,0,0.15), 0 10px 20px rgba(0,0,0,0.1)",
-                      }}
+                      className="group dark-pill-button inline-flex cursor-pointer items-center py-2 pr-5 pl-2 text-sm font-medium"
                     >
                       <span className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-white/20">
                         <Image
@@ -1274,7 +1272,6 @@ export function HeroProjectsUnifiedPart() {
           style={{
             opacity: showcaseOpacity,
             y: showcaseY,
-            filter: showcaseBlur,
             pointerEvents: showcasePointerEvents as unknown as "auto" | "none",
           }}
         >
@@ -1319,7 +1316,7 @@ export function HeroProjectsUnifiedPart() {
             <span className="text-label text-gray-60 bg-gray-10 border-gray-30 mb-2.5 rounded-full border px-3.5 py-1 shadow-xs">
               Selected Portfolio Archive
             </span>
-            <h3 className="mb-1 text-2xl font-medium tracking-tight text-black lg:text-3xl">
+            <h3 className="text-h3-lg mb-1 text-black">
               Explore All 4 Featured Case Studies
             </h3>
             <p className="font-mono text-xs text-gray-50">

@@ -73,7 +73,8 @@ export function BookingDialogShared() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 16 }}
             transition={{ type: "spring", duration: 0.4, bounce: 0.1 }}
-            className="border-gray-30 relative z-10 max-h-[90vh] w-full max-w-[540px] overflow-y-auto rounded-[24px] border bg-white p-6 text-black shadow-2xl sm:p-8"
+            data-lenis-prevent
+            className="border-gray-30 relative z-10 max-h-[90vh] w-full max-w-[540px] overflow-y-auto rounded-panel border bg-white p-6 text-black shadow-2xl sm:p-8"
           >
             <div className="mb-6 flex items-start justify-between">
               <div className="flex items-center gap-3">
