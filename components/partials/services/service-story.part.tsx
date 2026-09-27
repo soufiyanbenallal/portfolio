@@ -6,7 +6,7 @@ import { CAL_LINK } from "@/components/shared/cal-embed.shared";
 import { cn } from "@/lib/utils";
 import { DetailFigure, DetailKicker, type PosterChapterType } from "./service-kit.part";
 import type { ServiceItemType } from "@/types";
-import { AArrowDownIcon, ArrowDownToDot, ChevronsDown } from "lucide-react";
+import { AArrowDownIcon, ArrowDownToDot, ChevronsDown, ChevronsDownIcon } from "lucide-react";
 
 /* ==================================================================== *
  * SERVICE STORY — the right column of a service section
@@ -244,7 +244,7 @@ export function ServiceStory({
                 className="btn-secondary inline-flex h-10 items-center gap-2 px-4 text-[13px] font-medium"
               >
                 Next: {next.title}
-                <span aria-hidden="true">↓</span>
+                <ChevronsDownIcon aria-hidden="true" className="size-3.5" />
               </a>
             ) : (
               <a
@@ -252,8 +252,7 @@ export function ServiceStory({
                 className="btn-secondary inline-flex h-10 items-center gap-2 px-4 text-[13px] font-medium"
               >
                 About me
-                {/* <span aria-hidden="true">↓</span> */}
-                <ChevronsDown className="size-3.5" />
+                <ChevronsDownIcon aria-hidden="true" className="size-3.5" />
               </a>
             )}
           </div>

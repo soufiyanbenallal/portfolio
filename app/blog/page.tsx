@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function BlogIndexPage() {
   return (
     <PageTransition>
-      <Section as="div" seam={false}>
+      <Section as="div" seam={false} hatchedMargins>
         <ChapterHead
           as="h1"
           eyebrow="Writing"

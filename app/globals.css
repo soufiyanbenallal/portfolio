@@ -355,11 +355,9 @@ html.lenis body {
 /* Eyebrow / meta label. Colour is left to the call site (usually
    `text-ink-faint`). */
 @utility text-label {
-  font-family: var(--font-mono);
   font-size: 11px;
   line-height: 1.4;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 /* ------------------------------------------------------------------ *

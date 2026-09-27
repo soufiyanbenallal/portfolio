@@ -16,6 +16,7 @@ import { AI_CHAPTERS, AiServiceStory } from "./services/ai-service-detail.part";
 import { ServiceShowcase } from "@/components/motion/service-showcase.motion";
 import type { PosterChapterType } from "./services/service-kit.part";
 import type { ServiceItemType, ServiceThemeType } from "@/types";
+import { ChevronsDownIcon } from "lucide-react";
 
 /* ==================================================================== *
  * SERVICES
@@ -94,7 +95,7 @@ function ServicesIntro() {
               <span className="text-ink-faint group-hover:text-ink mt-auto pt-2 text-[13px] transition-colors">
                 See how it works{" "}
                 <span className="ease-entrance inline-block transition-transform duration-300 group-hover:translate-y-0.5">
-                  ↓
+                  <ChevronsDownIcon className="size-3.5" />
                 </span>
               </span>
             </a>

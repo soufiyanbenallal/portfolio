@@ -4,7 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { articlesData, getArticleBySlug } from "@/data/articles.data";
 import { Icons } from "@/components/ui/social-icons.ui";
-import { Section } from "@/components/shared/section.shared";
+import { Band, Section } from "@/components/shared/section.shared";
 import { Chapter, ChapterHead } from "@/components/shared/chapter.shared";
 import { ArticleCard } from "@/components/shared/article-card.shared";
 import { PageTransition, SharedElement } from "@/components/motion/page-transition.motion";
@@ -47,11 +47,13 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
             <h1 className="text-ink max-w-3xl text-[36px] leading-[1.06] font-medium tracking-[-0.04em] text-balance sm:text-[52px]">
               {article.title}
             </h1>
-            <p className="text-ink-muted max-w-2xl text-[17px] leading-relaxed">{article.subtitle}</p>
+            <p className="text-ink-muted max-w-2xl text-[17px] leading-relaxed">
+              {article.subtitle}
+            </p>
           </div>
         </Section>
 
-        <Section aria-label="Cover">
+        <Section aria-label="Cover" hatchedMargins>
           <SharedElement name={`article-media-${article.slug}`}>
             <div className="bg-raised relative aspect-16/10 w-full overflow-hidden">
               <Image
@@ -66,13 +68,24 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
             </div>
           </SharedElement>
         </Section>
+        <Band aria-label="More writing" className="border-y" />
 
         <Section aria-label="Article">
-          <Chapter label={article.category} summary={`${article.publishedAt} · ${article.readTime}`} accent>
+          <Chapter
+            label={article.category}
+            summary={`${article.publishedAt} · ${article.readTime}`}
+            accent
+          >
             <div className="flex max-w-[68ch] flex-col gap-10 px-4 py-12 sm:px-10 lg:py-16">
               <div className="flex items-center gap-3">
                 <span className="ring-line-2 relative h-8 w-8 overflow-hidden rounded-full ring-1">
-                  <Image src={article.author.avatar} alt="" fill sizes="32px" className="object-cover" />
+                  <Image
+                    src={article.author.avatar}
+                    alt=""
+                    fill
+                    sizes="32px"
+                    className="object-cover"
+                  />
                 </span>
                 <span className="flex flex-col">
                   <span className="text-ink text-[13px] font-medium">{article.author.name}</span>
@@ -80,7 +93,9 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
                 </span>
               </div>
 
-              <p className="text-ink text-[19px] leading-relaxed tracking-[-0.01em]">{article.intro}</p>
+              <p className="text-ink text-[19px] leading-relaxed tracking-[-0.01em]">
+                {article.intro}
+              </p>
 
               {article.sections.map((section) => (
                 <section key={section.heading} className="flex flex-col gap-4">
@@ -108,9 +123,10 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
             </div>
           </Chapter>
         </Section>
+        <Band aria-label="More writing" />
 
         {relatedArticles.length > 0 && (
-          <Section aria-label="More writing">
+          <Section aria-label="More writing" hatchedMargins>
             <ChapterHead eyebrow="More writing" title={["Keep reading."]} />
             <ul className="cells border-line border-t md:grid-cols-2">
               {relatedArticles.map((related) => (
@@ -122,6 +138,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
           </Section>
         )}
       </article>
+      <Band aria-label="More writing" className="border-y" />
     </PageTransition>
   );
 }

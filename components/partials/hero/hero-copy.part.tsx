@@ -8,6 +8,7 @@ import { TextReveal } from "@/components/motion/text-reveal.motion";
 import { Magnetic } from "@/components/motion/magnetic.motion";
 import { CAL_LINK } from "@/components/shared/cal-embed.shared";
 import { DURATIONS, EASINGS } from "@/lib/motion.config";
+import { ChevronsDownIcon } from "lucide-react";
 
 const enter = (delay: number) => ({
   initial: { opacity: 0, y: 10 },
@@ -91,7 +92,7 @@ export function HeroCopy() {
           className="btn-secondary inline-flex h-11 items-center gap-2 px-4 text-sm font-medium"
         >
           See the work
-          <span aria-hidden="true">↓</span>
+          <ChevronsDownIcon aria-hidden="true" className="size-3.5" />
         </a>
       </motion.div>
 
