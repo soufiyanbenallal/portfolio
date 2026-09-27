@@ -10,13 +10,12 @@ export const articlesData: ArticleDetailType[] = [
     publishedAt: "Mar 12, 2025",
     author: {
       name: "Soufiyan Benallal",
-      role: "Lead Full Stack & Shopify Architect",
+      role: "Lead Full Stack Developer",
       avatar: "/images/profile.jpeg",
     },
     readTime: "6 min read",
     category: "Architecture",
-    coverImage:
-      "https://framerusercontent.com/images/tBF8hMQFxONWA4CXtHf3R4.jpg?scale-down-to=1024",
+    coverImage: "/images/writing/design-tokens.jpg",
     featured: true,
     excerpt:
       "Discover proven patterns to bridge the designer-developer gap. Learn how living design token pipelines eliminate regression bugs and accelerate feature delivery across engineering teams.",
@@ -35,7 +34,7 @@ export const articlesData: ArticleDetailType[] = [
       {
         heading: "Synchronous Pairing Over Static Handoffs",
         paragraphs: [
-          "Teams that adopt synchronous pairing—where engineers review component interaction states before full implementation, and designers test living code branches—reduce visual bugs by over 60%.",
+          "Teams that adopt synchronous pairing—where engineers review component interaction states before full implementation, and designers test living code branches—catch most visual bugs before they ever reach a pull request.",
           "Building a living component library with Storybook or isolated playgrounds ensures that edge cases (like multi-line truncation or locale translations) are addressed before production launch.",
         ],
       },
@@ -52,17 +51,16 @@ export const articlesData: ArticleDetailType[] = [
     slug: "architecting-shopify-polaris-web-components",
     title: "Architecting Embedded Shopify Apps with Polaris Web Components",
     subtitle:
-      "Building high-concurrency merchant tools with App Bridge, GraphQL, and modern web components.",
+      "Building merchant tools with App Bridge, the Admin GraphQL API and Polaris web components.",
     publishedAt: "Feb 28, 2025",
     author: {
       name: "Soufiyan Benallal",
-      role: "Lead Full Stack & Shopify Architect",
+      role: "Lead Full Stack Developer",
       avatar: "/images/profile.jpeg",
     },
     readTime: "8 min read",
     category: "Shopify Ecosystem",
-    coverImage:
-      "https://framerusercontent.com/images/AZe7hFsRlGAWp9spF25RMEwS0gA.jpg?scale-down-to=1024",
+    coverImage: "/images/writing/polaris-web-components.jpg",
     featured: false,
     excerpt:
       "A deep technical breakdown of building embedded Shopify Admin applications using Shopify Polaris Web Components, App Bridge, and GraphQL caching strategies.",
@@ -73,13 +71,13 @@ export const articlesData: ArticleDetailType[] = [
         heading: "Decoupling State from Embedded Frames",
         paragraphs: [
           "Embedded Shopify applications require reliable bi-directional communication between the top-level Admin frame and your app backend. Using App Bridge utilities with state stores prevents unnecessary page reloads and authentication token invalidations.",
-          "Leveraging GraphQL Storefront and Admin queries with bulk operations ensures low-latency responses even when handling tens of thousands of SKU updates.",
+          "Leaning on the Admin GraphQL API — and bulk operations for large catalogs — keeps responses fast without hand-rolled batching.",
         ],
       },
       {
         heading: "Shopify Functions & Checkout Customizations",
         paragraphs: [
-          "With Shopify Functions replacing legacy scripts, merchant business logic (discounts, cart validations, and delivery rules) runs securely on Shopify's global edge infrastructure with sub-5ms execution times.",
+          "With Shopify Functions replacing legacy scripts, merchant business logic — discounts, cart validations and delivery rules — runs on Shopify's own infrastructure, inside the platform's strict performance limits.",
         ],
       },
     ],
@@ -97,13 +95,12 @@ export const articlesData: ArticleDetailType[] = [
     publishedAt: "Feb 14, 2025",
     author: {
       name: "Soufiyan Benallal",
-      role: "Lead Full Stack & Shopify Architect",
+      role: "Lead Full Stack Developer",
       avatar: "/images/profile.jpeg",
     },
     readTime: "7 min read",
     category: "AI Engineering",
-    coverImage:
-      "https://framerusercontent.com/images/q3ruKmoVYmFXP9EeyZlQPnTDuVw.jpg?scale-down-to=1024",
+    coverImage: "/images/writing/ai-workflows.jpg",
     featured: false,
     excerpt:
       "How to move beyond generic chatbot widgets and architect production-grade AI agent pipelines with deterministic schemas, tool calling, and background task queues.",
@@ -132,18 +129,17 @@ export const articlesData: ArticleDetailType[] = [
     publishedAt: "Jan 25, 2025",
     author: {
       name: "Soufiyan Benallal",
-      role: "Lead Full Stack & Shopify Architect",
+      role: "Lead Full Stack Developer",
       avatar: "/images/profile.jpeg",
     },
     readTime: "5 min read",
     category: "Performance",
-    coverImage:
-      "https://framerusercontent.com/images/3IIKOQ9VkCZyf0KlL2N5yBg1cQ.jpg?scale-down-to=1024",
+    coverImage: "/images/writing/performance.jpg",
     featured: false,
     excerpt:
-      "Speed is the ultimate product feature. Learn how modern React 19 architectures, streaming SSR, and optimized asset pipelines deliver lightning-fast digital storefronts.",
+      "Speed is a product feature. How server components, streaming and a disciplined asset pipeline keep storefronts fast.",
     intro:
-      "Every 100 milliseconds of latency in an e-commerce checkout flow directly reduces conversion rates. High-performance software engineering is not an afterthought—it must be architected from day one.",
+      "Latency in a checkout flow costs sales, and it is far cheaper to design speed in than to claw it back later. Performance is not an afterthought — it is an architecture decision.",
     sections: [
       {
         heading: "Eliminating Main-Thread Bottlenecks",

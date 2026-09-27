@@ -1,6 +1,6 @@
 import type { MotionValue } from "motion/react";
 
-export type ProjectCategoryType = "Design" | "Development" | "Branding" | "All";
+export type ProjectCategoryType = "Shopify" | "Design systems" | "Tooling" | "All";
 
 export type ProjectStatItemType = {
   label: string;

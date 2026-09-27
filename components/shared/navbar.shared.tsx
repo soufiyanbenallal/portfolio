@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import React, { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useScroll, useMotionValueEvent } from "motion/react";
 import { useLenis } from "lenis/react";
@@ -14,27 +14,42 @@ import { NavbarMobilePart } from "./partials/navbar-mobile.part";
 import type { NavbarSharedPropsType } from "@/types";
 
 /**
- * Floating navigation with morphing actions on scroll.
+ * Scroll distance at which the hero's own booking CTA has left the screen.
+ * The desktop rig fades its copy out within the first ~0.6 viewport of
+ * scroll, and the stacked mobile hero scrolls it off in about the same
+ * distance — the whole 500vh rig is far too late to wait for.
+ */
+function getHeroCtaThreshold() {
+  return window.innerHeight * 0.6;
+}
+
+/** Scroll distance before the pill is allowed to collapse. */
+const COLLAPSE_AFTER = 120;
+/** Minimum movement that counts as a change of scroll direction. */
+const DIRECTION_THRESHOLD = 6;
+
+/**
+ * Site navigation — a floating pill.
  *
- * In the Hero section:
- *  - Displays profile avatar + name and navigation links ([Work, Services, Blog, Contact]).
+ * Expanded, it carries the name, the section links and both actions.
+ * Scrolling down folds it to the avatar, the name and two icon actions, so
+ * it gets out of the content's way; scrolling up, hovering it, or tabbing
+ * into it unfolds it again. The folding is width-only (grid tracks going
+ * 0fr ↔ 1fr), so the pill resizes smoothly around its own content.
  *
- * Scrolled past the Hero section:
- *  - Morphs into a sleek compact pill containing avatar + name and two circular quick actions:
- *    1. Send email (triggers contact dialog)
- *    2. Book a call (triggers Cal.com scheduler)
- *
- * Performance-optimized:
- *  - Uses 100% native GPU-accelerated CSS and Tailwind v4 transitions for layout and animations.
- *  - Uses lightweight motion scroll event with hysteresis to avoid redundant re-renders.
+ * Past the hero, the primary "Book a call" joins the actions — the hero
+ * carries its own booking CTA, so the page never shows two at once.
  */
 export function NavbarShared({ className }: NavbarSharedPropsType) {
   const pathname = usePathname();
   const isHomepage = pathname === "/";
   const [isPastHero, setIsPastHero] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isScrolledDown, setIsScrolledDown] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
+  const lastScrollY = useRef(0);
   const openContact = usePortfolioStore((state) => state.openContact);
-  const openBooking = usePortfolioStore((state) => state.openBooking);
   const lenis = useLenis();
 
   const sectionIds = useMemo(
@@ -49,30 +64,37 @@ export function NavbarShared({ className }: NavbarSharedPropsType) {
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (value) => {
+    // Direction, with a small dead zone so trackpad jitter can't flap it.
+    const delta = value - lastScrollY.current;
+    if (Math.abs(delta) >= DIRECTION_THRESHOLD || value < COLLAPSE_AFTER) {
+      lastScrollY.current = value;
+      const next = value >= COLLAPSE_AFTER && delta > 0;
+      setIsScrolledDown((current) => (current === next ? current : next));
+    }
+
     if (!isHomepage) {
       setIsPastHero(true);
       return;
     }
-    const heroEl = document.getElementById("hero");
-    const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight - 140 : 450;
+    const threshold = getHeroCtaThreshold();
 
     setIsPastHero((current) => {
       // Hysteresis: prevent flickering when reader scrolls right at threshold
-      if (!current && value > heroBottom) return true;
-      if (current && value < heroBottom - 80) return false;
+      if (!current && value > threshold) return true;
+      if (current && value < threshold - 80) return false;
       return current;
     });
   });
 
-  // Initial check on mount
+  // A page restored mid-scroll (reload, back navigation) starts past the
+  // hero: measure once, in the first frame. Inner pages need no check —
+  // `showPrimary` already covers them.
   useEffect(() => {
-    if (!isHomepage) {
-      setIsPastHero(true);
-      return;
-    }
-    const heroEl = document.getElementById("hero");
-    const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight - 140 : 450;
-    setIsPastHero(window.scrollY > heroBottom);
+    if (!isHomepage) return;
+    const frame = requestAnimationFrame(() =>
+      setIsPastHero(window.scrollY > getHeroCtaThreshold())
+    );
+    return () => cancelAnimationFrame(frame);
   }, [isHomepage]);
 
   // Escape closes the mobile sheet
@@ -111,39 +133,55 @@ export function NavbarShared({ className }: NavbarSharedPropsType) {
     [isHomepage]
   );
 
+  const isCollapsed = isScrolledDown && !isHovered && !hasFocus && !isMobileOpen;
+  const showPrimary = isPastHero || !isHomepage;
+
   return (
     <header
       className={cn(
-        "fixed top-6 left-1/2 z-40 w-auto max-w-[calc(100vw-32px)] min-w-60 -translate-x-1/2 rounded-3xl border border-gray-30/70 bg-white/60 shadow-[0_0_15px_rgba(0,0,0,0.05)] backdrop-blur-sm",
+        // `w-max`: a box positioned at left: 50% would otherwise shrink-to-fit
+        // into half the viewport and clip the expanded pill's last items.
+        "fixed inset-x-3 top-3 z-50 rounded-[28px] backdrop-blur-sm md:inset-x-auto md:top-4 md:left-1/2 md:w-max md:max-w-[calc(100vw-2rem)] md:-translate-x-1/2",
         className
       )}
       style={{ viewTransitionName: "site-header" }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setHasFocus(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHasFocus(false);
+      }}
     >
-      {/* ── Desktop ── */}
-      <NavbarDesktopPart
-        isPastHero={isPastHero}
-        navLinks={navLinksData}
-        activeSection={activeSection}
-        isHomepage={isHomepage}
-        onAnchorClick={handleAnchorClick}
-        onOpenContact={openContact}
-        onOpenBooking={openBooking}
-        resolveHref={resolveHref}
-      />
+      <div
+        className={cn(
+          "border-line-2 bg-bg/80 shadow-float overflow-hidden border backdrop-blur-sm transition-[border-radius] duration-300",
+          isMobileOpen ? "rounded-[18px]" : "rounded-[26px]"
+        )}
+      >
+        {/* ── Desktop ── */}
+        <NavbarDesktopPart
+          isCollapsed={isCollapsed}
+          showPrimary={showPrimary}
+          navLinks={navLinksData}
+          activeSection={activeSection}
+          isHomepage={isHomepage}
+          onAnchorClick={handleAnchorClick}
+          onOpenContact={openContact}
+          resolveHref={resolveHref}
+        />
 
-      {/* ── Mobile ── */}
-      <NavbarMobilePart
-        isPastHero={isPastHero}
-        isOpen={isMobileOpen}
-        navLinks={navLinksData}
-        isHomepage={isHomepage}
-        onToggle={() => setIsMobileOpen((open) => !open)}
-        onClose={() => setIsMobileOpen(false)}
-        onAnchorClick={handleAnchorClick}
-        onOpenContact={openContact}
-        onOpenBooking={openBooking}
-        resolveHref={resolveHref}
-      />
+        {/* ── Mobile ── */}
+        <NavbarMobilePart
+          isCollapsed={isCollapsed}
+          showPrimary={showPrimary}
+          isOpen={isMobileOpen}
+          navLinks={navLinksData}
+          onToggle={() => setIsMobileOpen((open) => !open)}
+          onAnchorClick={handleAnchorClick}
+          onOpenContact={openContact}
+          resolveHref={resolveHref}
+        />
+      </div>
     </header>
   );
 }

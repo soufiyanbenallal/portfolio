@@ -1,44 +1,46 @@
 import type { FaqItemType } from "@/types";
 
+// Answers describe how engagements work without promising figures (warranty
+// days, response times, guarantees) that haven't been agreed with a client.
 export const faqsData: FaqItemType[] = [
   {
     id: "faq-1",
     index: "01",
-    question: "What is your typical project timeline and delivery pace?",
+    question: "How long does a typical project take?",
     answer:
-      "Project timelines scale with architecture scope. Custom Shopify apps, specialized themes, and standalone web applications typically take 2–4 weeks. Large-scale enterprise platforms, multi-service backends, and AI pipeline integrations take 4–8 weeks. For retainer clients, individual feature sprints and requests are delivered continuously with weekly demo builds.",
+      "It depends on scope, so every project starts with a short discovery call and a written estimate broken into milestones. A focused Shopify app feature or theme customization is usually a matter of weeks; a new SaaS product or multi-service backend is planned as a series of milestones, each ending in a working build you can review.",
     defaultOpen: true,
   },
   {
     id: "faq-2",
     index: "02",
-    question: "Can you integrate with our existing codebase, APIs, and team?",
+    question: "Can you work inside our existing codebase and team?",
     answer:
-      "Yes, seamlessly. With extensive experience leading engineering teams and collaborating with remote US & international companies, I integrate directly into your Git repositories, CI/CD pipelines, Shopify stores, and cloud environments. I adhere strictly to your established coding conventions while elevating code quality, modularity, and automated testing.",
+      "Yes — that is most of my experience. I worked for two years inside a remote U.S. engineering team at Le Ventures, and I currently lead a team at Ader Solutions. I work in your repositories, follow your conventions, take part in code review and planning, and leave the codebase easier to maintain than I found it.",
     defaultOpen: false,
   },
   {
     id: "faq-3",
     index: "03",
-    question: "What core technologies and architectures do you specialize in?",
+    question: "What technologies do you work with?",
     answer:
-      "My core stack encompasses React 19, Next.js App Router, TypeScript, Tailwind CSS v4, Node.js, and Laravel/PHP. Within the Shopify ecosystem, I build embedded Polaris apps, Liquid & Online Store 2.0 themes, Storefront GraphQL headless storefronts, and Shopify Functions. I also engineer custom AI agent workflows and tool-calling pipelines using OpenAI and Claude APIs.",
+      "React and TypeScript on the frontend; Node.js, Laravel and PHP on the backend, with MySQL and Supabase for data. In the Shopify ecosystem I build apps on the Shopify APIs and webhooks, and themes with Liquid and Online Store 2.0. I also integrate AI features and automated workflows into production apps, with CI/CD pipelines around all of it.",
     defaultOpen: false,
   },
   {
     id: "faq-4",
     index: "04",
-    question: "Do you offer post-launch support and ongoing maintenance?",
+    question: "Do you offer support after launch?",
     answer:
-      "Yes. All fixed-scope projects include 30 days of complimentary post-launch warranty for bug remediation, performance monitoring, and team knowledge transfer. For long-term feature velocity, infrastructure scaling, and continuous improvements, you can transition smoothly into a monthly engineering retainer.",
+      "Yes. We agree a post-launch support period in writing before work begins, so fixes and handover are part of the plan rather than an afterthought. For ongoing development after that, we can move to a monthly engagement.",
     defaultOpen: false,
   },
   {
     id: "faq-5",
     index: "05",
-    question: "How do you handle intellectual property and confidentiality?",
+    question: "How do you handle confidentiality and ownership?",
     answer:
-      "I treat client data and intellectual property with total confidentiality. I am always happy to execute a mutual NDA prior to reviewing your codebases or project specs. Upon final milestone settlement, 100% of all intellectual property, source repositories, documentation, and assets belong exclusively to you.",
+      "Your code, data and plans stay confidential, and I'm happy to sign a mutual NDA before reviewing anything. Once the agreed fees are paid, the source code, documentation and deliverables belong to you.",
     defaultOpen: false,
   },
 ];

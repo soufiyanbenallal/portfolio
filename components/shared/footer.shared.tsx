@@ -5,8 +5,9 @@ import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring, type MotionValue } from "motion/react";
 import { useReducedMotionSafe } from "@/hooks/use-media-query.hook";
 import { Icons } from "@/components/ui/social-icons.ui";
+import { ButtonUi } from "@/components/ui/button.ui";
 import { socialLinksData, navLinksData } from "@/data/client-logos.data";
-import { Container } from "@/components/shared/container.shared";
+import { Section } from "@/components/shared/section.shared";
 import { CAL_LINK } from "@/components/shared/cal-embed.shared";
 import { PERSPECTIVE, SPRINGS, SCROLL_OFFSETS } from "@/lib/motion.config";
 
@@ -16,6 +17,11 @@ const WORDMARK = "SOUFIYAN";
 /* -------------------------------------------------------------------- *
  * Wordmark
  * -------------------------------------------------------------------- */
+
+// Filled with a top-to-bottom fade so the letters dissolve at exactly the
+// rate the rails beside them run out. Applied per letter: a transformed
+// child breaks `background-clip: text` set on its parent.
+const WORDMARK_FILL = "from-gray-40 bg-linear-to-b to-transparent bg-clip-text text-transparent";
 
 function WordmarkLetter({
   letter,
@@ -31,8 +37,8 @@ function WordmarkLetter({
   // Letters resolve left to right across the reveal, each over its own
   // overlapping slice — a single stagger delay would fire them all at once
   // regardless of how fast the reader is scrolling.
-  const start = 0.15 + (index / total) * 0.45;
-  const end = start + 0.3;
+  const start = 0.1 + (index / total) * 0.45;
+  const end = start + 0.35;
 
   const y = useTransform(progress, [start, end], ["55%", "0%"]);
   const rotateX = useTransform(progress, [start, end], [72, 0]);
@@ -41,14 +47,11 @@ function WordmarkLetter({
   return (
     <span className="inline-block overflow-hidden align-bottom">
       <motion.span
-        className="inline-block"
+        className={`inline-block ${WORDMARK_FILL}`}
         style={{
           y,
           rotateX,
           opacity,
-          transitionDelay: `${index * 0.1}s`,
-          transitionDuration: "500ms",
-          transitionTimingFunction: "ease-out",
           transformPerspective: PERSPECTIVE.far,
           transformOrigin: "50% 100%",
         }}
@@ -63,29 +66,29 @@ function WordmarkLetter({
  * Footer
  * -------------------------------------------------------------------- */
 
+const LINK_CLASS = "text-ink-muted hover:text-ink transition-colors";
+
 /**
- * Footer.
- *
- * Its content rises as the footer enters, which reads as the page lifting to
- * uncover something that was already there rather than a block sliding in
- * from below. The oversized wordmark resolves letter by letter against that
- * movement, so the last thing on the page finishes assembling exactly as the
- * reader arrives at the bottom.
+ * Footer — Line Grid recipe: link cells on the page background, a meta
+ * row, then the frame keeps going without borders while its rails fade
+ * out. The oversized wordmark sits in that fading zone and resolves letter
+ * by letter as the reader arrives, so the last thing on the page finishes
+ * assembling exactly at the bottom.
  */
 export function FooterShared() {
-  const footerRef = useRef<HTMLElement>(null);
+  const wordmarkRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
   const prefersReducedMotion = useReducedMotionSafe();
 
+  // Keyed to the wordmark itself arriving at the bottom of the page: an
+  // offset that waits for the footer's top to reach the viewport's top can
+  // never complete, because the document ends first.
   const { scrollYProgress } = useScroll({
-    target: footerRef,
-    offset: SCROLL_OFFSETS.entering,
+    target: wordmarkRef,
+    offset: SCROLL_OFFSETS.arriving,
   });
   const progress = useSpring(scrollYProgress, SPRINGS.scroll);
-
-  const contentY = useTransform(progress, [0, 0.8], [60, 0]);
-  const contentOpacity = useTransform(progress, [0, 0.45], [0.3, 1]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -113,149 +116,157 @@ export function FooterShared() {
   };
 
   return (
-    <footer ref={footerRef} className="relative z-10 w-full overflow-hidden bg-black text-white">
-      <motion.div
-        className="will-change-transform"
-        style={prefersReducedMotion ? undefined : { y: contentY, opacity: contentOpacity }}
-      >
-        <Container className="flex flex-col gap-16 pt-16 pb-[120px] md:gap-24 md:pb-[180px] lg:pb-[211px]">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
-            {/* Contact */}
-            <div className="flex flex-col gap-6 md:col-span-5">
-              <div>
-                <span className="text-label mb-2 block text-white/50">Speak to me</span>
-                <h2 className="text-2xl font-medium tracking-tight text-white sm:text-3xl">
-                  Email or book a call.
-                </h2>
-              </div>
-
-              <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/20"
-                >
-                  <Icons.Mail className="size-4 text-white/70" />
-                  <span>{copied ? "Copied to clipboard!" : EMAIL}</span>
-                </button>
-
-                <button
-                  type="button"
-                  data-cal-link={CAL_LINK}
-                  data-cal-config='{"layout":"month_view"}'
-                  className="hover:bg-gray-20 inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-black transition-colors"
-                >
-                  <Icons.Calendar className="size-4 text-black" />
-                  <span>Book a call</span>
-                </button>
-              </div>
+    <footer className="relative z-10 w-full">
+      <Section as="div" aria-label="Footer">
+        <div className="cells *:bg-bg! grid-cols-2 text-[13px] md:grid-cols-12">
+          {/* Contact */}
+          <div className="col-span-2 flex flex-col gap-6 p-6 sm:p-8 md:col-span-6">
+            <div className="flex flex-col gap-2">
+              <span className="text-label text-ink-faint">Contact</span>
+              <h2 className="text-ink text-[28px] leading-[1.1] font-medium tracking-[-0.035em] text-balance sm:text-[32px]">
+                Have a product to build?{" "}
+                <span className="text-ink-soft">Email me or book a call.</span>
+              </h2>
             </div>
 
-            {/* Links */}
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-7">
-              <nav aria-label="Footer" className="flex flex-col gap-3">
-                <span className="text-label mb-1 block text-white/50">Menu</span>
-                {navLinksData.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href.startsWith("#") ? `/${item.href}` : item.href}
-                    className="text-sm text-white/80 transition-colors hover:text-white"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </nav>
+            <div className="flex flex-wrap items-center gap-2">
+              <ButtonUi
+                type="button"
+                data-cal-link={CAL_LINK}
+                data-cal-config='{"layout":"month_view"}'
+                data-cursor="grow"
+                leftIcon={<Icons.Calendar className="h-3.5 w-3.5" />}
+              >
+                Book a call
+              </ButtonUi>
+              <ButtonUi
+                type="button"
+                variant="secondary"
+                onClick={handleCopyEmail}
+                aria-live="polite"
+                leftIcon={
+                  copied ? (
+                    <Icons.Check className="text-green h-3.5 w-3.5" />
+                  ) : (
+                    <Icons.Copy className="text-ink-faint h-3.5 w-3.5" />
+                  )
+                }
+              >
+                {copied ? "Copied to clipboard" : EMAIL}
+              </ButtonUi>
+            </div>
+          </div>
 
-              <div className="flex flex-col gap-3">
-                <span className="text-label mb-1 block text-white/50">Social</span>
-                {socialLinksData.slice(0, 5).map((social) => (
+          {/* Menu */}
+          <nav aria-label="Footer" className="p-6 sm:p-8 md:col-span-2">
+            <div className="text-ink mb-3 font-medium">Menu</div>
+            <ul className="space-y-2">
+              {navLinksData
+                .filter((item) => item.href !== "#contact")
+                .map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href.startsWith("#") ? `/${item.href}` : item.href}
+                      className={LINK_CLASS}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </nav>
+
+          {/* Social */}
+          <div className="p-6 sm:p-8 md:col-span-2">
+            <div className="text-ink mb-3 font-medium">Elsewhere</div>
+            <ul className="space-y-2">
+              {socialLinksData.map((social) => (
+                <li key={social.platform}>
                   <a
-                    key={social.platform}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-white/80 transition-colors hover:text-white"
+                    className={LINK_CLASS}
                   >
                     {social.platform}
                   </a>
-                ))}
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <span className="text-label mb-1 block text-white/50">Legal</span>
-                <Link
-                  href="/terms"
-                  transitionTypes={["nav-forward"]}
-                  className="text-sm text-white/80 transition-colors hover:text-white"
-                >
-                  Terms of service
-                </Link>
-                <Link
-                  href="/privacy-policy"
-                  transitionTypes={["nav-forward"]}
-                  className="text-sm text-white/80 transition-colors hover:text-white"
-                >
-                  Privacy policy
-                </Link>
-                <div className="mt-4 border-t border-white/10 pt-3">
-                  <span className="block text-xs text-white/50">
-                    Based in Meknes, Morocco · Remote Worldwide
-                  </span>
-                  <span className="mt-0.5 block font-mono text-xs text-white/70">
-                    {currentTime || "—— GMT+1"}
-                  </span>
-                </div>
-              </div>
-            </div>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Wordmark */}
-          <div className="flex w-full flex-col items-center pt-4 select-none">
-            <div className="relative">
-              <span className="absolute left-0 block h-full w-px bg-linear-to-b from-transparent via-white/20 to-transparent" />
-              <span className="absolute right-0 block h-full w-px bg-linear-to-b from-transparent via-white/20 to-transparent" />
-              <span className="absolute top-0 block h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
-              <span className="absolute bottom-0 block h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
-
-              {["-top-2 -left-2", "-bottom-2 -left-2", "-bottom-2 -right-2", "-top-2 -right-2"].map(
-                (position) => (
-                  <span
-                    key={position}
-                    className={`absolute ${position} flex size-4 items-center justify-center`}
+          {/* Legal + location */}
+          <div className="col-span-2 flex flex-col justify-between gap-6 p-6 sm:p-8 md:col-span-2">
+            <div>
+              <div className="text-ink mb-3 font-medium">Legal</div>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/terms" transitionTypes={["nav-forward"]} className={LINK_CLASS}>
+                    Terms of service
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/privacy-policy"
+                    transitionTypes={["nav-forward"]}
+                    className={LINK_CLASS}
                   >
-                    <span className="absolute h-4 w-[0.5px] bg-white/40" />
-                    <span className="absolute h-[0.5px] w-4 bg-white/40" />
-                  </span>
-                )
-              )}
-
-              <p
-                aria-hidden="true"
-                className="w-full px-12 py-6 text-center text-[12vw] font-black text-white/90 uppercase"
-                style={{ lineHeight: 1 }}
-              >
-                {prefersReducedMotion
-                  ? WORDMARK
-                  : Array.from(WORDMARK).map((letter, index) => (
-                      <WordmarkLetter
-                        key={index}
-                        letter={letter}
-                        index={index}
-                        total={WORDMARK.length}
-                        progress={progress}
-                      />
-                    ))}
-              </p>
-              <span className="sr-only">Soufiyan Benallal</span>
+                    Privacy policy
+                  </Link>
+                </li>
+              </ul>
             </div>
 
-            <div className="mt-8 flex w-full flex-col items-center justify-between pt-6 font-mono text-xs text-white/50 sm:flex-row">
-              <span>© {new Date().getFullYear()} Soufiyan Benallal. All rights reserved.</span>
-              <span className="mt-2 sm:mt-0">Designed &amp; engineered with craft.</span>
+            <div className="flex flex-col gap-1">
+              <span className="text-ink-muted flex items-center gap-2 whitespace-nowrap">
+                <span className="bg-green h-1.5 w-1.5 shrink-0 rounded-full" aria-hidden="true" />
+                Meknes, Morocco
+              </span>
+              <span className="text-ink-faint text-[12px]">Remote worldwide</span>
+              <span className="text-ink-faint font-mono text-[11px] whitespace-nowrap tabular-nums">
+                {currentTime || "--:-- GMT+1"}
+              </span>
             </div>
           </div>
-        </Container>
-      </motion.div>
+        </div>
+
+        {/* Meta row */}
+        <div className="border-line text-ink-faint flex flex-col justify-between gap-1 border-t px-6 py-4 font-mono text-[11px] sm:flex-row sm:px-8">
+          <span>© {new Date().getFullYear()} Soufiyan Benallal</span>
+          <span>Designed &amp; engineered by hand</span>
+        </div>
+      </Section>
+
+      {/* The rails run out and fade; the wordmark dissolves with them. */}
+      <div
+        ref={wordmarkRef}
+        className="frame h-19 overflow-clip border-x-0 select-none sm:h-31 md:h-46"
+        aria-hidden="true"
+      >
+        {/* At x = 0 / right 0: with `border-x-0` the box edge is exactly
+            where the rails above were drawn. */}
+        <span className="from-line-3 absolute inset-y-0 left-0 w-[0.5px] bg-linear-to-b to-transparent" />
+        <span className="from-line-3 absolute inset-y-0 right-0 w-[0.5px] bg-linear-to-b to-transparent" />
+
+        <p
+          className="px-4 pt-6 text-center text-[clamp(56px,18vw,294px)] leading-none font-black sm:text-[clamp(56px,18.5vw,294px)] md:text-[clamp(56px,14.5vw,294px)]"
+          style={{ perspective: PERSPECTIVE.far }}
+        >
+          {prefersReducedMotion ? (
+            <span className={WORDMARK_FILL}>{WORDMARK}</span>
+          ) : (
+            Array.from(WORDMARK).map((letter, index) => (
+              <WordmarkLetter
+                key={index}
+                letter={letter}
+                index={index}
+                total={WORDMARK.length}
+                progress={progress}
+              />
+            ))
+          )}
+        </p>
+      </div>
     </footer>
   );
 }

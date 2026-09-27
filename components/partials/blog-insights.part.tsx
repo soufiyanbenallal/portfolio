@@ -1,138 +1,27 @@
-"use client";
-
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { articlesData } from "@/data/articles.data";
-import { Icons } from "@/components/ui/social-icons.ui";
-import { Container } from "@/components/shared/container.shared";
-import { SectionHeading } from "@/components/shared/section-heading.shared";
+import { ChapterHead } from "@/components/shared/chapter.shared";
+import { ArticleCard } from "@/components/shared/article-card.shared";
 import { ArrowLink } from "@/components/ui/arrow-link.ui";
-import { Reveal } from "@/components/motion/reveal.motion";
-import { Tilt3D } from "@/components/motion/tilt-3d.motion";
-import { SharedElement } from "@/components/motion/page-transition.motion";
 
-/**
- * Articles.
- *
- * Each cover image is a view-transition participant, so clicking a card
- * morphs that exact image into the article hero rather than cross-fading two
- * pages. The tilt is kept shallow here — these are reading entry points, and
- * text that leans too far reads as decoration.
- */
+/** Writing — the three latest articles as cells sharing one edge. */
 export function BlogInsightsPart() {
-  const [featured, ...rest] = articlesData;
-  const supporting = rest.slice(0, 2);
+  const latest = articlesData.slice(0, 3);
 
   return (
-    <div className="w-full select-none">
-      <Container className="gap-stack py-section flex flex-col">
-        <SectionHeading
-          eyebrow="Thoughts & insights"
-          title="From my blog, design insights."
-          action={<ArrowLink href="/blog">View all articles</ArrowLink>}
-        />
-
-        <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
-          {/* Featured — spans both columns */}
-          <Reveal preset="card3D" className="group md:col-span-2">
-            <Link
-              href={`/blog/${featured.slug}`}
-              transitionTypes={["nav-forward"]}
-              data-cursor="article"
-              data-cursor-text="Read"
-              className="surface-card hover:card-shadow-hover block overflow-hidden p-4 transition-shadow duration-300 sm:p-5"
-            >
-              <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-12">
-                <div className="md:col-span-6">
-                  <SharedElement name={`article-media-${featured.slug}`}>
-                    <div className="bg-gray-10 rounded-media relative aspect-16/10 overflow-hidden md:aspect-4/3">
-                      <Image
-                        src={featured.coverImage}
-                        alt={featured.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 500px"
-                        className="ease-editorial object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <span className="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 font-mono text-[11px] font-medium text-black backdrop-blur-md">
-                        Featured
-                      </span>
-                    </div>
-                  </SharedElement>
-                </div>
-
-                <div className="flex h-full flex-col justify-between gap-4 p-2 md:col-span-6 md:p-4">
-                  <div className="flex flex-col gap-2.5">
-                    <div className="flex items-center gap-2 font-mono text-xs text-gray-50">
-                      <span>{featured.publishedAt}</span>
-                      <span>·</span>
-                      <span>{featured.readTime}</span>
-                    </div>
-                    <h3 className="group-hover:text-gray-60 text-xl font-medium tracking-tight text-black transition-colors sm:text-2xl">
-                      {featured.title}
-                    </h3>
-                    <p className="text-gray-60 line-clamp-3 text-xs leading-relaxed sm:text-sm">
-                      {featured.excerpt}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-2 pt-2 text-xs font-medium text-black">
-                    <span>Read full insight</span>
-                    <Icons.ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </Reveal>
-
-          {supporting.map((article, index) => (
-            <Reveal key={article.id} preset="card3D" delay={0.1 * (index + 1)} className="group">
-              <Tilt3D intensity={5} lift={10} className="h-full">
-                <Link
-                  href={`/blog/${article.slug}`}
-                  transitionTypes={["nav-forward"]}
-                  data-cursor="article"
-                  data-cursor-text="Read"
-                  className="surface-card hover:card-shadow-hover flex h-full flex-col justify-between gap-4 overflow-hidden p-4 transition-shadow duration-300"
-                >
-                  <div className="flex flex-col gap-4">
-                    <SharedElement name={`article-media-${article.slug}`}>
-                      <div className="bg-gray-10 rounded-media relative aspect-16/10 w-full overflow-hidden">
-                        <Image
-                          src={article.coverImage}
-                          alt={article.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 400px"
-                          className="ease-editorial object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                      </div>
-                    </SharedElement>
-
-                    <div className="flex flex-col gap-2">
-                      <div className="flex items-center gap-2 font-mono text-xs text-gray-50">
-                        <span>{article.publishedAt}</span>
-                        <span>·</span>
-                        <span>{article.readTime}</span>
-                      </div>
-                      <h3 className="group-hover:text-gray-60 text-base font-medium tracking-tight text-black transition-colors sm:text-lg">
-                        {article.title}
-                      </h3>
-                      <p className="text-gray-60 line-clamp-2 text-xs leading-relaxed">
-                        {article.excerpt}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="border-gray-20 flex items-center gap-1.5 border-t pt-2 text-xs font-medium text-black">
-                    <span>Read article</span>
-                    <Icons.ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </div>
-                </Link>
-              </Tilt3D>
-            </Reveal>
-          ))}
-        </div>
-      </Container>
+    <div className="w-full">
+      <ChapterHead
+        eyebrow="Writing"
+        title={["Notes from the work.", "Architecture, Shopify and AI."]}
+        action={<ArrowLink href="/blog">All articles</ArrowLink>}
+      />
+      <ul className="cells border-line border-t md:grid-cols-3">
+        {latest.map((article) => (
+          <li key={article.id}>
+            <ArticleCard article={article} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

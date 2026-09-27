@@ -4,11 +4,11 @@ import React from "react";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 
 /**
- * Reading-progress rail pinned to the very top of the viewport.
+ * Reading progress, drawn as a line: a 1px accent stroke along the top edge
+ * of the viewport, filling in as the page is read.
  *
- * Driven by a spring rather than raw scroll so it keeps travelling for a beat
- * after a flick — a bar that stops dead the instant the wheel stops reads as
- * broken. It fades in only once the reader has actually committed to the page.
+ * Driven by a stiff spring rather than raw scroll so it settles for a beat
+ * after a flick instead of stopping dead the instant the wheel does.
  */
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -17,12 +17,12 @@ export function ScrollProgress() {
     damping: 35,
     restDelta: 0.001,
   });
-  const opacity = useTransform(scrollYProgress, [0, 0.012, 0.98, 1], [0, 1, 1, 0.4]);
+  const opacity = useTransform(scrollYProgress, [0, 0.012], [0, 1]);
 
   return (
     <motion.div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-x-0 top-0 z-50 h-0.5 origin-left bg-black"
+      className="bg-brand pointer-events-none fixed inset-x-0 top-0 z-60 h-px origin-left"
       style={{ scaleX, opacity }}
     />
   );

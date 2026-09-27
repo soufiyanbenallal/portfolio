@@ -1,136 +1,145 @@
 "use client";
 
 import React from "react";
-import { Layout, Rocket, Compass, Play, Box, Palette, type LucideIcon } from "lucide-react";
-import { servicesData } from "@/data/services.data";
-import { techStackData } from "@/data/tech-stack.data";
-import {
-  ServiceStack,
-  type ServiceStackItemStateType,
-} from "@/components/motion/service-stack.motion";
+import { engagementModelsData, servicesData, SERVICE_THEME_CLASS } from "@/data/services.data";
+import { Section } from "@/components/shared/section.shared";
+import { Chapter, ChapterHead } from "@/components/shared/chapter.shared";
+import { ButtonUi } from "@/components/ui/button.ui";
 import { Icons } from "@/components/ui/social-icons.ui";
-import type { ServiceItemType } from "@/types";
+import { CAL_LINK } from "@/components/shared/cal-embed.shared";
+import { ShopifyServicePoster } from "./services/shopify-service-panel.part";
+import { SHOPIFY_CHAPTERS, ShopifyServiceStory } from "./services/shopify-service-detail.part";
+import { ProductServicePoster } from "./services/product-service-panel.part";
+import { PRODUCT_CHAPTERS, ProductServiceStory } from "./services/product-service-detail.part";
+import { AiServicePoster } from "./services/ai-service-panel.part";
+import { AI_CHAPTERS, AiServiceStory } from "./services/ai-service-detail.part";
+import { ServiceShowcase } from "@/components/motion/service-showcase.motion";
+import type { PosterChapterType } from "./services/service-kit.part";
+import type { ServiceItemType, ServiceThemeType } from "@/types";
 
 /* ==================================================================== *
  * SERVICES
  * --------------------------------------------------------------------
- * The section that folds itself away, then deals its cards.
+ * A chapter in five sections, each with its own seam:
  *
- * Act 1: it opens as a full-bleed black statement panel. As you scroll,
- * that whole panel docks into a card on the left — the section you just
- * read, reduced to a thumbnail of itself.
+ *   intro      — a spine chapter: the promise, and an index of the three
+ *   ×3 showcases — one per service. The service arrives as a full-screen
+ *                dark poster in its own palette, shrinks into the frame's
+ *                left column, and stays docked there — with an index of its
+ *                chapters — while its story scrolls natively on the right.
+ *                Poster and story live in each service's own files, so
+ *                every service keeps its own design.
+ *   engage     — how an engagement can be shaped, and the call to action
  *
- * Act 2: the service cards advance through a real 3D deck stacked behind
- * the docked panel — each one rising into the active slot, holding, then
- * peeling forward and away as the next rises to take its place, with a
- * few upcoming cards visible receding in the queue. One GSAP timeline,
- * scrubbed by scroll position, owns both acts so they never drift apart.
+ * Renders its own Sections (the one exception to "pages compose
+ * Sections"), because each stack needs a seam of its own. The wrapper's
+ * background is what slides over the pinned quote above it.
  * ==================================================================== */
 
-const SERVICE_ICONS: Record<string, LucideIcon | undefined> = {
-  layout: Layout,
-  rocket: Rocket,
-  compass: Compass,
-  play: Play,
-  box: Box,
-  palette: Palette,
+type ServiceViewsType = {
+  Poster: React.ComponentType<{
+    service: ServiceItemType;
+    index: number;
+    total: number;
+    chapters?: readonly PosterChapterType[];
+  }>;
+  Story: React.ComponentType<{ service: ServiceItemType; next?: ServiceItemType }>;
+  chapters: readonly PosterChapterType[];
 };
 
-function ServiceIcon({ iconName, className }: { iconName: string; className?: string }) {
-  const LucideMark = SERVICE_ICONS[iconName];
-  if (LucideMark) return <LucideMark className={className} strokeWidth={1.6} />;
-  if (iconName === "framer") return <Icons.Framer className={className} />;
-  return null;
-}
+// Each service owns its poster (motif, palette) and its story (diagram,
+// vectors, copy); the showcase that choreographs them is shared.
+const SERVICE_VIEWS: Record<ServiceThemeType, ServiceViewsType> = {
+  product: { Poster: ProductServicePoster, Story: ProductServiceStory, chapters: PRODUCT_CHAPTERS },
+  commerce: {
+    Poster: ShopifyServicePoster,
+    Story: ShopifyServiceStory,
+    chapters: SHOPIFY_CHAPTERS,
+  },
+  ai: { Poster: AiServicePoster, Story: AiServiceStory, chapters: AI_CHAPTERS },
+};
 
-function ServicesPanel() {
+/* -------------------------------------------------------------------- *
+ * Intro — chapter with a spine, and the index of services
+ * -------------------------------------------------------------------- */
+
+function ServicesIntro() {
   return (
-    <div className="relative flex h-full w-full flex-col justify-between overflow-hidden bg-black px-[6%] py-[8%] text-white">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)",
-          backgroundSize: "26px 26px",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-1/3 -right-1/4 h-[120%] w-[60%] rounded-full bg-white/[0.06] blur-3xl"
+    <Chapter
+      label="Services"
+      summary="Three disciplines, one engineer — from storefront to backend to AI."
+      accent
+    >
+      <ChapterHead
+        id="services-title"
+        title={["Three ways I help teams ship.", "Each one end to end."]}
+        lede="Seven years of building for merchants, SaaS teams and the businesses behind them — from Laravel platforms in 2019 to leading an engineering team today. Most projects touch more than one of these."
       />
 
-      <div className="relative flex items-center justify-between">
-        <span className="text-label text-white/45">What I do</span>
-        <span className="font-mono text-[clamp(11px,0.9vw,13px)] text-white/45">
-          {String(servicesData.length).padStart(2, "0")} services
-        </span>
-      </div>
-
-      <h2
-        className="relative max-w-[16ch] leading-[1.02] font-medium tracking-[-0.03em]"
-        style={{ fontSize: "clamp(34px, 6.4vw, 92px)" }}
-      >
-        Services that <em className="text-white/35 not-italic">supercharge</em> your business.
-      </h2>
-
-      <div className="relative flex flex-wrap items-center gap-[0.6vw]">
-        {techStackData.map((tool) => (
-          <span
-            key={tool.id}
-            className="rounded-full border border-white/15 px-[1.2vw] py-[0.5vw] text-[clamp(10px,1.05vw,15px)] font-medium text-white/70"
-          >
-            {tool.name}
-          </span>
+      <ul className="cells border-line border-t md:grid-cols-3">
+        {servicesData.map((service) => (
+          <li key={service.id} className={SERVICE_THEME_CLASS[service.theme]}>
+            <a
+              href={`#${service.slug}`}
+              className="group hover:bg-raised flex h-full flex-col gap-3 p-6 transition-colors sm:p-8"
+            >
+              <span className="text-label flex items-center gap-2 text-(--svc-deep)">
+                <span className="h-1.5 w-1.5 bg-(--svc-hue)" aria-hidden="true" />
+                {service.kicker}
+              </span>
+              <span className="text-ink text-[15px] font-medium tracking-[-0.01em]">
+                {service.title}
+              </span>
+              <span className="text-ink-muted text-[13px] leading-relaxed">{service.summary}</span>
+              <span className="text-ink-faint group-hover:text-ink mt-auto pt-2 text-[13px] transition-colors">
+                See how it works{" "}
+                <span className="ease-entrance inline-block transition-transform duration-300 group-hover:translate-y-0.5">
+                  ↓
+                </span>
+              </span>
+            </a>
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </Chapter>
   );
 }
 
 /* -------------------------------------------------------------------- *
- * Detail card
+ * Engagement models — cells, then the call to action
  * -------------------------------------------------------------------- */
 
-type ServiceDetailCardPropsType = {
-  service: ServiceItemType;
-  index: number;
-  total: number;
-};
-
-function ServiceDetailCard({ service, index, total }: ServiceDetailCardPropsType) {
+function EngagementModels() {
   return (
-    <article className="border-gray-30 card-shadow-3d rounded-panel w-full border bg-white p-8 lg:p-10">
-      <div className="border-gray-20 flex items-start justify-between gap-6 border-b pb-6">
-        <span className="border-gray-20 bg-gray-5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-black">
-          <ServiceIcon iconName={service.iconName} className="h-4.5 w-4.5" />
-        </span>
-        <div className="flex flex-col items-end gap-2">
-          {service.isPrimary && (
-            <span className="rounded-full bg-black px-3 py-1 text-[10px] font-semibold tracking-widest text-white uppercase">
-              Core
-            </span>
-          )}
-          <span className="text-gray-40 font-mono text-sm">
-            {String(index + 1).padStart(2, "0")}
-            <span className="text-gray-30">/{String(total).padStart(2, "0")}</span>
-          </span>
+    <div>
+      <div className="flex flex-col gap-6 px-4 py-12 sm:px-10 lg:flex-row lg:items-end lg:justify-between lg:py-16">
+        <div className="flex flex-col gap-2">
+          <span className="text-label text-ink-faint">Working together</span>
+          <h3 className="text-ink text-[28px] leading-[1.1] font-medium tracking-[-0.035em] text-balance sm:text-[32px]">
+            Pick the shape that fits. <span className="text-ink-soft">Change it as you grow.</span>
+          </h3>
         </div>
+        <ButtonUi
+          type="button"
+          data-cal-link={CAL_LINK}
+          data-cal-config='{"layout":"month_view"}'
+          data-cursor="grow"
+          className="self-start lg:self-auto"
+          leftIcon={<Icons.Calendar className="h-3.5 w-3.5" />}
+        >
+          Book a discovery call
+        </ButtonUi>
       </div>
 
-      <h3 className="text-h3-lg pt-6 text-black">{service.title}</h3>
-      <p className="text-body-l text-gray-60 pt-3">{service.description}</p>
-
-      <ul className="flex flex-col gap-3 pt-7">
-        {service.deliverables.map((deliverable) => (
-          <li key={deliverable} className="text-body-m flex items-center gap-3 text-black">
-            <span className="border-gray-30 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border">
-              <Icons.Check className="h-3 w-3" />
-            </span>
-            {deliverable}
+      <ul className="cells border-line border-t md:grid-cols-3">
+        {engagementModelsData.map((model) => (
+          <li key={model.id} className="flex flex-col gap-2 p-6 sm:p-8">
+            <span className="text-ink text-[14px] font-medium">{model.title}</span>
+            <span className="text-ink-muted text-[13px] leading-relaxed">{model.description}</span>
           </li>
         ))}
       </ul>
-    </article>
+    </div>
   );
 }
 
@@ -140,35 +149,40 @@ function ServiceDetailCard({ service, index, total }: ServiceDetailCardPropsType
 
 export function ServicesPart() {
   return (
-    <div className="relative z-10 w-full border-t bg-white px-3 md:px-0">
-      <ServiceStack
-        id="services"
-        items={servicesData}
-        scrollPerItem={0.85}
+    <div className="bg-bg relative z-10 w-full">
+      <Section id="services" aria-labelledby="services-title" hatchedMargins>
+        <ServicesIntro />
+      </Section>
 
-        panel={<ServicesPanel />}
-        renderItem={(service: ServiceItemType, { index }: ServiceStackItemStateType) => (
-          <ServiceDetailCard service={service} index={index} total={servicesData.length} />
-        )}
-      />
-      <ServiceStack
-        id="services"
-        items={servicesData}
-        scrollPerItem={0.85}
-        panel={<ServicesPanel />}
-        renderItem={(service: ServiceItemType, { index }: ServiceStackItemStateType) => (
-          <ServiceDetailCard service={service} index={index} total={servicesData.length} />
-        )}
-      />
-      <ServiceStack
-        id="services"
-        items={servicesData}
-        scrollPerItem={0.85}
-        panel={<ServicesPanel />}
-        renderItem={(service: ServiceItemType, { index }: ServiceStackItemStateType) => (
-          <ServiceDetailCard service={service} index={index} total={servicesData.length} />
-        )}
-      />
+      {servicesData.map((service, index) => {
+        const { Poster, Story, chapters } = SERVICE_VIEWS[service.theme];
+        return (
+          <Section
+            key={service.id}
+            id={service.slug}
+            aria-label={service.title}
+            className={SERVICE_THEME_CLASS[service.theme]}
+            hatchedMargins
+          >
+            <ServiceShowcase
+              panel={
+                <Poster
+                  service={service}
+                  index={index}
+                  total={servicesData.length}
+                  chapters={chapters}
+                />
+              }
+            >
+              <Story service={service} next={servicesData[index + 1]} />
+            </ServiceShowcase>
+          </Section>
+        );
+      })}
+
+      {/* <Section aria-label="Working together">
+        <EngagementModels />
+      </Section> */}
     </div>
   );
 }

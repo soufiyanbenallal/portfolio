@@ -14,6 +14,8 @@ type FormStateType = {
   message: string;
 };
 
+const CONTACT_EMAIL = "benallalsoufiane1@gmail.com";
+
 const initialFormState: FormStateType = {
   name: "",
   email: "",
@@ -44,11 +46,14 @@ export function ContactDialogPart() {
       document.body.style.overflow = "hidden";
       window.addEventListener("keydown", handleKeyDown);
     } else {
-      document.body.style.overflow = "auto";
+      // Clear the lock rather than writing `auto`: an inline value would
+      // override the stylesheet's `overflow-x: clip` and let the page
+      // scroll sideways.
+      document.body.style.overflow = "";
     }
 
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, closeContact]);
@@ -81,17 +86,27 @@ export function ContactDialogPart() {
     e.preventDefault();
     if (!validate()) return;
 
-    setStatus("loading");
+    // There is no mail backend yet, so the form hands the message to the
+    // visitor's own email app, prefilled. A fake "sent" state would silently
+    // drop every inquiry.
+    const subject = `Project inquiry: ${formData.service} (${formData.name})`;
+    const body = [
+      formData.message.trim(),
+      "",
+      "—",
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      `Service: ${formData.service}`,
+      `Budget: ${formData.budget}`,
+    ].join("\n");
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    // Simulate async submission
+    setStatus("success");
     setTimeout(() => {
-      setStatus("success");
-      setTimeout(() => {
-        setStatus("idle");
-        setFormData(initialFormState);
-        closeContact();
-      }, 2000);
-    }, 1200);
+      setStatus("idle");
+      setFormData(initialFormState);
+      closeContact();
+    }, 2000);
   };
 
   return (
@@ -196,14 +211,11 @@ export function ContactDialogPart() {
                     className="border-gray-30 bg-gray-5 w-full cursor-pointer rounded-xl border px-3.5 py-2.5 text-sm text-black transition-all focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none"
                   >
                     <option value="Shopify Apps & Themes">Shopify Apps & Themes</option>
-                    <option value="Full-Stack Web Apps">
-                      Full-Stack Web Apps (React / Next.js)
+                    <option value="Full-Stack Product Engineering">
+                      Full-Stack Product Engineering
                     </option>
-                    <option value="AI Integrations">AI Integrations & Automations</option>
-                    <option value="High-Performance Storefront">
-                      High-Performance Storefront / UI
-                    </option>
-                    <option value="Monthly Retainer">Monthly Engineering Retainer</option>
+                    <option value="AI Integration & Automation">AI Integration & Automation</option>
+                    <option value="Technical Leadership">Technical Leadership / Audit</option>
                   </select>
                 </div>
 
@@ -254,13 +266,13 @@ export function ContactDialogPart() {
                   isSuccess={status === "success"}
                   isError={status === "error"}
                 >
-                  Send Inquiry
+                  Continue in email
                 </ButtonUi>
               </div>
 
               <div className="mt-1 text-center">
                 <span className="text-[11px] text-gray-50">
-                  Avg response time: within 24 hours · No spam guaranteed
+                  Opens your email app with the message ready to send.
                 </span>
               </div>
             </form>

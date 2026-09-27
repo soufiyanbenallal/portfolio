@@ -4,61 +4,42 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { CAL_LINK } from "@/components/shared/cal-embed.shared";
+import { Reveal } from "./navbar-reveal.part";
 import type { NavbarActionsPropsType } from "@/types";
-import { ButtonUi } from "@/components/ui/button.ui";
 
+/**
+ * The pill's actions. Expanded, they carry their labels; collapsed, only
+ * their icons remain — the labels fold away rather than the buttons
+ * disappearing, so the pill shrinks around the same two targets.
+ */
 export function NavbarActionsPart({
-  variant = "default",
+  collapsed,
+  showPrimary,
   onOpenContact,
-  onOpenBooking,
   className,
 }: NavbarActionsPropsType) {
-  const isCompact = variant === "compact";
-
   return (
-    <div
-      className={cn(
-        "flex items-center",
-        isCompact ? "gap-1.5" : "animate-nav-pop-in gap-2",
-        className
-      )}
-    >
-      {/* Email action */}
-      <ButtonUi
+    <div className={cn("flex items-center gap-1", className)}>
+      <button
         type="button"
-        size="icon-sm"
         onClick={onOpenContact}
         data-cursor="grow"
-        aria-label="Send email"
-        title="Send email"
+        aria-label="Contact"
+        className="text-ink-muted hover:text-ink hover:bg-raised flex size-7 cursor-pointer items-center justify-center rounded-full transition-colors"
       >
-        <Icons.Mail
-          className={cn(
-            "text-white transition-transform duration-200 group-hover:scale-110",
-            isCompact ? "h-3.5 w-3.5" : "h-4 w-4"
-          )}
-        />
-      </ButtonUi>
+        <Icons.Mail className="h-3.5 w-3.5 shrink-0" />
+      </button>
 
-      {/* Book a call action */}
-      <ButtonUi
+      <button
         type="button"
         data-cal-link={CAL_LINK}
         data-cal-config='{"layout":"month_view"}'
-        onClick={onOpenBooking}
         data-cursor="grow"
         aria-label="Book a call"
-        title="Book a call"
-        size="icon-sm"
-        variant="secondary"
+        className="animate-nav-pop-in bg-ink hover:bg-ink-2 flex size-7 cursor-pointer items-center justify-center rounded-full text-white transition-colors"
       >
-        <Icons.Calendar
-          className={cn(
-            "text-black transition-transform duration-200 group-hover:scale-110",
-            isCompact ? "h-3.5 w-3.5" : "h-4 w-4"
-          )}
-        />
-      </ButtonUi>
+        <Icons.Calendar className="h-3.5 w-3.5 shrink-0" />
+      </button>
     </div>
   );
 }

@@ -8,7 +8,7 @@ export default function TermsPage() {
   return (
     <PageTransition>
       <div className="w-full">
-        <Container className="flex max-w-[720px] flex-col gap-10 pt-32 pb-24">
+        <Container className="flex max-w-[720px] flex-col gap-10 pt-16 pb-24">
           <div>
             <Link
               href="/"
@@ -28,61 +28,60 @@ export default function TermsPage() {
               Terms of Service
             </h1>
             <span className="mt-1 block font-mono text-xs text-gray-50">
-              Last updated: February 2025
+              Last updated: September 2026
             </span>
           </div>
 
           <div className="text-gray-60 flex flex-col gap-6 text-sm leading-relaxed">
             <p>
-              Welcome to the engineering &amp; design services of Soufiyan Benallal (&quot;we&quot;,
-              &quot;our&quot;). By engaging our software development, Shopify engineering, AI
-              integration, or consulting services, or subscribing to our retainer plans, you agree
-              to comply with and be bound by the following terms and conditions.
+              These terms apply when you engage Soufiyan Benallal (&quot;I&quot;, &quot;me&quot;)
+              for software development, Shopify engineering, AI integration or technical
+              consulting. Each engagement is also described in a written proposal; where the two
+              differ, the proposal wins.
             </p>
 
             <h2 className="mt-4 text-lg font-semibold text-black">1. Scope of Services</h2>
             <p>
-              Services encompass full-stack web application development, custom Shopify apps &amp;
-              themes, AI workflow automation, backend API architecture, UI engineering, and
-              technical consulting. Work is conducted either on a fixed-scope project contract or
-              through an engineering retainer.
+              Services include full-stack web application and SaaS development, Shopify apps and
+              themes, AI integration and workflow automation, backend and API development, and
+              technical leadership or code review. The exact scope, milestones and deliverables of
+              each engagement are set out in its proposal.
             </p>
 
-            <h2 className="mt-4 text-lg font-semibold text-black">
-              2. Intellectual Property Rights
-            </h2>
+            <h2 className="mt-4 text-lg font-semibold text-black">2. Engagement &amp; Payment</h2>
             <p>
-              Upon complete payment of all agreed fees, 100% of all intellectual property rights,
-              editable source files (Figma, code repositories, asset exports), and final
-              deliverables are transferred unconditionally to the client. The studio reserves the
-              right to showcase non-confidential project visuals in our portfolio and industry award
-              submissions.
+              Work is carried out either as a fixed-scope project, invoiced by milestone, or as an
+              ongoing monthly engagement. Amounts, payment schedule and payment method are stated
+              in the proposal and on each invoice.
             </p>
 
-            <h2 className="mt-4 text-lg font-semibold text-black">
-              3. Subscription & Retainer Terms
-            </h2>
+            <h2 className="mt-4 text-lg font-semibold text-black">3. Changes to Scope</h2>
             <p>
-              Monthly unlimited design plans are billed every 30 days via Stripe. Clients may pause
-              or cancel their subscription at any time prior to the next billing cycle renewal.
-              Pausing suspends active request queues and reserves the remaining billed days for
-              future resumption.
+              Requests outside the agreed scope are handled as written change requests. I will
+              confirm the effect on timeline and cost before starting any additional work.
             </p>
 
-            <h2 className="mt-4 text-lg font-semibold text-black">4. Revisions & Turnaround</h2>
+            <h2 className="mt-4 text-lg font-semibold text-black">4. Intellectual Property</h2>
             <p>
-              Standard subscription requests receive active iterations within an average of 48
-              business hours. Fixed project milestones include up to three structured rounds of
-              revisions to guarantee total satisfaction.
+              Once the agreed fees are paid in full, ownership of the source code, documentation
+              and deliverables created for you transfers to you. I will only reference the work in
+              my portfolio with your permission, and never anything confidential.
             </p>
 
-            <h2 className="mt-4 text-lg font-semibold text-black">
-              5. Confidentiality & Mutual NDA
-            </h2>
+            <h2 className="mt-4 text-lg font-semibold text-black">5. Confidentiality</h2>
             <p>
-              All client proprietary information, product roadmaps, and business data are treated
-              with strict confidentiality. A mutual non-disclosure agreement is available upon
-              request prior to project initiation.
+              Your proprietary information, code, product plans and business data are kept
+              confidential. A mutual non-disclosure agreement is available on request before the
+              project starts.
+            </p>
+
+            <h2 className="mt-4 text-lg font-semibold text-black">6. Contact</h2>
+            <p>
+              Questions about these terms:{" "}
+              <a href="mailto:benallalsoufiane1@gmail.com" className="text-black underline">
+                benallalsoufiane1@gmail.com
+              </a>
+              .
             </p>
           </div>
         </Container>

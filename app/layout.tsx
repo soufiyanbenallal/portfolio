@@ -2,13 +2,25 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { PortfolioChromeShared } from "@/components/shared/portfolio-chrome.shared";
 import { SmoothScroll } from "@/components/motion/smooth-scroll.motion";
-import { Inter, Fragment_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { Fragment_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-// Self-hosted by next/font — replaces a render-blocking Google Fonts @import.
-// Switzer (fonts.css) is the display face; Inter is its metric-close fallback
-// and Fragment Mono carries every label, counter and meta line.
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+// Both faces are self-hosted by next/font: preloaded from this origin, with
+// a metric-adjusted fallback so text does not shift when they arrive.
+// Switzer (Fontshare, ITF Free Font License) sets everything; Fragment Mono
+// carries every label, counter and meta line.
+const switzer = localFont({
+  src: [
+    { path: "./fonts/switzer-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/switzer-500.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/switzer-600.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/switzer-700.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-switzer",
+  display: "swap",
+  adjustFontFallback: "Arial",
+});
 const fragmentMono = Fragment_Mono({
   subsets: ["latin"],
   weight: "400",
@@ -52,7 +64,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fafafa",
+  themeColor: "#fbfbfc",
   colorScheme: "light",
 };
 
@@ -60,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     // No `scroll-smooth` here: Lenis owns the scroll position, and native
     // smooth scrolling fights it for the same frames.
-    <html lang="en" className={cn("font-sans", inter.variable, fragmentMono.variable)}>
+    <html lang="en" className={cn("font-sans", switzer.variable, fragmentMono.variable)}>
       <body className="bg-gray-5 relative flex min-h-screen flex-col overflow-x-clip font-sans text-black antialiased">
         <a
           href="#main-content"

@@ -8,6 +8,12 @@ type ContainerSharedPropsType = {
   as?: React.ElementType;
 };
 
+/**
+ * Content column *inside* a Section's frame: the frame's width and the
+ * Line Grid's horizontal padding (16px mobile, 40px desktop). It draws no
+ * rails of its own — `<Section>` does — so it is safe to use several times
+ * within one frame (absolute layers of a pinned stage, for instance).
+ */
 export function Container({
   children,
   className,
@@ -17,7 +23,7 @@ export function Container({
   return (
     <Component
       id={id}
-      className={cn("relative z-10 mx-auto w-full max-w-6xl px-3 md:px-6", className)}
+      className={cn("relative z-10 mx-auto w-full max-w-(--frame) px-4 sm:px-10", className)}
     >
       {children}
     </Component>

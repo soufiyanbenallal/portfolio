@@ -1,5 +1,10 @@
 import type { TestimonialItemType } from "@/types";
 
+/* PLACEHOLDER CONTENT — not real testimonials.
+ * Names, companies, quotes and photos below are stand-ins that show the
+ * layout. Replace them with real recommendations (e.g. from LinkedIn, with
+ * the author's permission) before this section ships to production. */
+
 export const bigQuoteTestimonial: TestimonialItemType = {
   id: "big-quote",
   quote:

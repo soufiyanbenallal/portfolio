@@ -5,18 +5,45 @@ import { notFound } from "next/navigation";
 import { projectsData, getProjectBySlug } from "@/data/projects.data";
 import { Icons } from "@/components/ui/social-icons.ui";
 import { TagBadgeUi } from "@/components/ui/badge.ui";
-import { Container } from "@/components/shared/container.shared";
-import { ProjectCardPart } from "@/components/partials/project-card.part";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal.motion";
-import { TextReveal } from "@/components/motion/text-reveal.motion";
+import { Section } from "@/components/shared/section.shared";
+import { Chapter, ChapterHead } from "@/components/shared/chapter.shared";
+import { WorkCard } from "@/components/shared/work-card.shared";
 import { PageTransition, SharedElement } from "@/components/motion/page-transition.motion";
 
 export function generateStaticParams() {
-  return projectsData.map((project) => ({
-    slug: project.slug,
-  }));
+  return projectsData.map((project) => ({ slug: project.slug }));
 }
 
+/** Renders `code spans` in project copy as inline mono code. */
+function InlineText({ text }: { text: string }) {
+  return (
+    <>
+      {text.split("`").map((part, index) =>
+        index % 2 === 1 ? (
+          <code key={index} className="bg-raised text-ink-2 rounded-[4px] px-1 py-0.5 font-mono text-[0.88em]">
+            {part}
+          </code>
+        ) : (
+          <React.Fragment key={index}>{part}</React.Fragment>
+        )
+      )}
+    </>
+  );
+}
+
+/** Where the project lives, in words: npm, GitHub, or this site. */
+function describeLiveUrl(url: string) {
+  if (url.startsWith("/")) return { label: "Open it live", external: false };
+  if (url.includes("npmjs.com")) return { label: "View on npm", external: true };
+  if (url.includes("github.com")) return { label: "View on GitHub", external: true };
+  return { label: "Visit", external: true };
+}
+
+/**
+ * Project — a case study in seamed sections: the claim and its links, the
+ * cover the reader clicked (morphed across the route), facts as cells, the
+ * story as a spine chapter of rows, then related work.
+ */
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
@@ -26,189 +53,163 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   }
 
   const relatedProjects = projectsData.filter((p) => project.relatedProjectSlugs.includes(p.slug));
+  const live = project.liveUrl ? describeLiveUrl(project.liveUrl) : null;
+  const story = [
+    { label: "Overview", body: project.overview },
+    { label: "The problem", body: project.challenge },
+    { label: "The approach", body: project.solution },
+  ];
 
   return (
     <PageTransition>
       <article className="w-full">
-        <Container className="flex flex-col gap-12 pt-32 pb-24 sm:gap-16">
-          {/* Back Link */}
-          <div>
+        <Section as="div" seam={false}>
+          <div className="flex flex-col gap-8 px-4 pt-10 pb-12 sm:px-10 lg:pb-16">
             <Link
               href="/projects"
               transitionTypes={["nav-back"]}
-              className="text-gray-60 group inline-flex items-center gap-2 text-xs font-medium transition-colors hover:text-black"
+              className="group text-ink-muted hover:text-ink inline-flex w-fit items-center gap-2 text-[13px] transition-colors"
             >
               <Icons.ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
-              <span>Back to all projects</span>
+              All projects
             </Link>
+
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-wrap items-center gap-3">
+                <TagBadgeUi variant="dark">{project.category}</TagBadgeUi>
+                <span className="text-ink-faint font-mono text-[11px]">
+                  {project.client} · {project.year}
+                </span>
+              </div>
+              <h1 className="text-ink max-w-3xl text-[40px] leading-[1.04] font-medium tracking-[-0.045em] text-balance sm:text-[56px]">
+                {project.title}. <span className="text-ink-soft">{project.tagline}</span>
+              </h1>
+              <p className="text-ink-muted max-w-2xl text-[16px] leading-relaxed">{project.description}</p>
+            </div>
+
+            {live && project.liveUrl && (
+              <div className="flex flex-wrap gap-2">
+                {live.external ? (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary inline-flex h-10 items-center gap-2 px-4 text-[13px] font-medium"
+                  >
+                    {live.label}
+                    <Icons.ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                ) : (
+                  <Link
+                    href={project.liveUrl}
+                    className="btn-primary inline-flex h-10 items-center gap-2 px-4 text-[13px] font-medium"
+                  >
+                    {live.label}
+                    <Icons.ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
+        </Section>
 
-          {/* Project Header */}
-          <div className="border-gray-30 flex flex-col gap-6 border-b pb-10">
-            <Reveal preset="fade" className="flex flex-wrap items-center gap-3">
-              <TagBadgeUi variant="dark">{project.category}</TagBadgeUi>
-              <span className="font-mono text-xs text-gray-50">{project.year}</span>
-              <span className="text-gray-40 text-xs">/</span>
-              <span className="text-gray-60 text-xs font-medium">{project.client}</span>
-            </Reveal>
-
-            <TextReveal
-              as="h1"
-              by="word"
-              trigger="mount"
-              text={`${project.title} — ${project.tagline}`}
-              className="max-w-3xl text-3xl font-medium tracking-tight text-black sm:text-5xl md:text-6xl"
-            />
-
-            <Reveal preset="fadeUp" delay={0.25}>
-              <p className="text-gray-60 max-w-2xl text-base leading-relaxed sm:text-lg">
-                {project.description}
-              </p>
-            </Reveal>
-          </div>
-
-          {/* Hero cover. Paired by name with the card the reader clicked, so the
-            thumbnail physically becomes this image across the route change. */}
+        {/* The cover the reader clicked, morphed across the route. */}
+        <Section aria-label="Cover">
           <SharedElement name={`project-media-${project.slug}`}>
-            <div className="bg-gray-10 border-gray-30 relative aspect-[16/9] w-full overflow-hidden rounded-[24px] border shadow-sm">
+            <div className="bg-raised relative aspect-16/10 w-full overflow-hidden">
               <Image
                 src={project.heroImage}
-                alt={project.title}
+                alt={`${project.title} — ${project.typeOfWork}`}
                 fill
-                priority
-                sizes="(max-width: 1200px) 100vw, 1080px"
-                className="object-cover object-center"
+                loading="eager"
+                fetchPriority="high"
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                className="object-cover"
               />
             </div>
           </SharedElement>
+        </Section>
 
-          {/* Stats Metrics Grid */}
-          {project.stats && project.stats.length > 0 && (
-            <Stagger
-              className="border-gray-30 grid grid-cols-1 gap-4 border-y py-8 sm:grid-cols-3"
-              stagger={0.1}
-            >
-              {project.stats.map((stat, i) => (
-                <StaggerItem key={i} className="flex flex-col gap-1 text-center sm:text-left">
-                  <span className="font-mono text-xs tracking-widest text-gray-50 uppercase">
-                    {stat.label}
-                  </span>
-                  <span className="font-price text-3xl font-bold tracking-tight text-black sm:text-4xl">
-                    {stat.value}
-                  </span>
-                </StaggerItem>
+        <Section aria-label="Facts">
+          <dl className="cells grid-cols-1 sm:grid-cols-3 [&>*]:bg-bg!">
+            {project.stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col gap-2 p-6 sm:p-8">
+                <dt className="text-ink-muted order-2 text-[13px]">{stat.label}</dt>
+                <dd className="text-ink order-1 text-[32px] leading-none font-medium tracking-[-0.04em] tabular-nums">
+                  {stat.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Section>
+
+        <Section aria-label="Case study">
+          <Chapter label="Case study" summary={project.typeOfWork}>
+            <dl className="divide-line divide-y">
+              {story.map((part) => (
+                <div key={part.label} className="grid gap-2 px-4 py-8 sm:px-10 md:grid-cols-[160px_1fr] md:gap-8">
+                  <dt className="text-ink text-[14px] font-medium">{part.label}</dt>
+                  <dd className="text-ink-muted max-w-[62ch] text-[15px] leading-relaxed">
+                    <InlineText text={part.body} />
+                  </dd>
+                </div>
               ))}
-            </Stagger>
-          )}
-
-          {/* Narrative Columns (Overview, Challenge, Solution) */}
-          <div className="grid grid-cols-1 gap-10 py-4 md:grid-cols-12 md:gap-12">
-            <div className="flex flex-col gap-6 md:col-span-4">
-              <span className="block font-mono text-xs tracking-widest text-gray-50 uppercase">
-                Project Architecture
-              </span>
-              <div className="flex flex-col gap-4">
-                <div>
-                  <span className="text-gray-40 mb-1 block text-xs">Client</span>
-                  <span className="text-sm font-semibold text-black">{project.client}</span>
-                </div>
-                <div>
-                  <span className="text-gray-40 mb-1 block text-xs">Scope</span>
-                  <span className="text-sm font-semibold text-black">{project.typeOfWork}</span>
-                </div>
-                <div>
-                  <span className="text-gray-40 mb-2 block text-xs">Technologies</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="bg-gray-10 border-gray-30 rounded-md border px-2.5 py-1 font-mono text-xs text-black"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-body-xl flex flex-col gap-8 leading-relaxed text-black md:col-span-8">
-              <div>
-                <h2 className="mb-3 text-xl font-medium text-black">Overview</h2>
-                <p className="text-gray-60">{project.overview}</p>
-              </div>
-
-              <div>
-                <h2 className="mb-3 text-xl font-medium text-black">The Challenge</h2>
-                <p className="text-gray-60">{project.challenge}</p>
-              </div>
-
-              <div>
-                <h2 className="mb-3 text-xl font-medium text-black">The Solution</h2>
-                <p className="text-gray-60">{project.solution}</p>
-              </div>
-
-              {project.results && project.results.length > 0 && (
-                <div className="border-gray-20 border-t pt-4">
-                  <h2 className="mb-4 text-xl font-medium text-black">Key Outcomes</h2>
-                  <ul className="flex flex-col gap-3">
-                    {project.results.map((res, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-black">
-                        <Icons.Check className="text-availability-green mt-0.5 h-4 w-4 shrink-0" />
-                        <span>{res}</span>
+              <div className="grid gap-3 px-4 py-8 sm:px-10 md:grid-cols-[160px_1fr] md:gap-8">
+                <dt className="text-ink text-[14px] font-medium">Outcomes</dt>
+                <dd>
+                  <ul className="flex flex-col gap-2">
+                    {project.results.map((result) => (
+                      <li key={result} className="text-ink-2 flex gap-3 text-[14px] leading-relaxed">
+                        <span className="bg-green mt-[8px] h-1.5 w-1.5 shrink-0" aria-hidden="true" />
+                        <span>
+                          <InlineText text={result} />
+                        </span>
                       </li>
                     ))}
                   </ul>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Gallery Section */}
-          {project.gallery && project.gallery.length > 0 && (
-            <div className="border-gray-30 flex flex-col gap-8 border-t pt-8">
-              <span className="font-mono text-xs tracking-widest text-gray-50 uppercase">
-                Visual Highlights
-              </span>
-              <div className="flex flex-col gap-8">
-                {project.gallery.map((img, i) => (
-                  <Reveal key={i} preset="card3D" className="flex flex-col gap-2">
-                    <div className="bg-gray-10 border-gray-30 relative aspect-[16/9] w-full overflow-hidden rounded-[20px] border">
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        fill
-                        sizes="(max-width: 1200px) 100vw, 1080px"
-                        className="object-cover"
-                      />
-                    </div>
-                    {img.caption && (
-                      <span className="px-1 text-right font-mono text-xs text-gray-50">
-                        {img.caption}
-                      </span>
-                    )}
-                  </Reveal>
-                ))}
+                </dd>
               </div>
-            </div>
-          )}
+              <div className="grid gap-3 px-4 py-8 sm:px-10 md:grid-cols-[160px_1fr] md:gap-8">
+                <dt className="text-ink text-[14px] font-medium">Stack</dt>
+                <dd className="flex flex-wrap gap-1.5">
+                  {project.techStack.map((tech) => (
+                    <TagBadgeUi key={tech}>{tech}</TagBadgeUi>
+                  ))}
+                </dd>
+              </div>
+            </dl>
+          </Chapter>
+        </Section>
 
-          {/* Related Projects */}
-          {relatedProjects.length > 0 && (
-            <div className="border-gray-30 flex flex-col gap-6 border-t pt-12">
-              <span className="font-mono text-xs tracking-widest text-gray-50 uppercase">
-                Related Case Studies
-              </span>
-              <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.1}>
-                {relatedProjects.map((rel) => (
-                  <StaggerItem key={rel.id} preset="card3D">
-                    <ProjectCardPart project={rel} />
-                  </StaggerItem>
-                ))}
-              </Stagger>
+        {project.gallery.length > 1 && (
+          <Section aria-label="Gallery">
+            <ul className="cells md:grid-cols-2">
+              {project.gallery.map((image) => (
+                <li key={image.src}>
+                  <figure>
+                    <div className="border-line relative aspect-16/10 w-full overflow-hidden border-b">
+                      <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, 600px" className="object-cover" />
+                    </div>
+                    {image.caption && (
+                      <figcaption className="text-ink-faint px-6 py-4 font-mono text-[11px]">{image.caption}</figcaption>
+                    )}
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+
+        {relatedProjects.length > 0 && (
+          <Section aria-label="More work">
+            <ChapterHead eyebrow="More work" title={["Related projects."]} />
+            <div className="dots border-line grid grid-cols-1 gap-6 border-t px-4 py-10 sm:px-10 md:grid-cols-2">
+              {relatedProjects.map((related) => (
+                <WorkCard key={related.id} project={related} />
+              ))}
             </div>
-          )}
-        </Container>
+          </Section>
+        )}
       </article>
     </PageTransition>
   );

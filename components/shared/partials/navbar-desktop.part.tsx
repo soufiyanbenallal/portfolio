@@ -3,78 +3,86 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { SPRINGS } from "@/lib/motion.config";
 import { NavbarActionsPart } from "./navbar-actions.part";
+import { Reveal } from "./navbar-reveal.part";
 import type { NavbarDesktopPropsType } from "@/types";
 
-const AVATAR = "/images/profile.jpeg";
-
 export function NavbarDesktopPart({
-  isPastHero,
+  isCollapsed,
+  showPrimary,
   navLinks,
   activeSection,
   isHomepage,
   onAnchorClick,
   onOpenContact,
-  onOpenBooking,
   resolveHref,
 }: NavbarDesktopPropsType) {
+  // "Contact" is an action on the right; listing it as a link too would give
+  // the same dialog two different doors.
+  const links = navLinks.filter((link) => link.href !== "#contact");
+
   return (
-    <nav
-      className={cn(
-        "hidden items-center rounded-[32px] text-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] select-none md:flex",
-        isPastHero ? "gap-4 px-2.5 py-1.5 pl-3.5" : "gap-12 px-4 py-2.5 lg:gap-16"
-      )}
-    >
+    <div className="hidden h-11 items-center gap-1 pr-1.5 pl-1.5 md:flex">
       <Link
         href="/"
         onClick={(event) => onAnchorClick(event, "#hero", true)}
-        className="group flex items-center gap-2.5"
+        className="group hover:bg-raised flex h-8 items-center gap-2.5 rounded-full pr-3 pl-0.5 transition-colors"
       >
-        <span className="border-gray-30 relative h-7 w-7 shrink-0 overflow-hidden rounded-full border">
+        <span className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full">
           <Image
-            src={AVATAR}
-            alt="Soufiyan Benallal"
+            src="/images/profile.jpeg"
+            alt=""
             fill
             sizes="28px"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover"
+            loading="eager"
           />
         </span>
-        <span className="text-sm font-medium tracking-tight whitespace-nowrap text-black transition-colors duration-200">
+        <span className="text-ink text-sm font-medium tracking-tight whitespace-nowrap">
           Soufiyan Benallal
         </span>
       </Link>
 
-      {!isPastHero ? (
-        <div className="animate-nav-fade-in flex items-center gap-1 lg:gap-2">
-          {navLinks.map((link) => {
+      <Reveal open={!isCollapsed}>
+        <nav aria-label="Primary" className="flex items-center gap-0.5 px-2">
+          <span className="bg-line-2 mr-2 h-4 w-px" aria-hidden="true" />
+          {links.map((link) => {
             const isActive = isHomepage && link.isAnchor && link.href.slice(1) === activeSection;
-
             return (
               <Link
                 key={link.label}
                 href={resolveHref(link.href, link.isAnchor)}
                 onClick={(event) => onAnchorClick(event, link.href, link.isAnchor)}
                 aria-current={isActive ? "true" : undefined}
+                tabIndex={isCollapsed ? -1 : undefined}
                 className={cn(
-                  "relative rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200",
-                  isActive
-                    ? "bg-gray-20 text-black shadow-2xs"
-                    : "text-gray-60 hover:bg-gray-10/70 hover:text-black"
+                  "relative flex h-7 items-center rounded-full px-3 text-[13px] transition-colors",
+                  isActive ? "text-ink" : "text-ink-muted hover:text-ink"
                 )}
               >
-                {link.label}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active"
+                    transition={SPRINGS.indicator}
+                    className="bg-line absolute inset-0 rounded-full"
+                  />
+                )}
+                <span className="relative">{link.label}</span>
               </Link>
             );
           })}
-        </div>
-      ) : (
-        <NavbarActionsPart
-          variant="default"
-          onOpenContact={onOpenContact}
-          onOpenBooking={onOpenBooking}
-        />
-      )}
-    </nav>
+          <span className="bg-line-2 ml-2 h-4 w-px" aria-hidden="true" />
+        </nav>
+      </Reveal>
+
+      <NavbarActionsPart
+        collapsed={isCollapsed}
+        showPrimary={showPrimary}
+        onOpenContact={onOpenContact}
+      />
+    </div>
   );
 }

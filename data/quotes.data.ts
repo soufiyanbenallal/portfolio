@@ -5,15 +5,16 @@ export const quotesData: QuoteDetailType[] = [
     id: "quote-1",
     slug: "tb-0001",
     quoteNumber: "TB-0001",
-    clientName: "Thomas Weber",
-    clientCompany: "KYMA AI Technologies",
-    clientEmail: "thomas@kyma.ai",
+    // Sample document showing the proposal format — not a real client.
+    clientName: "Sample Client",
+    clientCompany: "Example Company",
+    clientEmail: "client@example.com",
     projectTitle: "Brand & Platform Architecture Overhaul",
     issueDate: "Feb 10, 2025",
     validUntil: "Mar 15, 2025",
     status: "Sent",
     summary:
-      "Comprehensive end-to-end redesign and custom Next.js web application build for KYMA's next-generation artificial intelligence automation platform.",
+      "Sample proposal: end-to-end redesign and custom Next.js web application build for an AI automation platform.",
     lineItems: [
       {
         id: "li-1",
@@ -52,7 +53,7 @@ export const quotesData: QuoteDetailType[] = [
     terms: [
       "All delivered design files, prototypes, and source code become the exclusive intellectual property of the client upon final settlement.",
       "Includes up to 3 revision cycles per milestone.",
-      "Complimentary 30-day post-launch technical warranty and bug remediation.",
+      "Post-launch support period agreed in writing before work begins.",
       "Work commences within 3 business days of deposit receipt.",
     ],
   },

@@ -4,31 +4,21 @@ import React, { useEffect } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
 import type { LenisOptions } from "lenis";
 import { MotionConfig } from "motion/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePortfolioStore } from "@/lib/portfolio.store";
 import { EASINGS, SCROLL } from "@/lib/motion.config";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 /* ==================================================================== *
  * SMOOTH SCROLL — the one clock every scroll animation reads from
  * --------------------------------------------------------------------
- * The homepage runs two animation engines against the scrollbar: Motion's
- * `useScroll` (hero deck, quote, text illumination) and GSAP ScrollTrigger
- * (services rig). If each smooths the scroll on its own, they drift apart
- * and the page feels like it is dragging through syrup in some sections
- * and snapping in others. So:
+ * Lenis is the *only* smoothing layer. It performs real window scrolls, so
+ * everything downstream simply follows the scroll position:
  *
- *  1. Lenis is the *only* smoothing layer. It performs real window scrolls,
- *     so Motion's `useScroll` picks them up with no glue.
- *  2. GSAP's ticker drives Lenis' frame loop (`autoRaf: false`), and every
- *     Lenis frame pushes a `ScrollTrigger.update()` — so pinned/scrubbed GSAP
- *     timelines advance on exactly the same frame as the Motion values.
- *  3. The rigs themselves apply only a light, stiff spring on top (see
- *     `SPRINGS.scroll`), enough to absorb frame jitter without adding lag.
+ *   • Motion's `useScroll` (hero deck, quote, text illumination) reads it
+ *     on every frame with no glue;
+ *   • GSAP ScrollTrigger (the services showcase) listens to the same
+ *     native scroll events — which is why GSAP is not imported here. It
+ *     loads on demand, on desktop only, inside the showcase itself, and
+ *     stays out of every page's start-up bundle.
  *
  * Reduced motion is honoured by Lenis itself (`respectReducedMotion`, on by
  * default): scroll becomes 1:1 and programmatic scrolls jump instantly.
@@ -36,7 +26,7 @@ if (typeof window !== "undefined") {
  * ==================================================================== */
 
 const LENIS_OPTIONS: LenisOptions = {
-  autoRaf: false,
+  autoRaf: true,
   lerp: SCROLL.lerp,
   smoothWheel: true,
   wheelMultiplier: SCROLL.wheelMultiplier,
@@ -52,30 +42,7 @@ const LENIS_OPTIONS: LenisOptions = {
  */
 function ScrollClockBridge() {
   const lenis = useLenis();
-  const isModalOpen = usePortfolioStore((state) => state.isContactOpen || state.isBookingOpen);
-
-  useEffect(() => {
-    if (!lenis) return;
-
-    const tick = (time: number) => lenis.raf(time * 1000);
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add(tick);
-    // GSAP's lag smoothing would stall Lenis after a long frame, then jump.
-    gsap.ticker.lagSmoothing(0);
-
-    // Web fonts swap in after first paint and change section heights, which
-    // leaves every ScrollTrigger start/end a few pixels stale.
-    let isCancelled = false;
-    document.fonts?.ready.then(() => {
-      if (!isCancelled) ScrollTrigger.refresh();
-    });
-
-    return () => {
-      isCancelled = true;
-      lenis.off("scroll", ScrollTrigger.update);
-      gsap.ticker.remove(tick);
-    };
-  }, [lenis]);
+  const isModalOpen = usePortfolioStore((state) => state.isContactOpen);
 
   // Dialogs lock `body` overflow, but Lenis drives the scroll itself and
   // would keep gliding the page underneath. Pause it for the duration.

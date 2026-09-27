@@ -7,6 +7,12 @@ import { ButtonUi } from "@/components/ui/button.ui";
 import { TagBadgeUi } from "@/components/ui/badge.ui";
 import { Container } from "@/components/shared/container.shared";
 import { PageTransition } from "@/components/motion/page-transition.motion";
+import type { Metadata } from "next";
+
+// Proposals are private documents shared by link — never indexed.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export function generateStaticParams() {
   return quotesData.map((quote) => ({
@@ -25,7 +31,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ sl
   return (
     <PageTransition>
       <div className="w-full">
-        <Container className="flex max-w-[840px] flex-col gap-10 pt-32 pb-24">
+        <Container className="flex max-w-[840px] flex-col gap-10 pt-16 pb-24">
           {/* Back Link */}
           <div>
             <Link

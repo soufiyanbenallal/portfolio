@@ -35,23 +35,22 @@ export const ButtonUi = forwardRef<HTMLButtonElement, ButtonPropsType>(
         ref={ref}
         disabled={disabled || isLoading}
         className={cn(
-          "group inline-flex cursor-pointer items-center justify-center rounded-full font-medium transition-all duration-200 select-none focus-visible:ring-2 focus-visible:ring-black/50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+          // 13px medium, full pill, no shadow — the edge does the work.
+          "group inline-flex cursor-pointer items-center justify-center rounded-full font-medium transition-colors duration-200 select-none disabled:cursor-not-allowed disabled:opacity-50",
           // Variants
-          variant === "primary" &&
-            "shadow-button hover:bg-black-90 hover:shadow-button-hover border border-black bg-black text-white active:scale-[0.98]",
-          variant === "secondary" &&
-            "border-gray-30 hover:bg-gray-10 border bg-white text-black shadow-xs active:scale-[0.98]",
+          variant === "primary" && "btn-primary",
+          variant === "secondary" && "btn-secondary",
           variant === "outline" &&
-            "border-gray-30 hover:bg-gray-10 border bg-transparent text-black active:scale-[0.98]",
-          variant === "ghost" && "hover:bg-gray-20 bg-transparent text-black active:scale-[0.98]",
+            "border-line-2 hover:bg-raised text-ink border bg-transparent",
+          variant === "ghost" && "hover:bg-raised text-ink-muted hover:text-ink bg-transparent",
           variant === "glass" &&
-            "border-gray-30 border bg-white/70 text-black shadow-xs backdrop-blur-md hover:bg-white/90 active:scale-[0.98]",
+            "border-line-2 bg-bg/80 text-ink hover:bg-surface border backdrop-blur-md",
           // Sizes
-          size === "sm" && "h-8 gap-1.5 px-3.5 py-1.5 text-xs",
-          size === "md" && "h-11 gap-2 px-5 py-2.5 text-sm",
-          size === "lg" && "h-13 gap-2.5 px-6 py-3.5 text-base",
+          size === "sm" && "h-8 gap-1.5 px-3 text-[13px]",
+          size === "md" && "h-9 gap-2 px-3.5 text-[13px]",
+          size === "lg" && "h-11 gap-2.5 px-5 text-sm",
           size === "icon-sm" && "size-8 justify-center p-1.5",
-          size === "icon" && "size-10 justify-center",
+          size === "icon" && "size-9 justify-center",
           className
         )}
         {...props}
@@ -81,7 +80,7 @@ export const ButtonUi = forwardRef<HTMLButtonElement, ButtonPropsType>(
             <span className="sr-only">Loading...</span>
           </span>
         ) : isSuccess ? (
-          <span className="text-availability-green font-medium">Sent Successfully!</span>
+          <span className="text-availability-green font-medium">Opening your email app…</span>
         ) : isError ? (
           <span className="font-medium text-red-500">Error sending</span>
         ) : (

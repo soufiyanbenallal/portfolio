@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "./fonts.css";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
@@ -8,34 +7,65 @@
 /* ==================================================================== *
  * DESIGN TOKENS — the single source of truth
  * --------------------------------------------------------------------
- * Every token below becomes a Tailwind utility (`bg-gray-5`,
- * `rounded-card`, `py-section`, `ease-entrance`, `shadow-card` …). The
- * shadcn variables further down are *aliases* of these, never a second
- * palette — so a component from either world renders in the same system.
+ * The palette is the Line Grid system (.claude/skills/line-grid-design):
+ * a light, low-contrast world where structure is *drawn* — rails, seams,
+ * shared cell edges — instead of boxed with shadows.
  *
- * Inter and Fragment Mono are self-hosted by `next/font` in
- * app/layout.tsx, which exposes them as `--font-inter` / `--font-fragment-mono`.
+ * Every token becomes a Tailwind utility (`bg-bg`, `text-ink-faint`,
+ * `border-line-2`, `text-brand` …). The older `gray-*` / `black` ramp is
+ * kept as aliases onto the same values, so nothing renders from a second
+ * palette. The shadcn variables further down alias these too.
+ *
+ * Naming note: shadcn already owns `muted` and `accent` (as backgrounds),
+ * so the skill's muted text is `ink-muted` and its accent is `brand`.
+ *
+ * Switzer and Fragment Mono are self-hosted by `next/font` in
+ * app/layout.tsx, which exposes them as `--font-switzer` / `--font-fragment-mono`.
  * ==================================================================== */
 
 @theme {
   --font-sans:
-    "Switzer", var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
-  --font-display: "Switzer", var(--font-inter), sans-serif;
-  --font-price: "Inter Display", var(--font-inter), sans-serif;
+    var(--font-switzer), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-switzer), sans-serif;
+  --font-price: var(--font-switzer), sans-serif;
   --font-mono: var(--font-fragment-mono), ui-monospace, SFMono-Regular, monospace;
 
+  /* Surfaces */
   --color-white: #ffffff;
-  --color-gray-5: #fafafa;
-  --color-gray-10: #f7f7f7;
-  --color-gray-20: #f0f0f0;
-  --color-gray-30: #dedede;
-  --color-gray-40: #b8b8b8;
-  --color-gray-50: #828282;
-  --color-gray-60: #545454;
-  --color-black-90: #2b2b2b;
-  --color-black: #000000;
-  --color-availability-green: #21b30b;
+  --color-bg: #fbfbfc; /* page */
+  --color-surface: #ffffff; /* cells, app windows */
+  --color-raised: #f5f5f7; /* hover, selected rows, code panels */
+
+  /* Text */
+  --color-ink: #111113; /* headings, primary buttons */
+  --color-ink-2: #3a3b41; /* strong body, button hover */
+  --color-ink-muted: #56575f; /* body copy */
+  --color-ink-faint: #6e6f79; /* labels, captions, meta — AA (≥4.5:1) on every light surface */
+  --color-ink-soft: #8e909a; /* the quiet half of a large headline only (AA-large, ≥3:1) */
+
+  /* Lines — three weights, never a fourth */
+  --color-line: #eaeaee; /* cell edges, row dividers, dashes inside cells */
+  --color-line-2: #dedee4; /* seams, spine, hatch strokes */
+  --color-line-3: #cfd0d7; /* rails, nodes, chart dashes, dots */
+
+  /* One accent. Semantic colours are status only and never count as it. */
+  --color-brand: #000;
+  --color-brand-soft: #eeeffd;
+  --color-green: #2f9e65;
+  --color-amber: #d48a12;
+  --color-red: #dc3e42;
+
+  /* Legacy ramp → Line Grid aliases (light → dark). */
+  --color-gray-5: var(--color-bg);
+  --color-gray-10: var(--color-raised);
+  --color-gray-20: var(--color-line);
+  --color-gray-30: var(--color-line-2);
+  --color-gray-40: #b4b6be; /* text only — never a line */
+  --color-gray-50: var(--color-ink-faint);
+  --color-gray-60: var(--color-ink-muted);
+  --color-black-90: var(--color-ink-2);
+  --color-black: var(--color-ink);
+  --color-availability-green: var(--color-green);
 
   --color-background: var(--color-gray-5);
   --color-foreground: var(--color-black);
@@ -77,12 +107,9 @@
     0 2px 6px rgba(0, 0, 0, 0.04), 0 18px 40px rgba(0, 0, 0, 0.08), 0 40px 80px rgba(0, 0, 0, 0.08);
   --shadow-dark-card:
     0 2px 4px rgba(0, 0, 0, 0.06), 0 8px 20px rgba(0, 0, 0, 0.12), 0 20px 40px rgba(0, 0, 0, 0.1);
-  --shadow-button:
-    inset 0 1.5px 3px rgba(255, 255, 255, 0.35), 0 2px 6px rgba(0, 0, 0, 0.15),
-    0 10px 20px rgba(0, 0, 0, 0.1);
-  --shadow-button-hover:
-    inset 0 1.5px 3px rgba(255, 255, 255, 0.3), 0 1px 3px rgba(0, 0, 0, 0.12),
-    0 4px 10px rgba(0, 0, 0, 0.08);
+  /* The one shadow the Line Grid allows: an object floating on a dots canvas
+     (and modals / popovers). Cells never carry a shadow. */
+  --shadow-float: 0 1px 0 var(--color-line), 0 8px 24px -12px rgb(17 17 19 / 0.12);
 
   /* Vertical rhythm. Fluid, so there is no breakpoint where sections jump:
      48px on a phone → 128px on a wide desktop (GUIDE.MD §2). */
@@ -101,6 +128,15 @@
 }
 
 :root {
+  /* Layout: the one frame every section lives in and the chapter label
+     column. The nav floats over the page, so it takes no layout height
+     (`--nav-h` is 0 and pinned stages use the full viewport); content that
+     must clear the floating pill uses `--nav-clear`. */
+  --frame: 1200px;
+  --spine: 232px;
+  --nav-h: 0px;
+  --nav-clear: 5.5rem;
+
   --duration-exit: 180ms;
   --duration-enter: 260ms;
   --duration-move: 460ms;
@@ -151,6 +187,12 @@ html {
      position, and the two smoothing systems fight each other — the native
      one wins the first frame and the result stutters on every anchor jump. */
   color-scheme: light;
+  /* Seams are 100vw wide and some rigs bleed past the frame. With html
+     left `visible`, body's `overflow-x: clip` propagates to the viewport,
+     where it becomes `hidden` — still scrollable sideways by script and by
+     some touch browsers. Setting it here keeps body's clip on body, where
+     it truly clips (and, unlike `hidden`, never breaks `position: sticky`). */
+  overflow-x: clip;
 }
 
 /* No background here: an unlayered rule outranks every utility, so it would
@@ -165,13 +207,14 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-black);
-  color: var(--color-white);
+  background-color: var(--color-brand-soft);
+  color: var(--color-ink);
 }
 
+/* Focus is one of the few jobs the accent has. */
 :focus-visible {
-  outline: 2px solid var(--color-black);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
   border-radius: 4px;
 }
 
@@ -212,9 +255,32 @@ html.lenis body {
 @utility text-h1 {
   font-family: var(--font-sans);
   font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 0.95;
-  font-size: clamp(42px, 6vw, 72px);
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  font-size: clamp(44px, 6vw, 72px);
+  text-wrap: balance;
+}
+
+.border {
+  border: 0.5px solid var(--color-line-2);
+}
+.border-t {
+  border-top: 0.5px solid var(--color-line-2);
+}
+.border-b {
+  border-bottom: 0.5px solid var(--color-line-2);
+}
+.border-l {
+  border-left: 0.5px solid var(--color-line-2);
+}
+.border-r {
+  border-right: 0.5px solid var(--color-line-2);
+}
+.border-x {
+  border-inline: 0.5px solid var(--color-line-2);
+}
+.border-y {
+  border-block: 0.5px solid var(--color-line-2);
 }
 
 @utility text-h2-lg {
@@ -225,13 +291,14 @@ html.lenis body {
   font-size: clamp(36px, 5.2vw, 64px);
 }
 
-/* The section-title size. Every homepage section heading uses this. */
+/* The chapter-title size (Line Grid: 44px desktop, 32px mobile). Every
+   homepage section heading uses this. */
 @utility text-h2-sm {
   font-family: var(--font-sans);
   font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  font-size: clamp(26px, 3vw, 36px);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  font-size: clamp(32px, 1.6vw + 22px, 44px);
   text-wrap: balance;
 }
 
@@ -285,11 +352,13 @@ html.lenis body {
   line-height: 1.1;
 }
 
-/* Eyebrow / meta label. Colour is left to the call site. */
+/* Eyebrow / meta label. Colour is left to the call site (usually
+   `text-ink-faint`). */
 @utility text-label {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.18em;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -318,29 +387,33 @@ html.lenis body {
   box-shadow: var(--shadow-card-3d);
 }
 
-/* Primary dark pill. GUIDE.MD: preserve shape and *reduce* the outer shadow
-   on hover rather than scaling. */
-@utility dark-pill-button {
-  background-color: var(--color-black);
+/* Buttons. Primary = ink fill; secondary = hairline on surface; no shadow —
+   the edge does the work. Shape language (the owner's call, over the Line
+   Grid default of 6px): every button is a full pill, and floating cards use
+   the large radii (`--radius-card`, `--radius-panel`); structural cells stay
+   square so the grid's shared edges hold. Sizing is left to the call site;
+   `ButtonUi` wraps these with sizes and states. */
+@utility btn-primary {
+  background-color: var(--color-ink);
   color: var(--color-white);
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-button);
-  transition:
-    background-color 0.2s var(--ease-standard),
-    box-shadow 0.2s var(--ease-standard);
+  transition: background-color 0.2s var(--ease-standard);
 
   &:hover {
-    background-color: var(--color-black-90);
-    box-shadow: var(--shadow-button-hover);
+    background-color: var(--color-ink-2);
   }
 }
 
-@utility glass-pill {
-  background-color: rgb(255 255 255 / 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--color-gray-30);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+@utility btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  border: 1px solid var(--color-line-2);
+  border-radius: var(--radius-full);
+  transition: background-color 0.2s var(--ease-standard);
+
+  &:hover {
+    background-color: var(--color-raised);
+  }
 }
 
 @utility no-scrollbar {
@@ -356,6 +429,307 @@ html.lenis body {
    instead of faking depth with shadows. */
 @utility stage-3d {
   transform-style: preserve-3d;
+}
+
+/* ------------------------------------------------------------------ *
+ * Line Grid — structure is drawn, not boxed
+ * ------------------------------------------------------------------
+ * Every line has one meaning (see .claude/skills/line-grid-design):
+ *   rail   `.frame`       0.5px line-3, left + right of the single frame
+ *   seam   `.seam`        0.5px line-2 at a section's top, fades past the frame
+ *   node   automatic      5px square where a seam crosses a rail / the spine
+ *   spine  `.spine-grid`  0.5px line-2 splitting label column from content
+ *   cell   `.cells`       peers share one 0.5px edge (gap over line colour)
+ *   dash / fade / beam    subdivision, soft peer split, the one ambient motion
+ *
+ * Structural classes live in `components` so any utility can still
+ * override them (`lg:border-b-0` on a spine, `[&>*]:bg-bg!` on cells).
+ * Textures are `@utility` so they take variants (`hidden lg:block hatch`).
+ * Compose these through `<Section>` (components/shared/section.shared.tsx)
+ * rather than by hand.
+ * ------------------------------------------------------------------ */
+
+@layer components {
+  /* ── Rails ── */
+  .frame {
+    position: relative;
+    max-width: var(--frame);
+    margin-inline: auto;
+    border-inline: 0.5px solid var(--color-line-3);
+  }
+
+  /* ── Seams + nodes ── */
+  .seam {
+    position: relative;
+  }
+
+  .seam::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: 0.5px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      90deg,
+      transparent 0,
+      var(--color-line-2) max(0px, calc(50% - var(--frame) / 2 - 160px)),
+      var(--color-line-2) min(100%, calc(50% + var(--frame) / 2 + 160px)),
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .seam > .frame::before,
+  .seam > .frame::after,
+  .node {
+    content: "";
+    position: absolute;
+    top: -2px;
+    width: 5px;
+    height: 5px;
+    background: var(--color-bg);
+    border: 0.5px solid var(--color-line-3);
+    z-index: 2;
+  }
+
+  .seam > .frame::before {
+    left: -3px;
+  }
+
+  .seam > .frame::after {
+    right: -3px;
+  }
+
+  /* ── Spine ── */
+  @media (min-width: 1024px) {
+    .spine-grid {
+      display: grid;
+      grid-template-columns: var(--spine) minmax(0, 1fr);
+    }
+
+    .spine {
+      border-right: 0.5px solid var(--color-line-2);
+    }
+
+    .spine-node {
+      left: calc(var(--spine) - 3px);
+    }
+  }
+
+  /* ── Cells ── */
+  .cells {
+    display: grid;
+    gap: 1px;
+    background: var(--color-line);
+  }
+
+  .cells > * {
+    background: var(--color-surface);
+  }
+
+  /* ── Hatched page margins (hero product shots only) ── */
+  .margins-hatched {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .margins-hatched::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-line-2) 0 0.6px,
+      transparent 0.6px 5px
+    );
+  }
+
+  .band {
+    height: 40px;
+  }
+
+  /* ── Service palettes ──
+     Each service stack owns one hue, scoped to its own section — outside
+     it, the page's single accent (`brand`) stays the only colour.
+       hue   strokes, active paths, markers
+       deep  text set in the hue (AA on bg)
+       soft  fills and glows
+       tint  the service panel's surface */
+  .svc-commerce {
+    --svc-hue: #1f8a5b;
+    --svc-deep: #0f5a3a;
+    --svc-soft: #e4f2ea;
+    --svc-tint: #f3f8f5;
+  }
+
+  .svc-product {
+    --svc-hue: #5157d6;
+    --svc-deep: #2e3290;
+    --svc-soft: #e9eafc;
+    --svc-tint: #f5f5fe;
+  }
+
+  .svc-ai {
+    --svc-hue: #d0661e;
+    --svc-deep: #8a3a0a;
+    --svc-soft: #fbeadc;
+    --svc-tint: #fcf6f1;
+  }
+
+  /* ── Dark surface ──
+     The same tokens, re-pointed for a dark panel. Everything inside —
+     text, lines, nodes, hatch, dots, the SVG kit — follows automatically,
+     so a dark section is the same system, not a second one. */
+  .surface-dark {
+    --color-bg: #0c0c0f;
+    --color-surface: #141418;
+    --color-raised: #1b1b20;
+    --color-ink: #f3f3f6;
+    --color-ink-2: #d4d5dc;
+    --color-ink-muted: #a8a9b4;
+    --color-ink-faint: #8a8b96;
+    --color-ink-soft: #7a7b86;
+    --color-line: rgb(255 255 255 / 0.07);
+    --color-line-2: rgb(255 255 255 / 0.11);
+    --color-line-3: rgb(255 255 255 / 0.2);
+    --kit-gloss: rgb(255 255 255 / 0.08);
+    color: var(--color-ink);
+  }
+
+  .surface-dark.svc-product,
+  .svc-product .surface-dark {
+    --svc-hue: #8b90f6;
+    --svc-deep: #b9bcff;
+    --svc-soft: #1d1f3d;
+    --svc-tint: #0d0e15;
+  }
+
+  .surface-dark.svc-commerce,
+  .svc-commerce .surface-dark {
+    --svc-hue: #3fbf86;
+    --svc-deep: #9be7c3;
+    --svc-soft: #10261c;
+    --svc-tint: #0a110e;
+  }
+
+  .surface-dark.svc-ai,
+  .svc-ai .surface-dark {
+    --svc-hue: #f08a4b;
+    --svc-deep: #ffc39d;
+    --svc-soft: #2a170c;
+    --svc-tint: #120d0a;
+  }
+
+  /* A service poster sized in container units on both axes, so its type and
+     motif re-compose continuously as the panel changes shape while docking. */
+  .svc-poster {
+    container-type: size;
+  }
+
+  /* ── Beam: the page's single ambient motion, travelling one seam ── */
+  .beam {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 1px;
+    width: 180px;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, var(--color-brand), transparent);
+    animation: beam 6s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+  }
+}
+
+@keyframes beam {
+  0% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    transform: translateX(min(100vw, var(--frame)));
+    opacity: 0;
+  }
+}
+
+@utility dash-x {
+  height: 0.5px;
+  background: repeating-linear-gradient(90deg, var(--color-line-3) 0 4px, transparent 4px 8px);
+}
+
+@utility dash-y {
+  width: 0.5px;
+  background: repeating-linear-gradient(180deg, var(--color-line-3) 0 4px, transparent 4px 8px);
+}
+
+@utility fade-x {
+  height: 0.5px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-line-2) 30%,
+    var(--color-line-2) 70%,
+    transparent
+  );
+}
+
+@utility fade-y {
+  width: 0.5px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--color-line-2) 30%,
+    var(--color-line-2) 70%,
+    transparent
+  );
+}
+
+/* Hatch = off-limits / reserved / future / danger. Never decoration. */
+@utility hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-line-2) 0 0.6px,
+    transparent 0.6px 5px
+  );
+}
+
+@utility hatch-red {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--color-red) 22%, transparent) 0 1px,
+    transparent 1px 6px
+  );
+}
+
+/* Dots = the canvas behind a live object (chart, code, preview, CTA). */
+@utility dots {
+  background-image: radial-gradient(
+    circle at 0.5px 0.5px,
+    var(--color-line-3) 0.5px,
+    transparent 1.2px
+  );
+  background-size: 10px 10px;
+}
+
+@utility fade-edges {
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 40%, transparent 100%);
+}
+
+@utility fade-down {
+  mask-image: linear-gradient(#000, transparent);
+  -webkit-mask-image: linear-gradient(#000, transparent);
 }
 
 @keyframes marquee {
@@ -512,6 +886,11 @@ html.lenis body {
 
   .animate-\[marquee_26s_linear_infinite\] {
     animation: none !important;
+  }
+
+  .beam {
+    animation: none;
+    opacity: 0;
   }
 
   *,

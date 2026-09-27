@@ -14,12 +14,6 @@ type PortfolioStoreType = {
   closeContact: () => void;
   toggleContact: () => void;
 
-  // Booking modal
-  isBookingOpen: boolean;
-  openBooking: () => void;
-  closeBooking: () => void;
-  toggleBooking: () => void;
-
   // Active section
   activeSection: string;
   setActiveSection: (section: string) => void;
@@ -35,11 +29,6 @@ export const usePortfolioStore = create<PortfolioStoreType>((set) => ({
   openContact: () => set({ isContactOpen: true }),
   closeContact: () => set({ isContactOpen: false }),
   toggleContact: () => set((state) => ({ isContactOpen: !state.isContactOpen })),
-
-  isBookingOpen: false,
-  openBooking: () => set({ isBookingOpen: true }),
-  closeBooking: () => set({ isBookingOpen: false }),
-  toggleBooking: () => set((state) => ({ isBookingOpen: !state.isBookingOpen })),
 
   activeSection: "hero",
   setActiveSection: (section) => set({ activeSection: section }),

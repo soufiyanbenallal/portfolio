@@ -97,9 +97,6 @@ export const PERSPECTIVE = {
 /** Standard in-view trigger. Fires once, a quarter of the way in. */
 export const VIEWPORT = { once: true, amount: 0.25 } as const;
 
-/** Earlier trigger for tall blocks that would otherwise animate off-screen. */
-export const VIEWPORT_EARLY = { once: true, margin: "-10% 0px -20% 0px" } as const;
-
 export const transitionOf = (
   duration: number = DURATIONS.base,
   ease: CubicBezierType = EASINGS.entrance,
@@ -231,50 +228,6 @@ export const scaleInVariants: Variants = {
   exit: { opacity: 0, scale: 0.96, transition: transitionOf(DURATIONS.fast, EASINGS.exit) },
 };
 
-/** Vertical swap used by rotating words and stat read-outs. */
-export const swapVariants: Variants = {
-  initial: { y: "-70%", opacity: 0, filter: "blur(6px)" },
-  animate: {
-    y: "0%",
-    opacity: 1,
-    filter: "blur(0px)",
-    transition: transitionOf(DURATIONS.base, EASINGS.entrance),
-  },
-  exit: {
-    y: "70%",
-    opacity: 0,
-    filter: "blur(6px)",
-    transition: transitionOf(DURATIONS.fast, EASINGS.exit),
-  },
-};
-
-/** Modal / dialog choreography. */
-export const dialogVariants: Variants = {
-  initial: { opacity: 0, scale: 0.96, y: 16, filter: "blur(8px)" },
-  animate: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: SPRINGS.dialog,
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.97,
-    y: 8,
-    filter: "blur(8px)",
-    transition: transitionOf(DURATIONS.fast, EASINGS.exit),
-  },
-};
-
-/** Ambient float. Never lands, never draws focus. */
-export const floatingMirrorTransition: Transition = {
-  duration: 7,
-  ease: EASINGS.mirror,
-  repeat: Infinity,
-  repeatType: "mirror",
-};
-
 /* -------------------------------------------------------------------- *
  * 3. SCROLL
  * -------------------------------------------------------------------- */
@@ -288,8 +241,8 @@ export const SCROLL = {
   /** Per-frame catch-up. ~0.1 glides without feeling detached from the wheel. */
   lerp: 0.1,
   wheelMultiplier: 1,
-  /** Clears the floating navbar (top-6 + its height) on anchor jumps. */
-  anchorOffset: -96,
+  /** Leaves room above an anchor target for the floating nav pill. */
+  anchorOffset: -72,
   /** Seconds for programmatic `scrollTo` jumps (nav links, deck dots). */
   jumpDuration: 1.1,
 } as const;
@@ -313,23 +266,9 @@ export const SCROLL_OFFSETS = {
   leaving: ["start start", "end start"] as ScrollOffsetType,
   /** 0 → 1 across a pinned section's full scroll distance. */
   pinned: ["start start", "end end"] as ScrollOffsetType,
+  /** 0 when the target's top enters, 1 when its bottom reaches the viewport bottom. Last-on-page reveals. */
+  arriving: ["start end", "end end"] as ScrollOffsetType,
   /** 0 when the target's bottom reaches the viewport bottom, 1 when it exits the top. */
   settling: ["end end", "end start"] as ScrollOffsetType,
 };
 
-/** Legacy alias kept so existing imports keep resolving. */
-export const pageVariants = fadeUpVariants;
-export const textRevealVariants = fadeUpVariants;
-export const containerStaggerVariants = staggerContainer(0.08, 0.05);
-export const heroFadeVariants = fadeUpVariants;
-export const projectSectionEntranceVariants = card3DVariants;
-
-export const getTestimonialStagger = (index: number) => ({
-  initial: { opacity: 0, y: 28, rotateX: -10 },
-  animate: {
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    transition: transitionOf(DURATIONS.slow, EASINGS.entrance, (index % 3) * 0.09),
-  },
-});

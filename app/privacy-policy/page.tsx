@@ -8,7 +8,7 @@ export default function PrivacyPolicyPage() {
   return (
     <PageTransition>
       <div className="w-full">
-        <Container className="flex max-w-[720px] flex-col gap-10 pt-32 pb-24">
+        <Container className="flex max-w-[720px] flex-col gap-10 pt-16 pb-24">
           <div>
             <Link
               href="/"
@@ -28,40 +28,40 @@ export default function PrivacyPolicyPage() {
               Privacy Policy
             </h1>
             <span className="mt-1 block font-mono text-xs text-gray-50">
-              Last updated: February 2025
+              Last updated: September 2026
             </span>
           </div>
 
           <div className="text-gray-60 flex flex-col gap-6 text-sm leading-relaxed">
             <p>
-              Your privacy is fundamental to how we work. This policy describes how Soufiyan
-              Benallal collects, uses, and protects personal information submitted through this
-              website.
+              This policy explains what personal information Soufiyan Benallal (&quot;I&quot;,
+              &quot;me&quot;) receives through this website and how it is used.
             </p>
 
-            <h2 className="mt-4 text-lg font-semibold text-black">1. Information We Collect</h2>
+            <h2 className="mt-4 text-lg font-semibold text-black">1. Information I Receive</h2>
             <p>
-              We only collect personal information you explicitly provide to us via our contact form
-              or discovery call scheduler (such as name, email address, company name, and project
-              requirements). We do not use third-party behavioral ad trackers.
+              Only what you choose to send: the contact form opens your own email app, so your
+              message reaches me as a normal email containing the name, email address and project
+              details you entered. Booking a call through Cal.com shares the details you enter in
+              the booking form. This site does not use advertising trackers.
             </p>
 
-            <h2 className="mt-4 text-lg font-semibold text-black">2. How We Use Information</h2>
+            <h2 className="mt-4 text-lg font-semibold text-black">2. How It Is Used</h2>
             <p>
-              Submitted contact details are strictly utilized to respond to your project inquiries,
-              prepare proposals, schedule discovery calls, and manage active service agreements.
+              Solely to reply to your inquiry, prepare a proposal, schedule calls and manage any
+              agreement we make. It is never sold or shared for marketing.
             </p>
 
-            <h2 className="mt-4 text-lg font-semibold text-black">3. Security & Payments</h2>
+            <h2 className="mt-4 text-lg font-semibold text-black">3. Third-Party Services</h2>
             <p>
-              All payments are securely processed through Stripe. We do not store or process raw
-              credit card numbers on our servers.
+              Call scheduling is provided by Cal.com, which processes booking details under its own
+              privacy policy. The GitHub section of the homepage loads public repository data from
+              GitHub.
             </p>
 
-            <h2 className="mt-4 text-lg font-semibold text-black">4. Contact Inquiries</h2>
+            <h2 className="mt-4 text-lg font-semibold text-black">4. Your Data</h2>
             <p>
-              If you have any questions regarding your data or wish to request deletion of your
-              contact records, please email{" "}
+              To ask what I hold about you, or to have your contact records deleted, email{" "}
               <a href="mailto:benallalsoufiane1@gmail.com" className="text-black underline">
                 benallalsoufiane1@gmail.com
               </a>

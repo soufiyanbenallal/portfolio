@@ -112,8 +112,11 @@ export function TextReveal({
       animate={trigger === "mount" ? "animate" : undefined}
       whileInView={trigger === "inView" ? "animate" : undefined}
       viewport={{ ...VIEWPORT, once }}
-      aria-label={readableText}
     >
+      {/* The readable text, for assistive tech. `aria-label` is not allowed
+          on generic elements like <span>, so it goes in the content itself;
+          the split, animated copy below is hidden from the accessibility tree. */}
+      <span className="sr-only">{readableText}</span>
       {splitLines.map((line, lineIndex) => (
         <span
           key={lineIndex}
@@ -175,7 +178,13 @@ function ScrollWord({ word, index, total, progress, dimClassName }: ScrollWordPr
   const start = index / total;
   const end = (index + 1.6) / total;
 
-  const opacity = useTransform(progress, [start, end], [0.22, 1]);
+  // A function, not `[start, end] → [0.22, 1]`: array ranges on a target-based
+  // `useScroll` get handed to a native ScrollTimeline that measures the
+  // target differently, and the words light up out of step with the scroll.
+  const opacity = useTransform(progress, (p) => {
+    const t = Math.min(1, Math.max(0, (p - start) / (end - start)));
+    return 0.22 + 0.78 * t;
+  });
 
   return (
     <motion.span

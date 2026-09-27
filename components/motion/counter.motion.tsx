@@ -49,11 +49,9 @@ export function Counter({
   });
 
   return (
-    <span
-      ref={ref}
-      className={cn("tabular-nums", className)}
-      aria-label={`${prefix}${value.toFixed(decimals)}${suffix}`}
-    >
+    <span ref={ref} className={cn("tabular-nums", className)}>
+      {/* Final value for assistive tech; the counting digits are hidden. */}
+      <span className="sr-only">{`${prefix}${value.toFixed(decimals)}${suffix}`}</span>
       <span aria-hidden="true">
         {prefix}
         {display.toFixed(decimals)}

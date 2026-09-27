@@ -1,175 +1,192 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
-import { workHistoryData } from "@/data/work-history.data";
+import { educationData, languagesData, workHistoryData } from "@/data/work-history.data";
 import { socialLinksData } from "@/data/client-logos.data";
-import { Container } from "@/components/shared/container.shared";
+import { Chapter, ChapterHead } from "@/components/shared/chapter.shared";
 import { ScrollDimmedText } from "@/components/motion/text-reveal.motion";
-import { SectionHeading } from "@/components/shared/section-heading.shared";
-import { Tilt3D } from "@/components/motion/tilt-3d.motion";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal.motion";
-import { Counter } from "@/components/motion/counter.motion";
-import { SPRINGS, floatingMirrorTransition } from "@/lib/motion.config";
+import { cn } from "@/lib/utils";
 
+// Written from the resume: roles, dates and scope are the resume's own.
 const BIO_PARAGRAPHS = [
-  "I architect and build scalable full-stack web applications, custom Shopify ecosystems, and intelligent AI integrations. What began with a deep curiosity for computing evolved into leading engineering teams, designing resilient software architectures, and shipping platforms that deliver measurable business impact.",
-  "My focus centers on end-to-end engineering excellence — from robust Laravel and Node.js backend services, database design, and Shopify GraphQL APIs to fluid, accessible React 19 and Next.js interfaces powered by Tailwind CSS v4 and silky micro-interactions.",
-  "As a Lead Full Stack Developer, I bridge high-level technical strategy with precise execution. Whether mentoring engineering talent, orchestrating CI/CD deployment pipelines, or integrating autonomous AI workflows, I ensure every codebase is secure, scalable, and built to last.",
+  "I'm a senior full-stack developer and technical lead. Today I lead the engineering team at Ader Solutions, where I set the technical architecture and product roadmap and bring AI features into production systems.",
+  "Before that I spent two years inside a remote U.S. team at Le Ventures, building Shopify apps, custom themes and SaaS tools for merchants — React and TypeScript in front, Node.js and Laravel services wired into Shopify's APIs and webhooks.",
+  "What I care about most is what keeps a product healthy after launch: architecture that scales, honest code review, CI/CD, and a team that can move quickly without breaking things.",
 ];
 
-const FACTS = [
-  { value: 8, suffix: "+", label: "Years engineering" },
-  { value: 40, suffix: "+", label: "Solutions shipped" },
-  { value: 99, suffix: "%", label: "Client satisfaction" },
-];
+/* -------------------------------------------------------------------- *
+ * Experience — the Line Grid timeline
+ * -------------------------------------------------------------------- */
+
+function ExperienceTimeline() {
+  return (
+    <div className="border-line border-t">
+      <div className="border-line flex items-baseline justify-between border-b px-4 py-4 sm:px-10">
+        <span className="text-label text-ink-faint">Experience</span>
+        <span className="text-ink-faint font-mono text-[11px] tabular-nums">2019 — today</span>
+      </div>
+
+      <ol className="relative px-4 py-8 sm:px-10">
+        {/* The spine of the timeline: a dash, because it measures time. */}
+        <span
+          className="dash-y absolute top-10 bottom-10 left-4.75 sm:left-10.75"
+          aria-hidden="true"
+        />
+        {workHistoryData.map((item) => (
+          <li key={item.id} className="relative pb-7 pl-8 last:pb-0">
+            {/* Outline for a past role, filled for the current one. */}
+            <span
+              className={cn(
+                "absolute top-1.75 left-0 size-1.75 rounded-[1px] border",
+                item.isCurrent ? "border-brand bg-brand" : "border-line-3 bg-bg"
+              )}
+              aria-hidden="true"
+            />
+            <details open={item.isCurrent} className="group">
+              <summary className="flex cursor-pointer list-none flex-col gap-1 outline-none sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 [&::-webkit-details-marker]:hidden">
+                <span className="flex flex-col gap-0.5">
+                  <span className="text-[15px]">
+                    <span className="text-ink font-medium">{item.role}</span>
+                    <span className="text-ink-muted"> · {item.company}</span>
+                  </span>
+                  <span className="text-ink-faint text-[12px]">{item.location}</span>
+                </span>
+                <span className="flex shrink-0 items-center gap-3">
+                  <span className="text-ink-faint font-mono text-[11px] tabular-nums">
+                    {item.period}
+                  </span>
+                  <span
+                    className="border-line-2 text-ink-faint group-hover:text-ink flex h-5 w-5 items-center justify-center rounded-full border text-[13px] leading-none"
+                    aria-hidden="true"
+                  >
+                    <span className="transition-transform duration-300 group-open:rotate-45">
+                      +
+                    </span>
+                  </span>
+                </span>
+              </summary>
+              <ul className="mt-3 flex max-w-[64ch] flex-col gap-1.5">
+                {item.highlights.map((highlight) => (
+                  <li
+                    key={highlight}
+                    className="text-ink-muted flex gap-2.5 text-[13px] leading-relaxed"
+                  >
+                    <span className="bg-line-3 mt-2.25 h-px w-2.5 shrink-0" aria-hidden="true" />
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------- *
+ * About
+ * -------------------------------------------------------------------- */
 
 /**
- * About.
- *
- * The bio is the one place on the page where the reader is asked to actually
- * read, so the motion inverts: instead of arriving and stopping, the copy
- * illuminates word by word as it crosses the viewport. Scroll speed becomes
- * reading pace, and the paragraph cannot be skimmed past unnoticed.
+ * About — a spine chapter. Portrait and bio share a cell edge; the bio
+ * lights up word by word as it crosses the viewport, so scroll speed
+ * becomes reading pace. Then the career as a timeline, and the resume's
+ * education and languages as two cells.
  */
 export function AboutHistoryPart() {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const displayedHistory = isExpanded ? workHistoryData : workHistoryData.slice(0, 3);
-
   return (
-    <div className="w-full">
-      <Container className="gap-stack py-section flex flex-col">
-        <SectionHeading
-          eyebrow="About"
-          title={["Engineering software", "that scales and solves real problems."]}
-          mutedFirstLine
-        />
+    <Chapter
+      label="About"
+      summary="Seven years, five companies — building first, now leading."
+      accent
+    >
+      <ChapterHead
+        title={["From Laravel platforms to leading the team.", "Seven years of shipping."]}
+      />
 
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[5fr_7fr] lg:gap-16">
-          {/* ── Portrait + history ── */}
-          <div className="flex flex-col gap-8">
-            <Reveal preset="card3D">
-              <Tilt3D intensity={7} lift={14} glare className="w-full">
-                <div className="border-gray-30 bg-gray-10 relative aspect-4/3 w-full overflow-hidden rounded-card border">
-                  <Image
-                    src="/images/profile.jpeg"
-                    alt="Soufiyan Benallal"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 420px"
-                    className="object-cover"
-                  />
-
-                  {/* Floats above the photo in real Z, so the tilt separates
-                      it from the surface instead of gluing it flat. */}
-                  <motion.div
-                    animate={{ x: [0, 2, 0], y: [0, -5, 0], rotate: [0, -6, 0] }}
-                    transition={floatingMirrorTransition}
-                    style={{ transform: "translateZ(40px)" }}
-                    className="border-gray-30 pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 rounded-tile border bg-white/90 px-3.5 py-2 text-xs font-medium text-black card-shadow-hover backdrop-blur-md"
-                  >
-                    <span className="bg-availability-green h-2 w-2 animate-pulse rounded-full" />
-                    <span>Lead Full Stack Developer</span>
-                  </motion.div>
-                </div>
-              </Tilt3D>
-            </Reveal>
-
-            <Stagger className="flex flex-wrap gap-2" stagger={0.06}>
-              {socialLinksData.slice(0, 4).map((social) => (
-                <StaggerItem key={social.platform} as="span" preset="scale">
-                  <a
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border-gray-30 bg-gray-5 hover:bg-gray-20 inline-block rounded-full border px-3 py-1.5 text-xs font-medium text-black transition-colors"
-                  >
-                    {social.platform.split(" ")[0]}
-                  </a>
-                </StaggerItem>
-              ))}
-            </Stagger>
-
-            <div className="border-gray-30 flex flex-col gap-4 border-t pt-4">
-              <div className="flex items-center justify-between">
-                <span className="text-label text-gray-50">My work history</span>
-                <button
-                  type="button"
-                  onClick={() => setIsExpanded(!isExpanded)}
-                  aria-expanded={isExpanded}
-                  className="hover:text-gray-60 cursor-pointer text-xs font-medium text-black underline underline-offset-4 transition-colors"
-                >
-                  {isExpanded ? "Show less" : "Show all"}
-                </button>
-              </div>
-
-              {/* `layout` on the list plus `popLayout` on the children means
-                  the rows below an inserted item slide rather than jump. */}
-              <motion.div layout className="divide-gray-20 flex flex-col divide-y">
-                <AnimatePresence mode="popLayout" initial={false}>
-                  {displayedHistory.map((item) => (
-                    <motion.div
-                      key={item.id}
-                      layout
-                      initial={{ opacity: 0, height: 0, filter: "blur(4px)" }}
-                      animate={{ opacity: 1, height: "auto", filter: "blur(0px)" }}
-                      exit={{ opacity: 0, height: 0, filter: "blur(4px)" }}
-                      transition={SPRINGS.accordion}
-                      className="flex flex-col gap-0.5 overflow-hidden py-3"
-                    >
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="font-semibold text-black">{item.role}</span>
-                        <span className="font-mono text-xs text-gray-50">{item.period}</span>
-                      </div>
-                      <span className="text-gray-60 text-xs">
-                        {item.company} · {item.location}
-                      </span>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* ── Bio ── */}
-          <div className="flex flex-col gap-10">
-            <div className="flex flex-col gap-6">
-              {BIO_PARAGRAPHS.map((paragraph, index) => (
-                <ScrollDimmedText
-                  key={index}
-                  text={paragraph}
-                  className="text-body-l leading-[1.55]"
-                  dimClassName={index === 0 ? "text-black" : "text-gray-60"}
-                />
-              ))}
-            </div>
-
-            <Stagger className="border-gray-30 grid grid-cols-3 gap-4 border-t pt-8" stagger={0.1}>
-              {FACTS.map((fact) => (
-                <StaggerItem key={fact.label} className="flex flex-col gap-1">
-                  <span className="text-price-lg text-black">
-                    <Counter value={fact.value} suffix={fact.suffix} />
-                  </span>
-                  <span className="text-xs text-gray-50">{fact.label}</span>
-                </StaggerItem>
-              ))}
-            </Stagger>
-
-            <div className="border-gray-30 flex items-center justify-between border-t pt-6">
-              <div className="flex flex-col gap-1">
-                <span className="text-label text-gray-40">Signed</span>
-                <span
-                  className="text-2xl font-bold tracking-tight text-black italic"
-                  style={{ fontFamily: "Georgia, serif" }}
-                >
-                  Soufiyan Benallal
-                </span>
-              </div>
-              <span className="font-mono text-xs text-gray-50">Meknes, Morocco · Remote</span>
-            </div>
+      <div className="cells border-line border-t lg:grid-cols-12">
+        <div className="relative min-h-85 overflow-hidden lg:col-span-5">
+          <Image
+            src="/images/full-profile.jpeg"
+            alt="Soufiyan Benallal"
+            fill
+            sizes="(max-width: 1024px) 100vw, 400px"
+            className="object-cover"
+          />
+          <div className="bg-bg/85 absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 px-5 py-3 backdrop-blur-md">
+            <span className="text-ink-muted flex items-center gap-2 text-[12px]">
+              <span className="bg-green h-1.5 w-1.5 rounded-full" aria-hidden="true" />
+              Meknes, Morocco
+            </span>
+            <span className="text-ink-faint font-mono text-[11px]">MSc Computer Science</span>
           </div>
         </div>
-      </Container>
-    </div>
+
+        <div className="flex flex-col justify-between gap-8 p-6 sm:p-8 lg:col-span-7 lg:p-10">
+          <div className="flex flex-col gap-5">
+            {BIO_PARAGRAPHS.map((paragraph, index) => (
+              <ScrollDimmedText
+                key={index}
+                text={paragraph}
+                className="text-[16px] leading-[1.6] tracking-[-0.01em]"
+                dimClassName={index === 0 ? "text-ink" : "text-ink-muted"}
+              />
+            ))}
+          </div>
+
+          <ul className="flex flex-wrap gap-1.5" aria-label="Profiles">
+            {socialLinksData.map((social) => (
+              <li key={social.platform}>
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary inline-flex h-8 items-center px-3 text-[12px] font-medium"
+                >
+                  {social.platform}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <ExperienceTimeline />
+
+      <div className="cells border-line [&>*]:bg-bg! border-t md:grid-cols-2">
+        <div className="p-6 sm:p-8">
+          <div className="text-label text-ink-faint mb-4">Education</div>
+          <ul className="divide-line divide-y">
+            {educationData.map((item) => (
+              <li key={item.id} className="flex flex-col gap-0.5 py-3 first:pt-0">
+                <span className="text-ink text-[13px] font-medium">{item.degree}</span>
+                <span className="flex justify-between gap-4 text-[12px]">
+                  <span className="text-ink-muted">{item.school}</span>
+                  <span className="text-ink-faint shrink-0 font-mono text-[11px] tabular-nums">
+                    {item.period}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="p-6 sm:p-8">
+          <div className="text-label text-ink-faint mb-4">Languages</div>
+          <dl className="divide-line divide-y">
+            {languagesData.map((language) => (
+              <div
+                key={language.id}
+                className="flex justify-between gap-4 py-3 text-[13px] first:pt-0"
+              >
+                <dt className="text-ink font-medium">{language.name}</dt>
+                <dd className="text-ink-muted">{language.level}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </Chapter>
   );
 }

@@ -6,7 +6,7 @@ import {
   type PolarisDocComponentType,
 } from "@/app/polaris-playground/data/polaris-docs.data";
 
-const SITE_URL = "https://soufiyanbenallal.dev";
+const SITE_URL = "https://soufiyan-benallal.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date().toISOString();

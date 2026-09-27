@@ -8,6 +8,11 @@ type AvailabilityBadgePropsType = {
   className?: string;
 };
 
+/**
+ * Line Grid "announcement pill": no border, no fill — a status dot and
+ * 13px muted text. Green is a status colour, not the accent. Static on
+ * purpose: the page's one ambient motion is the beam.
+ */
 export function AvailabilityBadgeUi({
   text = "Available for new projects",
   className,
@@ -15,14 +20,11 @@ export function AvailabilityBadgeUi({
   return (
     <div
       className={cn(
-        "border-gray-30 inline-flex items-center gap-2 rounded-full border bg-white px-3 py-1.5 font-mono text-xs text-black shadow-xs select-none",
+        "text-ink-muted inline-flex items-center gap-2 text-[13px] select-none",
         className
       )}
     >
-      <span className="relative flex h-2 w-2">
-        <span className="bg-availability-green absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
-        <span className="bg-availability-green relative inline-flex h-2 w-2 rounded-full" />
-      </span>
+      <span className="bg-green h-1.5 w-1.5 shrink-0 rounded-full" aria-hidden="true" />
       <span>{text}</span>
     </div>
   );
@@ -34,14 +36,15 @@ type TagBadgePropsType = {
   className?: string;
 };
 
+/** Chip: 6px radius, hairline edge, mono meta text. */
 export function TagBadgeUi({ children, variant = "light", className }: TagBadgePropsType) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
-        variant === "light" && "bg-gray-10 text-gray-60 border-gray-30 border",
-        variant === "dark" && "bg-black text-white",
-        variant === "outline" && "border-gray-30 border bg-transparent text-black",
+        "inline-flex items-center rounded-[6px] px-2 py-0.5 font-mono text-[11px] transition-colors",
+        variant === "light" && "border-line-2 bg-surface text-ink-muted border",
+        variant === "dark" && "bg-ink text-white",
+        variant === "outline" && "border-line-2 text-ink border bg-transparent",
         className
       )}
     >

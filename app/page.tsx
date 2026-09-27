@@ -3,65 +3,86 @@ import { BigQuotePart } from "@/components/partials/big-quote.part";
 import { ServicesPart } from "@/components/partials/services.part";
 import { AboutHistoryPart } from "@/components/partials/about-history.part";
 import { GithubProjectsPart } from "@/components/partials/github-projects.part";
-import { ClientTickerShared } from "@/components/shared/client-ticker.shared";
+import { CompaniesStrip } from "@/components/shared/companies-strip.shared";
 import { TestimonialsPart } from "@/components/partials/testimonials.part";
 import { FaqPart } from "@/components/partials/faq.part";
 import { BlogInsightsPart } from "@/components/partials/blog-insights.part";
-import { SectionShell } from "@/components/motion/section-shell.motion";
+import { StatsPart } from "@/components/partials/stats.part";
+import { Band, Section } from "@/components/shared/section.shared";
 import { PageTransition } from "@/components/motion/page-transition.motion";
 
 /**
  * Homepage.
  *
- * The section order is the narrative; `SectionShell` is what binds it. Each
- * shell unwraps its section from a rounded card into full bleed on arrival
- * and dims it as the next one slides over, so twelve distinct animation ideas
- * read as one continuous scroll rather than a reel of effects.
+ * One frame, many sections: every block below is a `<Section>` — a seam
+ * across the viewport and the frame's rails down both sides — stacked with
+ * no gaps, so the rails run unbroken from the nav to the footer. Layout
+ * lives here; the partials only render what goes inside the frame.
  *
- * Sections that pin their own content — the project deck, the docking
- * services rig, and the FAQ's sticky booking card — opt out of the shell's
- * transform. A transformed ancestor becomes the containing block for
- * `position: sticky` descendants and silently breaks the pin.
+ * Sections that pin their own content (the hero deck, the services rig,
+ * the FAQ's sticky booking card) skip `clip` and never get a transform:
+ * a transformed ancestor becomes the containing block for `position:
+ * sticky` descendants and silently breaks the pin.
  */
 export default function HomePage() {
   return (
     <PageTransition>
-      <main className="relative flex w-full flex-col items-center">
-        {/* Unified Hero 3D Deck to 30%/70% Projects Showcase Rig */}
-        <HeroProjectsUnifiedPart />
+      <main className="relative flex w-full flex-col">
+        {/* First block under the nav — no seam, the bar's bottom edge is its
+            top line. Hatched margins mark the gutters beside the product
+            stage. */}
+        <Section as="div" seam hatchedMargins>
+          <HeroProjectsUnifiedPart />
+        </Section>
 
-        {/* <SectionShell tone="canvas"> */}
-        {/* </SectionShell> */}
+        <Section aria-label="At a glance" seam>
+          <StatsPart />
+        </Section>
+        <Band />
 
-        {/* Scales the whole section down into a docked card, then runs the
-            service details past it */}
-        <div className="w-full">
-          <BigQuotePart />
+        {/* The quote pins beneath the nav while the services rig slides up
+            over it; the services wrapper's own background is what covers
+            it. The page's one ambient motion, the beam, runs this seam. */}
+        <div className="relative w-full">
+          <Section className="sticky top-(--nav-h)" beam aria-label="Quote">
+            <BigQuotePart />
+          </Section>
 
+          {/* Renders its own Sections — one seam per service stack. */}
           <ServicesPart />
         </div>
 
-        <SectionShell id="about" tone="canvas">
+        <Band />
+
+        <Section id="about" hatchedMargins>
           <AboutHistoryPart />
-        </SectionShell>
+        </Section>
 
-        <SectionShell id="github" tone="canvas">
-          <GithubProjectsPart />
-        </SectionShell>
+        <Section aria-label="Companies" seam hatchedMargins>
+          <CompaniesStrip />
+        </Section>
 
-        <ClientTickerShared withHappyClientsCluster={false} />
+        {/* Renders its own Section: it disappears entirely when the GitHub
+            API is unavailable, and an empty Section would leave a stray seam. */}
+        <GithubProjectsPart />
+        <Band />
 
-        <SectionShell tone="canvas">
+        <Section aria-label="Testimonials" hatchedMargins>
           <TestimonialsPart />
-        </SectionShell>
+        </Section>
+        <Band />
 
-        <SectionShell id="faq" tone="canvas" pinned>
-          <FaqPart />
-        </SectionShell>
-
-        <SectionShell id="blog" tone="canvas">
+        <Section id="blog">
           <BlogInsightsPart />
-        </SectionShell>
+        </Section>
+
+        <Band />
+
+        {/* Last before the footer: the questions, and the booking card. */}
+        <Section id="faq" seam hatchedMargins>
+          <FaqPart />
+        </Section>
+        <Band />
       </main>
     </PageTransition>
   );
